@@ -1,0 +1,138 @@
+import React, { useState } from 'react'
+import { View, Text, Pressable, Image } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+import { scale } from 'app/helpers/responsive'
+import { toCurrency } from 'app/helpers/utils'
+import { svgWhiteStar } from 'assets/svg'
+import { FONTS } from 'app/constants'
+import { Avatar } from 'app/atoms'
+
+const Advise = () => {
+    return (
+        <Pressable
+            style={{
+                width: scale(226),
+                marginRight: scale(12),
+                borderRadius: scale(10),
+                backgroundColor: 'green',
+            }}
+        >
+            <Image
+                source={require('assets/images/green-bg.jpg')}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    borderRadius: scale(10),
+                }}
+            />
+            <View
+                style={{
+                    paddingVertical: scale(16),
+                    paddingHorizontal: scale(10),
+                }}
+            >
+                <Text
+                    style={{
+                        fontFamily: FONTS.MulishSemiBold,
+                        fontSize: scale(24),
+                        color: '#fff',
+                        textAlign: 'center',
+                    }}
+                >
+                    Ngữ pháp
+                </Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: scale(20),
+                    }}
+                >
+                    <Text
+                        style={{
+                            fontFamily: FONTS.MulishSemiBold,
+                            fontSize: scale(16),
+                            color: '#fff',
+                            marginRight: scale(20),
+                        }}
+                    >
+                        30 phút
+                    </Text>
+                    <Text
+                        style={{
+                            fontFamily: FONTS.MulishSemiBold,
+                            fontSize: scale(16),
+                            color: '#fff',
+                        }}
+                    >
+                        {toCurrency(1234567)} đ
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        marginTop: scale(30),
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar size={scale(48)} />
+                    <View style={{ flex: 1, marginLeft: scale(4) }}>
+                        <Text
+                            style={{
+                                fontFamily: FONTS.MulishBold,
+                                fontSize: scale(16),
+                                color: '#fff',
+                            }}
+                        >
+                            Anton Vu
+                        </Text>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <SvgXml
+                                xml={svgWhiteStar}
+                                width={scale(24)}
+                                height={scale(24)}
+                            />
+                            <Text
+                                style={{
+                                    marginLeft: scale(4),
+                                    fontFamily: FONTS.Mulish,
+                                    fontSize: scale(14),
+                                    color: '#fff',
+                                }}
+                            >
+                                5.0
+                            </Text>
+                            <View
+                                style={{
+                                    width: scale(3),
+                                    height: scale(3),
+                                    borderRadius: scale(3),
+                                    marginHorizontal: scale(8),
+                                    backgroundColor: '#fff',
+                                }}
+                            />
+                            <Text
+                                style={{
+                                    fontFamily: FONTS.Mulish,
+                                    fontSize: scale(14),
+                                    color: '#fff',
+                                }}
+                            >
+                                Singapore
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </Pressable>
+    )
+}
+
+export default Advise

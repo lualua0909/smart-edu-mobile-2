@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "899898823065",
+    "project_id": "ifa-lms-app",
+    "storage_bucket": "ifa-lms-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899898823065:android:b2d5411232871fdce4c308",
+        "android_client_info": {
+          "package_name": "com.smartedu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899898823065-gk52dbaqqtkhsm1cvfjog6f2sbgclmdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKK6qn5uhJatwYXJxN_au-nExMO_wdV3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899898823065-gk52dbaqqtkhsm1cvfjog6f2sbgclmdr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899898823065:android:370edba3d43a7dc5e4c308",
+        "android_client_info": {
+          "package_name": "com.smarttraining.ifa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899898823065-gk52dbaqqtkhsm1cvfjog6f2sbgclmdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKK6qn5uhJatwYXJxN_au-nExMO_wdV3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899898823065-gk52dbaqqtkhsm1cvfjog6f2sbgclmdr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
