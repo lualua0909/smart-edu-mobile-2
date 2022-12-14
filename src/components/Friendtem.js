@@ -1,13 +1,11 @@
 import React from 'react'
-import { View, Text, Pressable, Image } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
-import { FONTS } from 'app/constants'
 import { svgJob, svgCompany } from 'assets/svg'
-import { useGlobalState } from 'app/Store'
-import { API_URL } from 'app/constants'
 import { Avatar } from 'app/atoms'
 import { useNavigation } from '@react-navigation/native'
+import { Text } from 'native-base'
 
 const FriendItem = ({ data }) => {
     const navigation = useNavigation()
@@ -54,7 +52,6 @@ const FriendItem = ({ data }) => {
                                 <Text
                                     numberOfLines={1}
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#1F1F1F',
                                     }}
@@ -84,8 +81,6 @@ const FriendItem = ({ data }) => {
                                         />
                                         <Text
                                             style={{
-                                                fontFamily:
-                                                    FONTS.MulishSemiBold,
                                                 fontSize: scale(16),
                                                 color: '#6C746E',
                                                 marginLeft: scale(8),
@@ -108,8 +103,6 @@ const FriendItem = ({ data }) => {
                                         />
                                         <Text
                                             style={{
-                                                fontFamily:
-                                                    FONTS.MulishSemiBold,
                                                 fontSize: scale(16),
                                                 color: '#6C746E',
                                                 marginLeft: scale(8),
@@ -142,7 +135,6 @@ const FriendItem = ({ data }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(16),
                                             color: '#363E57',
                                             padding: scale(5),
@@ -165,7 +157,6 @@ const FriendItem = ({ data }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(16),
                                             color: '#FFFFFF',
                                             padding: scale(5),

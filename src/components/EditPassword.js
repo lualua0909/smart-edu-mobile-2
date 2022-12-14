@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text } from 'native-base'
 
 const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
     const [viewHeight, setViewHeight] = useState({
@@ -41,7 +41,6 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(18),
                                 color: '#1F1F1F',
                                 textAlign: 'center',
@@ -73,7 +72,6 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#fff',
                                         }}
@@ -97,7 +95,6 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#000000',
                                         }}
@@ -121,7 +118,6 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#fff',
                                         }}
@@ -145,7 +141,6 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#000000',
                                         }}
@@ -169,7 +164,7 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 style={{
                                     textAlign: 'center',
                                     color: '#FFFFFF',
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(18),
                                 }}
                             >

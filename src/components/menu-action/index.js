@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
+import { Text } from 'native-base'
 
 const MenuAction = ({
     icon,
@@ -46,7 +46,6 @@ const MenuAction = ({
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(12),
                                 color: '#fff',
                             }}
@@ -59,7 +58,7 @@ const MenuAction = ({
             <Text
                 style={{
                     marginTop: scale(8),
-                    fontFamily: FONTS.MulishMedium,
+
                     fontSize: scale(14),
                     color: '#1F1F1F',
                 }}
@@ -68,7 +67,6 @@ const MenuAction = ({
             </Text>
             <Text
                 style={{
-                    fontFamily: FONTS.MulishMedium,
                     fontSize: scale(12),
                     color: '#A3A3A3',
                 }}

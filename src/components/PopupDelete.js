@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import FONTS from 'app/constants/fonts'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
 import { svgClose, svgDelete } from 'assets/svg'
+import { Text } from 'native-base'
 
 const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
     return (
@@ -32,7 +32,7 @@ const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
                         <Text
                             style={{
                                 marginLeft: scale(10),
-                                fontFamily: FONTS.MulishBold,
+
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -57,7 +57,7 @@ const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
                         style={{
                             textAlign: 'center',
                             margin: scale(20),
-                            fontFamily: FONTS.MulishMedium,
+
                             fontSize: scale(16),
                             color: '#6C746E',
                         }}
@@ -105,7 +105,6 @@ const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(16),
                                         color: '#FFFFFF',
                                         padding: scale(5),
@@ -128,7 +127,6 @@ const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(16),
                                         color: '#2C2C2C',
                                         padding: scale(5),

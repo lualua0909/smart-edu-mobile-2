@@ -1,17 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable, TextInput } from 'react-native'
+import { View, Pressable, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import FONTS from 'app/constants/fonts'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
-import {
-    svgClose,
-    svgStarActive,
-    svgHalfStarActive,
-    svgStarGold,
-    svgStartBorderGold,
-} from 'assets/svg'
-import { border } from 'native-base/lib/typescript/theme/styled-system'
+import { svgClose, svgStarGold, svgStartBorderGold } from 'assets/svg'
+import { Text } from 'native-base'
 
 const PopupRate = ({ isVisible, onBackPress, message }) => {
     return (
@@ -63,7 +56,7 @@ const PopupRate = ({ isVisible, onBackPress, message }) => {
                             style={{
                                 textAlign: 'center',
                                 fontSize: scale(20),
-                                fontFamily: FONTS.MulishSemiBold,
+
                                 color: '#1F1F1F',
                             }}
                         >
@@ -105,7 +98,6 @@ const PopupRate = ({ isVisible, onBackPress, message }) => {
                         <TextInput
                             placeholder="Bạn chia sẻ nhiều hơn nhé"
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#333333',
                                 textAlignVertical: 'top',
@@ -136,7 +128,6 @@ const PopupRate = ({ isVisible, onBackPress, message }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(16),
                                         color: '#FFFFFF',
                                         padding: scale(10),

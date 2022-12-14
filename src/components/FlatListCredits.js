@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable, Image, FlatList } from 'react-native'
+import { View, Pressable, Image, FlatList } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { ChevronRightIcon } from 'native-base'
-import { FONTS, COLORS, ROUTES } from 'app/constants'
+import { COLORS, ROUTES } from 'app/constants'
 import { useNavigation } from '@react-navigation/native'
+import { Text } from 'native-base'
 
 const FlatListCredits = ({ data, userId }) => {
     const navigation = useNavigation()
@@ -40,7 +41,6 @@ const FlatListCredits = ({ data, userId }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#0E564D',
                                 marginLeft: scale(8),
@@ -63,7 +63,6 @@ const FlatListCredits = ({ data, userId }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#A3A3A3',
                             }}
@@ -101,7 +100,6 @@ const FlatListCredits = ({ data, userId }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(14),
                                     color: '#000000',
                                     paddingTop: scale(8),

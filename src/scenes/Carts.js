@@ -40,7 +40,7 @@ const Carts = ({ navigation }) => {
                         <Text
                             style={{
                                 textAlign: 'center',
-                                fontFamily: FONTS.Mulish,
+
                                 fontSize: scale(16),
                                 color: '#000000',
                             }}

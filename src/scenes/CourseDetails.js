@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
     View,
-    Text,
     Pressable,
     ScrollView,
     Share,
@@ -11,12 +10,12 @@ import {
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
-import { FONTS, STYLES, API_URL, COURSE_IMG_PATH, APP_URL } from 'app/constants'
+import { STYLES, API_URL, COURSE_IMG_PATH, APP_URL } from 'app/constants'
 import { TabView, TabBar } from 'react-native-tab-view'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Avatar, CourseDetailSkeleton, NoData } from 'app/atoms'
 import { toCurrency, storeData, getData } from 'app/helpers/utils'
-import { VStack, Image, useToast, Button } from 'native-base'
+import { VStack, Image, useToast, Button, Text } from 'native-base'
 import Axios from 'app/Axios'
 import BenefitTab from 'app/containers/BenefitTab'
 import { WebView } from 'react-native-webview'
@@ -116,7 +115,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginTop: scale(8),
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(16),
                                     color: '#52B553',
                                     marginLeft: 16,
@@ -132,7 +131,6 @@ const CourseInfo = ({ navigation, route }) => {
                                     }}
                                     tagsStyles={{
                                         p: {
-                                            fontFamily: FONTS.Mulish,
                                             fontSize: 16,
                                             color: '#202020',
                                             fontWeight: '300',
@@ -334,7 +332,6 @@ const CourseInfo = ({ navigation, route }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(18),
                             color: '#1F1F1F',
                         }}
@@ -353,7 +350,6 @@ const CourseInfo = ({ navigation, route }) => {
                             <View style={{ marginLeft: scale(8) }}>
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#1F1F1F',
                                     }}
@@ -379,7 +375,6 @@ const CourseInfo = ({ navigation, route }) => {
                                     />
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.Mulish,
                                             fontSize: scale(16),
                                             color: '#FF9A02',
                                             marginLeft: scale(4),
@@ -395,7 +390,7 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             marginTop: scale(16),
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -416,13 +411,13 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-                                    fontFamily: FONTS.Mulish,
+
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                 }}
                             >
                                 Khóa học gồm{' '}
-                                <Text style={{ fontFamily: FONTS.MulishBold }}>
+                                <Text>
                                     {data?.total_lectures || 0} bài giảng
                                 </Text>
                             </Text>
@@ -442,15 +437,12 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-                                    fontFamily: FONTS.Mulish,
+
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                 }}
                             >
-                                Cấp{' '}
-                                <Text style={{ fontFamily: FONTS.MulishBold }}>
-                                    chứng chỉ hoàn thành
-                                </Text>
+                                Cấp <Text>chứng chỉ hoàn thành</Text>
                             </Text>
                         </View>
                         {data?.is_offline ? (
@@ -469,7 +461,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={{
                                         marginLeft: scale(9),
-                                        fontFamily: FONTS.Mulish,
+
                                         fontSize: scale(16),
                                         color: '#1F1F1F',
                                     }}
@@ -490,7 +482,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={[
                                         {
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(15),
                                             color: '#1F1F1F',
                                             textAlign: 'center',
@@ -563,7 +554,6 @@ const CourseInfo = ({ navigation, route }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(14),
                                         color: '#FF0000',
                                     }}
@@ -584,7 +574,6 @@ const CourseInfo = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#656565',
                                     textDecorationLine: 'line-through',
@@ -597,7 +586,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(24),
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(18),
                                     color: '#095F2B',
                                 }}
@@ -641,7 +630,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 />
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(14),
                                         color: '#52B553',
                                         marginTop: scale(4),
@@ -662,7 +650,6 @@ const CourseInfo = ({ navigation, route }) => {
                             <Share2 stroke="#52B553" width={24} height={24} />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(14),
                                     color: '#52B553',
                                     marginTop: scale(4),
@@ -680,7 +667,6 @@ const CourseInfo = ({ navigation, route }) => {
                             }}
                         >
                             <Button
-                                size="xs"
                                 style={{
                                     backgroundColor: '#52B553',
                                     borderRadius: 8,
@@ -694,7 +680,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     }
                                 }}
                                 isLoading={loadingVerify}
-                                leftIcon={
+                                InputLeftElement={
                                     data?.relational ? (
                                         <BookOpen stroke="#fff" size={12} />
                                     ) : (

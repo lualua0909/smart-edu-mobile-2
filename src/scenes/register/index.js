@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
-import {
-    View,
-    Text,
-    Image,
-    TextInput,
-    Pressable,
-    ScrollView,
-    Linking,
-} from 'react-native'
+import { View, Image, Pressable, ScrollView, Linking } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
+import { STYLES, ROUTES } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import {
     svgLoginButton,
@@ -22,7 +15,7 @@ import Axios from 'app/Axios'
 import useFormInput from 'app/helpers/useFormInput'
 import { Input, Icon, Stack, Button, useToast, Center } from 'native-base'
 
-const Register = ({ navigation, route }) => {
+const Register = ({ navigation }) => {
     const toast = useToast()
     const firstName = useFormInput('')
     const lastName = useFormInput('')
@@ -123,7 +116,6 @@ const Register = ({ navigation, route }) => {
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
@@ -256,7 +248,6 @@ const Register = ({ navigation, route }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
                                     textAlign: 'center',
@@ -274,7 +265,6 @@ const Register = ({ navigation, route }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(14),
                                         color: '#0075FF',
                                         textDecorationLine: 'underline',
@@ -286,22 +276,14 @@ const Register = ({ navigation, route }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="lg"
+                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang tạo tài khoản"
                                 style={{
-                                    backgroundColor: '#52B553',
                                     marginTop: scale(16),
                                     width: '70%',
                                 }}
                                 onPress={doRegister}
-                                leftIcon={
-                                    <SvgXml
-                                        xml={svgLoginButton}
-                                        width={scale(16)}
-                                        height={scale(16)}
-                                    />
-                                }
                             >
                                 Đăng ký ngay
                             </Button>
@@ -316,7 +298,6 @@ const Register = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
                                     textAlign: 'center',
@@ -325,7 +306,6 @@ const Register = ({ navigation, route }) => {
                                 Bạn đã có tài khoản?{' '}
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(14),
                                         color: '#0075FF',
                                         textDecorationLine: 'underline',
@@ -356,7 +336,6 @@ const Register = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Inter,
                                 fontWeight: 'bold',
                                 color: '#23B55D',
                                 fontSize: scale(16),

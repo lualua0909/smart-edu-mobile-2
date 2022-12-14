@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
     View,
-    Text,
     Pressable,
     Image,
     ScrollView,
@@ -28,11 +27,11 @@ import {
     svgCanceled,
     svgClose,
 } from 'assets/svg'
-import { FONTS, ROUTES, COLORS } from 'app/constants'
+import { ROUTES, COLORS } from 'app/constants'
 import MenuAction from 'app/components/menu-action'
 import Modal from 'react-native-modal'
 import { useNavigation } from '@react-navigation/native'
-import { ChevronRightIcon } from 'native-base'
+import { ChevronRightIcon, Text } from 'native-base'
 import { Avatar } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
 import { clearDataAfterLogout } from 'app/helpers/utils'
@@ -176,7 +175,6 @@ const Menu = ({ route }) => {
                     style={{
                         textAlign: 'center',
                         marginTop: scale(20),
-                        fontFamily: FONTS.MulishMedium,
                         fontSize: scale(16),
                         color: '#6C746E',
                     }}
@@ -213,7 +211,6 @@ const Menu = ({ route }) => {
                             <View style={{ flex: 1, marginLeft: scale(10) }}>
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(22),
                                         color: '#fff',
                                     }}
@@ -230,7 +227,6 @@ const Menu = ({ route }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishMedium,
                                             fontSize: scale(14),
                                             color: '#E1E1E1',
                                         }}
@@ -277,7 +273,6 @@ const Menu = ({ route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(10),
                                     color: '#fff',
                                 }}
@@ -638,7 +633,7 @@ const Menu = ({ route }) => {
                         style={{
                             textAlign: 'center',
                             marginTop: scale(20),
-                            fontFamily: FONTS.MulishMedium,
+
                             fontSize: scale(16),
                             color: '#6C746E',
                         }}
@@ -657,17 +652,14 @@ const Menu = ({ route }) => {
 
 const styles = StyleSheet.create({
     formTitleText: {
-        fontFamily: FONTS.MulishBold,
         fontSize: scale(16),
         color: '#0E564D',
     },
     formViewMoreText: {
-        fontFamily: FONTS.InterMedium,
         fontSize: scale(14),
         color: '#A3A3A3',
     },
     actionText: {
-        fontFamily: FONTS.Mulish,
         fontSize: scale(16),
         color: '#0E564D',
         marginLeft: scale(10),

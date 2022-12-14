@@ -1,23 +1,18 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import {
     View,
-    Text,
     Pressable,
     Image,
     ScrollView,
-    Dimensions,
-    ImageBackground,
-    FlatList,
     TextInput,
     KeyboardAvoidingView,
     Platform,
 } from 'react-native'
-import Svg, { SvgXml } from 'react-native-svg'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
+import { STYLES } from 'app/constants'
 import LinearGradient from 'react-native-linear-gradient'
 import HeaderChat from 'app/components/header-chat'
-import Loader from 'react-native-three-dots-loader'
 import { useHeaderHeight } from '@react-navigation/elements'
 
 const ChatDetail = ({ navigation }) => {
@@ -74,7 +69,6 @@ const ChatDetail = ({ navigation }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#091230',
                                     }}
@@ -95,7 +89,6 @@ const ChatDetail = ({ navigation }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(12),
                                             color: '#F4F5F7',
                                         }}
@@ -106,7 +99,6 @@ const ChatDetail = ({ navigation }) => {
                             </View>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#091230',
                                     marginTop: scale(8),
@@ -153,7 +145,6 @@ const ChatDetail = ({ navigation }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#091230',
                                     }}
@@ -174,7 +165,6 @@ const ChatDetail = ({ navigation }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(12),
                                             color: '#F4F5F7',
                                         }}
@@ -185,7 +175,6 @@ const ChatDetail = ({ navigation }) => {
                             </View>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#091230',
                                     marginTop: scale(8),
@@ -232,7 +221,6 @@ const ChatDetail = ({ navigation }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#091230',
                                     }}
@@ -253,7 +241,6 @@ const ChatDetail = ({ navigation }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(12),
                                             color: '#F4F5F7',
                                         }}
@@ -264,7 +251,6 @@ const ChatDetail = ({ navigation }) => {
                             </View>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#091230',
                                     marginTop: scale(8),
@@ -356,7 +342,7 @@ const ChatDetail = ({ navigation }) => {
                         style={{
                             flex: 1,
                             paddingHorizontal: scale(26),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(14),
                         }}
                         placeholderTextColor={'#9C9C9C'}

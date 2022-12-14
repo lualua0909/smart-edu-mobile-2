@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Pressable, ScrollView } from 'react-native'
+import { View, Pressable, ScrollView } from 'react-native'
+import { Text } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import { svgWhiteBook } from 'assets/svg'
-import { FONTS } from 'app/constants'
 import Axios from 'app/Axios'
 import { DetailSkeleton } from 'app/atoms'
 
@@ -58,7 +58,7 @@ const NotificationDetail = ({ route, navigation }) => {
                     <Text
                         style={{
                             marginTop: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(28),
                             color: '#1D1D1D',
                         }}
@@ -68,7 +68,7 @@ const NotificationDetail = ({ route, navigation }) => {
                     <Text
                         style={{
                             marginTop: scale(8),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(14),
                             color: '#6C746E',
                         }}
@@ -79,7 +79,6 @@ const NotificationDetail = ({ route, navigation }) => {
                 <View style={{ padding: scale(16) }}>
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#222',
                         }}
@@ -119,7 +118,6 @@ const NotificationDetail = ({ route, navigation }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(14),
                                         color: '#fff',
                                         textAlign: 'center',

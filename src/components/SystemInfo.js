@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import { svgCompany, svgLock, svgUser, svgBackPack } from 'assets/svg'
+import { Text } from 'native-base'
 
 const SystemInfo = ({ data }) => {
     return (
@@ -20,7 +20,7 @@ const SystemInfo = ({ data }) => {
                     style={{
                         color: '#1F1F1F',
                         fontSize: scale(18),
-                        fontFamily: FONTS.MulishBold,
+
                         paddingHorizontal: scale(10),
                         paddingVertical: scale(7),
                     }}
@@ -50,7 +50,6 @@ const SystemInfo = ({ data }) => {
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -61,7 +60,6 @@ const SystemInfo = ({ data }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -93,7 +91,6 @@ const SystemInfo = ({ data }) => {
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                                 alignItems: 'flex-start',
@@ -105,7 +102,6 @@ const SystemInfo = ({ data }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -137,7 +133,6 @@ const SystemInfo = ({ data }) => {
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -148,7 +143,6 @@ const SystemInfo = ({ data }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -180,7 +174,6 @@ const SystemInfo = ({ data }) => {
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -191,7 +184,6 @@ const SystemInfo = ({ data }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}

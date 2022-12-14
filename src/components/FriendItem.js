@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, ROUTES } from 'app/constants'
+import { ROUTES } from 'app/constants'
 import { Avatar } from 'app/atoms'
 import { useNavigation } from '@react-navigation/native'
+import { Text } from 'native-base'
 
 const FriendItem = ({ item, index }) => {
     const navigation = useNavigation()
@@ -30,7 +31,6 @@ const FriendItem = ({ item, index }) => {
                 <View style={{ flex: 1, marginLeft: scale(8) }}>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishSemiBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                         }}
@@ -54,7 +54,7 @@ const FriendItem = ({ item, index }) => {
                     />
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
+                            
                             fontSize: scale(12),
                             color,
                             marginLeft: scale(4),

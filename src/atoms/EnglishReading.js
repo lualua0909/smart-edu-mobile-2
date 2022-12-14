@@ -288,7 +288,6 @@ const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {
                         <SpeakingAnimate />
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(22),
                                 color: '#1F1F1F',
                                 marginTop: scale(10),
@@ -298,7 +297,6 @@ const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#6C746E',
                                 marginTop: scale(8),

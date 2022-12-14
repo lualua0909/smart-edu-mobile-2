@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { View, FlatList, RefreshControl, ScrollView } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
-import {
-    Box,
-    Heading,
-    AspectRatio,
-    Image,
-    Text,
-    Center,
-    Stack,
-} from 'native-base'
+import { Text, Center } from 'native-base'
 import { useGlobalState } from 'app/Store'
 
 import CertificateItem from 'app/components/CertificateItem'
@@ -95,7 +86,7 @@ const CertificateList = ({ navigation, route }) => {
                                         marginLeft: scale(16),
                                         marginBottom: scale(16),
                                         marginTop: scale(16),
-                                        fontFamily: FONTS.MulishBold,
+
                                         fontSize: scale(20),
                                         color: '#1F1F1F',
                                     }}

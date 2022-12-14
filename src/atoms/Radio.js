@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
 import { svgCircleTick } from 'assets/svg'
@@ -32,7 +33,6 @@ export default ({ isChecked, text, onPress }) => (
 
             <Text
                 style={{
-                    fontFamily: FONTS.Mulish,
                     fontSize: scale(17),
                     marginLeft: scale(15),
                     flex: 1,

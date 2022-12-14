@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, Linking, Platform } from 'react-native'
+import { View, Linking, Platform } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { SvgXml } from 'react-native-svg'
-import { svgIconFB, svgIconZalo, svgIconYoutube } from 'assets/svg'
+import { svgIconFB, svgIconYoutube } from 'assets/svg'
 
 const Support = () => {
     const openMap = (latitude, longitude, label = '') => {
@@ -27,7 +27,7 @@ const Support = () => {
                 <Text
                     style={{
                         fontSize: scale(20),
-                        fontFamily: FONTS.MulishBold,
+
                         color: '#1F1F1F',
                     }}
                 >
@@ -36,7 +36,7 @@ const Support = () => {
                 <Text
                     style={{
                         fontSize: scale(14),
-                        fontFamily: FONTS.Mulish,
+
                         fontStyle: 'italic',
                         color: '#6C746E',
                     }}
@@ -47,7 +47,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -65,7 +65,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 color: '#1F1F1F',
                             }}
                         >
@@ -77,7 +77,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -95,7 +95,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 color: '#1F1F1F',
                             }}
                         >
@@ -113,7 +113,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -129,7 +129,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 color: '#1F1F1F',
                             }}
                         >
@@ -147,7 +147,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -159,7 +159,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 color: '#1F1F1F',
                             }}
                         >
@@ -177,7 +177,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            fontFamily: FONTS.Mulish,
+
                             color: '#1F1F1F',
                         }}
                     >
@@ -189,7 +189,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 color: '#1F1F1F',
                             }}
                         >

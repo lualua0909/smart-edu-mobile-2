@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, StatusBar, FlatList, Text, TextInput } from 'react-native'
+import { View, StatusBar, FlatList, TextInput } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
 import VoucherItem from 'app/components/VoucherItem'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
@@ -20,7 +21,6 @@ const Voucher = () => {
                 >
                     <TextInput
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#000',
                             borderColor: '#000',

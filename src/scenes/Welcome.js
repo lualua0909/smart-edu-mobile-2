@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-    View,
-    Text,
-    Image,
-    Pressable,
-    Dimensions,
-    ScrollView,
-} from 'react-native'
+import { View, Image, Pressable, Dimensions, ScrollView } from 'react-native'
+import { Text, Button } from 'native-base'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
-import { FONTS, ROUTES } from 'app/constants'
+import { ROUTES } from 'app/constants'
 
 const { height, width } = Dimensions.get('window')
 
@@ -41,20 +35,17 @@ const Wireframe = ({ navigation }) => {
     const timerRef = useRef(null)
 
     useEffect(() => {
-        if (display) {
-            clearTimeout(timerRef.current)
-
-            timerRef.current = setTimeout(() => {
-                setDisplay(false)
-                console.log('On BLurrr')
-            }, 10000)
-        }
-
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current)
-            }
-        }
+        // if (display) {
+        //     clearTimeout(timerRef.current)
+        //     timerRef.current = setTimeout(() => {
+        //         setDisplay(false)
+        //     }, 10000)
+        // }
+        // return () => {
+        //     if (timerRef.current) {
+        //         clearTimeout(timerRef.current)
+        //     }
+        // }
     }, [display])
 
     useEffect(() => {
@@ -90,17 +81,17 @@ const Wireframe = ({ navigation }) => {
             }}
         >
             {/* <SafeAreaView
-                style={{
-                    position: 'absolute',
-                    top: scale(10),
-                    right: scale(20),
-                    zIndex: 1,
-                }}
-            >
-                <Pressable hitSlop={20}>
-                    <Text style={{ color: '#fff' }}>Khám phá ngay</Text>
-                </Pressable>
-            </SafeAreaView> */}
+            style={{
+                position: 'absolute',
+                top: scale(10),
+                right: scale(20),
+                zIndex: 1,
+            }}
+        >
+            <Pressable hitSlop={20}>
+                <Text style={{ color: '#fff' }}>Khám phá ngay</Text>
+            </Pressable>
+        </SafeAreaView> */}
             <ScrollView
                 ref={scrollRef}
                 horizontal
@@ -113,6 +104,7 @@ const Wireframe = ({ navigation }) => {
             >
                 <View style={{ width: width * DATA.length }}>
                     <Image
+                        alt="wireframe.jpg"
                         source={require('assets/images/wireframe.jpg')}
                         style={{
                             width: width * DATA.length + 20,
@@ -131,19 +123,20 @@ const Wireframe = ({ navigation }) => {
                         {DATA.map((i, ind) => (
                             <View key={ind} style={{ width }}>
                                 <Image
+                                    alt="welcome"
                                     source={i.image}
                                     style={{
                                         width,
                                         height: scale(300),
                                         marginTop: -scale(200),
                                     }}
+                                    resizeMode="contain"
                                 />
                                 <View style={{ paddingHorizontal: scale(16) }}>
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
-                                            fontWeight: '900',
-                                            fontSize: scale(24),
+                                            fontSize: scale(20),
+                                            fontWeight: 'bold',
                                             color: '#095F2B',
                                             textAlign: 'center',
                                         }}
@@ -152,7 +145,6 @@ const Wireframe = ({ navigation }) => {
                                     </Text>
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.Mulish,
                                             fontSize: scale(16),
                                             color: '#6C746E',
                                             marginTop: scale(16),
@@ -170,46 +162,25 @@ const Wireframe = ({ navigation }) => {
             <View
                 style={{
                     flexDirection: 'row',
-                    alignItems: 'center',
                     justifyContent: 'space-around',
                 }}
             >
                 {pageIndex > 0 && (
-                    <Pressable
+                    <Button
+                        size="md"
+                        variant="ghost"
                         onPress={() => onGoToPage(pageIndex - 1)}
-                        style={{
-                            paddingVertical: scale(12),
-                            paddingHorizontal: scale(48),
-                        }}
                     >
-                        <Text
-                            style={{
-                                fontFamily: FONTS.MulishSemiBold,
-                                color: '#52B553',
-                            }}
-                        >
-                            Quay lại
-                        </Text>
-                    </Pressable>
+                        Quay lại
+                    </Button>
                 )}
-                <Pressable
+                <Button
+                    shadow="3"
+                    size="md"
                     onPress={() => onGoToPage(pageIndex + 1)}
-                    style={{
-                        paddingVertical: scale(12),
-                        paddingHorizontal: scale(48),
-                        borderRadius: scale(10),
-                        backgroundColor: '#0EBF46',
-                    }}
                 >
-                    <Text
-                        style={{
-                            fontFamily: FONTS.MulishSemiBold,
-                            color: '#fff',
-                        }}
-                    >
-                        {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
-                    </Text>
-                </Pressable>
+                    {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
+                </Button>
             </View>
         </View>
     )

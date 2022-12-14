@@ -1,14 +1,14 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
 import { useNavigation } from '@react-navigation/native'
-import { FONTS, ROUTES } from 'app/constants'
 import { Badge, Box } from 'native-base'
 import dayjs from 'dayjs'
-import { Book, DollarSign, CreditCard } from 'react-native-feather'
-import { toCurrency, storeData, getData } from 'app/helpers/utils'
+import { DollarSign, CreditCard } from 'react-native-feather'
+import { toCurrency } from 'app/helpers/utils'
+import { Text } from 'native-base'
 
 const TransactionItem = ({ data }) => {
     const navigation = useNavigation()
@@ -63,7 +63,6 @@ const TransactionItem = ({ data }) => {
                         {day ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#000000',
                                     textAlign: 'right',
@@ -75,7 +74,6 @@ const TransactionItem = ({ data }) => {
                         {month ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#6C746E',
                                     textAlign: 'right',
@@ -87,7 +85,6 @@ const TransactionItem = ({ data }) => {
                         {year ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#6C746E',
                                     textAlign: 'right',
@@ -116,7 +113,6 @@ const TransactionItem = ({ data }) => {
                     <Text
                         numberOfLines={2}
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#000',
                         }}
@@ -134,7 +130,6 @@ const TransactionItem = ({ data }) => {
                         <Text
                             numberOfLines={2}
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(14),
                                 color: '#6C746E',
                                 marginLeft: scale(4),
@@ -154,7 +149,6 @@ const TransactionItem = ({ data }) => {
                         <Text
                             numberOfLines={2}
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(14),
                                 color: '#6C746E',
                                 marginLeft: scale(4),

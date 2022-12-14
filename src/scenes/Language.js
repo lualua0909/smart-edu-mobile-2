@@ -36,7 +36,7 @@ const Language = () => {
                                 fontSize: scale(16),
                             }}
                         >
-                            {`Phiên bản ứng dụng ${DeviceInfo.getVersion()}\n${deviceName}\n${systemName} ${systemVersion} ${
+                            {`Phiên bản ứng dụng ${DeviceInfo.getReadableVersion()}\n${deviceName}\n${systemName} ${systemVersion} ${
                                 Config.SERVER_CONFIG
                             }\n`}
                         </Text>

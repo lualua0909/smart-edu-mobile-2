@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StatusBar, FlatList } from 'react-native'
+import { View, Pressable, StatusBar } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import FONTS from 'app/constants/fonts'
 import { TabView } from 'react-native-tab-view'
 import COLORS from 'app/constants/colors'
 import MentorList from 'app/components/MentorList'
@@ -76,7 +76,6 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },
@@ -103,7 +102,6 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },
@@ -130,7 +128,6 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },

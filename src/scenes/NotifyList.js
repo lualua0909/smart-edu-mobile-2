@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList, RefreshControl, ScrollView } from 'react-native'
+import { View, FlatList, RefreshControl, ScrollView } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NotiItem from 'app/components/NotifyItem'
 import Axios from 'app/Axios'
@@ -96,7 +96,7 @@ const Notification = ({}) => {
                                 style={{
                                     marginLeft: scale(16),
                                     marginBottom: scale(16),
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(20),
                                     color: '#1F1F1F',
                                 }}

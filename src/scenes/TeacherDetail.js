@@ -1,30 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    StatusBar,
-    Dimensions,
-} from 'react-native'
+import { View, StyleSheet, Image, StatusBar } from 'react-native'
+import { Text } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
-import { FONTS, STYLES, COLORS } from 'app/constants'
+import { COLORS } from 'app/constants'
 import { TabView, TabBar } from 'react-native-tab-view'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
 import HeaderBack from 'app/components/header-back'
 import Axios from 'app/Axios'
-import {
-    useToast,
-    CheckIcon,
-    ScrollView,
-    VStack,
-    Center,
-    Heading,
-    useTheme,
-} from 'native-base'
+import { CheckIcon, ScrollView } from 'native-base'
 
 const routes = [
     {
@@ -86,7 +72,7 @@ const TeacherInfo = ({ navigation, route }) => {
                 <Text
                     style={{
                         flex: 1,
-                        fontFamily: FONTS.Mulish,
+
                         color: '#202020',
                         fontSize: scale(16),
                     }}
@@ -182,7 +168,6 @@ const TeacherInfo = ({ navigation, route }) => {
                     <HeaderBack white />
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#fff',
                         }}
@@ -212,7 +197,6 @@ const TeacherInfo = ({ navigation, route }) => {
                 />
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(18),
                         color: '#000',
                         marginTop: scale(10),
@@ -231,7 +215,6 @@ const TeacherInfo = ({ navigation, route }) => {
                 </View>
                 <Text
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(16),
                         color: '#6C746E',
                         marginTop: scale(8),
@@ -241,7 +224,6 @@ const TeacherInfo = ({ navigation, route }) => {
                 </Text>
                 <Text
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(16),
                         color: '#6C746E',
                         marginTop: scale(8),
@@ -268,7 +250,7 @@ const TeacherInfo = ({ navigation, route }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
+                            
                             fontSize: scale(16),
                             color: '#656565',
                             textDecorationLine: 'line-through',
@@ -279,7 +261,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     <Text
                         style={{
                             marginLeft: scale(24),
-                            fontFamily: FONTS.MulishBold,
+                            
                             fontSize: scale(18),
                             color: '#095F2B',
                         }}
@@ -307,7 +289,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
+                                
                                 fontSize: scale(18),
                                 color: COLORS.green,
                             }}
@@ -328,7 +310,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
+                                
                                 fontSize: scale(18),
                                 color: '#fff',
                             }}

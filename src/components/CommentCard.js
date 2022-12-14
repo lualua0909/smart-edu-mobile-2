@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
+import { Text } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgReply } from 'assets/svg'
-import { FONTS } from 'app/constants'
 import LinearGradient from 'react-native-linear-gradient'
 import { Avatar, Rate } from 'app/atoms'
 import { HStack } from 'native-base'
@@ -41,7 +41,6 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#202020',
                             }}
@@ -63,7 +62,6 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(12),
                                         color: '#F4F5F7',
                                     }}
@@ -82,7 +80,6 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                         {data?.rate && <Rate rate={data?.rate} />}
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(13),
                                 color: '#7B7B7B',
                             }}
@@ -109,7 +106,7 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                             numberOfLines={readMore ? null : 3}
                             style={{
                                 marginTop: scale(8),
-                                fontFamily: FONTS.Mulish,
+
                                 fontSize: scale(16),
                                 color: '#202020',
                             }}
@@ -136,7 +133,7 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                         <Text
                             style={{
                                 marginLeft: scale(8),
-                                fontFamily: FONTS.Mulish,
+
                                 fontSize: scale(14),
                                 color: '#0075FF',
                             }}

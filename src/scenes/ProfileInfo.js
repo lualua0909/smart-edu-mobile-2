@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Pressable, TextInput, ScrollView } from 'react-native'
+import { View, Pressable, TextInput, ScrollView } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, ROUTES } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import {
     svgCompany,
     svgBirth,
-    svgBackPack,
     svgDeparment,
     svgClipBoard,
     svgLocation,
     svgGender,
 } from 'assets/svg'
-import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ChevronLeftIcon } from 'native-base'
-import QRCode from 'react-native-qrcode-svg'
+import { ChevronLeftIcon, Text } from 'native-base'
 import Axios from 'app/Axios'
 import { DetailSkeleton, Avatar } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
@@ -62,7 +58,6 @@ const ProfileInfo = ({ navigation, route }) => {
                     </Pressable>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#4F4F4F',
                         }}
@@ -112,7 +107,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -123,7 +117,6 @@ const ProfileInfo = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -150,7 +143,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -161,7 +153,6 @@ const ProfileInfo = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -188,7 +179,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -199,7 +189,6 @@ const ProfileInfo = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -228,7 +217,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -239,7 +227,6 @@ const ProfileInfo = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -268,7 +255,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -280,7 +266,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -309,7 +294,6 @@ const ProfileInfo = ({ navigation, route }) => {
 
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#363E57',
                                     marginLeft: scale(8),
@@ -320,7 +304,6 @@ const ProfileInfo = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#1F1F1F',
                                     width: '60%',
@@ -348,7 +331,7 @@ const ProfileInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     color: '#1F1F1F',
-                                    fontFamily: FONTS.MulishBold,
+                                    
                                     fontSize: scale(16),
                                 }}
                             >
@@ -391,7 +374,7 @@ const ProfileInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     color: '#FFFFFF',
-                                    fontFamily: FONTS.MulishBold,
+                                    
                                     fontSize: scale(16),
                                 }}
                             >

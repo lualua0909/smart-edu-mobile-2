@@ -1,13 +1,14 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
 import { useNavigation } from '@react-navigation/native'
-import { FONTS, ROUTES } from 'app/constants'
-import { Badge, Box, Progress, Center } from 'native-base'
+import { ROUTES } from 'app/constants'
+import { Box, Progress } from 'native-base'
 import dayjs from 'dayjs'
 import { Book } from 'react-native-feather'
+import { Text } from 'native-base'
 
 const HistoryItem = ({ data }) => {
     const navigation = useNavigation()
@@ -59,7 +60,6 @@ const HistoryItem = ({ data }) => {
                         {day ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#000000',
                                     textAlign: 'right',
@@ -71,7 +71,6 @@ const HistoryItem = ({ data }) => {
                         {month ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#6C746E',
                                     textAlign: 'right',
@@ -83,7 +82,6 @@ const HistoryItem = ({ data }) => {
                         {year ? (
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: '#6C746E',
                                     textAlign: 'right',
@@ -112,7 +110,6 @@ const HistoryItem = ({ data }) => {
                     <Text
                         numberOfLines={2}
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#000',
                         }}
@@ -139,7 +136,6 @@ const HistoryItem = ({ data }) => {
                         <Text
                             numberOfLines={2}
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(14),
                                 color: '#6C746E',
                                 marginLeft: scale(4),

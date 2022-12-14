@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, COLORS } from 'app/constants'
+import { COLORS } from 'app/constants'
 import { CheckIcon } from 'native-base'
 import Axios from 'app/Axios'
 import { NoData } from 'app/atoms'
@@ -44,7 +44,7 @@ const Benefit = ({ courseId }) => {
             <Text
                 style={{
                     flex: 1,
-                    fontFamily: FONTS.Mulish,
+
                     color: '#202020',
                     fontSize: scale(16),
                 }}

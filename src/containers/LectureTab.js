@@ -3,7 +3,6 @@ import { View, Text } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgCircleBook } from 'assets/svg'
-import { FONTS, ROUTES } from 'app/constants'
 import Curriculum from 'app/components/Curriculum'
 import Axios from 'app/Axios'
 import { NoData } from 'app/atoms'
@@ -11,8 +10,6 @@ import { useGlobalState } from 'app/Store'
 import { useNavigation } from '@react-navigation/native'
 
 const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
-    const navigation = useNavigation()
-
     const [data, setData] = useState()
     const [totalLectures, setTotalLectures] = useState(0)
     const [finishedLectures, setFinishedLectures] =
@@ -76,7 +73,6 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                 />
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishSemiBold,
                         fontSize: scale(16),
                         color: '#007839',
                         marginLeft: scale(10),

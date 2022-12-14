@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import FONTS from 'app/constants/fonts'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
 import { svgClose, svgBackgroundSurveyCall } from 'assets/svg'
+import { Text } from 'native-base'
 
 const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
     return (
@@ -56,7 +56,7 @@ const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
                             style={{
                                 textAlign: 'center',
                                 fontSize: scale(16),
-                                fontFamily: FONTS.Mulish,
+
                                 color: '#6C746E',
                             }}
                         >
@@ -77,7 +77,6 @@ const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishSemiBold,
                                         fontSize: scale(16),
                                         color: '#52B553',
                                         padding: scale(5),

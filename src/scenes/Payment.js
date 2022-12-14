@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Image, Pressable, Switch, ScrollView } from 'react-native'
+import { View, Image, Pressable, Switch, ScrollView } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, ROUTES, COLORS } from 'app/constants'
+import { ROUTES, COLORS } from 'app/constants'
 import { useNavigation } from '@react-navigation/native'
 import { toCurrency } from 'app/helpers/utils'
 import { ChevronRightIcon } from 'native-base'
@@ -46,7 +47,6 @@ const Payment = () => {
                             <Text
                                 numberOfLines={3}
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(18),
                                     color: '#333',
                                 }}
@@ -75,7 +75,6 @@ const Payment = () => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     marginLeft: scale(8),
@@ -94,7 +93,6 @@ const Payment = () => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#A3A3A3',
                                 }}
@@ -105,7 +103,7 @@ const Payment = () => {
                                 color="#A3A3A3"
                                 style={{
                                     marginRight: scale(-20),
-                                    fontFamily: FONTS.Mulish,
+
                                     fontSize: scale(16),
                                 }}
                             />
@@ -130,7 +128,6 @@ const Payment = () => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     marginLeft: scale(8),
@@ -148,7 +145,6 @@ const Payment = () => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#52B553',
                                     marginRight: scale(10),
@@ -193,7 +189,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#0E564D',
                                         marginLeft: scale(8),
@@ -211,7 +206,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#A3A3A3',
                                     }}
@@ -222,7 +216,7 @@ const Payment = () => {
                                     color="#A3A3A3"
                                     style={{
                                         marginRight: scale(-20),
-                                        fontFamily: FONTS.Mulish,
+
                                         fontSize: scale(16),
                                     }}
                                 />
@@ -245,7 +239,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                         marginLeft: scale(8),
@@ -262,7 +255,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                     }}
@@ -288,7 +280,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                         marginLeft: scale(8),
@@ -305,7 +296,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                     }}
@@ -331,7 +321,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                         marginLeft: scale(8),
@@ -348,7 +337,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                     }}
@@ -374,7 +362,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                         marginLeft: scale(8),
@@ -391,7 +378,6 @@ const Payment = () => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: '#000000',
                                     }}
@@ -412,7 +398,6 @@ const Payment = () => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#000000',
                             }}
@@ -456,7 +441,6 @@ const Payment = () => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(14),
                                 color: '#4E555C',
                             }}
@@ -465,7 +449,6 @@ const Payment = () => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -486,7 +469,6 @@ const Payment = () => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(18),
                                 color: '#fff',
                             }}

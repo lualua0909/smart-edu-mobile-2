@@ -1,17 +1,18 @@
-import React from 'react'
-import { View, Text, Pressable, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { useNavigation } from '@react-navigation/native'
-import { FONTS, ROUTES, COURSE_IMG_PATH } from 'app/constants'
+import { ROUTES, COURSE_IMG_PATH } from 'app/constants'
 import { toCurrency, storeData, getData } from 'app/helpers/utils'
 import { SvgXml } from 'react-native-svg'
 import Swipeout from 'app/components/SwipeOut'
 import { svgRedDelete } from 'assets/svg'
-import { useToast } from 'native-base'
+import { useToast, Text, Pressable, Image, Modal, Button } from 'native-base'
 
 const CartItem = ({ course, index }) => {
     const toast = useToast()
     const navigation = useNavigation()
+    const [showModal, setShowModal] = useState(false)
 
     const removeFromCart = async () => {
         const carts = (await getData('@cart')) || []
@@ -53,7 +54,6 @@ const CartItem = ({ course, index }) => {
                     alignItems: 'center',
                     color: '#F13642',
                     marginTop: scale(5),
-                    fontFamily: FONTS.MulishBold,
                 }}
             />
             <Text
@@ -61,7 +61,6 @@ const CartItem = ({ course, index }) => {
                     alignItems: 'center',
                     color: '#F13642',
                     marginTop: scale(5),
-                    fontFamily: FONTS.MulishBold,
                 }}
             >
                 Xóa
@@ -77,7 +76,6 @@ const CartItem = ({ course, index }) => {
                         textDecorationLine: 'line-through',
                         fontSize: scale(16),
                         color: '#1D1D1D',
-                        fontFamily: FONTS.Mulish,
                     }}
                 >
                     {toCurrency(course?.old_price)} đ
@@ -86,7 +84,6 @@ const CartItem = ({ course, index }) => {
                     style={{
                         color: '#1DA736',
                         fontSize: scale(16),
-                        fontFamily: FONTS.MulishBold,
                     }}
                 >
                     {toCurrency(course?.new_price)} đ
@@ -98,7 +95,6 @@ const CartItem = ({ course, index }) => {
                     style={{
                         color: '#1DA736',
                         fontSize: scale(16),
-                        fontFamily: FONTS.MulishBold,
                     }}
                 >
                     {toCurrency(course?.new_price)} đ
@@ -140,7 +136,6 @@ const CartItem = ({ course, index }) => {
                         <Text
                             numberOfLines={3}
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(14),
                                 color: '#1F1F1F',
                             }}
@@ -156,25 +151,36 @@ const CartItem = ({ course, index }) => {
                         alignItems: 'center',
                     }}
                 >
-                    {renderPrice}
-                    <Pressable
-                        style={{
-                            backgroundColor: '#52B553',
-                            padding: 10,
-                            alignContent: 'center',
-                            alignSelf: 'center',
-                            borderRadius: 5,
-                        }}
-                        onPress={() => navigation.navigate(ROUTES.Payment)}
+                    {/* {renderPrice} */}
+                    <View></View>
+                    <Button
+                        // onPress={() => navigation.navigate(ROUTES.Payment)}
+                        onPress={() => setShowModal(true)}
                     >
-                        <Text style={{ color: '#FFFFFF', fontSize: scale(16) }}>
-                            Thanh toán
-                        </Text>
-                    </Pressable>
+                        Thanh toán
+                    </Button>
                 </View>
+                <UpdateAlert
+                    isOpen={showModal}
+                    onClose={() => setShowModal(false)}
+                />
             </Pressable>
         </Swipeout>
     )
 }
 
 export default CartItem
+
+const UpdateAlert = ({ isOpen, onClose }) => (
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal.Content maxWidth="400px">
+            <Modal.CloseButton />
+            <Modal.Header>Thông báo</Modal.Header>
+            <Modal.Body>
+                <Text>
+                    Chức năng này đang được phát triển, vui lòng quay lại sau
+                </Text>
+            </Modal.Body>
+        </Modal.Content>
+    </Modal>
+)

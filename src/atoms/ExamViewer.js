@@ -6,10 +6,9 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text,
 } from 'react-native'
 import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor'
-
+import { Text } from 'native-base'
 const initHTML = ``
 
 function createContentStyle(theme) {

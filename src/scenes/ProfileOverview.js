@@ -1,34 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {
-    View,
-    Text,
-    Pressable,
-    Image,
-    ScrollView,
-    TextInput,
-} from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import { View, Pressable, Image, ScrollView, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import {
-    svgStroke,
-    svgAdd,
-    svgButtonInline,
-    svgEdit_3,
-    svgChat,
-    svgButtonUserAdd,
-    svgCamera,
-} from 'assets/svg'
-import FONTS from 'app/constants/fonts'
-import FlatListCredits from 'app/components/FlatListCredits'
-import CreditBouns from 'app/components/CreditsBouns'
-import Achievement from 'app/components/Achievement'
 import MenuUser from 'app/components/MenuUser'
 import Axios from 'app/Axios'
 import { DetailSkeleton, Avatar } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
 import { API_URL } from 'app/constants'
 import {
-    Button,
     TextArea,
     Box,
     Heading,
@@ -36,6 +14,7 @@ import {
     FormControl,
     Input,
     Center,
+    Text,
 } from 'native-base'
 import {
     UserPlus,
@@ -125,7 +104,6 @@ const ProfileOverview = ({ navigation, route }) => {
                             <UserPlus stroke="#fff" width={24} height={24} />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#FFFFFF',
                                     textAlign: 'center',
@@ -167,7 +145,6 @@ const ProfileOverview = ({ navigation, route }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#FFFFFF',
                                     textAlign: 'center',
@@ -281,7 +258,6 @@ const ProfileOverview = ({ navigation, route }) => {
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(20),
                                 color: '#000',
                                 borderColor: '#000',
@@ -321,7 +297,7 @@ const ProfileOverview = ({ navigation, route }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
+                                        
                                         fontSize: scale(16),
                                         color: '#FFFFFF',
                                         padding: scale(8),
@@ -487,9 +463,6 @@ const DetailInfomation = ({ data, fullName }) => {
                             isDisabled={true}
                         />
                     </FormControl>
-                    {/* <Button mt="2" colorScheme="indigo">
-                        Sign up
-                    </Button> */}
                 </VStack>
             </Box>
         </Center>

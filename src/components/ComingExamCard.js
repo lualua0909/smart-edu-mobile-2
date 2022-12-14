@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import LinearGradient from 'react-native-linear-gradient'
 import Countdown from 'react-countdown'
 import dayjs from 'dayjs'
@@ -48,7 +48,6 @@ const ComingExam = ({}) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -57,7 +56,6 @@ const ComingExam = ({}) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(10),
                                 color: '#fff',
                             }}
@@ -74,7 +72,6 @@ const ComingExam = ({}) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -83,7 +80,6 @@ const ComingExam = ({}) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(10),
                                 color: '#fff',
                             }}
@@ -100,7 +96,6 @@ const ComingExam = ({}) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -109,7 +104,6 @@ const ComingExam = ({}) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(10),
                                 color: '#fff',
                             }}
@@ -126,7 +120,6 @@ const ComingExam = ({}) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -135,7 +128,6 @@ const ComingExam = ({}) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(10),
                                 color: '#fff',
                             }}
@@ -189,7 +181,6 @@ const ComingExam = ({}) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(16),
                         color: '#1F1F1F',
                     }}
@@ -198,7 +189,6 @@ const ComingExam = ({}) => {
                 </Text>
                 <Text
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(14),
                         color: '#1F1F1F',
                     }}
@@ -208,7 +198,6 @@ const ComingExam = ({}) => {
                 <Text
                     numberOfLines={1}
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(14),
                         color: '#1F1F1F',
                     }}

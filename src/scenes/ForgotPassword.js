@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, Image, ScrollView, Pressable } from 'react-native'
+import { View, Image, ScrollView, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, STYLES, ROUTES } from 'app/constants'
+import { STYLES, ROUTES } from 'app/constants'
 import Axios from 'app/Axios'
 import useFormInput from 'app/helpers/useFormInput'
-import { Input, Icon, Button, useToast, Center } from 'native-base'
+import { Input, Icon, Button, useToast, Center, Text } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { svgLoginMail } from 'assets/svg'
 
@@ -82,7 +82,6 @@ const ForgotPassword = ({ navigation }) => {
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
@@ -93,7 +92,6 @@ const ForgotPassword = ({ navigation }) => {
                             </Text>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     marginTop: scale(8),
                                     fontSize: scale(15),
                                     textAlign: 'center',
@@ -142,7 +140,6 @@ const ForgotPassword = ({ navigation }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
                                     textAlign: 'center',
@@ -151,7 +148,6 @@ const ForgotPassword = ({ navigation }) => {
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(14),
                                         color: '#0075FF',
                                         textDecorationLine: 'underline',

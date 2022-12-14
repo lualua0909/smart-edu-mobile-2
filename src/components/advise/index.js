@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable, Image } from 'react-native'
+import { View, Pressable, Image } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import { svgWhiteStar } from 'assets/svg'
-import { FONTS } from 'app/constants'
 import { Avatar } from 'app/atoms'
+import { Text } from 'native-base'
 
 const Advise = () => {
     return (
@@ -34,7 +34,6 @@ const Advise = () => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishSemiBold,
                         fontSize: scale(24),
                         color: '#fff',
                         textAlign: 'center',
@@ -52,7 +51,6 @@ const Advise = () => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishSemiBold,
                             fontSize: scale(16),
                             color: '#fff',
                             marginRight: scale(20),
@@ -62,7 +60,6 @@ const Advise = () => {
                     </Text>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishSemiBold,
                             fontSize: scale(16),
                             color: '#fff',
                         }}
@@ -81,7 +78,6 @@ const Advise = () => {
                     <View style={{ flex: 1, marginLeft: scale(4) }}>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#fff',
                             }}
@@ -102,7 +98,7 @@ const Advise = () => {
                             <Text
                                 style={{
                                     marginLeft: scale(4),
-                                    fontFamily: FONTS.Mulish,
+
                                     fontSize: scale(14),
                                     color: '#fff',
                                 }}
@@ -120,7 +116,6 @@ const Advise = () => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#fff',
                                 }}

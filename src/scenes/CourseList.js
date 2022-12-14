@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
     View,
-    Text,
     Pressable,
     FlatList,
     ScrollView,
     RefreshControl,
 } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Modal from 'react-native-modal'
 import CourseItem from 'app/components/CourseItem'
-import { Input } from 'native-base'
+import { Input, Text } from 'native-base'
 import { Radio, NoDataAnimation as NoData, LoadingAnimation } from 'app/atoms'
 import Axios from 'app/Axios'
 import { debounce } from 'app/helpers/utils'
@@ -89,7 +87,6 @@ const CourseList = ({ route }) => {
                     <View style={{ paddingLeft: scale(16) }}>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(16),
                                 color: '#0E564D',
                             }}
@@ -128,7 +125,6 @@ const CourseList = ({ route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(16),
                                 color: '#0E564D',
                             }}
@@ -181,7 +177,6 @@ const CourseList = ({ route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(18),
                                     color: '#fff',
                                 }}

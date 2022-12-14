@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import {
-    View,
-    Text,
-    Pressable,
-    ScrollView,
-    FlatList,
-    Linking,
-} from 'react-native'
+import { View, Pressable, ScrollView, FlatList, Linking } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgStudy, svgList } from 'assets/svg'
 import {
-    FONTS,
     STYLES,
     ROUTES,
     COLORS,
@@ -20,14 +12,13 @@ import {
 } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CourseItem from 'app/components/CourseItem'
-import Advise from 'app/components/advise'
-import { Box, Progress, Image } from 'native-base'
+import { Box, Progress, Image, Text, Modal } from 'native-base'
 import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
 import Axios from 'app/Axios'
-import { toRelativeTime } from 'app/helpers/utils'
-import HotMentors from 'app/components/HotMentors'
 import { Flag, Rss } from 'react-native-feather'
+import dayjs from 'dayjs'
+import DeviceInfo from 'react-native-device-info'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
@@ -35,6 +26,7 @@ const Home = ({ navigation }) => {
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
     const [loading, setLoading] = useState(false)
     const [random, setRandom] = useGlobalState('random')
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         Axios.get('courses/get-list-in-dashboard')
@@ -43,6 +35,9 @@ const Home = ({ navigation }) => {
                     setDashboardInfo(res?.data)
                 }
             })
+            .catch((error) => {
+                console.log(error)
+            })
             .finally(() => setLoading(false))
     }, [])
 
@@ -50,6 +45,12 @@ const Home = ({ navigation }) => {
         Axios.get('homepage-info')
             .then((res) => {
                 setHomeInfo(res?.data?.data)
+                const lastestVersion = res?.data?.data?.lastest_version || ''
+                if (lastestVersion !== DeviceInfo.getVersion())
+                    setShowModal(true)
+            })
+            .catch((error) => {
+                console.log(error)
             })
             .finally(() => {
                 setLoading(false)
@@ -78,7 +79,6 @@ const Home = ({ navigation }) => {
                         <View style={{ marginLeft: scale(16), flex: 1 }}>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(18),
                                     color: '#1F1F1F',
                                 }}
@@ -90,7 +90,6 @@ const Home = ({ navigation }) => {
                             </Text>
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#1F1F1F',
                                     marginTop: scale(4),
@@ -125,7 +124,6 @@ const Home = ({ navigation }) => {
                                 <SvgXml xml={svgStudy} width={scale(24)} />
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#0E564D',
                                         marginLeft: scale(8),
@@ -191,8 +189,6 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
-                                                            fontFamily:
-                                                                FONTS.MulishBold,
                                                             fontSize: scale(14),
                                                             color: '#1F1F1F',
                                                             width: 200,
@@ -215,8 +211,6 @@ const Home = ({ navigation }) => {
                                                             />
                                                             <Text
                                                                 style={{
-                                                                    fontFamily:
-                                                                        FONTS.MulishBold,
                                                                     fontSize:
                                                                         scale(
                                                                             12
@@ -285,7 +279,7 @@ const Home = ({ navigation }) => {
                                     >
                                         <Text
                                             style={{
-                                                fontFamily: FONTS.Mulish,
+                                                
                                                 fontSize: scale(16),
                                                 color: '#fff',
                                             }}
@@ -296,7 +290,6 @@ const Home = ({ navigation }) => {
                                             <Text
                                                 style={{
                                                     fontFamily:
-                                                        FONTS.MulishBold,
                                                     fontSize: scale(20),
                                                     color: '#fff',
                                                 }}
@@ -332,7 +325,7 @@ const Home = ({ navigation }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(8),
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                 }}
@@ -394,8 +387,6 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
-                                                            fontFamily:
-                                                                FONTS.MulishBold,
                                                             fontSize: scale(14),
                                                             color: '#1F1F1F',
                                                             width: 200,
@@ -438,7 +429,6 @@ const Home = ({ navigation }) => {
                             <Flag stroke="#0E564D" width={18} height={18} />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     marginLeft: scale(8),
@@ -487,7 +477,6 @@ const Home = ({ navigation }) => {
                             <Rss stroke="#0E564D" width={18} height={18} />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     marginLeft: scale(8),
@@ -545,8 +534,6 @@ const Home = ({ navigation }) => {
                                             >
                                                 <Text
                                                     style={{
-                                                        fontFamily:
-                                                            FONTS.MulishBold,
                                                         fontSize: scale(16),
                                                         color: '#1F1F1F',
                                                     }}
@@ -557,15 +544,13 @@ const Home = ({ navigation }) => {
                                                     numberOfLines={4}
                                                     style={{
                                                         marginTop: scale(8),
-                                                        fontFamily:
-                                                            FONTS.Mulish,
                                                         fontSize: scale(16),
                                                         color: '#1F1F1F',
                                                     }}
                                                 >
-                                                    {toRelativeTime(
+                                                    {dayjs(
                                                         item.created_at
-                                                    )}
+                                                    ).format('DD/MM/YYYY')}
                                                 </Text>
                                             </View>
                                         </Pressable>
@@ -580,8 +565,28 @@ const Home = ({ navigation }) => {
                     {/* <HotMentors /> */}
                 </ScrollView>
             </SafeAreaView>
+            <UpdateAlert
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+            />
         </View>
     )
 }
 
 export default Home
+
+const UpdateAlert = ({ isOpen, onClose }) => (
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal.Content maxWidth="400px">
+            <Modal.CloseButton />
+            <Modal.Header>Cập nhật phần mềm</Modal.Header>
+            <Modal.Body>
+                <Text>
+                    Bạn cần cập nhật phiên bản mới nhất của ứng dụng để sử dụng
+                    các tính năng mới nhất.
+                </Text>
+                <Text>Version hiện tại: {DeviceInfo.getReadableVersion()}</Text>
+            </Modal.Body>
+        </Modal.Content>
+    </Modal>
+)

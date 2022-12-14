@@ -1,14 +1,10 @@
 import React from 'react'
-import { View, Text, Pressable, Image } from 'react-native'
+import { View, Pressable, Image } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { useNavigation } from '@react-navigation/native'
-import { FONTS, ROUTES } from 'app/constants'
-import { toCurrency } from 'app/helpers/utils'
+import { Text } from 'native-base'
 import CheckBox from '@react-native-community/checkbox'
 
 const VoucherItem = ({ value, index }) => {
-    const navigation = useNavigation()
-
     return (
         <Pressable
             style={{
@@ -40,7 +36,6 @@ const VoucherItem = ({ value, index }) => {
                     <Text
                         numberOfLines={3}
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                         }}
@@ -51,7 +46,7 @@ const VoucherItem = ({ value, index }) => {
                         style={{
                             color: '#F88417',
                             fontSize: scale(12),
-                            fontFamily: FONTS.Mulish,
+
                             borderWidth: 1,
                             borderColor: '#F88417',
                             borderRadius: 5,
@@ -74,7 +69,6 @@ const VoucherItem = ({ value, index }) => {
                             style={{
                                 fontSize: scale(12),
                                 color: '#1D1D1D',
-                                fontFamily: FONTS.Mulish,
                             }}
                         >
                             HSD: 28.08.2022
@@ -83,7 +77,6 @@ const VoucherItem = ({ value, index }) => {
                             style={{
                                 color: '#0075FF',
                                 fontSize: scale(12),
-                                fontFamily: FONTS.Mulish,
                             }}
                         >
                             Điều kiện

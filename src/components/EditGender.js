@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text } from 'native-base'
 
 const EditGender = ({
     isVisible,
@@ -47,7 +47,6 @@ const EditGender = ({
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(18),
                                 color: '#1F1F1F',
                                 textAlign: 'center',
@@ -79,7 +78,6 @@ const EditGender = ({
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#fff',
                                         }}
@@ -103,7 +101,6 @@ const EditGender = ({
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#000000',
                                         }}
@@ -127,7 +124,6 @@ const EditGender = ({
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#fff',
                                         }}
@@ -151,7 +147,6 @@ const EditGender = ({
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(18),
                                             color: '#000000',
                                         }}
@@ -175,7 +170,7 @@ const EditGender = ({
                                 style={{
                                     textAlign: 'center',
                                     color: '#FFFFFF',
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(18),
                                 }}
                             >

@@ -9,14 +9,13 @@ import {
     Linking,
 } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import FONTS from 'app/constants/fonts'
 import { TabView } from 'react-native-tab-view'
 import COLORS from 'app/constants/colors'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'
 import PopupRate from 'app/components/PopupRate'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { svgWhiteBack, svgListOrder } from 'assets/svg'
+import { svgWhiteBack } from 'assets/svg'
 import { SvgXml } from 'react-native-svg'
 import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
@@ -103,7 +102,6 @@ const ConnectInstructors = ({ navigation, route }) => {
                     </Pressable>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#4F4F4F',
                         }}
@@ -160,7 +158,6 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },
@@ -187,7 +184,6 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },
@@ -214,7 +210,6 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
-                                    fontFamily: FONTS.MulishSemiBold,
                                     fontSize: scale(16),
                                     color: COLORS.green,
                                 },
@@ -325,7 +320,7 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                         style={{
                             marginLeft: scale(16),
                             marginBottom: scale(16),
-                            fontFamily: FONTS.MulishBold,
+
                             fontSize: scale(20),
                             color: '#1F1F1F',
                         }}
@@ -384,7 +379,6 @@ const MentorCallItem = ({ data }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.MulishBold,
                                     fontSize: scale(20),
                                     color: '#fff',
                                 }}
@@ -417,7 +411,6 @@ const MentorCallItem = ({ data }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(20),
                                 color: '#fff',
                             }}
@@ -426,7 +419,6 @@ const MentorCallItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(14),
                                 color: '#fff',
                             }}
@@ -443,7 +435,6 @@ const MentorCallItem = ({ data }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(20),
                                 color: '#fff',
                             }}
@@ -452,7 +443,6 @@ const MentorCallItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(14),
                                 color: '#fff',
                             }}
@@ -469,7 +459,6 @@ const MentorCallItem = ({ data }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(20),
                                 color: '#fff',
                             }}
@@ -478,7 +467,6 @@ const MentorCallItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(14),
                                 color: '#fff',
                             }}
@@ -495,7 +483,6 @@ const MentorCallItem = ({ data }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(20),
                                 color: '#fff',
                             }}
@@ -504,7 +491,6 @@ const MentorCallItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(14),
                                 color: '#fff',
                             }}

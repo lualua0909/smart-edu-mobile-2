@@ -7,7 +7,6 @@ import useFormInput from 'app/helpers/useFormInput'
 import EncryptedStorage from 'react-native-encrypted-storage'
 import { useGlobalState } from 'app/Store'
 import { Input, Stack, Button, useToast, Center, Text } from 'native-base'
-import { ArrowRightCircle, Key, User } from 'react-native-feather'
 import messaging from '@react-native-firebase/messaging'
 
 const Login = ({ navigation }) => {
@@ -174,7 +173,7 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="lg"
+                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{
@@ -185,6 +184,7 @@ const Login = ({ navigation }) => {
                                 Đăng nhập
                             </Button>
                         </Center>
+
                         <Pressable
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
@@ -232,7 +232,6 @@ const Login = ({ navigation }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Inter,
                                 fontWeight: 'bold',
                                 color: '#23B55D',
                                 fontSize: scale(16),

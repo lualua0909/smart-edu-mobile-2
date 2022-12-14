@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import { svgCompany, svgBackPack, svgDeparment, svgClipBoard } from 'assets/svg'
 
@@ -19,7 +19,7 @@ const CompanyInfo = ({ data }) => {
                 style={{
                     color: '#1F1F1F',
                     fontSize: scale(18),
-                    fontFamily: FONTS.MulishBold,
+
                     paddingHorizontal: scale(10),
                     paddingVertical: scale(7),
                 }}
@@ -49,7 +49,6 @@ const CompanyInfo = ({ data }) => {
                 >
                     <TextInput
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                         }}
@@ -60,7 +59,6 @@ const CompanyInfo = ({ data }) => {
                     />
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#363E57',
                         }}
@@ -92,7 +90,6 @@ const CompanyInfo = ({ data }) => {
                 >
                     <TextInput
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                             alignItems: 'flex-start',
@@ -104,7 +101,6 @@ const CompanyInfo = ({ data }) => {
                     />
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#363E57',
                         }}
@@ -136,7 +132,6 @@ const CompanyInfo = ({ data }) => {
                 >
                     <TextInput
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                         }}
@@ -147,7 +142,6 @@ const CompanyInfo = ({ data }) => {
                     />
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#363E57',
                         }}
@@ -179,7 +173,6 @@ const CompanyInfo = ({ data }) => {
                 >
                     <TextInput
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#1F1F1F',
                         }}
@@ -190,7 +183,6 @@ const CompanyInfo = ({ data }) => {
                     />
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(16),
                             color: '#363E57',
                         }}

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable, TextInput } from 'react-native'
+import { View, Pressable, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text } from 'native-base'
 
 const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
     const [viewHeight, setViewHeight] = useState({
@@ -41,7 +41,6 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(18),
                                 color: '#1F1F1F',
                                 textAlign: 'center',
@@ -74,7 +73,7 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                                 style={{
                                     textAlign: 'center',
                                     color: '#FFFFFF',
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(18),
                                 }}
                             >

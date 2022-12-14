@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
-import { FONTS } from 'app/constants'
 import { svgBestSaler } from 'assets/svg'
 
 const Achievement = ({ data }) => {
@@ -31,7 +31,6 @@ const Achievement = ({ data }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#0E564D',
                             marginLeft: scale(8),
@@ -66,7 +65,6 @@ const Achievement = ({ data }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(17),
                                     marginLeft: scale(5),
                                     flex: 1,

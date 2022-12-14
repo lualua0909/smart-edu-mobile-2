@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
-import {
-    View,
-    Text,
-    Pressable,
-    Image,
-    ScrollView,
-    StyleSheet,
-    FlatList,
-} from 'react-native'
+import { View, Pressable, ScrollView, StyleSheet, FlatList } from 'react-native'
+import { Text } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgFourSquares, svgBlueViewMore, svgBlackHome } from 'assets/svg'
-import { FONTS, STYLES } from 'app/constants'
+import { STYLES } from 'app/constants'
 import CourseItem from 'app/components/CourseItem'
 import Dash from 'react-native-dash'
 import CourseOverviewChart from 'app/components/CourseOverviewChart'
@@ -70,7 +63,6 @@ const Overview = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontWeight: 'bold',
                                 fontSize: scale(18),
                                 color: '#193769',
@@ -81,7 +73,7 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 marginTop: scale(4),
-                                fontFamily: FONTS.Mulish,
+
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#F3C72B',
@@ -104,7 +96,6 @@ const Overview = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontWeight: 'bold',
                                 fontSize: scale(18),
                                 color: '#193769',
@@ -115,7 +106,7 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 marginTop: scale(4),
-                                fontFamily: FONTS.Mulish,
+
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#16671E',
@@ -161,7 +152,7 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
+                                    
                                     fontSize: scale(13),
                                     color: '#1F1F1F',
                                 }}
@@ -175,7 +166,7 @@ const Overview = ({ navigation, route }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
+                                    
                                     fontSize: scale(13),
                                     color: '#1F1F1F',
                                 }}
@@ -197,7 +188,6 @@ const Overview = ({ navigation, route }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(16),
                                 color: '#0E564D',
                                 textAlign: 'center',
@@ -208,7 +198,6 @@ const Overview = ({ navigation, route }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#6C6C6C',
                                 textAlign: 'center',
@@ -248,7 +237,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -283,7 +271,6 @@ const Overview = ({ navigation, route }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(19),
                                             color: '#007739',
                                         }}
@@ -292,7 +279,6 @@ const Overview = ({ navigation, route }) => {
                                     </Text>
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(12),
                                             color: '#007739',
                                             marginTop: scale(7),
@@ -302,7 +288,6 @@ const Overview = ({ navigation, route }) => {
                                     </Text>
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishSemiBold,
                                             fontSize: scale(12),
                                             color: '#007739',
                                             marginTop: scale(7),
@@ -320,7 +305,6 @@ const Overview = ({ navigation, route }) => {
                                     />
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(12),
                                             color: '#007739',
                                         }}
@@ -333,7 +317,6 @@ const Overview = ({ navigation, route }) => {
                                 >
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(16),
                                             color: '#1F1F1F',
                                         }}
@@ -356,7 +339,7 @@ const Overview = ({ navigation, route }) => {
                                             style={{
                                                 flex: 1,
                                                 marginLeft: scale(10),
-                                                fontFamily: FONTS.Mulish,
+
                                                 fontSize: scale(14),
                                                 color: '#1F1F1F',
                                             }}
@@ -420,8 +403,6 @@ const Overview = ({ navigation, route }) => {
                                                     >
                                                         <Text
                                                             style={{
-                                                                fontFamily:
-                                                                    FONTS.Mulish,
                                                                 fontSize:
                                                                     scale(12),
                                                             }}
@@ -461,7 +442,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -510,7 +490,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -571,7 +550,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -619,7 +597,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -664,7 +641,6 @@ const Overview = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -704,7 +680,6 @@ const Overview = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     formTitle: {
-        fontFamily: FONTS.Mulish,
         fontWeight: 'bold',
         fontSize: scale(18),
         color: '#1F1F1F',
@@ -741,7 +716,6 @@ const Notifications = ({ title, data }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(14),
                                     color: '#0075FF',
                                 }}
@@ -804,7 +778,6 @@ const Notifications = ({ title, data }) => {
                                     >
                                         <Text
                                             style={{
-                                                fontFamily: FONTS.Mulish,
                                                 fontWeight: 'bold',
                                                 fontSize: scale(14),
                                                 color: '#4063E0',
@@ -815,7 +788,6 @@ const Notifications = ({ title, data }) => {
                                         <Text
                                             numberOfLines={2}
                                             style={{
-                                                fontFamily: FONTS.Mulish,
                                                 fontSize: scale(14),
                                                 color: '#1F1F1F',
                                                 marginTop: scale(4),

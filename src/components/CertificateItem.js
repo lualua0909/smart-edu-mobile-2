@@ -1,13 +1,9 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, ROUTES, COLORS, EXCERTIFICATE_IMG_PATH } from 'app/constants'
-import { SvgXml } from 'react-native-svg'
-import { svgTriangle } from 'assets/svg'
-import { useNavigation } from '@react-navigation/native'
-import { Rate } from 'app/atoms'
-import { toCurrency } from 'app/helpers/utils'
-import { Progress, Image } from 'native-base'
+import { COLORS, EXCERTIFICATE_IMG_PATH } from 'app/constants'
+
+import { Text, Image } from 'native-base'
 import chungchiSE from 'assets/images/chung-chi-SE.png'
 import { toRelativeTime } from 'app/helpers/utils'
 
@@ -48,7 +44,6 @@ const CourseItem = ({ data, index }) => {
                 <Text
                     numberOfLines={3}
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(18),
                         color: '#333',
                     }}

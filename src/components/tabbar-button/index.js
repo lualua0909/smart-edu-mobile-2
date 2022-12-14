@@ -1,8 +1,8 @@
 import React from 'react'
-import { Pressable, View, Text, Platform } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { Text } from 'native-base'
 
 const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
     const iconSize = focused ? scale(20) : scale(18)
@@ -44,7 +44,6 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
             <Text
                 style={[
                     {
-                        fontFamily: FONTS.MulishSemiBold,
                         fontSize: scale(12),
                         color: '#A3A3A3',
                         textAlign: 'center',

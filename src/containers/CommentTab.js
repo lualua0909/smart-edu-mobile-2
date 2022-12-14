@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { NoData } from 'app/atoms'
 import { ChevronDownIcon } from 'native-base'
 import Axios from 'app/Axios'
 import CommentCard from 'app/components/CommentCard'
+import { Text } from 'native-base'
 
 const RPP = 4
 
@@ -53,7 +53,6 @@ const CommentTab = ({ courseId }) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishSemiBold,
                         fontSize: scale(14),
                         color: '#52B553',
                     }}

@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import React from 'react'
+import { View, Pressable } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBook, svgRedDelete } from 'assets/svg'
-import { FONTS, ROUTES } from 'app/constants'
+import { ROUTES } from 'app/constants'
 import Swipeout from 'app/components/SwipeOut'
 import { useNavigation } from '@react-navigation/native'
 import { Avatar, Box } from 'native-base'
 import { toRelativeTime } from 'app/helpers/utils'
+import { Text } from 'native-base'
 
 const NotiItem = ({ data, index, removeNotify }) => {
     const navigation = useNavigation()
@@ -75,7 +76,6 @@ const NotiItem = ({ data, index, removeNotify }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.MulishBold,
                                         fontSize: scale(16),
                                         color: '#1F1F1F',
                                         flex: 1,
@@ -85,7 +85,6 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                 </Text>
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(13),
                                         color: '#1F1F1F',
                                     }}
@@ -104,7 +103,7 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                     style={{
                                         flex: 1,
                                         marginLeft: scale(8),
-                                        fontFamily: FONTS.Mulish,
+
                                         color: '#6C746E',
                                         fontSize: scale(14),
                                     }}

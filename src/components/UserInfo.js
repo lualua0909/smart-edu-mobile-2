@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, Pressable, TextInput } from 'react-native'
+import { View, Pressable, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import {
     svgCompany,
@@ -11,14 +10,9 @@ import {
     svgEdit_3,
     svgGender,
 } from 'assets/svg'
+import { Text } from 'native-base'
 
-const UserInfo = ({
-    data,
-    onEditBirthday,
-    onEditGender,
-    onEditPassword,
-    onEditPhone,
-}) => {
+const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
     return (
         <View
             style={{
@@ -32,7 +26,7 @@ const UserInfo = ({
                 style={{
                     color: '#1F1F1F',
                     fontSize: scale(18),
-                    fontFamily: FONTS.MulishBold,
+
                     paddingHorizontal: scale(10),
                     paddingVertical: scale(7),
                 }}
@@ -69,7 +63,6 @@ const UserInfo = ({
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -80,7 +73,6 @@ const UserInfo = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -129,7 +121,6 @@ const UserInfo = ({
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -140,7 +131,6 @@ const UserInfo = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -189,7 +179,6 @@ const UserInfo = ({
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -200,7 +189,6 @@ const UserInfo = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -249,7 +237,6 @@ const UserInfo = ({
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -260,7 +247,6 @@ const UserInfo = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}
@@ -307,7 +293,6 @@ const UserInfo = ({
                     >
                         <TextInput
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
                             }}
@@ -318,7 +303,6 @@ const UserInfo = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#363E57',
                             }}

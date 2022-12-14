@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { View, Text, Pressable, Dimensions } from 'react-native'
+import { View, Pressable, Dimensions } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgComment, svgLoginButton } from 'assets/svg'
-import { FONTS, COLORS, API_URL } from 'app/constants'
+import { API_URL } from 'app/constants'
 import { TabView, TabBar } from 'react-native-tab-view'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {
@@ -25,6 +25,7 @@ import {
     Button,
     Modal,
     useToast,
+    Text,
 } from 'native-base'
 import useFormInput from 'app/helpers/useFormInput'
 import Countdown from 'react-countdown'
@@ -109,7 +110,6 @@ const CourseDetail = ({ route, navigation }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(14),
                             color: '#fff',
                         }}
@@ -349,7 +349,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <Text
                             style={{
                                 marginTop: scale(16),
-                                fontFamily: FONTS.MulishBold,
+
                                 fontSize: scale(22),
                                 color: '#1F1F1F',
                             }}
@@ -358,7 +358,6 @@ const CourseDetail = ({ route, navigation }) => {
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#6C746E',
                                 marginTop: scale(8),
@@ -381,7 +380,6 @@ const CourseDetail = ({ route, navigation }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(18),
                                     color: '#52B553',
                                 }}
@@ -462,7 +460,6 @@ const CourseDetail = ({ route, navigation }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(14),
                             color: '#52B553',
                         }}
@@ -481,7 +478,6 @@ const CourseDetail = ({ route, navigation }) => {
                                 <Text
                                     style={[
                                         {
-                                            fontFamily: FONTS.MulishBold,
                                             fontSize: scale(15),
                                             color: '#1F1F1F',
                                             textAlign: 'center',

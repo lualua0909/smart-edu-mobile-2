@@ -1,6 +1,5 @@
 import Config from 'react-native-config'
 
-export { default as FONTS } from './fonts'
 export { default as COLORS } from './colors'
 export { default as ROUTES } from './routes'
 export { default as STYLES } from './styles'

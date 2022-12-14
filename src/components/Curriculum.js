@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import { animateNextTransition } from 'app/helpers/utils'
-import { ChevronDownIcon, ChevronUpIcon } from 'native-base'
+import { ChevronDownIcon, ChevronUpIcon, Text } from 'native-base'
 import { useGlobalState } from 'app/Store'
 import { CheckCircle } from 'react-native-feather'
 
@@ -32,7 +31,6 @@ const Curriculum = ({ data, navigateToLesson }) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(16),
                         flex: 1,
                         color: '#000',
@@ -69,7 +67,6 @@ const Curriculum = ({ data, navigateToLesson }) => {
                             >
                                 <Text
                                     style={{
-                                        fontFamily: FONTS.Mulish,
                                         fontSize: scale(16),
                                         color: isFinished ? '#000' : '#b6b6b6',
                                     }}

@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1499C8842949C4F800B930D7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1499C8832949C4F800B930D7 /* Launch Screen.storyboard */; };
 		16C4DCCAC3ED4B269F81A4FF /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CA16B54EF7145AA9029860B /* Mulish-Bold.ttf */; };
 		31DBCE7900FD402FAD6BAC93 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA2EF11086F74FCAA7C47F10 /* Mulish-ExtraLight.ttf */; };
 		366E070115BF4F09A96273A2 /* Mulish-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 833E7FEE6AD547F4AE833D32 /* Mulish-LightItalic.ttf */; };
@@ -21,7 +22,6 @@
 		632EC5960F824A7EBD31C6A9 /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5A0363996A4AE581779752 /* Mulish-SemiBold.ttf */; };
 		730E195E38B244B5946E11C3 /* Mulish-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBAAE366989D412484BDA64C /* Mulish-ExtraBold.ttf */; };
 		79B86395CAD7465FAF2F9857 /* Mulish-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9CA813CAE3146BBA2BC986E /* Mulish-Medium.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		90B09FDE0C7B441B8C43BD15 /* Mulish-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85D92BDE220042C897290323 /* Mulish-Italic.ttf */; };
 		A21907202149402BBFD9ACC5 /* Mulish-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */; };
 		ABE0E9816AE74C7CBB90AEA7 /* Mulish-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9F02525B46F4E56BEEFEC29 /* Mulish-ExtraBoldItalic.ttf */; };
@@ -47,7 +47,6 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SmartTrainingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartTrainingTests.m; sourceTree = "<group>"; };
 		0541D49B59D6411DABC48DD5 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		0B9A050F7D46490F91C6A880 /* Inter-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Thin.ttf"; path = "../assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SmartTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SmartTraining/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SmartTraining/AppDelegate.m; sourceTree = "<group>"; };
@@ -55,9 +54,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SmartTraining/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SmartTraining/main.m; sourceTree = "<group>"; };
 		14801FC70D1D45764E9710CD /* Pods-SmartTraining-SmartTrainingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1499C8832949C4F800B930D7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1B5C3826ED8E98572FDE451F /* Pods-SmartTraining-SmartTrainingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; sourceTree = "<group>"; };
 		21A3774BF55F902DBB93B427 /* libPods-SmartTraining.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartTraining.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		21D92EFA5F3246478B22F1CE /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
 		232D90FF710E416CA023DE57 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		254AEB6DEB1744B082A50DAF /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		29AE577454F24BCBAFC98048 /* Mulish-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Black.ttf"; path = "../assets/fonts/Mulish-Black.ttf"; sourceTree = "<group>"; };
@@ -70,15 +69,12 @@
 		598251C043024D74AF93DEA7 /* Mulish-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Regular.ttf"; path = "../assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; };
 		5A9D33AFCBFC430F8FB9858D /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		5E714AE69C5743B59A21B754 /* Mulish-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-BlackItalic.ttf"; path = "../assets/fonts/Mulish-BlackItalic.ttf"; sourceTree = "<group>"; };
-		696E7B4E40A749538FE1B2F3 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.ttf"; path = "../assets/fonts/Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
 		6972BB977D14A56DD99615EC /* Pods-SmartTraining-SmartTrainingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		69EA069B88A346C5872D9F0F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		738720B1FD71ED461E043C83 /* Pods-SmartTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.release.xcconfig"; sourceTree = "<group>"; };
 		7B46CF56AE60451EA6C2C1BF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		7C03E025B9934C5AB85D6F04 /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
 		7E5A0363996A4AE581779752 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBold.ttf"; path = "../assets/fonts/Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
 		7F6A6EFD0E8349C09F9A6F68 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SmartTraining/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		833E7FEE6AD547F4AE833D32 /* Mulish-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-LightItalic.ttf"; path = "../assets/fonts/Mulish-LightItalic.ttf"; sourceTree = "<group>"; };
 		85D92BDE220042C897290323 /* Mulish-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Italic.ttf"; path = "../assets/fonts/Mulish-Italic.ttf"; sourceTree = "<group>"; };
 		89D59B9A734E47429CB47CB7 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -87,14 +83,9 @@
 		A102D69701E54EB0AF4387E5 /* Mulish-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBoldItalic.ttf"; path = "../assets/fonts/Mulish-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-ExtraLightItalic.ttf"; path = "../assets/fonts/Mulish-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		B204CE39A254EA3907830FC7 /* Pods-SmartTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.release.xcconfig"; sourceTree = "<group>"; };
-		B3CFB3C27C0B4327839E6763 /* Inter-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light.ttf"; path = "../assets/fonts/Inter-Light.ttf"; sourceTree = "<group>"; };
-		B55D43D6DC0943E6A9754584 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraLight.ttf"; path = "../assets/fonts/Inter-ExtraLight.ttf"; sourceTree = "<group>"; };
 		BE90DF79D908D25FF97B6094 /* Pods-SmartTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.debug.xcconfig"; sourceTree = "<group>"; };
-		C045984FD86D46769C180016 /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		C4A9B372394B56F370BF1130 /* Pods-SmartTraining-SmartTrainingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7A9BF6EA8054BE8AEF74085 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		D6AB5042CB2D4EB7AD6242B8 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
-		D94FC68A842846A5B8AAC128 /* Inter-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Black.ttf"; path = "../assets/fonts/Inter-Black.ttf"; sourceTree = "<group>"; };
 		D9CA813CAE3146BBA2BC986E /* Mulish-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Medium.ttf"; path = "../assets/fonts/Mulish-Medium.ttf"; sourceTree = "<group>"; };
 		D9F02525B46F4E56BEEFEC29 /* Mulish-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-ExtraBoldItalic.ttf"; path = "../assets/fonts/Mulish-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		E087FEC518E44B3B9D39D4F1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -151,8 +142,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				1499C8832949C4F800B930D7 /* Launch Screen.storyboard */,
 			);
 			name = SmartTraining;
 			sourceTree = "<group>";
@@ -186,15 +177,6 @@
 				33D54C276DEA47A5B5FD0A21 /* Octicons.ttf */,
 				E087FEC518E44B3B9D39D4F1 /* SimpleLineIcons.ttf */,
 				7F6A6EFD0E8349C09F9A6F68 /* Zocial.ttf */,
-				D94FC68A842846A5B8AAC128 /* Inter-Black.ttf */,
-				7C03E025B9934C5AB85D6F04 /* Inter-Bold.ttf */,
-				696E7B4E40A749538FE1B2F3 /* Inter-ExtraBold.ttf */,
-				B55D43D6DC0943E6A9754584 /* Inter-ExtraLight.ttf */,
-				B3CFB3C27C0B4327839E6763 /* Inter-Light.ttf */,
-				C045984FD86D46769C180016 /* Inter-Medium.ttf */,
-				21D92EFA5F3246478B22F1CE /* Inter-Regular.ttf */,
-				D6AB5042CB2D4EB7AD6242B8 /* Inter-SemiBold.ttf */,
-				0B9A050F7D46490F91C6A880 /* Inter-Thin.ttf */,
 				29AE577454F24BCBAFC98048 /* Mulish-Black.ttf */,
 				5E714AE69C5743B59A21B754 /* Mulish-BlackItalic.ttf */,
 				8CA16B54EF7145AA9029860B /* Mulish-Bold.ttf */,
@@ -357,7 +339,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C079B2CFF3BA46F6816F67D0 /* Mulish-Black.ttf in Resources */,
 				E7BA419EABA940428B2AF7BA /* Mulish-BlackItalic.ttf in Resources */,
@@ -370,6 +351,7 @@
 				90B09FDE0C7B441B8C43BD15 /* Mulish-Italic.ttf in Resources */,
 				3C08D4E87B974C64BEE70B2F /* Mulish-Light.ttf in Resources */,
 				366E070115BF4F09A96273A2 /* Mulish-LightItalic.ttf in Resources */,
+				1499C8842949C4F800B930D7 /* Launch Screen.storyboard in Resources */,
 				79B86395CAD7465FAF2F9857 /* Mulish-Medium.ttf in Resources */,
 				BF0B61C464A64E7F9141EB8D /* Mulish-MediumItalic.ttf in Resources */,
 				5B50655B047C4910B5373983 /* Mulish-Regular.ttf in Resources */,
@@ -628,6 +610,7 @@
 			baseConfigurationReference = 36F2FCBA389CAFDBF5BA1C7E /* Pods-SmartTraining.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -636,6 +619,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6FXA3GNJWR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart Training";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -662,6 +646,7 @@
 			baseConfigurationReference = B204CE39A254EA3907830FC7 /* Pods-SmartTraining.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -669,6 +654,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6FXA3GNJWR;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart Training";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

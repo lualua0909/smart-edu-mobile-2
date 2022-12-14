@@ -1,13 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
 import { svgList } from 'assets/svg'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Modal from 'react-native-modal'
 import Advise from 'app/components/advise'
-import TeacherItem from 'app/components/TeacherItem'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
+import { COLORS } from 'app/constants'
+import { Text } from 'native-base'
 
 const HotMentors = ({}) => {
     return (
@@ -30,7 +28,7 @@ const HotMentors = ({}) => {
                 <Text
                     style={{
                         marginLeft: scale(8),
-                        fontFamily: FONTS.MulishBold,
+
                         fontSize: scale(16),
                         color: '#0E564D',
                     }}

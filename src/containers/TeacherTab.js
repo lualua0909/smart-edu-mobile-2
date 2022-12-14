@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { svgCircleBook, svgCircleBag, svgCircleCompany } from 'assets/svg'
-import { FONTS } from 'app/constants'
 import { animateNextTransition } from 'app/helpers/utils'
 import { Avatar, NoData } from 'app/atoms'
 import { Center, VStack, ChevronDownIcon, ChevronUpIcon } from 'native-base'
 import Axios from 'app/Axios'
+import { Text } from 'native-base'
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
     const [data, setData] = useState()
@@ -49,7 +49,6 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(24),
                         color: '#0E564D',
                         alignSelf: 'center',
@@ -73,7 +72,7 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     <Text
                         style={{
                             marginLeft: scale(10),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(14),
                             color: '#202020',
                         }}
@@ -96,7 +95,7 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     <Text
                         style={{
                             marginLeft: scale(10),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(14),
                             color: '#202020',
                         }}
@@ -119,7 +118,7 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     <Text
                         style={{
                             marginLeft: scale(10),
-                            fontFamily: FONTS.Mulish,
+
                             fontSize: scale(14),
                             color: '#202020',
                         }}
@@ -171,7 +170,6 @@ const ExperienceItem = ({ title, data }) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.Mulish,
                         fontSize: scale(16),
                         flex: 1,
                         color: '#000',
@@ -205,7 +203,6 @@ const ExperienceItem = ({ title, data }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(16),
                                     color: '#000',
                                 }}

@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS } from 'app/constants'
 import Dash from 'react-native-dash'
 import LinearGradient from 'react-native-linear-gradient'
-
+import { Text } from 'native-base'
 const BarChart = ({ data, selectCourse }) => {
     return (
         <View
@@ -147,7 +146,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         position: 'absolute',
         zIndex: 1,
-        fontFamily: FONTS.Mulish,
+
         fontSize: scale(12),
         color: '#1F1F1F',
     },

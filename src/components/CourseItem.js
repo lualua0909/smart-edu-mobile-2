@@ -1,13 +1,13 @@
 import React from 'react'
-import { View, Text, Image, Pressable } from 'react-native'
+import { View, Image, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, ROUTES, COLORS, COURSE_IMG_PATH } from 'app/constants'
+import { ROUTES, COLORS, COURSE_IMG_PATH } from 'app/constants'
 import { SvgXml } from 'react-native-svg'
 import { svgTriangle } from 'assets/svg'
 import { useNavigation } from '@react-navigation/native'
 import { Rate } from 'app/atoms'
 import { toCurrency } from 'app/helpers/utils'
-import { Progress } from 'native-base'
+import { Progress, Text } from 'native-base'
 
 const CourseItem = ({
     item,
@@ -57,7 +57,6 @@ const CourseItem = ({
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(12),
                             color: '#fff',
                         }}
@@ -98,7 +97,6 @@ const CourseItem = ({
                 <Text
                     numberOfLines={3}
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(18),
                         color: '#333',
                     }}
@@ -116,7 +114,7 @@ const CourseItem = ({
                     <View style={{ marginLeft: scale(8) }}>
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
+                                
                                 fontSize: scale(14),
                                 color: '#6C746E',
                             }}
@@ -125,7 +123,7 @@ const CourseItem = ({
                         </Text>
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
+                                
                                 fontSize: scale(16),
                                 color: '#333',
                             }}
@@ -152,7 +150,7 @@ const CourseItem = ({
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
+                                    
                                     fontSize: scale(12),
                                     color: '#E8E8E8',
                                 }}
@@ -176,7 +174,6 @@ const CourseItem = ({
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(14),
                                 color: '#1F1F1F',
                             }}
@@ -196,7 +193,6 @@ const CourseItem = ({
                     {item?.old_price && (
                         <Text
                             style={{
-                                fontFamily: FONTS.Mulish,
                                 fontSize: scale(16),
                                 color: '#1D1D1D',
                                 textDecorationLine: 'line-through',
@@ -208,7 +204,6 @@ const CourseItem = ({
                     {item?.new_price && (
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishBold,
                                 fontSize: scale(18),
                                 color: '#1DA736',
                             }}

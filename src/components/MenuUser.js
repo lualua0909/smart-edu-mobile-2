@@ -1,17 +1,11 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import Modal from 'react-native-modal'
 import { scale } from 'app/helpers/responsive'
-import {
-    svgUser,
-    svgTabCourse,
-    svgCredit,
-    svgClock,
-    svgGrift,
-} from 'assets/svg'
-import FONTS from 'app/constants/fonts'
+import { svgUser, svgTabCourse, svgCredit, svgClock } from 'assets/svg'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text } from 'native-base'
 
 const MenuUser = ({
     userId,
@@ -100,7 +94,6 @@ const MenuUser = ({
                                     />
                                     <Text
                                         style={{
-                                            fontFamily: FONTS.Mulish,
                                             fontSize: scale(17),
                                             marginLeft: scale(15),
                                             flex: 1,

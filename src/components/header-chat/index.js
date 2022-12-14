@@ -1,21 +1,7 @@
 import React, { useMemo, useState } from 'react'
-import {
-    View,
-    Text,
-    Pressable,
-    Image,
-    ScrollView,
-    Dimensions,
-    ImageBackground,
-    FlatList,
-} from 'react-native'
-import Svg, { SvgXml } from 'react-native-svg'
+import { View, Pressable, Image, Dimensions } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
-import { TabView, TabBar } from 'react-native-tab-view'
-import { animateNextTransition } from 'app/helpers/utils'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import LinearGradient from 'react-native-linear-gradient'
+import { Text } from 'native-base'
 
 const { width } = Dimensions.get('window')
 const HeaderChat = ({}) => {
@@ -47,7 +33,6 @@ const HeaderChat = ({}) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(16),
                         color: '#0E564D',
                     }}
@@ -67,7 +52,6 @@ const HeaderChat = ({}) => {
             >
                 <Text
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(16),
                         color: '#fff',
                         left: -scale(10),

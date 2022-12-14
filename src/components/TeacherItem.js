@@ -1,14 +1,12 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { toCurrency } from 'app/helpers/utils'
-import { SvgXml } from 'react-native-svg'
-import { svgOrangeStar } from 'assets/svg'
 import { useNavigation } from '@react-navigation/native'
-import { FONTS, ROUTES } from 'app/constants'
+import { ROUTES } from 'app/constants'
 import { Avatar } from 'app/atoms'
 import { HStack, Center } from 'native-base'
 import { Star } from 'react-native-feather'
+import { Text } from 'native-base'
 
 const TeacherItem = ({ item, index }) => {
     const navigation = useNavigation()
@@ -52,7 +50,6 @@ const TeacherItem = ({ item, index }) => {
                         />
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(12),
                                 color: '#000',
                                 marginLeft: scale(4),
@@ -63,7 +60,6 @@ const TeacherItem = ({ item, index }) => {
                     </View>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishSemiBold,
                             fontSize: scale(12),
                             color: '#000',
                             marginLeft: scale(4),
@@ -77,7 +73,6 @@ const TeacherItem = ({ item, index }) => {
                 <Text
                     numberOfLines={1}
                     style={{
-                        fontFamily: FONTS.MulishBold,
                         fontSize: scale(18),
                         color: '#1F1F1F',
                     }}
@@ -100,7 +95,6 @@ const TeacherItem = ({ item, index }) => {
                     <Text
                         numberOfLines={2}
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(14),
                             color: '#6C746E',
                             marginTop: scale(4),
@@ -113,7 +107,6 @@ const TeacherItem = ({ item, index }) => {
                     <Text
                         numberOfLines={2}
                         style={{
-                            fontFamily: FONTS.Mulish,
                             fontSize: scale(14),
                             color: '#6C746E',
                             marginTop: scale(4),
@@ -131,7 +124,7 @@ const TeacherItem = ({ item, index }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.Mulish,
+                            
                             fontSize: scale(16),
                             color: '#6C746E',
                             textDecorationLine: 'line-through',
@@ -141,7 +134,7 @@ const TeacherItem = ({ item, index }) => {
                     </Text>
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
+                            
                             fontSize: scale(16),
                             color: '#52B553',
                             marginLeft: scale(8),

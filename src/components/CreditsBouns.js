@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
-import { FONTS } from 'app/constants'
 import { svgAchievement } from 'assets/svg'
 
 const CreditBouns = ({ data }) => {
@@ -31,7 +30,6 @@ const CreditBouns = ({ data }) => {
                 >
                     <Text
                         style={{
-                            fontFamily: FONTS.MulishBold,
                             fontSize: scale(16),
                             color: '#0E564D',
                             marginLeft: scale(8),
@@ -66,7 +64,6 @@ const CreditBouns = ({ data }) => {
                             />
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(17),
                                     marginLeft: scale(5),
                                     flex: 1,

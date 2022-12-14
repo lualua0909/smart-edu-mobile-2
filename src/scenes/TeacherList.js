@@ -1,46 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
-    Text,
-    TextInput,
     Pressable,
     FlatList,
     ScrollView,
     RefreshControl,
 } from 'react-native'
+import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
 import { SvgXml } from 'react-native-svg'
-import {
-    svgGreenStar,
-    svgOrangeStar,
-    svgGreenTeacher,
-    svgFilter,
-} from 'assets/svg'
+import { svgGreenTeacher } from 'assets/svg'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Modal from 'react-native-modal'
-import Advise from 'app/components/advise'
-import { FONTS, STYLES, ROUTES, COLORS } from 'app/constants'
-import { Avatar, Radio } from 'app/atoms'
-import {
-    Badge,
-    SearchIcon,
-    Center,
-    VStack,
-    Heading,
-    Input,
-    Icon,
-    HamburgerIcon,
-} from 'native-base'
-import HotMentors from 'app/components/HotMentors'
-import MentorList from 'app/components/MentorList'
+import { Radio } from 'app/atoms'
+import { Center, Input } from 'native-base'
 import { Search, Filter } from 'react-native-feather'
 import LottieView from 'lottie-react-native'
 import animationBanner from 'assets/animations/online-learning.json'
-import { useGlobalState } from 'app/Store'
 import Axios from 'app/Axios'
 import TeacherItem from 'app/components/TeacherItem'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
-import { debounce } from 'app/helpers/utils'
 
 const Teacher = ({ navigation, route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -105,7 +84,6 @@ const Teacher = ({ navigation, route }) => {
                     >
                         <Text
                             style={{
-                                fontFamily: FONTS.MulishSemiBold,
                                 fontSize: scale(16),
                                 color: '#0E564D',
                             }}
@@ -162,7 +140,6 @@ const Teacher = ({ navigation, route }) => {
                         >
                             <Text
                                 style={{
-                                    fontFamily: FONTS.Mulish,
                                     fontSize: scale(18),
                                     color: '#fff',
                                 }}
@@ -256,7 +233,7 @@ const Teacher = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(8),
-                                    fontFamily: FONTS.MulishBold,
+                                    
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                 }}
@@ -321,8 +298,6 @@ const Teacher = ({ navigation, route }) => {
                                                 />
                                                 <Text
                                                     style={{
-                                                        fontFamily:
-                                                            FONTS.MulishSemiBold,
                                                         fontSize: scale(12),
                                                         color: '#000',
                                                         marginLeft: scale(4),
@@ -333,8 +308,6 @@ const Teacher = ({ navigation, route }) => {
                                             </View>
                                             <Text
                                                 style={{
-                                                    fontFamily:
-                                                        FONTS.MulishSemiBold,
                                                     fontSize: scale(12),
                                                     color: '#000',
                                                     marginLeft: scale(4),
@@ -352,7 +325,7 @@ const Teacher = ({ navigation, route }) => {
                                     >
                                         <Text
                                             style={{
-                                                fontFamily: FONTS.MulishBold,
+                                                
                                                 fontSize: scale(16),
                                                 color: '#333',
                                             }}
@@ -397,7 +370,7 @@ const Teacher = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(8),
-                                    fontFamily: FONTS.MulishBold,
+
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                 }}
