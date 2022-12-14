@@ -208,10 +208,14 @@ const Menu = ({ route }) => {
                             }}
                         >
                             <Avatar userId={userInfo?.id} size={scale(60)} />
-                            <View style={{ flex: 1, marginLeft: scale(10) }}>
+                            <View
+                                style={{
+                                    marginLeft: scale(10),
+                                }}
+                            >
                                 <Text
                                     style={{
-                                        fontSize: scale(22),
+                                        fontSize: 20,
                                         color: '#fff',
                                     }}
                                 >

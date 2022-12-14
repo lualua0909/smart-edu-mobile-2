@@ -118,11 +118,10 @@ const ForgotPassword = ({ navigation }) => {
                         </View>
                         <Center>
                             <Button
-                                size="lg"
+                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang xử lý"
                                 style={{
-                                    backgroundColor: '#52B553',
                                     marginTop: scale(16),
                                     width: '70%',
                                 }}

@@ -17,10 +17,7 @@ const HeaderBack = ({ white = false, whiteBg = false }) => {
                 borderRadius: Dimensions.get('window').width * 0.5,
             }}
         >
-            <ChevronLeftIcon
-                size={scale(36)}
-                color={white ? 'white' : 'black'}
-            />
+            <ChevronLeftIcon size={22} color={white ? 'white' : 'black'} />
         </Pressable>
     )
 }
