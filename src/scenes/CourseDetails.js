@@ -25,6 +25,7 @@ import CommentTab from 'app/containers/CommentTab'
 import RenderHtml from 'react-native-render-html'
 import { Heart, Share2, BookOpen, ShoppingCart } from 'react-native-feather'
 import { useGlobalState } from 'app/Store'
+import Video from 'react-native-video'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -91,7 +92,6 @@ const CourseInfo = ({ navigation, route }) => {
                 })
                 .then((data) => {
                     setData(data?.data)
-                    console.log('auth-get-course-info', data.data)
                 })
                 .catch((err) => console.error(err))
                 .finally(() => setLoading(false))
@@ -301,12 +301,12 @@ const CourseInfo = ({ navigation, route }) => {
                 showsVerticalScrollIndicator={false}
             >
                 {data?.video_path ? (
-                    <WebView
-                        originWhitelist={['*']}
+                    <Video
+                        controls
                         source={{
                             uri: `${API_URL}public/${data?.video_path}`,
-                        }}
-                        style={{ height: 200, width: Math.min(w, h) }}
+                        }} // Can be a URL or a local file.
+                        style={{ height: 200, width: '100%' }}
                     />
                 ) : (
                     <Image

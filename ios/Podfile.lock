@@ -136,6 +136,8 @@ PODS:
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.1100)
   - PromisesObjC (2.1.1)
+  - PromisesSwift (2.1.1):
+    - PromisesObjC (= 2.1.1)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -357,6 +359,12 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
+  - react-native-video (6.0.0-alpha.4):
+    - React-Core
+    - react-native-video/Video (= 6.0.0-alpha.4)
+  - react-native-video/Video (6.0.0-alpha.4):
+    - PromisesSwift
+    - React-Core
   - react-native-webview (11.23.1):
     - React-Core
   - React-perflogger (0.68.0)
@@ -500,6 +508,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -548,6 +557,7 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
+    - PromisesSwift
     - SocketRocket
     - YogaKit
 
@@ -604,6 +614,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -680,6 +692,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  PromisesSwift: 99fddfe4a0ec88a56486644c0da106694c92a604
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: bab4a7c3d7eb9553b13773ee190f279712efd1fc
   RCTTypeSafety: efbeb6e450ff6cef8e19c2cb5314c6d8bfeeef77
@@ -699,6 +712,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: da490aa1f902c9a5aeecf0909cc975ad0e92e53e
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
+  react-native-video: b2a6434fa0cc7a5381985ca2af8f8c570f110743
   react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
   React-perflogger: 15cb741d6c2379f4d3fc8f9e4d4e1110ef3020cb
   React-RCTActionSheet: ea9099db0597bd769430db1e2d011fd5fdb7fc5e
@@ -724,6 +738,6 @@ SPEC CHECKSUMS:
   Yoga: 6671cf077f614314c22fd09ddf87d7abeee64e96
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c53040f302834305d11b5981e89cbf75eec157f7
+PODFILE CHECKSUM: ddb79b68835a103f968a0a42c681dc56f8b580a9
 
 COCOAPODS: 1.10.2

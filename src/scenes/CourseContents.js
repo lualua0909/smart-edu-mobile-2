@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { View, Pressable, Dimensions } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
-import { svgComment, svgLoginButton } from 'assets/svg'
+import { svgComment } from 'assets/svg'
 import { API_URL } from 'app/constants'
 import { TabView, TabBar } from 'react-native-tab-view'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -14,6 +14,8 @@ import {
     FinishCourse,
     EnglishReading,
     ExamViewer,
+    Input,
+    NoData,
 } from 'app/atoms'
 import LectureTab from 'app/containers/LectureTab'
 import Axios from 'app/Axios'
@@ -21,7 +23,6 @@ import { useGlobalState } from 'app/Store'
 import {
     TextArea,
     FormControl,
-    Input,
     Button,
     Modal,
     useToast,
@@ -29,8 +30,6 @@ import {
 } from 'native-base'
 import useFormInput from 'app/helpers/useFormInput'
 import Countdown from 'react-countdown'
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
-// import HeaderTitle from 'app/components/header-title'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -72,20 +71,94 @@ const CourseDetail = ({ route, navigation }) => {
     const [finishedLectures, setFinishedLectures] =
         useGlobalState('finishedLectures')
 
+    useEffect(() => {
+        const t = setTimeout(() => setHideHeaderTitle(true), 3000)
+
+        return () => {
+            clearTimeout(t)
+        }
+    }, [hideHeaderTitle])
+
+    const countdown = (
+        <Countdown
+            date={Date.now() + data?.time_to_skip * 1000}
+            renderer={({
+                total,
+                days,
+                hours,
+                minutes,
+                seconds,
+                milliseconds,
+                completed,
+            }) =>
+                renderer(
+                    {
+                        total,
+                        days,
+                        hours,
+                        minutes,
+                        seconds,
+                        milliseconds,
+                        completed,
+                    },
+                    smallSize
+                )
+            }
+        />
+    )
+
+    navigation.setOptions({
+        headerTitle: () => (
+            <>
+                {hideHeaderTitle ? null : (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            paddingVertical: 0,
+                        }}
+                    >
+                        <Button
+                            size={'xs'}
+                            onPress={prevLesson}
+                            variant="subtle"
+                            colorScheme="green"
+                            style={{
+                                marginRight: scale(12),
+                                width: 100,
+                            }}
+                        >
+                            Bài trước
+                        </Button>
+                        {data?.is_finish ? (
+                            <Button
+                                size={'xs'}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    width: 120,
+                                }}
+                                onPress={nextLesson}
+                            >
+                                Bài tiếp theo
+                            </Button>
+                        ) : (
+                            countdown
+                        )}
+                    </View>
+                )}
+            </>
+        ),
+        headerTransparent: true,
+    })
+
     const renderer = (
         { total, days, hours, minutes, seconds, milliseconds, completed },
         smallSize = false
     ) => {
         if (completed) {
             return (
-                <Button
-                    size={smallSize ? 'sm' : 'lg'}
-                    style={{
-                        backgroundColor: '#52B553',
-                    }}
-                    onPress={nextLesson}
-                    rightIcon={!smallSize && <ChevronRight stroke="white" />}
-                >
+                <Button size={smallSize ? 'sm' : 'lg'} onPress={nextLesson}>
                     Bài tiếp theo
                 </Button>
             )
@@ -121,88 +194,47 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
 
-    const renderActionButtons = (smallSize = false) => {
-        return hideHeaderTitle && smallSize ? null : (
-            <View
+    const renderActionButtons = (
+        <View
+            style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: scale(16),
+            }}
+        >
+            <Button
+                size={'sm'}
+                onPress={prevLesson}
+                variant="subtle"
+                // leftIcon={!smallSize && <ChevronLeft stroke="#52B553" />}
+                colorScheme="green"
                 style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingVertical: smallSize ? 0 : scale(16),
+                    marginRight: scale(12),
+                    width: 'auto',
                 }}
             >
+                Bài trước
+            </Button>
+            {data?.is_finish ? (
                 <Button
-                    size={smallSize ? 'xs' : 'sm'}
-                    onPress={prevLesson}
-                    variant="subtle"
-                    leftIcon={!smallSize && <ChevronLeft stroke="#52B553" />}
-                    colorScheme="green"
+                    size={'sm'}
                     style={{
-                        marginRight: scale(12),
-                        width: smallSize ? 100 : 'auto',
+                        backgroundColor: '#52B553',
+                        width: 'auto',
                     }}
+                    onPress={nextLesson}
+                    // rightIcon={
+                    //     !smallSize && <ChevronRight stroke="white" />
+                    // }
                 >
-                    Bài trước
+                    Bài tiếp theo
                 </Button>
-                {data?.is_finish ? (
-                    <Button
-                        size={smallSize ? 'xs' : 'sm'}
-                        style={{
-                            backgroundColor: '#52B553',
-                            width: smallSize ? 100 : 'auto',
-                        }}
-                        onPress={nextLesson}
-                        rightIcon={
-                            !smallSize && <ChevronRight stroke="white" />
-                        }
-                    >
-                        Bài tiếp theo
-                    </Button>
-                ) : (
-                    <Countdown
-                        date={Date.now() + data?.time_to_skip * 1000}
-                        renderer={({
-                            total,
-                            days,
-                            hours,
-                            minutes,
-                            seconds,
-                            milliseconds,
-                            completed,
-                        }) =>
-                            renderer(
-                                {
-                                    total,
-                                    days,
-                                    hours,
-                                    minutes,
-                                    seconds,
-                                    milliseconds,
-                                    completed,
-                                },
-                                smallSize
-                            )
-                        }
-                    />
-                )}
-            </View>
-        )
-    }
-
-    // useEffect(() => {
-    //     const t = setTimeout(() => setHideHeaderTitle(true), 3000)
-
-    //     return () => {
-    //         clearTimeout(t)
-    //     }
-    // }, [hideHeaderTitle])
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            title: <>{renderActionButtons(true)}</>,
-            headerTransparent: true,
-        })
-    }, [data, currentId, hideHeaderTitle])
+            ) : (
+                countdown
+            )}
+        </View>
+    )
 
     useEffect(() => {
         if (currentLecture) {
@@ -294,6 +326,7 @@ const CourseDetail = ({ route, navigation }) => {
                         }
                         style={{ padding: scale(16) }}
                     >
+                        <NoData />
                         {/* <CommentCard />
                         <View
                             style={{
@@ -348,10 +381,9 @@ const CourseDetail = ({ route, navigation }) => {
                         />
                         <Text
                             style={{
-                                marginTop: scale(16),
-
+                                paddingTop: 20,
+                                marginTop: scale(26),
                                 fontSize: scale(22),
-                                color: '#1F1F1F',
                             }}
                         >
                             Hiện chưa đặt câu hỏi nào
@@ -367,26 +399,16 @@ const CourseDetail = ({ route, navigation }) => {
                             Nội dung câu hỏi được bảo mật, chỉ có giảng viên và
                             bạn biết thôi nhé
                         </Text>
-                        <Pressable
+                        <Button
                             onPress={() => setVisibleQuestion(true)}
                             style={{
                                 paddingVertical: scale(10.5),
                                 paddingHorizontal: scale(31),
-                                borderWidth: 1,
-                                borderColor: '#52B553',
-                                borderRadius: scale(10),
                                 marginTop: scale(16),
                             }}
                         >
-                            <Text
-                                style={{
-                                    fontSize: scale(18),
-                                    color: '#52B553',
-                                }}
-                            >
-                                Đặt câu hỏi
-                            </Text>
-                        </Pressable>
+                            Đặt câu hỏi
+                        </Button>
                     </View>
                 )
             default:
@@ -467,7 +489,7 @@ const CourseDetail = ({ route, navigation }) => {
                         {data?.name}
                     </Text>
                 </View>
-                {renderActionButtons(false)}
+                {renderActionButtons}
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
                     renderScene={renderScene}
@@ -518,7 +540,7 @@ const CourseDetail = ({ route, navigation }) => {
                 isOpen={visibleQuestion}
                 onClose={() => setVisibleQuestion(false)}
             >
-                <Modal.Content maxWidth="400px" minHeight="90%">
+                <Modal.Content>
                     <Modal.CloseButton />
                     <Modal.Header>Gửi câu hỏi cho giảng viên</Modal.Header>
                     <Modal.Body>
@@ -543,16 +565,6 @@ const CourseDetail = ({ route, navigation }) => {
                             onPress={sendQuestion}
                             isLoading={questionLoading}
                             isLoadingText="Đang gửi câu hỏi..."
-                            style={{
-                                backgroundColor: '#52B553',
-                            }}
-                            leftIcon={
-                                <SvgXml
-                                    xml={svgLoginButton}
-                                    width={scale(16)}
-                                    height={scale(16)}
-                                />
-                            }
                         >
                             Gửi câu hỏi
                         </Button>

@@ -166,7 +166,7 @@ const ProfileInfo = ({ route }) => {
                                 onPress={deactiveAccount}
                                 variant="outline"
                             >
-                                Khóa tài khoản
+                                Xóa tài khoản
                             </Button>
                             <Input
                                 label="Họ"
