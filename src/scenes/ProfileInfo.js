@@ -1,387 +1,283 @@
 import React, { useState, useEffect } from 'react'
-import { View, Pressable, TextInput, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { SvgXml } from 'react-native-svg'
-import {
-    svgCompany,
-    svgBirth,
-    svgDeparment,
-    svgClipBoard,
-    svgLocation,
-    svgGender,
-} from 'assets/svg'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { ChevronLeftIcon, Text } from 'native-base'
-import Axios from 'app/Axios'
-import { DetailSkeleton, Avatar } from 'app/atoms'
+import { DetailSkeleton, Avatar, Input, showToast } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
+import { Button, Center, Image, Radio, VStack } from 'native-base'
+import Axios from 'app/Axios'
+import { API_URL } from 'app/constants'
+import { clearDataAfterLogout } from 'app/helpers/utils'
 
-const ProfileInfo = ({ navigation, route }) => {
-    const [userInfo, setUserState] = useGlobalState('userInfo')
+const ProfileInfo = ({ route }) => {
+    const [userInfo, _] = useGlobalState('userInfo')
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState(null)
+    const [data, setData] = useState({})
+
+    const [errors, setErrors] = useState(null)
+    const [random, setRandom] = useGlobalState('random')
+
+    const name = `${data?.first_name} ${data?.last_name}`
 
     useEffect(() => {
-        setLoading(true)
-        Axios.get(`get-user-info/${route?.params?.userId || userInfo?.id}`)
+        Axios.get(`get-user-info/${userInfo?.id}`)
             .then((res) => {
                 if (res.data.status === 200) {
                     const data = res.data.data
                     setData(data)
-                    console.log('get-user-info', data)
                 }
             })
             .finally(() => setLoading(false))
-    }, [route?.params])
+    }, [])
 
     if (loading || !data) {
         return <DetailSkeleton />
     }
 
+    const validate = () => {
+        if (data.name === undefined) {
+            setErrors({ ...errors, name: 'Name is required' })
+            return false
+        } else if (data.name.length < 4) {
+            setErrors({ ...errors, name: 'Name is too short' })
+            return false
+        }
+
+        return true
+    }
+
+    const deactiveAccount = () => {
+        setLoading(true)
+        Axios.get(`deactive-user`)
+            .then((res) => {
+                if (res.data.status === 200) {
+                    showToast({
+                        title: 'Thông báo',
+                        description: res?.data?.message,
+                        status: 'success',
+                    })
+
+                    clearDataAfterLogout()
+                }
+            })
+            .catch((err) => {
+                showToast({
+                    title: 'Thông báo',
+                    description: err?.message,
+                    status: 'error',
+                })
+            })
+            .finally(() => setLoading(false))
+    }
+
+    const onSubmit = () => {
+        if (validate()) {
+            setErrors(null)
+        }
+    }
+
+    const changeValue = (field, value) => {
+        const newData = { ...data, [field]: value }
+        setData(newData)
+    }
+
     return (
         <>
-            <View style={{ paddingVertical: scale(10) }}>
-                <SafeAreaView
+            <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+                <View
                     style={{
-                        flexDirection: 'row',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
+                        paddingBottom: 30,
                     }}
-                    edges={['top']}
                 >
-                    <Pressable
-                        hitSlop={15}
-                        onPress={() => navigation.goBack()}
-                        style={{ paddingHorizontal: scale(16) }}
-                    >
-                        <ChevronLeftIcon size={scale(36)} />
-                    </Pressable>
-                    <Text
+                    <Image
+                        alt="menu-banner.jpg'"
+                        source={{
+                            uri: `${API_URL}public/user-avatars/${userInfo?.id}-cover.webp?rand=${random}`,
+                        }}
+                        fallbackSource={require('assets/images/fallback.jpg')}
                         style={{
-                            fontSize: scale(16),
-                            color: '#4F4F4F',
+                            width: '100%',
+                            position: 'absolute',
+                            height: scale(210),
+                        }}
+                        resizeMode="cover"
+                    />
+                    {/* <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            paddingRight: scale(20),
+                            position: 'absolute',
+                            width: '100%',
+                            marginTop: scale(170),
                         }}
                     >
-                        THÔNG TIN CÁ NHÂN
-                    </Text>
-                    <View></View>
-                    <View></View>
-                </SafeAreaView>
-            </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[1]}
-            >
-                <View style={{ backgroundColor: '#E5E5E5', height: '100%' }}>
-                    <View
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                        }}
-                    >
+                        <Pressable
+                            style={{
+                                backgroundColor: '#aaa',
+                                borderRadius: 50,
+                                padding: 5,
+                            }}
+                        >
+                            <Ionicons
+                                name="cloud-upload"
+                                color="white"
+                                size={16}
+                            />
+                        </Pressable>
+                    </View> */}
+                    <View>
                         <View
                             style={{
-                                marginTop: scale(8),
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                paddingVertical: scale(20),
+                                borderRadius: scale(120),
+                                borderWidth: scale(2),
+                                borderColor: '#fff',
+                                marginTop: '40%',
                             }}
                         >
-                            {/* <QRCode value="http://awesome.link.qr" size={200} /> */}
+                            <Avatar userId={data?.id} size="120" name={name} />
                         </View>
-
-                        <View
+                        {/* <View
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
+                                justifyContent: 'flex-end',
+                                marginTop: scale(-40),
                             }}
                         >
-                            <SvgXml
-                                xml={svgBirth}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
+                            <Pressable
                                 style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
+                                    backgroundColor: '#aaa',
+                                    borderRadius: 50,
+                                    padding: 5,
                                 }}
                             >
-                                Ngày sinh
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                value={data?.birthday}
-                                editable={false}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
-                            }}
-                        >
-                            <SvgXml
-                                xml={svgGender}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
-                                }}
-                            >
-                                Giới tính
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                value={data?.gender === 2 ? 'Nữ' : 'Nam'}
-                                editable={false}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
-                            }}
-                        >
-                            <SvgXml
-                                xml={svgLocation}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
-                                }}
-                            >
-                                Sống tại
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                numberOfLines={2}
-                                multiline={true}
-                                value={data?.address}
-                                editable={false}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
-                            }}
-                        >
-                            <SvgXml
-                                xml={svgClipBoard}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
-                                }}
-                            >
-                                Chức vụ
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                numberOfLines={2}
-                                multiline={true}
-                                value={data?.position}
-                                editable={false}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
-                            }}
-                        >
-                            <SvgXml
-                                xml={svgDeparment}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
-                                }}
-                            >
-                                Bộ phận
-                            </Text>
-
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                numberOfLines={2}
-                                multiline={true}
-                                value={data?.department}
-                                editable={false}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-start',
-                                paddingHorizontal: scale(10),
-                                paddingVertical: scale(7),
-                            }}
-                        >
-                            <SvgXml
-                                xml={svgCompany}
-                                width={scale(24)}
-                                height={scale(24)}
-                                color="#6C746E"
-                            />
-
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#363E57',
-                                    marginLeft: scale(8),
-                                    width: '30%',
-                                }}
-                            >
-                                Công ty
-                            </Text>
-                            <TextInput
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#1F1F1F',
-                                    width: '60%',
-                                }}
-                                numberOfLines={2}
-                                multiline={true}
-                                value={data?.partner}
-                                editable={false}
-                            />
-                        </View>
-                        {/* <Pressable
-                            style={{
-                                borderWidth: 1,
-                                padding: scale(10),
-                                marginHorizontal: scale(20),
-                                borderRadius: scale(8),
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                marginVertical: scale(10),
-                                borderColor: '#E5E5E5',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: '#1F1F1F',
-                                    
-                                    fontSize: scale(16),
-                                }}
-                            >
-                                Nhấn để copy link
-                            </Text>
-                            <SvgXml
-                                xml={svgCopy}
-                                width={scale(20)}
-                                height={scale(20)}
-                                color="#6C746E"
-                                style={{ marginLeft: scale(5) }}
-                            />
-                        </Pressable> */}
-                        {/* <Pressable
-                            style={{
-                                borderWidth: 1,
-                                padding: scale(10),
-                                marginHorizontal: scale(20),
-                                borderRadius: scale(8),
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                marginVertical: scale(20),
-                                color: '#FFFFFF',
-                                borderColor: '#E5E5E5',
-                                backgroundColor: '#52B553',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                            }}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.EditProfile)
-                            }
-                        >
-                            <SvgXml
-                                xml={svgEdit_1}
-                                width={scale(20)}
-                                height={scale(20)}
-                                color="#FFFFFF"
-                                style={{ marginRight: scale(5) }}
-                            />
-                            <Text
-                                style={{
-                                    color: '#FFFFFF',
-                                    
-                                    fontSize: scale(16),
-                                }}
-                            >
-                                Sửa thông tin
-                            </Text>
-                        </Pressable> */}
+                                <Ionicons
+                                    name="md-camera"
+                                    color="white"
+                                    size={16}
+                                />
+                            </Pressable>
+                        </View> */}
                     </View>
+                    <Center style={{ marginTop: 20 }}>
+                        <VStack width="90%" mx="3" maxW="300px" space="3">
+                            <Button
+                                colorScheme="red"
+                                onPress={deactiveAccount}
+                                variant="outline"
+                            >
+                                Khóa tài khoản
+                            </Button>
+                            <Input
+                                label="Họ"
+                                w={'100%'}
+                                value={data?.first_name}
+                                onChangeText={(value) =>
+                                    changeValue('first_name', value)
+                                }
+                                error={errors?.name}
+                            />
+                            <Input
+                                label="Tên"
+                                w={'100%'}
+                                value={data?.last_name}
+                                error={errors?.name}
+                            />
+                            {/* <Input
+                                label="Số điện thoại"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.phone}
+                                error={errors?.phone}
+                            /> */}
+                            <Input
+                                label="Email"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.email}
+                                error={errors?.email}
+                            />
+                            {/* <DateTimePicker
+                                isDisabled
+                                date={new Date(data?.birthday)}
+                                inputProps={{
+                                    error: errors?.birthday,
+                                    label: 'Ngày sinh',
+                                }}
+                                onChange={(event, selectedDate) => {
+                                    const old = dayjs(new Date()).diff(
+                                        selectedDate,
+                                        'year'
+                                    )
+                                    if (old > 10) {
+                                        changeValue('birthday', selectedDate)
+                                        setErrors({ ...errors, birthday: null })
+                                    } else {
+                                        setErrors({
+                                            ...errors,
+                                            birthday:
+                                                'Người dùng phải lớn hơn 10 tuổi',
+                                        })
+                                    }
+                                }}
+                            /> */}
+                            <Radio.Group
+                                name="myRadioGroup"
+                                accessibilityLabel="favorite number"
+                                value={data?.gender}
+                                onChange={(selectedValue) =>
+                                    changeValue('gender', selectedValue)
+                                }
+                            >
+                                <Radio value={1} my={1} size="sm" isDisabled>
+                                    Nam
+                                </Radio>
+                                <Radio value={2} size="sm" isDisabled>
+                                    Nữ
+                                </Radio>
+                            </Radio.Group>
+                            <Input
+                                label="Địa chỉ"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.address}
+                                error={errors?.address}
+                            />
+                            <Input
+                                label="Công ty"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.partner}
+                                error={errors?.partner}
+                            />
+                            <Input
+                                label="Chức vụ"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.position}
+                                error={errors?.position}
+                            />
+                            <Input
+                                label="Bộ phận"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.department}
+                                error={errors?.department}
+                            />
+
+                            <Input
+                                label="Tài khoản đăng nhập"
+                                isDisabled
+                                w={'100%'}
+                                value={data?.username}
+                                error={errors?.username}
+                            />
+
+                            {/* <Button onPress={onSubmit} mt="5">
+                                Thay đổi thông tin
+                            </Button> */}
+                        </VStack>
+                    </Center>
                 </View>
             </ScrollView>
         </>

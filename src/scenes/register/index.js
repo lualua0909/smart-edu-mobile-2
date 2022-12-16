@@ -32,9 +32,6 @@ const Register = ({ navigation }) => {
         } else if (lastName.value == '') {
             toast.show({ title: 'Last name is required', status: 'error' })
             return false
-        } else if (phone.value == '') {
-            toast.show({ title: 'Phone is required', status: 'error' })
-            return false
         } else if (email.value == '') {
             toast.show({ title: 'Email is required', status: 'error' })
             return false

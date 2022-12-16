@@ -42,12 +42,13 @@ const TeacherInfo = ({ navigation, route }) => {
     useEffect(() => {
         if (id) {
             setLoading(true)
-            Axios.get(`get-mentor-info/${id}`)
+            Axios.get(`users/get-mentor-info/${id}`)
                 .then((res) => {
                     if (res.data.status === 200) {
                         setData(res.data)
                     }
                 })
+                .catch((err) => console.error(err.message))
                 .finally(() => setLoading(false))
         }
     }, [id])

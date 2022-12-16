@@ -13,7 +13,7 @@ const HeaderBack = ({ white = false, whiteBg = false }) => {
             hitSlop={15}
             style={{
                 marginLeft: scale(15),
-                backgroundColor: '#fff',
+                backgroundColor: 'transparent',
                 borderRadius: Dimensions.get('window').width * 0.5,
             }}
         >

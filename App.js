@@ -171,7 +171,9 @@ const theme = extendTheme({
                 sm: { px: 6, py: 1 },
             },
             variants: {
-                outline: { borderColor: '#52B553' },
+                outline: ({ colorScheme }) => {
+                    return { borderColor: `${colorScheme}.500` }
+                },
             },
         },
         Heading: {

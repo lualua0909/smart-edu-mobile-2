@@ -1,5 +1,5 @@
 import axios from 'react-native-axios'
-import { ToastAndroid, Platform, AlertIOS } from 'react-native'
+import { ToastAndroid, Platform, Alert } from 'react-native'
 import { API_URL } from 'app/constants'
 import { getGlobalState } from 'app/Store'
 import { clearDataAfterLogout } from 'app/helpers/utils'
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
             if (Platform.OS === 'android') {
                 ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.TOP)
             } else {
-                AlertIOS.alert(msg)
+                Alert.alert(msg)
             }
             clearDataAfterLogout()
         }

@@ -15,7 +15,7 @@ const CourseItem = ({ data, index }) => {
                 width: '100%',
                 borderWidth: 1,
                 borderColor: '#d9d9d9',
-                borderRadius: scale(10),
+                borderRadius: scale(5),
                 borderBottomWidth: scale(6),
                 borderBottomColor: COLORS.green,
                 marginBottom: 10,
@@ -29,16 +29,14 @@ const CourseItem = ({ data, index }) => {
                 fallbackSource={chungchiSE}
                 style={{
                     width: '100%',
-                    height: scale(150),
-                    borderTopLeftRadius: scale(10),
-                    borderTopRightRadius: scale(10),
+                    height: 164,
+                    backgroundColor: '#f5f5f5',
                 }}
-                defaultSource={require('assets/images/chung-chi-SE.png')}
             />
             <View
                 style={{
                     paddingHorizontal: scale(15),
-                    paddingVertical: scale(24),
+                    paddingVertical: scale(15),
                 }}
             >
                 <Text
@@ -55,7 +53,6 @@ const CourseItem = ({ data, index }) => {
                     style={{
                         fontSize: scale(12),
                         color: '#333',
-                        marginTop: 10,
                     }}
                 >
                     {toRelativeTime(data?.release_date)}

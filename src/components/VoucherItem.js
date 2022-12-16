@@ -1,8 +1,7 @@
 import React from 'react'
 import { View, Pressable, Image } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { Text } from 'native-base'
-import CheckBox from '@react-native-community/checkbox'
+import { Text, Checkbox } from 'native-base'
 
 const VoucherItem = ({ value, index }) => {
     return (
@@ -83,7 +82,7 @@ const VoucherItem = ({ value, index }) => {
                         </Text>
                     </View>
                 </View>
-                <CheckBox value={true} />
+                <Checkbox isChecked colorScheme="green" />
             </View>
         </Pressable>
     )

@@ -6,11 +6,11 @@ import Axios from 'app/Axios'
 import useFormInput from 'app/helpers/useFormInput'
 import EncryptedStorage from 'react-native-encrypted-storage'
 import { useGlobalState } from 'app/Store'
-import { Input, Stack, Button, useToast, Center, Text } from 'native-base'
+import { Stack, Button, Center, Text } from 'native-base'
 import messaging from '@react-native-firebase/messaging'
+import { Input, showToast } from 'app/atoms'
 
 const Login = ({ navigation }) => {
-    const toast = useToast()
     const username = useFormInput('')
     const password = useFormInput('')
     const fcmToken = useFormInput('')
@@ -36,7 +36,6 @@ const Login = ({ navigation }) => {
             })
                 .then((res) => {
                     if (res.data.status === 200) {
-                        console.log(res.data)
                         // if (firebase.messaging.isSupported()) {
                         //     getNewToken()
                         // }
@@ -47,26 +46,23 @@ const Login = ({ navigation }) => {
                             JSON.stringify(res?.data)
                         )
                     } else {
-                        toast.show({
+                        showToast({
                             title: res.data.message,
-                            placement: 'top',
-                            status: 'danger',
+                            status: 'error',
                         })
                     }
                 })
                 .catch((error) => {
-                    toast.show({
+                    showToast({
                         title: error.message,
-                        placement: 'top',
-                        status: 'danger',
+                        status: 'error',
                     })
                 })
                 .finally(() => setLoading(false))
         } else {
-            toast.show({
+            showToast({
                 title: 'Vui lòng nhập đầy đủ thông tin',
-                placement: 'top',
-                status: 'danger',
+                status: 'error',
             })
         }
     }

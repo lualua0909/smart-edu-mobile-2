@@ -234,7 +234,10 @@ const AppNavigator = () => {
                 name={ROUTES.ProfileInfo}
                 component={ProfileInfo}
                 options={({ route, navigation }) => ({
-                    headerShown: false,
+                    headerTitle: () => (
+                        <HeaderTitle title={'Thông tin cá nhân'} />
+                    ),
+                    headerLeft: () => <HeaderBack />,
                 })}
             />
             <Stack.Screen

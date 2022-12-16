@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Pressable, ScrollView } from 'react-native'
-import { Text } from 'native-base'
+import { Text, Avatar, InfoOutlineIcon } from 'native-base'
 import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
@@ -36,31 +36,26 @@ const NotificationDetail = ({ route, navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={{ paddingTop: scale(24) }}>
-                <View
+            <ScrollView contentContainerStyle={{ paddingTop: scale(40) }}>
+                <Avatar
+                    size="lg"
+                    bg="green.700"
                     style={{
-                        width: scale(48),
-                        height: scale(48),
-                        borderRadius: scale(48),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: '#52B553',
                         alignSelf: 'center',
                     }}
                 >
-                    <SvgXml
-                        xml={svgWhiteBook}
-                        width={scale(27)}
-                        height={scale(27)}
+                    <InfoOutlineIcon
+                        color="white"
+                        style={{ width: 38, height: 38 }}
                     />
-                </View>
+                </Avatar>
                 <View style={{ paddingHorizontal: scale(16) }}>
                     <Text
                         style={{
-                            marginTop: scale(16),
-
-                            fontSize: scale(28),
-                            color: '#1D1D1D',
+                            paddingTop: 40,
+                            fontWeight: 'bold',
+                            fontSize: scale(20),
+                            color: '#6C746E',
                         }}
                     >
                         {data?.title}
@@ -68,8 +63,7 @@ const NotificationDetail = ({ route, navigation }) => {
                     <Text
                         style={{
                             marginTop: scale(8),
-
-                            fontSize: scale(14),
+                            fontSize: scale(12),
                             color: '#6C746E',
                         }}
                     >
@@ -79,55 +73,49 @@ const NotificationDetail = ({ route, navigation }) => {
                 <View style={{ padding: scale(16) }}>
                     <Text
                         style={{
-                            fontSize: scale(16),
+                            fontSize: scale(14),
                             color: '#222',
                         }}
                     >
                         {data?.content}
                     </Text>
-                    {data?.link ? (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignSelf: 'center',
-                                marginTop: scale(16),
-                            }}
-                        >
-                            <Pressable
-                                style={{
-                                    paddingVertical: scale(10),
-                                    borderWidth: 1,
-                                    borderColor: '#52B553',
-                                    backgroundColor: '#52B553',
-                                    borderRadius: scale(10),
-                                    paddingHorizontal: scale(13),
-                                }}
-                                onPress={() => {
-                                    if (
-                                        data?.link?.includes('course-details')
-                                    ) {
-                                        const courseId =
-                                            data?.link?.split('/')[1]
-                                        if (courseId) {
-                                            navigation.navigate('CourseInfo', {
-                                                id: courseId,
-                                            })
-                                        }
-                                    }
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: scale(14),
-                                        color: '#fff',
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Truy cập vào khóa học
-                                </Text>
-                            </Pressable>
-                        </View>
-                    ) : null}
+                    {/* {data?.link ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center',
+                marginTop: scale(16),
+              }}>
+              <Pressable
+                style={{
+                  paddingVertical: scale(10),
+                  borderWidth: 1,
+                  borderColor: '#52B553',
+                  backgroundColor: '#52B553',
+                  borderRadius: scale(10),
+                  paddingHorizontal: scale(13),
+                }}
+                onPress={() => {
+                  if (data?.link?.includes('course-details')) {
+                    const courseId = data?.link?.split('/')[1];
+                    if (courseId) {
+                      navigation.navigate('CourseInfo', {
+                        id: courseId,
+                      });
+                    }
+                  }
+                }}>
+                <Text
+                  style={{
+                    fontSize: scale(14),
+                    color: '#fff',
+                    textAlign: 'center',
+                  }}>
+                  Truy cập vào khóa học
+                </Text>
+              </Pressable>
+            </View>
+          ) : null} */}
                 </View>
             </ScrollView>
         </View>

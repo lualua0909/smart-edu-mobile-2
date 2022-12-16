@@ -26,7 +26,6 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                 style={{
                     color: '#1F1F1F',
                     fontSize: scale(18),
-
                     paddingHorizontal: scale(10),
                     paddingVertical: scale(7),
                 }}
