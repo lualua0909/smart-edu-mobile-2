@@ -22,11 +22,26 @@ export default ({ videoUrl }) => {
     return (
         <>
             {loading && <Text>Loading</Text>}
-            {isYoutube || isBunnyVideo ? (
+            {isYoutube ? (
                 <WebView
                     originWhitelist={['*']}
                     source={{
                         uri: embedLink,
+                    }}
+                    style={{
+                        height: Math.min(w, h),
+                        width: Math.max(w, h),
+                        border: 'none',
+                    }}
+                    onLoadEnd={(syntheticEvent) => {
+                        setLoading(false)
+                    }}
+                />
+            ) : isBunnyVideo ? (
+                <WebView
+                    originWhitelist={['*']}
+                    source={{
+                        html: embedLink,
                     }}
                     style={{
                         height: Math.min(w, h),

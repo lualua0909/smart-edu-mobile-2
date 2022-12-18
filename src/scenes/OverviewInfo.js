@@ -6,7 +6,6 @@ import { scale } from 'app/helpers/responsive'
 import { svgFourSquares, svgBlueViewMore, svgBlackHome } from 'assets/svg'
 import { STYLES } from 'app/constants'
 import CourseItem from 'app/components/CourseItem'
-import Dash from 'react-native-dash'
 import CourseOverviewChart from 'app/components/CourseOverviewChart'
 import ComingExam from 'app/components/ComingExamCard'
 import TeacherItem from 'app/components/TeacherItem'
@@ -759,7 +758,7 @@ const Notifications = ({ title, data }) => {
                                                 }}
                                             />
                                         </View>
-                                        <Dash
+                                        {/* <Dash
                                             style={{
                                                 width: 1,
                                                 height: '100%',
@@ -768,7 +767,7 @@ const Notifications = ({ title, data }) => {
                                                 zIndex: -1,
                                             }}
                                             dashColor="#4063E0"
-                                        />
+                                        /> */}
                                     </View>
                                     <View
                                         style={{

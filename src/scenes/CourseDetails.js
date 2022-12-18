@@ -300,6 +300,20 @@ const CourseInfo = ({ navigation, route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
             >
+                {/* <WebView
+                    originWhitelist={['*']}
+                    source={{
+                        html: '<iframe src="https://iframe.mediadelivery.net/embed/71567/53226452-5a34-4c6e-b4af-5d03acfc3b13?autoplay=true" loading="lazy" style="border: none; position: absolute; top: 0; height: 100%; width: 100%;" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>',
+                    }}
+                    style={{
+                        height: 200,
+                        width: 400,
+                        border: 'none',
+                    }}
+                    onLoadEnd={(syntheticEvent) => {
+                        setLoading(false)
+                    }}
+                /> */}
                 {data?.video_path ? (
                     <Video
                         controls
