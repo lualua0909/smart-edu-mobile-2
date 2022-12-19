@@ -79,7 +79,7 @@ const CourseInfo = ({ navigation, route }) => {
             setLoading(true)
             Axios.get(`auth-get-course-info/${id}`)
                 .then((res) => {
-                    if (res.data && res.data.status === 200) {
+                    if (res.data && res?.data?.status === 200) {
                         return res.data
                     } else {
                         toast.show({
@@ -123,7 +123,7 @@ const CourseInfo = ({ navigation, route }) => {
                             >
                                 Mô tả chi tiết
                             </Text>
-                            {data?.l_des && (
+                            {/* {data?.l_des && (
                                 <RenderHtml
                                     contentWidth={w}
                                     source={{
@@ -139,7 +139,7 @@ const CourseInfo = ({ navigation, route }) => {
                                         },
                                     }}
                                 />
-                            )}
+                            )} */}
                         </VStack>
                     </View>
                 )
@@ -153,10 +153,10 @@ const CourseInfo = ({ navigation, route }) => {
                             })
                         }
                     >
-                        <LectureTab
+                        {/* <LectureTab
                             courseId={data?.id}
                             totalLectures={data?.total_lectures}
-                        />
+                        /> */}
                     </View>
                 )
             case 'tab-3':
@@ -264,7 +264,7 @@ const CourseInfo = ({ navigation, route }) => {
         setLoadingVerify(true)
         Axios.get('courses/verify/' + data?.slug)
             .then((res) => {
-                if (res.data.status === 200) {
+                if (res?.data?.status === 200) {
                     if (res?.data?.survey) {
                         toast.show({
                             title: 'Thông báo từ hệ thống',
@@ -317,9 +317,8 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             width: '100%',
                             height: scale(200),
-                            borderTopLeftRadius: scale(10),
-                            borderTopRightRadius: scale(10),
                         }}
+                        fallbackSource={require('assets/images/fallback.jpg')}
                     />
                 )}
                 <View
