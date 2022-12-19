@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { View, StatusBar, FlatList, Text } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, StatusBar } from 'react-native'
 import { scale } from 'app/helpers/responsive'
 import CartItem from 'app/components/CartItem'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { NoData } from 'app/atoms'
 import { getData } from 'app/helpers/utils'
 import { useGlobalState } from 'app/Store'
+import { Text, FlatList, Button } from 'native-base'
 
 const Carts = ({ navigation }) => {
     const [carts, setCarts] = useGlobalState('carts')
@@ -51,28 +52,15 @@ const Carts = ({ navigation }) => {
                             </Text>{' '}
                             khóa học nào trong giỏ hàng
                         </Text>
-                        <Pressable
+                        <Button
+                            size="lg"
                             style={{
-                                backgroundColor: '#52B553',
-                                padding: 10,
-                                alignContent: 'center',
-                                alignSelf: 'center',
-                                borderRadius: 5,
                                 marginTop: scale(10),
-                                paddingLeft: scale(30),
-                                paddingRight: scale(30),
                             }}
                             onPress={() => navigation.navigate('CourseList')}
                         >
-                            <Text
-                                style={{
-                                    color: '#FFFFFF',
-                                    fontSize: scale(16),
-                                }}
-                            >
-                                Xem khóa học
-                            </Text>
-                        </Pressable>
+                            Xem khóa học
+                        </Button>
                     </View>
                 </View>
             ) : (

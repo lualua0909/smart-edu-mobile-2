@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import Dash from 'react-native-dash'
 import LinearGradient from 'react-native-linear-gradient'
 import { Text } from 'native-base'
 const BarChart = ({ data, selectCourse }) => {
@@ -24,12 +23,12 @@ const BarChart = ({ data, selectCourse }) => {
                         %
                     </Text>
                     <Text style={styles.textPercent}>100</Text>
-                    <Dash
+                    {/*<Dash
                         style={{ flex: 1, height: 1 }}
                         dashColor="#1F1F1F20"
                         dashThickness={1}
                         dashLength={6}
-                    />
+                    />*/}
                 </View>
                 <View
                     style={{
@@ -40,12 +39,12 @@ const BarChart = ({ data, selectCourse }) => {
                     }}
                 >
                     <Text style={styles.textPercent}>80</Text>
-                    <Dash
+                    {/*<Dash
                         style={{ flex: 1, height: 1 }}
                         dashColor="#1F1F1F20"
                         dashThickness={1}
                         dashLength={6}
-                    />
+                    />*/}
                 </View>
                 <View
                     style={{
@@ -56,12 +55,12 @@ const BarChart = ({ data, selectCourse }) => {
                     }}
                 >
                     <Text style={styles.textPercent}>60</Text>
-                    <Dash
+                    {/*<Dash
                         style={{ flex: 1, height: 1 }}
                         dashColor="#1F1F1F20"
                         dashThickness={1}
                         dashLength={6}
-                    />
+                    />*/}
                 </View>
                 <View
                     style={{
@@ -72,12 +71,12 @@ const BarChart = ({ data, selectCourse }) => {
                     }}
                 >
                     <Text style={styles.textPercent}>40</Text>
-                    <Dash
+                    {/*<Dash
                         style={{ flex: 1, height: 1 }}
                         dashColor="#1F1F1F20"
                         dashThickness={1}
                         dashLength={6}
-                    />
+                    />*/}
                 </View>
                 <View
                     style={{
@@ -88,12 +87,12 @@ const BarChart = ({ data, selectCourse }) => {
                     }}
                 >
                     <Text style={styles.textPercent}>20</Text>
-                    <Dash
+                    {/*<Dash
                         style={{ flex: 1, height: 1 }}
                         dashColor="#1F1F1F20"
                         dashThickness={1}
                         dashLength={6}
-                    />
+                    />*/}
                 </View>
                 <View
                     style={{
