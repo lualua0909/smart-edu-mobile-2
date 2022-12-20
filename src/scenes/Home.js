@@ -24,37 +24,25 @@ const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
-    const [loading, setLoading] = useState(false)
     const [random, setRandom] = useGlobalState('random')
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
-        Axios.get('courses/get-list-in-dashboard')
-            .then((res) => {
-                if (res.data.status === 200) {
-                    setDashboardInfo(res?.data)
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            .finally(() => setLoading(false))
+        Axios.get('courses/get-list-in-dashboard').then((res) => {
+            if (res.data.status === 200) {
+                setDashboardInfo(res?.data)
+            }
+        })
     }, [])
 
     useEffect(() => {
-        Axios.get('homepage-info')
-            .then((res) => {
-                setHomeInfo(res?.data?.data)
-                const lastestVersion = res?.data?.data?.lastest_version || ''
-                if (lastestVersion !== DeviceInfo.getVersion())
-                    setShowModal(true)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        Axios.get('homepage-info/iOS').then((res) => {
+            setHomeInfo(res?.data?.data)
+            const lastestVersion = res?.data?.data?.lastest_version || ''
+            if (lastestVersion !== DeviceInfo.getReadableVersion()) {
+                setShowModal(true)
+            }
+        })
     }, [])
 
     return (
@@ -68,11 +56,8 @@ const Home = ({ navigation }) => {
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            paddingTop: scale(26),
                             paddingBottom: scale(16),
                             paddingHorizontal: scale(16),
-                            borderTopWidth: scale(8),
-                            borderTopColor: COLORS.borderGrey,
                         }}
                     >
                         <Avatar userId={userInfo?.id} />
@@ -104,8 +89,6 @@ const Home = ({ navigation }) => {
                     </Pressable>
                     <View
                         style={{
-                            borderTopWidth: scale(8),
-                            borderTopColor: COLORS.borderGrey,
                             padding: scale(16),
                         }}
                     >
@@ -310,8 +293,6 @@ const Home = ({ navigation }) => {
                     </View>
                     <View
                         style={{
-                            borderTopWidth: scale(8),
-                            borderTopColor: COLORS.borderGrey,
                             padding: scale(16),
                         }}
                     >
@@ -414,8 +395,6 @@ const Home = ({ navigation }) => {
 
                     <View
                         style={{
-                            borderTopWidth: scale(8),
-                            borderTopColor: COLORS.borderGrey,
                             paddingVertical: scale(16),
                         }}
                     >
@@ -462,8 +441,6 @@ const Home = ({ navigation }) => {
 
                     <View
                         style={{
-                            borderTopWidth: scale(8),
-                            borderTopColor: COLORS.borderGrey,
                             paddingVertical: scale(16),
                         }}
                     >

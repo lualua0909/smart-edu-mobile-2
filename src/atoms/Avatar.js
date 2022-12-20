@@ -19,7 +19,6 @@ const AvatarImage = ({ name, userId, isSquare = false, size = 84 }) => {
         <Avatar
             shadow="5"
             size={size}
-            bg="green.700"
             source={{
                 uri: `${API_URL}public/user-avatars/${
                     userId || userInfoState?.id
@@ -28,8 +27,6 @@ const AvatarImage = ({ name, userId, isSquare = false, size = 84 }) => {
             _text={{
                 fontSize: scale(size / 3),
             }}
-            borderRadius={isSquare ? 'md' : null}
-            style={[{ borderColor: '#eee', borderWidth: 1 }]}
         >
             {name && getAcronym(name)}
         </Avatar>

@@ -54,7 +54,7 @@ const Menu = ({ route }) => {
     const navigation = useNavigation()
     const [visibleWarning, setVisibleWarning] = useState(false)
     const [visibleComingSoon, setVisibleComingSoon] = useState(false)
-    const [userInfo, setUserState] = useGlobalState('userInfo')
+    const [userInfo, _] = useGlobalState('userInfo')
     const [carts, setCarts] = useGlobalState('carts')
 
     useEffect(() => {
@@ -125,13 +125,11 @@ const Menu = ({ route }) => {
         {
             title: 'Đăng xuất',
             icon: <LogOut stroke="#52B553" width={18} height={18} />,
-            onPress: () => logout(),
+            onPress: () => clearDataAfterLogout(),
         },
     ]
 
-    const logout = () => {
-        clearDataAfterLogout()
-    }
+    const closeModal = () => setVisibleWarning(false)
 
     const modalComingSoon = (
         <Modal
@@ -288,7 +286,6 @@ const Menu = ({ route }) => {
                 </ImageBackground>
                 <View
                     style={{
-                        marginTop: scale(8),
                         backgroundColor: '#fff',
                         paddingVertical: scale(16),
                     }}
@@ -314,7 +311,7 @@ const Menu = ({ route }) => {
                             <Text style={styles.formViewMoreText}>
                                 Xem quá trình học tập
                             </Text>
-                            <ChevronRightIcon size={scale(18)} />
+                            <ChevronRightIcon size={scale(12)} />
                         </Pressable>
                     </View>
                     <View
@@ -354,7 +351,6 @@ const Menu = ({ route }) => {
                 </View>
                 <View
                     style={{
-                        marginTop: scale(8),
                         backgroundColor: '#fff',
                         paddingVertical: scale(16),
                     }}
@@ -433,7 +429,6 @@ const Menu = ({ route }) => {
                 </View>
                 <View
                     style={{
-                        marginTop: scale(8),
                         backgroundColor: '#fff',
                         paddingVertical: scale(16),
                     }}
@@ -482,7 +477,6 @@ const Menu = ({ route }) => {
                 </View>
                 <View
                     style={{
-                        marginTop: scale(8),
                         backgroundColor: '#fff',
                         paddingVertical: scale(16),
                     }}
@@ -546,11 +540,10 @@ const Menu = ({ route }) => {
                         style={{
                             width: '100%',
                             height: scale(170),
-                            marginTop: scale(8),
                         }}
                     />
                 </Pressable>
-                <View style={{ marginTop: scale(8), backgroundColor: '#fff' }}>
+                <View style={{ backgroundColor: '#fff' }}>
                     {menus?.map((item, index) => {
                         return (
                             <Pressable
@@ -598,8 +591,8 @@ const Menu = ({ route }) => {
 
             <Modal
                 isVisible={visibleWarning}
-                onBackButtonPress={() => setVisibleWarning(false)}
-                onBackdropPress={() => setVisibleWarning(false)}
+                onBackButtonPress={closeModal}
+                onBackdropPress={closeModal}
             >
                 <View
                     style={{
@@ -619,7 +612,7 @@ const Menu = ({ route }) => {
                         resizeMode="contain"
                     />
                     <Pressable
-                        onPress={() => setVisibleWarning(false)}
+                        onPress={closeModal}
                         hitSlop={15}
                         style={{
                             position: 'absolute',
