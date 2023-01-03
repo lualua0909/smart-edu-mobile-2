@@ -1,4 +1,5 @@
 import { ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import Carts from 'app/scenes/Carts'
 import CertificateList from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
@@ -23,12 +24,15 @@ import TransactionList from 'app/scenes/TransactionList'
 import Voucher from 'app/scenes/Voucher'
 import Wishlist from 'app/scenes/Wishlist'
 import Chat from 'app/scenes/chat'
+import { svgMessage } from 'assets/svg'
 import React from 'react'
 
 import {
     TransitionPresets,
     createStackNavigator
 } from '@react-navigation/stack'
+import { Pressable } from 'react-native'
+import { SvgXml } from 'react-native-svg'
 
 import TabNavigator from './tab-navigator'
 import HeaderBack from 'app/components/header-back'
@@ -70,35 +74,34 @@ const AppNavigator = () => {
                 name={ROUTES.CourseDetail}
                 component={CourseContents}
                 options={({ route, navigation }) => ({
-                    headerLeft: () => <HeaderBack whiteBg={true} />
-                    // headerRight: () => (
-                    //     <Pressable
-                    //         onPress={() => navigation.navigate(ROUTES.Chat)}
-                    //         hitSlop={15}
-                    //         style={[
-                    //             STYLES.boxShadow,
-                    //             {
-                    //                 marginRight: scale(7),
-                    //                 padding: scale(4),
-                    //                 borderRadius: scale(11),
-                    //                 shadowOpacity: 0.3,
-                    //             },
-                    //         ]}
-                    //     >
-                    //         <SvgXml
-                    //             xml={svgMessage}
-                    //             width={scale(24)}
-                    //             height={scale(24)}
-                    //         />
-                    //     </Pressable>
-                    // ),
+                    headerLeft: () => <HeaderBack whiteBg={true} />,
+                    headerRight: () => (
+                        <Pressable
+                            onPress={() => navigation.navigate(ROUTES.Chat)}
+                            hitSlop={15}
+                            style={[
+                                STYLES.boxShadow,
+                                {
+                                    marginRight: scale(7),
+                                    padding: scale(4),
+                                    borderRadius: scale(11),
+                                    shadowOpacity: 0.3
+                                }
+                            ]}>
+                            <SvgXml
+                                xml={svgMessage}
+                                width={scale(24)}
+                                height={scale(24)}
+                            />
+                        </Pressable>
+                    )
                 })}
             />
             <Stack.Screen
                 name={ROUTES.Chat}
                 component={Chat}
                 options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Chat'} />,
+                    headerTitle: () => <HeaderTitle title={'Bạn cùng học'} />,
                     headerLeft: () => <HeaderBack />
                 })}
             />
@@ -106,7 +109,9 @@ const AppNavigator = () => {
                 name={ROUTES.ChatDetail}
                 component={ChatDetail}
                 options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Chat detail'} />,
+                    headerTitle: () => (
+                        <HeaderTitle title={'Trò chuyện nhóm'} />
+                    ),
                     headerLeft: () => <HeaderBack />
                 })}
             />

@@ -72,6 +72,8 @@ const CourseDetail = ({ route, navigation }) => {
     const [hideHeaderTitle, setHideHeaderTitle] = useState(false)
     const [finishedLectures, setFinishedLectures] =
         useGlobalState('finishedLectures')
+    const [currentCourseId, setCurrentCourseId] =
+        useGlobalState('currentCourseId')
 
     useEffect(() => {
         const t = setTimeout(() => setHideHeaderTitle(true), 3000)
@@ -249,6 +251,12 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .finally(() => setLoading(false))
     }
+
+    useEffect(() => {
+        if (courseId) {
+            setCurrentCourseId(courseId)
+        }
+    }, [courseId])
 
     useEffect(() => {
         if (courseId && currentId) {

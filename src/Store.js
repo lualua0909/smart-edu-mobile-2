@@ -8,7 +8,8 @@ const initialState = {
     windowWidth: null,
     windowHeight: null,
     finishedLectures: [],
-    carts: []
+    carts: [],
+    currentCourseId: null
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =

@@ -1,15 +1,82 @@
+import { useGlobalState } from 'app/Store'
+import { Avatar, Rate } from 'app/atoms'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
+import firestore from '@react-native-firebase/firestore'
 import { Image, Pressable, ScrollView, View } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 
 import HeaderChat from 'app/components/header-chat'
 import { Text } from 'native-base'
 
 const Chat = ({ navigation }) => {
-    const navigateChatDetail = () => navigation.navigate(ROUTES.ChatDetail)
+    const [data, setData] = useState([])
+    const [currentId, setCurrentId] = useGlobalState('currentCourseId')
+    const [userInfo, setUserState] = useGlobalState('userInfo')
+    const [currentDoc, setCurrentDoc] = useState(null)
+    const name = userInfo?.first_name + ' ' + userInfo?.last_name
+
+    const room = firestore()
+        .collection('group-chat')
+        .doc('members')
+        .collection(`${currentId}`)
+
+    const leaveRoom = () => {
+        if (currentDoc) {
+            room.doc(currentDoc)
+                .delete()
+                .then(() => {
+                    console.log('Document successfully deleted!')
+                })
+                .catch(error => {
+                    console.error('Error removing document: ', error)
+                })
+        }
+    }
+
+    const joinRoom = () => {
+        room.where('id', '==', userInfo?.id)
+            .get()
+            .then(querySnapshot => {
+                if (querySnapshot?.size < 1) {
+                    //thêm học viên vào danh sách đang học
+                    //id, name
+                    room.add({
+                        name,
+                        id: userInfo?.id,
+                        createdAt: firestore.FieldValue.serverTimestamp()
+                    }).then(docRef => {
+                        console.log('User added!', docRef.id)
+                        setCurrentDoc(docRef.id)
+                    })
+                }
+            })
+            .catch(error => {
+                console.log('Error getting documents: ', error)
+            })
+    }
+
+    useEffect(() => {
+        joinRoom()
+        const subscriber = room.onSnapshot(querySnapshot => {
+            const _data = []
+
+            querySnapshot.forEach(documentSnapshot => {
+                _data.push({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id
+                })
+            })
+            setData(_data)
+        })
+
+        // Unsubscribe from events when no longer in use
+        return () => {
+            subscriber()
+            leaveRoom()
+        }
+    }, [])
 
     return (
         <View style={{ flex: 1 }}>
@@ -20,7 +87,7 @@ const Chat = ({ navigation }) => {
                     paddingHorizontal: scale(15),
                     paddingBottom: scale(15)
                 }}>
-                <Pressable
+                {/* <Pressable
                     onPress={navigateChatDetail}
                     style={{
                         flexDirection: 'row',
@@ -163,42 +230,35 @@ const Chat = ({ navigation }) => {
                             Khách mời
                         </Text>
                     </LinearGradient>
-                </Pressable>
+                </Pressable> */}
                 <View
                     style={{
                         marginTop: scale(8),
                         borderTopWidth: 1,
                         borderTopColor: '#ccc'
                     }}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                    {data?.map((item, index) => (
                         <Pressable
-                            onPress={navigateChatDetail}
-                            key={index}
+                            // onPress={navigateChatDetail}
+                            key={item?.key}
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 marginTop: scale(8)
                             }}>
-                            <Image
-                                source={{
-                                    uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
-                                }}
-                                style={{
-                                    width: scale(48),
-                                    height: scale(48),
-                                    borderRadius: scale(48),
-                                    borderWidth: 1,
-                                    borderColor: '#eee'
-                                }}
+                            <Avatar
+                                size={50}
+                                userId={item?.id}
+                                name={item?.name}
                             />
                             <Text
                                 style={{
                                     marginLeft: scale(8),
-
-                                    fontSize: scale(16),
+                                    fontSize: 16,
+                                    fontWeight: 'bold',
                                     color: '#091230'
                                 }}>
-                                Nguyễn Trần Thùy Duyên
+                                {item?.name}
                             </Text>
                         </Pressable>
                     ))}

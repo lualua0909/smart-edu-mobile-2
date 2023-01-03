@@ -6,8 +6,8 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@drawable/icon_app_tieng_anh"
-      android:roundIcon="@drawable/icon_app_tieng_anh"
+      android:icon="@drawable/icon_app"
+      android:roundIcon="@drawable/icon_app"
       android:allowBackup="true"
       android:theme="@style/AppTheme">
       <activity
