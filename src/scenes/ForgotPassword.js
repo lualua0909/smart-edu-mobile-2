@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { View, Image, ScrollView, Pressable } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { STYLES, ROUTES } from 'app/constants'
 import Axios from 'app/Axios'
+import { ROUTES, STYLES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
-import { Input, Icon, Button, useToast, Center, Text } from 'native-base'
-import { SvgXml } from 'react-native-svg'
 import { svgLoginMail } from 'assets/svg'
+import React, { useState } from 'react'
+
+import { Image, Pressable, ScrollView, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Button, Center, Icon, Input, Text, useToast } from 'native-base'
 
 const ForgotPassword = ({ navigation }) => {
     const toast = useToast()
@@ -17,21 +19,21 @@ const ForgotPassword = ({ navigation }) => {
         if (email.value !== '') {
             setLoading(true)
             Axios.post('reset-password/' + email.value)
-                .then((res) => {
+                .then(res => {
                     console.log(res)
                     if (res.data.status === 200) {
                         toast.show({
                             title: 'Đã cấp lại mật khẩu mới cho bạn, vui lòng kiểm tra email',
-                            status: 'success',
+                            status: 'success'
                         })
                     } else {
                         toast.show({
                             title: res?.data?.message,
-                            status: 'error',
+                            status: 'error'
                         })
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error(err)
                     toast.show({ title: err.message, status: 'error' })
                 })
@@ -48,9 +50,8 @@ const ForgotPassword = ({ navigation }) => {
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{
                     flexGrow: 1,
-                    justifyContent: 'center',
-                }}
-            >
+                    justifyContent: 'center'
+                }}>
                 <Image
                     source={require('assets/images/login-bg.png')}
                     style={{
@@ -58,7 +59,7 @@ const ForgotPassword = ({ navigation }) => {
                         height: '70%',
                         position: 'absolute',
                         top: 0,
-                        left: 0,
+                        left: 0
                     }}
                     resizeMode="cover"
                 />
@@ -66,28 +67,25 @@ const ForgotPassword = ({ navigation }) => {
                     style={{
                         paddingHorizontal: scale(30),
                         zIndex: 1,
-                        marginTop: scale(90),
-                    }}
-                >
+                        marginTop: scale(90)
+                    }}>
                     <View
                         style={[
                             STYLES.boxShadow,
                             {
                                 width: '100%',
                                 borderRadius: scale(10),
-                                paddingVertical: scale(42),
-                            },
-                        ]}
-                    >
+                                paddingVertical: scale(42)
+                            }
+                        ]}>
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
                                 style={{
                                     fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
-                                    textAlign: 'center',
-                                }}
-                            >
+                                    textAlign: 'center'
+                                }}>
                                 QUÊN MẬT KHẨU
                             </Text>
                             <Text
@@ -96,9 +94,8 @@ const ForgotPassword = ({ navigation }) => {
                                     fontSize: scale(15),
                                     textAlign: 'center',
                                     color: '#6C746E',
-                                    marginBottom: 20,
-                                }}
-                            >
+                                    marginBottom: 20
+                                }}>
                                 Nhập email để tiến hành khôi phục mật khẩu.
                             </Text>
                             <Input
@@ -123,10 +120,9 @@ const ForgotPassword = ({ navigation }) => {
                                 isLoadingText="Đang xử lý"
                                 style={{
                                     marginTop: scale(16),
-                                    width: '70%',
+                                    width: '70%'
                                 }}
-                                onPress={resetPassword}
-                            >
+                                onPress={resetPassword}>
                                 Quên mật khẩu
                             </Button>
                         </Center>
@@ -134,24 +130,21 @@ const ForgotPassword = ({ navigation }) => {
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
                                 alignSelf: 'center',
-                                marginTop: scale(39),
-                            }}
-                        >
+                                marginTop: scale(39)
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
-                                    textAlign: 'center',
-                                }}
-                            >
+                                    textAlign: 'center'
+                                }}>
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
                                     style={{
                                         fontSize: scale(14),
                                         color: '#0075FF',
-                                        textDecorationLine: 'underline',
-                                    }}
-                                >
+                                        textDecorationLine: 'underline'
+                                    }}>
                                     Đăng ký ngay
                                 </Text>
                             </Text>

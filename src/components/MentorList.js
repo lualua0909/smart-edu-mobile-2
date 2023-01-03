@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { FlatList, RefreshControl, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
 import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import TeacherItem from 'app/components/TeacherItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, RefreshControl, ScrollView } from 'react-native'
 
 const MentorList = ({}) => {
     const [data, setData] = useState()
@@ -14,10 +15,10 @@ const MentorList = ({}) => {
     const getData = (refresh = false) => {
         setLoading(true)
         Axios.get('get-mentors/paging/' + page * 6)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = resData?.data
                 if (refreshing) {
                     setData(list)
@@ -47,8 +48,7 @@ const MentorList = ({}) => {
         <ScrollView
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }
-        >
+            }>
             {data?.length ? (
                 <FlatList
                     data={data || []}
@@ -59,7 +59,7 @@ const MentorList = ({}) => {
                     contentContainerStyle={{
                         paddingLeft: 16,
                         paddingRight: 16,
-                        paddingBottom: scale(50),
+                        paddingBottom: scale(50)
                     }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={1}

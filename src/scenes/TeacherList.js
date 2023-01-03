@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import {
-    View,
-    Pressable,
-    FlatList,
-    ScrollView,
-    RefreshControl,
-} from 'react-native'
-import { Text } from 'native-base'
-import { scale } from 'app/helpers/responsive'
-import { SvgXml } from 'react-native-svg'
-import { svgGreenTeacher } from 'assets/svg'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Modal from 'react-native-modal'
-import { Radio } from 'app/atoms'
-import { Center, Input } from 'native-base'
-import { Search, Filter } from 'react-native-feather'
-import LottieView from 'lottie-react-native'
-import animationBanner from 'assets/animations/online-learning.json'
 import Axios from 'app/Axios'
-import TeacherItem from 'app/components/TeacherItem'
+import { Radio } from 'app/atoms'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import TeacherItem from 'app/components/TeacherItem'
+import { scale } from 'app/helpers/responsive'
+import { svgGreenTeacher } from 'assets/svg'
+import React, { useEffect, useState } from 'react'
+
+import LottieView from 'lottie-react-native'
+import {
+    FlatList,
+    Pressable,
+    RefreshControl,
+    ScrollView,
+    View
+} from 'react-native'
+import { Filter, Search } from 'react-native-feather'
+import Modal from 'react-native-modal'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { SvgXml } from 'react-native-svg'
+
+import animationBanner from 'assets/animations/online-learning.json'
+import { Text } from 'native-base'
+import { Center, Input } from 'native-base'
 
 const Teacher = ({ navigation, route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -34,16 +36,16 @@ const Teacher = ({ navigation, route }) => {
         setLoading(true)
         Axios.post(`mentors/paging-by-filter/0`, {
             order_by: orderBy,
-            search,
+            search
         })
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     const list = res?.data?.data
                     setData(Array.isArray(data) ? [...data, ...list] : list)
                 }
                 console.log('res', res)
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err)
             })
             .finally(() => {
@@ -72,22 +74,19 @@ const Teacher = ({ navigation, route }) => {
         <Modal
             style={{ margin: 0, justifyContent: 'flex-end' }}
             isVisible={visibleFilter}
-            onBackButtonPress={() => setVisibleFilter(false)}
-        >
+            onBackButtonPress={() => setVisibleFilter(false)}>
             <View style={{ backgroundColor: '#fff', paddingTop: scale(24) }}>
                 <SafeAreaView>
                     <View
                         style={{
                             paddingLeft: scale(16),
-                            marginTop: scale(24),
-                        }}
-                    >
+                            marginTop: scale(24)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#0E564D',
-                            }}
-                        >
+                                color: '#0E564D'
+                            }}>
                             Sắp xếp
                         </Text>
                         <Radio
@@ -110,17 +109,15 @@ const Teacher = ({ navigation, route }) => {
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginTop: scale(24),
-                        }}
-                    >
+                            marginTop: scale(24)
+                        }}>
                         <Pressable
                             style={{
                                 width: '50%',
                                 height: scale(47),
                                 justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        ></Pressable>
+                                alignItems: 'center'
+                            }}></Pressable>
                         <Pressable
                             style={{
                                 width: '50%',
@@ -129,21 +126,19 @@ const Teacher = ({ navigation, route }) => {
                                 alignItems: 'center',
                                 borderWidth: 1,
                                 borderColor: '#52B553',
-                                backgroundColor: '#52B553',
+                                backgroundColor: '#52B553'
                             }}
                             onPress={() => {
                                 setData([])
                                 setPage(0)
                                 getData()
                                 setVisibleFilter(false)
-                            }}
-                        >
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(18),
-                                    color: '#fff',
-                                }}
-                            >
+                                    color: '#fff'
+                                }}>
                                 Tìm kiếm
                             </Text>
                         </Pressable>
@@ -164,14 +159,12 @@ const Teacher = ({ navigation, route }) => {
                             refreshing={refreshing}
                             onRefresh={refetch}
                         />
-                    }
-                >
+                    }>
                     <View
                         style={{
                             padding: scale(16),
-                            paddingBottom: 5,
-                        }}
-                    >
+                            paddingBottom: 5
+                        }}>
                         <Input
                             borderRadius="10"
                             width="100%"
@@ -195,13 +188,12 @@ const Teacher = ({ navigation, route }) => {
                                 <Pressable
                                     onPress={() => setVisibleFilter(true)}
                                     hitSlop={15}
-                                    style={{ marginRight: 10 }}
-                                >
+                                    style={{ marginRight: 10 }}>
                                     <Filter stroke="#52B553" />
                                 </Pressable>
                             }
                             _focus={{
-                                borderColor: '#52B553',
+                                borderColor: '#52B553'
                             }}
                         />
                     </View>
@@ -212,7 +204,7 @@ const Teacher = ({ navigation, route }) => {
                             loop
                             style={{
                                 width: 500,
-                                height: 200,
+                                height: 200
                             }}
                         />
                     </Center>
@@ -356,33 +348,29 @@ const Teacher = ({ navigation, route }) => {
 
                     <View
                         style={{
-                            paddingVertical: scale(16),
-                        }}
-                    >
+                            paddingVertical: scale(16)
+                        }}>
                         <View
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                paddingHorizontal: scale(16),
-                            }}
-                        >
+                                paddingHorizontal: scale(16)
+                            }}>
                             <SvgXml xml={svgGreenTeacher} width={scale(24)} />
                             <Text
                                 style={{
                                     marginLeft: scale(8),
 
                                     fontSize: scale(16),
-                                    color: '#0E564D',
-                                }}
-                            >
+                                    color: '#0E564D'
+                                }}>
                                 TẤT CẢ GIẢNG VIÊN
                             </Text>
                         </View>
                         <View
                             style={{
-                                marginTop: scale(16),
-                            }}
-                        >
+                                marginTop: scale(16)
+                            }}>
                             {loading ? (
                                 <LoadingAnimation />
                             ) : data?.length ? (
@@ -396,7 +384,7 @@ const Teacher = ({ navigation, route }) => {
                                         paddingTop: scale(16),
                                         paddingLeft: 16,
                                         paddingRight: 16,
-                                        paddingBottom: scale(50),
+                                        paddingBottom: scale(50)
                                     }}
                                     renderItem={({ item, index }) => (
                                         <TeacherItem
@@ -411,7 +399,7 @@ const Teacher = ({ navigation, route }) => {
                                     style={{
                                         marginTop: 20,
                                         width: 800,
-                                        height: 300,
+                                        height: 300
                                     }}
                                 />
                             )}

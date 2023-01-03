@@ -1,15 +1,17 @@
-import React from 'react'
-import { View, Pressable, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { SvgXml } from 'react-native-svg'
 import {
-    svgCompany,
     svgBirth,
-    svgEmail,
-    svgPhone,
+    svgCompany,
     svgEdit_3,
+    svgEmail,
     svgGender,
+    svgPhone
 } from 'assets/svg'
+import React from 'react'
+
+import { Pressable, TextInput, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
 import { Text } from 'native-base'
 
 const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
@@ -19,17 +21,15 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                 marginTop: scale(6),
                 backgroundColor: '#FFFFFF',
                 paddingHorizontal: scale(20),
-                paddingVertical: scale(10),
-            }}
-        >
+                paddingVertical: scale(10)
+            }}>
             <Text
                 style={{
                     color: '#1F1F1F',
                     fontSize: scale(18),
                     paddingHorizontal: scale(10),
-                    paddingVertical: scale(7),
-                }}
-            >
+                    paddingVertical: scale(7)
+                }}>
                 Thông tin cá nhân
             </Text>
             <View
@@ -37,9 +37,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgGender}
                     width={scale(24)}
@@ -52,18 +51,16 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: '100%',
-                    }}
-                >
+                        width: '100%'
+                    }}>
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="Nam"
                             editable={false}
@@ -73,9 +70,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Giới tính
                         </Text>
                     </View>
@@ -95,9 +91,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgBirth}
                     width={scale(24)}
@@ -110,18 +105,16 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: '100%',
-                    }}
-                >
+                        width: '100%'
+                    }}>
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="02/09/1998"
                             editable={false}
@@ -131,9 +124,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Ngày sinh
                         </Text>
                     </View>
@@ -153,9 +145,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgPhone}
                     width={scale(24)}
@@ -168,18 +159,16 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: '100%',
-                    }}
-                >
+                        width: '100%'
+                    }}>
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="090876899"
                             editable={false}
@@ -189,9 +178,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Số điện thoại
                         </Text>
                     </View>
@@ -211,9 +199,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgEmail}
                     width={scale(24)}
@@ -226,18 +213,16 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: '100%',
-                    }}
-                >
+                        width: '100%'
+                    }}>
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="thupt@gmail.com"
                             editable={false}
@@ -247,9 +232,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Email
                         </Text>
                     </View>
@@ -267,9 +251,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgCompany}
                     width={scale(24)}
@@ -282,18 +265,16 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: '100%',
-                    }}
-                >
+                        width: '100%'
+                    }}>
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="12 Lê lợi, Phường Tân phú Trung, quận Bình Tân, TP. HCM"
                             editable={false}
@@ -303,9 +284,8 @@ const UserInfo = ({ onEditBirthday, onEditGender, onEditPhone }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Địa chỉ hiện tại
                         </Text>
                     </View>

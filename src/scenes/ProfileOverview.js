@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { View, Pressable, Image, ScrollView, TextInput } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import MenuUser from 'app/components/MenuUser'
 import Axios from 'app/Axios'
-import { DetailSkeleton, Avatar } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
+import { Avatar, DetailSkeleton } from 'app/atoms'
+import MenuUser from 'app/components/MenuUser'
 import { API_URL } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { Image, Pressable, ScrollView, TextInput, View } from 'react-native'
 import {
-    TextArea,
-    Box,
-    Heading,
-    VStack,
-    FormControl,
-    Input,
-    Center,
-    Text,
-} from 'native-base'
-import {
-    UserPlus,
-    MoreHorizontal,
-    MessageSquare,
     MessageCircle,
+    MessageSquare,
+    MoreHorizontal,
+    UserPlus
 } from 'react-native-feather'
+
+import {
+    Box,
+    Center,
+    FormControl,
+    Heading,
+    Input,
+    Text,
+    TextArea,
+    VStack
+} from 'native-base'
 
 const ProfileOverview = ({ navigation, route }) => {
     const { userId } = route.params
@@ -42,7 +44,7 @@ const ProfileOverview = ({ navigation, route }) => {
         if (userId) {
             setLoading(true)
             Axios.get(`get-user-info/${userId}`)
-                .then((res) => {
+                .then(res => {
                     if (res.data.status === 200) {
                         const data = res.data.data
                         setData(data)
@@ -74,9 +76,8 @@ const ProfileOverview = ({ navigation, route }) => {
                             height: scale(40),
                             paddingHorizontal: 12,
                             paddingVertical: 6,
-                            backgroundColor: '#fff',
-                        }}
-                    >
+                            backgroundColor: '#fff'
+                        }}>
                         <MessageCircle
                             stroke="#52B553"
                             width={24}
@@ -91,25 +92,22 @@ const ProfileOverview = ({ navigation, route }) => {
                             marginLeft: scale(10),
                             position: 'relative',
                             height: scale(40),
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
-                        onPress={() => setIsFriend(!isFriend)}
-                    >
+                        onPress={() => setIsFriend(!isFriend)}>
                         <View
                             style={{
                                 flexDirection: 'row',
-                                padding: scale(8),
-                            }}
-                        >
+                                padding: scale(8)
+                            }}>
                             <UserPlus stroke="#fff" width={24} height={24} />
                             <Text
                                 style={{
                                     fontSize: scale(16),
                                     color: '#FFFFFF',
                                     textAlign: 'center',
-                                    marginLeft: scale(8),
-                                }}
-                            >
+                                    marginLeft: scale(8)
+                                }}>
                                 Kết bạn
                             </Text>
                         </View>
@@ -128,16 +126,14 @@ const ProfileOverview = ({ navigation, route }) => {
                             marginLeft: scale(10),
                             position: 'relative',
                             height: scale(40),
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
-                        onPress={() => setIsFriend(!isFriend)}
-                    >
+                        onPress={() => setIsFriend(!isFriend)}>
                         <View
                             style={{
                                 flexDirection: 'row',
-                                padding: scale(8),
-                            }}
-                        >
+                                padding: scale(8)
+                            }}>
                             <MessageSquare
                                 stroke="#fff"
                                 width={24}
@@ -148,9 +144,8 @@ const ProfileOverview = ({ navigation, route }) => {
                                     fontSize: scale(16),
                                     color: '#FFFFFF',
                                     textAlign: 'center',
-                                    marginLeft: scale(8),
-                                }}
-                            >
+                                    marginLeft: scale(8)
+                                }}>
                                 Trò chuyện
                             </Text>
                         </View>
@@ -166,22 +161,20 @@ const ProfileOverview = ({ navigation, route }) => {
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[1]}
-            >
+                stickyHeaderIndices={[1]}>
                 <View
                     style={{
-                        alignItems: 'center',
-                    }}
-                >
+                        alignItems: 'center'
+                    }}>
                     <Image
                         source={{
-                            uri: `${API_URL}public/user-avatars/${userId}-cover.webp?rand=${random}`,
+                            uri: `${API_URL}public/user-avatars/${userId}-cover.webp?rand=${random}`
                         }}
                         defaultSource={require('assets/images/menu-banner.jpg')}
                         style={{
                             width: '100%',
                             position: 'absolute',
-                            height: scale(210),
+                            height: scale(210)
                         }}
                         resizeMode="cover"
                     />
@@ -219,9 +212,8 @@ const ProfileOverview = ({ navigation, route }) => {
                                 borderRadius: scale(120),
                                 borderWidth: scale(2),
                                 borderColor: '#fff',
-                                marginTop: '40%',
-                            }}
-                        >
+                                marginTop: '40%'
+                            }}>
                             <Avatar userId={data?.id} size="120" name={name} />
                         </View>
                         {/* <View
@@ -253,9 +245,8 @@ const ProfileOverview = ({ navigation, route }) => {
                     </View>
                     <View
                         style={{
-                            flexDirection: 'row',
-                        }}
-                    >
+                            flexDirection: 'row'
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(20),
@@ -263,11 +254,11 @@ const ProfileOverview = ({ navigation, route }) => {
                                 borderColor: '#000',
                                 width: '70%',
                                 textAlign: 'center',
-                                padding: scale(5),
+                                padding: scale(5)
                             }}
                             maxLength={30}
                             value={`${data?.first_name} ${data?.last_name}`}
-                            onChange={(e) => {
+                            onChange={e => {
                                 const value = e.target.value
                                 setFullName(value)
                             }}
@@ -313,9 +304,8 @@ const ProfileOverview = ({ navigation, route }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            paddingTop: scale(10),
-                        }}
-                    >
+                            paddingTop: scale(10)
+                        }}>
                         <TextArea
                             fontSize="md"
                             placeholder="Giới thiệu bản thân..."
@@ -328,9 +318,8 @@ const ProfileOverview = ({ navigation, route }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            paddingTop: scale(10),
-                        }}
-                    >
+                            paddingTop: scale(10)
+                        }}>
                         {renderAddFriendBtn()}
                         {userId !== userInfo?.id ? (
                             <Pressable
@@ -343,12 +332,11 @@ const ProfileOverview = ({ navigation, route }) => {
                                     paddingHorizontal: 12,
                                     paddingVertical: 6,
                                     backgroundColor: '#fff',
-                                    marginLeft: scale(10),
+                                    marginLeft: scale(10)
                                 }}
                                 onPress={() => {
                                     setVisibleFilter(true)
-                                }}
-                            >
+                                }}>
                                 <MoreHorizontal
                                     stroke="#52B553"
                                     width={28}
@@ -359,18 +347,16 @@ const ProfileOverview = ({ navigation, route }) => {
                             <Pressable
                                 style={{
                                     position: 'relative',
-                                    width: 200,
+                                    width: 200
                                 }}
                                 onPress={() => {
                                     setVisibleFilter(true)
-                                }}
-                            >
+                                }}>
                                 <Text
                                     style={{
                                         color: '#000',
-                                        textAlign: 'center',
-                                    }}
-                                >
+                                        textAlign: 'center'
+                                    }}>
                                     Xem thêm thông tin
                                 </Text>
                             </Pressable>
@@ -407,11 +393,10 @@ const DetailInfomation = ({ data, fullName }) => {
                     mt="1"
                     color="coolGray.600"
                     _dark={{
-                        color: 'warmGray.200',
+                        color: 'warmGray.200'
                     }}
                     fontWeight="medium"
-                    size="xs"
-                >
+                    size="xs">
                     Giới thiệu về {fullName}
                 </Heading>
                 <VStack space={3} mt="5">

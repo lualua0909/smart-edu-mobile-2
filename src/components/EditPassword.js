@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import React, { useState } from 'react'
+
+import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { Text } from 'native-base'
 
 const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
     const [viewHeight, setViewHeight] = useState({
-        footer: 0,
+        footer: 0
     })
     return (
         <>
@@ -17,14 +19,13 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                         width: '100%',
                         position: 'absolute',
                         height: '100%',
-                        backgroundColor: '#00000066',
-                    }}
-                >
+                        backgroundColor: '#00000066'
+                    }}>
                     <SafeAreaView
-                        onLayout={(e) =>
+                        onLayout={e =>
                             setViewHeight({
                                 ...viewHeight,
-                                footer: e.nativeEvent.layout.height,
+                                footer: e.nativeEvent.layout.height
                             })
                         }
                         edges={['bottom']}
@@ -35,18 +36,16 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 width: '100%',
                                 paddingBottom: scale(3),
                                 paddingHorizontal: scale(20),
-                                backgroundColor: '#FFFFFF',
-                            },
-                        ]}
-                    >
+                                backgroundColor: '#FFFFFF'
+                            }
+                        ]}>
                         <Text
                             style={{
                                 fontSize: scale(18),
                                 color: '#1F1F1F',
                                 textAlign: 'center',
-                                padding: scale(20),
-                            }}
-                        >
+                                padding: scale(20)
+                            }}>
                             Đổi mật khẩu
                         </Text>
                         <View
@@ -54,9 +53,8 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 marginTop: scale(5),
-                                justifyContent: 'center',
-                            }}
-                        >
+                                justifyContent: 'center'
+                            }}>
                             {gender ? (
                                 <Pressable
                                     style={{
@@ -67,15 +65,13 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                         alignItems: 'center',
                                         backgroundColor: COLORS.green,
                                         borderBottomStartRadius: scale(10),
-                                        borderTopLeftRadius: scale(10),
-                                    }}
-                                >
+                                        borderTopLeftRadius: scale(10)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(18),
-                                            color: '#fff',
-                                        }}
-                                    >
+                                            color: '#fff'
+                                        }}>
                                         Nam
                                     </Text>
                                 </Pressable>
@@ -89,16 +85,14 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                         alignItems: 'center',
                                         backgroundColor: '#FFFFFF',
                                         borderBottomStartRadius: scale(10),
-                                        borderTopLeftRadius: scale(10),
+                                        borderTopLeftRadius: scale(10)
                                     }}
-                                    onPress={() => setGender(true)}
-                                >
+                                    onPress={() => setGender(true)}>
                                     <Text
                                         style={{
                                             fontSize: scale(18),
-                                            color: '#000000',
-                                        }}
-                                    >
+                                            color: '#000000'
+                                        }}>
                                         Nam
                                     </Text>
                                 </Pressable>
@@ -113,15 +107,13 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                         alignItems: 'center',
                                         backgroundColor: COLORS.green,
                                         borderTopEndRadius: scale(10),
-                                        borderBottomRightRadius: scale(10),
-                                    }}
-                                >
+                                        borderBottomRightRadius: scale(10)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(18),
-                                            color: '#fff',
-                                        }}
-                                    >
+                                            color: '#fff'
+                                        }}>
                                         Nữ
                                     </Text>
                                 </Pressable>
@@ -135,16 +127,14 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                         alignItems: 'center',
                                         backgroundColor: '#FFFFFF',
                                         borderTopEndRadius: scale(10),
-                                        borderBottomRightRadius: scale(10),
+                                        borderBottomRightRadius: scale(10)
                                     }}
-                                    onPress={() => onSubmit()}
-                                >
+                                    onPress={() => onSubmit()}>
                                     <Text
                                         style={{
                                             fontSize: scale(18),
-                                            color: '#000000',
-                                        }}
-                                    >
+                                            color: '#000000'
+                                        }}>
                                         Nữ
                                     </Text>
                                 </Pressable>
@@ -156,18 +146,16 @@ const EditPassword = ({ isVisible, onBackPress, onSubmit }) => {
                                 padding: scale(10),
                                 borderRadius: scale(8),
                                 marginHorizontal: scale(10),
-                                marginVertical: scale(20),
+                                marginVertical: scale(20)
                             }}
-                            onPress={() => setIsEditGender(false)}
-                        >
+                            onPress={() => setIsEditGender(false)}>
                             <Text
                                 style={{
                                     textAlign: 'center',
                                     color: '#FFFFFF',
 
-                                    fontSize: scale(18),
-                                }}
-                            >
+                                    fontSize: scale(18)
+                                }}>
                                 Lưu
                             </Text>
                         </Pressable>

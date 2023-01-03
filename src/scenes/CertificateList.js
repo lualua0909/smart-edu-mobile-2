@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { View, FlatList, RefreshControl, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
-import { Text, Center } from 'native-base'
 import { useGlobalState } from 'app/Store'
-
+import { LoadingAnimation } from 'app/atoms'
 import CertificateItem from 'app/components/CertificateItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { Center, Text } from 'native-base'
 
 const CertificateList = ({ navigation, route }) => {
     const [data, setData] = useState([])
@@ -23,10 +24,10 @@ const CertificateList = ({ navigation, route }) => {
                 page * 8
             }`
         )
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = [...resData?.data, ...resData?.ex_certificates]
 
                 if (refreshing) {
@@ -71,7 +72,7 @@ const CertificateList = ({ navigation, route }) => {
                 contentContainerStyle={{
                     marginTop: scale(20),
                     paddingHorizontal: scale(10),
-                    paddingBottom: scale(20),
+                    paddingBottom: scale(20)
                 }}
                 ListHeaderComponent={
                     <Text
@@ -79,9 +80,8 @@ const CertificateList = ({ navigation, route }) => {
                             marginLeft: scale(16),
                             marginBottom: scale(16),
                             fontSize: scale(20),
-                            color: '#1F1F1F',
-                        }}
-                    >
+                            color: '#1F1F1F'
+                        }}>
                         Danh sách chứng chỉ
                     </Text>
                 }

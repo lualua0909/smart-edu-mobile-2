@@ -1,8 +1,10 @@
-import React from 'react'
-import { View, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import { svgBackPack, svgCompany, svgLock, svgUser } from 'assets/svg'
+import React from 'react'
+
+import { TextInput, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import { svgCompany, svgLock, svgUser, svgBackPack } from 'assets/svg'
+
 import { Text } from 'native-base'
 
 const SystemInfo = ({ data }) => {
@@ -13,18 +15,16 @@ const SystemInfo = ({ data }) => {
                     marginTop: scale(6),
                     backgroundColor: '#FFFFFF',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <Text
                     style={{
                         color: '#1F1F1F',
                         fontSize: scale(18),
 
                         paddingHorizontal: scale(10),
-                        paddingVertical: scale(7),
-                    }}
-                >
+                        paddingVertical: scale(7)
+                    }}>
                     Thông tin hệ thống
                 </Text>
                 <View
@@ -32,9 +32,8 @@ const SystemInfo = ({ data }) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                         paddingHorizontal: scale(20),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <SvgXml
                         xml={svgUser}
                         width={scale(24)}
@@ -45,13 +44,12 @@ const SystemInfo = ({ data }) => {
 
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="thupt"
                             editable={false}
@@ -61,9 +59,8 @@ const SystemInfo = ({ data }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Tên đăng nhập
                         </Text>
                     </View>
@@ -73,9 +70,8 @@ const SystemInfo = ({ data }) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                         paddingHorizontal: scale(20),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <SvgXml
                         xml={svgCompany}
                         width={scale(24)}
@@ -86,14 +82,13 @@ const SystemInfo = ({ data }) => {
 
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
                                 color: '#1F1F1F',
-                                alignItems: 'flex-start',
+                                alignItems: 'flex-start'
                             }}
                             value="Hoc Vien"
                             editable={false}
@@ -103,9 +98,8 @@ const SystemInfo = ({ data }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Phân quyền
                         </Text>
                     </View>
@@ -115,9 +109,8 @@ const SystemInfo = ({ data }) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                         paddingHorizontal: scale(20),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <SvgXml
                         xml={svgLock}
                         width={scale(24)}
@@ -128,13 +121,12 @@ const SystemInfo = ({ data }) => {
 
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="*******"
                             editable={false}
@@ -144,9 +136,8 @@ const SystemInfo = ({ data }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Mật khẩu
                         </Text>
                     </View>
@@ -156,9 +147,8 @@ const SystemInfo = ({ data }) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                         paddingHorizontal: scale(20),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <SvgXml
                         xml={svgBackPack}
                         width={scale(24)}
@@ -169,13 +159,12 @@ const SystemInfo = ({ data }) => {
 
                     <View
                         style={{
-                            marginLeft: scale(20),
-                        }}
-                    >
+                            marginLeft: scale(20)
+                        }}>
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#1F1F1F'
                             }}
                             value="Sinh viên"
                             editable={false}
@@ -185,9 +174,8 @@ const SystemInfo = ({ data }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#363E57',
-                            }}
-                        >
+                                color: '#363E57'
+                            }}>
                             Công việc hiện tại
                         </Text>
                     </View>

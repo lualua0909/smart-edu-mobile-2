@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
-import { View, Pressable } from 'react-native'
+import { useGlobalState } from 'app/Store'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
-import { ChevronDownIcon, ChevronUpIcon, Text } from 'native-base'
-import { useGlobalState } from 'app/Store'
+import React, { useState } from 'react'
+
+import { Pressable, View } from 'react-native'
 import { CheckCircle } from 'react-native-feather'
+
+import { ChevronDownIcon, ChevronUpIcon, Text } from 'native-base'
 
 const Curriculum = ({ data, navigateToLesson }) => {
     const [isExpand, setIsExpand] = useState(false)
@@ -26,16 +28,14 @@ const Curriculum = ({ data, navigateToLesson }) => {
                     backgroundColor: '#E6F4EA',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}
-            >
+                    justifyContent: 'space-between'
+                }}>
                 <Text
                     style={{
                         fontSize: scale(16),
                         flex: 1,
-                        color: '#000',
-                    }}
-                >
+                        color: '#000'
+                    }}>
                     {data?.name}
                 </Text>
                 {isExpand ? (
@@ -47,7 +47,7 @@ const Curriculum = ({ data, navigateToLesson }) => {
             {isExpand &&
                 data?.lectures?.map((item, index) => {
                     const isFinished = finishedLectures?.find(
-                        (i) => i?.id === item?.id
+                        i => i?.id === item?.id
                     )
                     return (
                         <View
@@ -55,26 +55,23 @@ const Curriculum = ({ data, navigateToLesson }) => {
                             style={{
                                 paddingVertical: scale(9),
                                 paddingHorizontal: scale(15),
-                                backgroundColor: isFinished ? '#fff' : '#eee',
-                            }}
-                        >
+                                backgroundColor: isFinished ? '#fff' : '#eee'
+                            }}>
                             <Pressable
                                 onPress={
                                     isFinished
                                         ? () => navigateToLesson(item?.id)
                                         : null
-                                }
-                            >
+                                }>
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: isFinished ? '#000' : '#b6b6b6',
-                                    }}
-                                >
+                                        color: isFinished ? '#000' : '#b6b6b6'
+                                    }}>
                                     {isFinished ? (
                                         <CheckCircle
                                             style={{
-                                                color: '#007739',
+                                                color: '#007739'
                                             }}
                                             size={14}
                                         />
@@ -89,7 +86,7 @@ const Curriculum = ({ data, navigateToLesson }) => {
                                     backgroundColor: '#F0F0F0',
                                     position: 'absolute',
                                     bottom: 0,
-                                    left: scale(15),
+                                    left: scale(15)
                                 }}
                             />
                         </View>

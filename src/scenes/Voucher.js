@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, StatusBar, FlatList, TextInput } from 'react-native'
-import { Text } from 'native-base'
-import { scale } from 'app/helpers/responsive'
 import VoucherItem from 'app/components/VoucherItem'
+import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
+import { FlatList, StatusBar, TextInput, View } from 'react-native'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+
+import { Text } from 'native-base'
 
 const Voucher = () => {
     return (
@@ -16,9 +18,8 @@ const Voucher = () => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         paddingHorizontal: scale(10),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <TextInput
                         style={{
                             fontSize: scale(16),
@@ -31,7 +32,7 @@ const Voucher = () => {
                             borderRadius: 5,
                             borderLeftColor: '#52B553',
                             borderLeftWidth: 2,
-                            padding: scale(6),
+                            padding: scale(6)
                         }}
                     />
                     <Pressable
@@ -39,16 +40,14 @@ const Voucher = () => {
                             backgroundColor: '#52B553',
                             borderRadius: 5,
                             width: '25%',
-                            justifyContent: 'center',
-                        }}
-                    >
+                            justifyContent: 'center'
+                        }}>
                         <Text
                             style={{
                                 color: '#FFFFFF',
                                 fontSize: scale(16),
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             Áp dụng
                         </Text>
                     </Pressable>
@@ -67,10 +66,10 @@ const Voucher = () => {
                             />
                         )
                     }}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={item => item.id}
                     style={{
                         zIndex: 1,
-                        paddingTop: scale(7),
+                        paddingTop: scale(7)
                     }}
                 />
             </View>

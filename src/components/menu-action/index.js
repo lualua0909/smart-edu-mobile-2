@@ -1,7 +1,9 @@
-import React, { useMemo, useState } from 'react'
-import { View, TouchableOpacity } from 'react-native'
-import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
+import React, { useMemo, useState } from 'react'
+
+import { TouchableOpacity, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
 import { Text } from 'native-base'
 
 const MenuAction = ({
@@ -10,13 +12,12 @@ const MenuAction = ({
     description,
     backgroundColor,
     badge = 0,
-    onPress,
+    onPress
 }) => {
     return (
         <TouchableOpacity
             style={{ alignItems: 'center', width: '30%' }}
-            onPress={onPress}
-        >
+            onPress={onPress}>
             <View
                 style={[
                     {
@@ -24,11 +25,10 @@ const MenuAction = ({
                         height: scale(54),
                         borderRadius: scale(54),
                         justifyContent: 'center',
-                        alignItems: 'center',
+                        alignItems: 'center'
                     },
-                    { backgroundColor },
-                ]}
-            >
+                    { backgroundColor }
+                ]}>
                 <SvgXml xml={icon} width={scale(42)} height={scale(42)} />
                 {badge > 0 && (
                     <View
@@ -41,15 +41,13 @@ const MenuAction = ({
                             alignItems: 'center',
                             position: 'absolute',
                             top: 0,
-                            right: -scale(3),
-                        }}
-                    >
+                            right: -scale(3)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(12),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {badge}
                         </Text>
                     </View>
@@ -60,17 +58,15 @@ const MenuAction = ({
                     marginTop: scale(8),
 
                     fontSize: scale(14),
-                    color: '#1F1F1F',
-                }}
-            >
+                    color: '#1F1F1F'
+                }}>
                 {title}
             </Text>
             <Text
                 style={{
                     fontSize: scale(12),
-                    color: '#A3A3A3',
-                }}
-            >
+                    color: '#A3A3A3'
+                }}>
                 {description}
             </Text>
         </TouchableOpacity>

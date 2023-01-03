@@ -1,10 +1,12 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { SvgXml } from 'react-native-svg'
-import { svgJob, svgCompany } from 'assets/svg'
 import { Avatar } from 'app/atoms'
+import { scale } from 'app/helpers/responsive'
+import { svgCompany, svgJob } from 'assets/svg'
+import React from 'react'
+
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
 import { Text } from 'native-base'
 
 const FriendItem = ({ data }) => {
@@ -24,28 +26,25 @@ const FriendItem = ({ data }) => {
                             marginRight: scale(10),
                             marginTop: scale(10),
                             borderRadius: scale(8),
-                            borderColor: '#B8BEC8',
+                            borderColor: '#B8BEC8'
                         }}
-                        key={index}
-                    >
+                        key={index}>
                         <Pressable
                             style={{
                                 flexDirection: 'row',
-                                margin: scale(10),
+                                margin: scale(10)
                             }}
                             onPress={() =>
                                 navigation.navigate(ROUTES.ProfileOverview, {
-                                    userId: item?.id,
+                                    userId: item?.id
                                 })
-                            }
-                        >
+                            }>
                             <View
                                 style={{
                                     width: scale(70),
                                     height: scale(70),
-                                    margin: scale(15),
-                                }}
-                            >
+                                    margin: scale(15)
+                                }}>
                                 <Avatar userId={item?.id} name={fullName} />
                             </View>
                             <View style={{ flex: 1, marginLeft: scale(9) }}>
@@ -53,9 +52,8 @@ const FriendItem = ({ data }) => {
                                     numberOfLines={1}
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#1F1F1F',
-                                    }}
-                                >
+                                        color: '#1F1F1F'
+                                    }}>
                                     {fullName}
                                 </Text>
                                 <Pressable
@@ -64,17 +62,15 @@ const FriendItem = ({ data }) => {
                                         borderRadius: scale(5),
                                         marginTop: scale(4),
                                         alignItems: 'center',
-                                        alignSelf: 'flex-start',
-                                    }}
-                                >
+                                        alignSelf: 'flex-start'
+                                    }}>
                                     <View
                                         style={{
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                             alignSelf: 'flex-start',
-                                            marginTop: scale(10),
-                                        }}
-                                    >
+                                            marginTop: scale(10)
+                                        }}>
                                         <SvgXml
                                             xml={svgJob}
                                             width={scale(18)}
@@ -83,9 +79,8 @@ const FriendItem = ({ data }) => {
                                             style={{
                                                 fontSize: scale(16),
                                                 color: '#6C746E',
-                                                marginLeft: scale(8),
-                                            }}
-                                        >
+                                                marginLeft: scale(8)
+                                            }}>
                                             {item?.position}
                                         </Text>
                                     </View>
@@ -94,9 +89,8 @@ const FriendItem = ({ data }) => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                             alignSelf: 'flex-start',
-                                            marginTop: scale(8),
-                                        }}
-                                    >
+                                            marginTop: scale(8)
+                                        }}>
                                         <SvgXml
                                             xml={svgCompany}
                                             width={scale(18)}
@@ -105,9 +99,8 @@ const FriendItem = ({ data }) => {
                                             style={{
                                                 fontSize: scale(16),
                                                 color: '#6C746E',
-                                                marginLeft: scale(8),
-                                            }}
-                                        >
+                                                marginLeft: scale(8)
+                                            }}>
                                             {item?.partner}
                                         </Text>
                                     </View>
@@ -119,9 +112,8 @@ const FriendItem = ({ data }) => {
                                 style={{
                                     flexDirection: 'row',
                                     justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                                    alignItems: 'center'
+                                }}>
                                 <Pressable
                                     style={{
                                         borderWidth: 1,
@@ -130,16 +122,14 @@ const FriendItem = ({ data }) => {
                                         alignContent: 'center',
                                         alignItems: 'center',
                                         marginRight: scale(5),
-                                        borderRadius: scale(5),
-                                    }}
-                                >
+                                        borderRadius: scale(5)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(16),
                                             color: '#363E57',
-                                            padding: scale(5),
-                                        }}
-                                    >
+                                            padding: scale(5)
+                                        }}>
                                         Xóa lời mời
                                     </Text>
                                 </Pressable>
@@ -152,16 +142,14 @@ const FriendItem = ({ data }) => {
                                         alignItems: 'center',
                                         marginLeft: scale(5),
                                         backgroundColor: '#0B46A9',
-                                        borderRadius: scale(5),
-                                    }}
-                                >
+                                        borderRadius: scale(5)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(16),
                                             color: '#FFFFFF',
-                                            padding: scale(5),
-                                        }}
-                                    >
+                                            padding: scale(5)
+                                        }}>
                                         Xác nhận
                                     </Text>
                                 </Pressable>

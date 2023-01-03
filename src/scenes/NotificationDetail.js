@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { View, Pressable, ScrollView } from 'react-native'
-import { Text, Avatar, InfoOutlineIcon } from 'native-base'
-import { SvgXml } from 'react-native-svg'
+import Axios from 'app/Axios'
+import { DetailSkeleton } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import { svgWhiteBook } from 'assets/svg'
-import Axios from 'app/Axios'
-import { DetailSkeleton } from 'app/atoms'
+import React, { useEffect, useState } from 'react'
+
+import { Pressable, ScrollView, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Avatar, InfoOutlineIcon, Text } from 'native-base'
 
 const NotificationDetail = ({ route, navigation }) => {
     const { notifyId } = route.params
@@ -16,7 +18,7 @@ const NotificationDetail = ({ route, navigation }) => {
     const fetch = () => {
         setLoading(true)
         Axios.get('notifies/get-info/' + notifyId)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     setData(res.data.data)
                 }
@@ -41,9 +43,8 @@ const NotificationDetail = ({ route, navigation }) => {
                     size="lg"
                     bg="green.700"
                     style={{
-                        alignSelf: 'center',
-                    }}
-                >
+                        alignSelf: 'center'
+                    }}>
                     <InfoOutlineIcon
                         color="white"
                         style={{ width: 38, height: 38 }}
@@ -55,18 +56,16 @@ const NotificationDetail = ({ route, navigation }) => {
                             paddingTop: 40,
                             fontWeight: 'bold',
                             fontSize: scale(20),
-                            color: '#6C746E',
-                        }}
-                    >
+                            color: '#6C746E'
+                        }}>
                         {data?.title}
                     </Text>
                     <Text
                         style={{
                             marginTop: scale(8),
                             fontSize: scale(12),
-                            color: '#6C746E',
-                        }}
-                    >
+                            color: '#6C746E'
+                        }}>
                         {toRelativeTime(data?.created_at)}
                     </Text>
                 </View>
@@ -74,9 +73,8 @@ const NotificationDetail = ({ route, navigation }) => {
                     <Text
                         style={{
                             fontSize: scale(14),
-                            color: '#222',
-                        }}
-                    >
+                            color: '#222'
+                        }}>
                         {data?.content}
                     </Text>
                     {/* {data?.link ? (

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { WebView } from 'react-native-webview'
-import { Dimensions, Text } from 'react-native'
 import { API_URL } from 'app/constants'
+import React, { useState } from 'react'
+
+import { Dimensions, Text } from 'react-native'
 import Video from 'react-native-video'
+import { WebView } from 'react-native-webview'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -26,14 +27,14 @@ export default ({ videoUrl }) => {
                 <WebView
                     originWhitelist={['*']}
                     source={{
-                        uri: embedLink,
+                        uri: embedLink
                     }}
                     style={{
                         height: Math.min(w, h),
                         width: Math.max(w, h),
-                        border: 'none',
+                        border: 'none'
                     }}
-                    onLoadEnd={(syntheticEvent) => {
+                    onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}
                 />
@@ -41,14 +42,14 @@ export default ({ videoUrl }) => {
                 <WebView
                     originWhitelist={['*']}
                     source={{
-                        html: embedLink,
+                        html: embedLink
                     }}
                     style={{
                         height: Math.min(w, h),
                         width: Math.max(w, h),
-                        border: 'none',
+                        border: 'none'
                     }}
-                    onLoadEnd={(syntheticEvent) => {
+                    onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}
                 />
@@ -56,7 +57,7 @@ export default ({ videoUrl }) => {
                 <Video
                     controls
                     source={{
-                        uri: embedLink,
+                        uri: embedLink
                     }} // Can be a URL or a local file.
                     style={{ height: 200, width: '100%' }}
                 />

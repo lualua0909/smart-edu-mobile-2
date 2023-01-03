@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { FlatList, RefreshControl, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
 import Axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import { useGlobalState } from 'app/Store'
+import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, RefreshControl, ScrollView } from 'react-native'
 
 const MyCourseList = ({ userId }) => {
     const [data, setData] = useState([])
@@ -18,10 +19,10 @@ const MyCourseList = ({ userId }) => {
         Axios.get(
             `courses/my-courses/paging/${page * 8}/${userId || userInfo?.id}`
         )
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = resData?.data
 
                 console.log('courses/my-courses/paging', list)
@@ -54,8 +55,7 @@ const MyCourseList = ({ userId }) => {
         <ScrollView
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }
-        >
+            }>
             {data?.length ? (
                 <FlatList
                     data={data || []}
@@ -71,7 +71,7 @@ const MyCourseList = ({ userId }) => {
                     contentContainerStyle={{
                         paddingLeft: 16,
                         paddingRight: 16,
-                        paddingBottom: scale(50),
+                        paddingBottom: scale(50)
                     }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}

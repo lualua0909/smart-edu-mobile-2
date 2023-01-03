@@ -1,13 +1,15 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { SvgXml } from 'react-native-svg'
-import { svgCircle, svgLineDashVertical } from 'assets/svg'
-import { useNavigation } from '@react-navigation/native'
-import { Badge, Box } from 'native-base'
-import dayjs from 'dayjs'
-import { DollarSign, CreditCard } from 'react-native-feather'
 import { toCurrency } from 'app/helpers/utils'
+import { svgCircle, svgLineDashVertical } from 'assets/svg'
+import dayjs from 'dayjs'
+import React from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
+import { CreditCard, DollarSign } from 'react-native-feather'
+import { SvgXml } from 'react-native-svg'
+
+import { Badge, Box } from 'native-base'
 import { Text } from 'native-base'
 
 const TransactionItem = ({ data }) => {
@@ -25,15 +27,13 @@ const TransactionItem = ({ data }) => {
             // onPress={() =>
             //     navigation.navigate(ROUTES.CourseInfo, { id: data?.id })
             // }
-            style={{ flexDirection: 'row', marginTop: 5 }}
-        >
+            style={{ flexDirection: 'row', marginTop: 5 }}>
             <View style={{ width: scale(100), height: scale(114) }}>
                 <View
                     style={{
                         alignSelf: 'flex-end',
-                        zIndex: 1,
-                    }}
-                >
+                        zIndex: 1
+                    }}>
                     <SvgXml
                         xml={svgCircle}
                         style={{
@@ -41,7 +41,7 @@ const TransactionItem = ({ data }) => {
                             position: 'absolute',
                             marginTop: scale(-5),
                             marginLeft: scale(-6),
-                            zIndex: 2,
+                            zIndex: 2
                         }}
                     />
                     <SvgXml
@@ -56,18 +56,16 @@ const TransactionItem = ({ data }) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
                         width: '100%',
-                        position: 'absolute',
-                    }}
-                >
+                        position: 'absolute'
+                    }}>
                     <View>
                         {day ? (
                             <Text
                                 style={{
                                     fontSize: scale(16),
                                     color: '#000000',
-                                    textAlign: 'right',
-                                }}
-                            >
+                                    textAlign: 'right'
+                                }}>
                                 Ngày {day}
                             </Text>
                         ) : null}
@@ -76,9 +74,8 @@ const TransactionItem = ({ data }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#6C746E',
-                                    textAlign: 'right',
-                                }}
-                            >
+                                    textAlign: 'right'
+                                }}>
                                 Tháng {month}
                             </Text>
                         ) : null}
@@ -87,9 +84,8 @@ const TransactionItem = ({ data }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#6C746E',
-                                    textAlign: 'right',
-                                }}
-                            >
+                                    textAlign: 'right'
+                                }}>
                                 {year}
                             </Text>
                         ) : null}
@@ -99,42 +95,37 @@ const TransactionItem = ({ data }) => {
             <View
                 style={{
                     flex: 1,
-                    padding: scale(10),
-                }}
-            >
+                    padding: scale(10)
+                }}>
                 <Box
                     style={{
-                        backgroundColor: '#FFFFFF',
+                        backgroundColor: '#FFFFFF'
                     }}
                     rounded="lg"
                     p={3}
-                    shadow={5}
-                >
+                    shadow={5}>
                     <Text
                         numberOfLines={2}
                         style={{
                             fontSize: scale(16),
-                            color: '#000',
-                        }}
-                    >
+                            color: '#000'
+                        }}>
                         {data?.order_detail[0]?.title}
                     </Text>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginTop: 5,
-                        }}
-                    >
+                            marginTop: 5
+                        }}>
                         <CreditCard stroke="#0E564D" width={18} height={18} />
                         <Text
                             numberOfLines={2}
                             style={{
                                 fontSize: scale(14),
                                 color: '#6C746E',
-                                marginLeft: scale(4),
-                            }}
-                        >
+                                marginLeft: scale(4)
+                            }}>
                             {data?.tid}
                         </Text>
                     </View>
@@ -142,18 +133,16 @@ const TransactionItem = ({ data }) => {
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginTop: 5,
-                        }}
-                    >
+                            marginTop: 5
+                        }}>
                         <DollarSign stroke="#0E564D" width={18} height={18} />
                         <Text
                             numberOfLines={2}
                             style={{
                                 fontSize: scale(14),
                                 color: '#6C746E',
-                                marginLeft: scale(4),
-                            }}
-                        >
+                                marginLeft: scale(4)
+                            }}>
                             {toCurrency(data?.order_detail[0]?.price)} VNĐ
                         </Text>
                     </View>
@@ -161,14 +150,12 @@ const TransactionItem = ({ data }) => {
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginTop: 5,
-                        }}
-                    >
+                            marginTop: 5
+                        }}>
                         <Badge
                             colorScheme={data?.status ? 'success' : 'warning'}
                             alignSelf="center"
-                            variant="subtle"
-                        >
+                            variant="subtle">
                             {data?.status ? 'Đã thanh toán' : 'Chưa thanh toán'}
                         </Badge>
                     </View>

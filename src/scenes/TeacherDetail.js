@@ -1,34 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Image, StatusBar } from 'react-native'
-import { Text } from 'native-base'
-import { SvgXml } from 'react-native-svg'
+import Axios from 'app/Axios'
+import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
+import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
-import { COLORS } from 'app/constants'
-import { TabView, TabBar } from 'react-native-tab-view'
+import React, { useEffect, useState } from 'react'
+
+import { Image, StatusBar, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
+import { SvgXml } from 'react-native-svg'
+import { TabBar, TabView } from 'react-native-tab-view'
+
 import HeaderBack from 'app/components/header-back'
-import Axios from 'app/Axios'
+import { Text } from 'native-base'
 import { CheckIcon, ScrollView } from 'native-base'
 
 const routes = [
     {
         key: 'tab-1',
-        title: 'Trình độ chuyên môn',
+        title: 'Trình độ chuyên môn'
     },
     {
         key: 'tab-2',
-        title: 'Kinh nghiệm làm việc',
+        title: 'Kinh nghiệm làm việc'
     },
     {
         key: 'tab-3',
-        title: 'Kinh nghiệm giảng dạy',
+        title: 'Kinh nghiệm giảng dạy'
     },
     {
         key: 'tab-4',
-        title: 'Lĩnh vực tư vấn',
-    },
+        title: 'Lĩnh vực tư vấn'
+    }
 ]
 
 const TeacherInfo = ({ navigation, route }) => {
@@ -43,31 +45,30 @@ const TeacherInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             Axios.get(`users/get-mentor-info/${id}`)
-                .then((res) => {
+                .then(res => {
                     if (res.data.status === 200) {
                         setData(res.data)
                     }
                 })
-                .catch((err) => console.error(err.message))
+                .catch(err => console.error(err.message))
                 .finally(() => setLoading(false))
         }
     }, [id])
 
-    const renderContent = (list) => {
+    const renderContent = list => {
         return list?.map((item, index) => (
             <View
                 key={index}
                 style={{
                     flexDirection: 'row',
-                    marginTop: scale(8),
-                }}
-            >
+                    marginTop: scale(8)
+                }}>
                 <CheckIcon
                     size={scale(14)}
                     style={{
                         marginRight: scale(10),
                         marginTop: 5,
-                        color: COLORS.green,
+                        color: COLORS.green
                     }}
                 />
                 <Text
@@ -75,9 +76,8 @@ const TeacherInfo = ({ navigation, route }) => {
                         flex: 1,
 
                         color: '#202020',
-                        fontSize: scale(16),
-                    }}
-                >
+                        fontSize: scale(16)
+                    }}>
                     {item?.content}
                 </Text>
             </View>
@@ -124,17 +124,16 @@ const TeacherInfo = ({ navigation, route }) => {
                         {
                             textTransform: 'uppercase',
                             whiteSpace: 'nowrap',
-                            wordWrap: 'break-word',
-                        },
-                    ]}
-                >
+                            wordWrap: 'break-word'
+                        }
+                    ]}>
                     {route.title}
                 </Text>
             </View>
         )
     }
 
-    const renderTabBar = (props) => (
+    const renderTabBar = props => (
         <TabBar
             {...props}
             indicatorStyle={{ backgroundColor: 'white' }}
@@ -152,7 +151,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={{
                         width: '100%',
                         height: scale(120),
-                        position: 'absolute',
+                        position: 'absolute'
                     }}
                     resizeMode="stretch"
                 />
@@ -162,17 +161,15 @@ const TeacherInfo = ({ navigation, route }) => {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         paddingBottom: scale(15),
-                        paddingTop: scale(10),
+                        paddingTop: scale(10)
                     }}
-                    edges={['top']}
-                >
+                    edges={['top']}>
                     <HeaderBack white />
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#fff',
-                        }}
-                    >
+                            color: '#fff'
+                        }}>
                         Thông tin giảng viên
                     </Text>
                     <View style={{ paddingHorizontal: scale(16), opacity: 0 }}>
@@ -188,9 +185,8 @@ const TeacherInfo = ({ navigation, route }) => {
             <View
                 style={{
                     alignItems: 'center',
-                    paddingBottom: scale(11),
-                }}
-            >
+                    paddingBottom: scale(11)
+                }}>
                 <Avatar
                     size={scale(180)}
                     name={fullName}
@@ -200,36 +196,32 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={{
                         fontSize: scale(18),
                         color: '#000',
-                        marginTop: scale(10),
-                    }}
-                >
+                        marginTop: scale(10)
+                    }}>
                     {fullName}
                 </Text>
                 <View
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginTop: scale(8),
-                    }}
-                >
+                        marginTop: scale(8)
+                    }}>
                     <Rate rate={5} size="24" />
                 </View>
                 <Text
                     style={{
                         fontSize: scale(16),
                         color: '#6C746E',
-                        marginTop: scale(8),
-                    }}
-                >
+                        marginTop: scale(8)
+                    }}>
                     {data?.mentor?.department}
                 </Text>
                 <Text
                     style={{
                         fontSize: scale(16),
                         color: '#6C746E',
-                        marginTop: scale(8),
-                    }}
-                >
+                        marginTop: scale(8)
+                    }}>
                     {data?.mentor?.position}
                 </Text>
             </View>
@@ -239,7 +231,7 @@ const TeacherInfo = ({ navigation, route }) => {
                 renderScene={renderScene}
                 onIndexChange={setTabIndex}
                 style={{
-                    backgroundColor: '#fff',
+                    backgroundColor: '#fff'
                 }}
             />
             {/* <View
@@ -333,9 +325,8 @@ const TabContent = ({ content }) => {
             _contentContainerStyle={{
                 px: '20px',
                 mb: '4',
-                minW: '72',
-            }}
-        >
+                minW: '72'
+            }}>
             {content}
             <View style={{ height: 50 }}></View>
         </ScrollView>
@@ -344,9 +335,9 @@ const TabContent = ({ content }) => {
 
 const styles = StyleSheet.create({
     activeTabText: {
-        color: '#fff',
+        color: '#fff'
     },
     tabText: {
-        color: '#ccc',
-    },
+        color: '#ccc'
+    }
 })

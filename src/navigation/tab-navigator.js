@@ -1,17 +1,19 @@
-import React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import CourseList from 'app/scenes/CourseList'
+import Dashboard from 'app/scenes/Dashboard'
+import Home from 'app/scenes/Home'
+import Notification from 'app/scenes/NotifyList'
+import TeacherList from 'app/scenes/TeacherList'
 import {
     svgTabCourse,
     svgTabHome,
     svgTabMenu,
     svgTabNoti,
-    svgTabTeacher,
+    svgTabTeacher
 } from 'assets/svg'
-import CourseList from 'app/scenes/CourseList'
-import Home from 'app/scenes/Home'
-import TeacherList from 'app/scenes/TeacherList'
-import Notification from 'app/scenes/NotifyList'
-import Dashboard from 'app/scenes/Dashboard'
+import React from 'react'
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
 import BottomTabButton from 'app/components/tabbar-button'
 
 const Tab = createBottomTabNavigator()
@@ -22,17 +24,16 @@ const TabNavigator = ({}) => {
             screenOptions={({ route }) => ({
                 tabBarStyle: {
                     paddingBottom: 12,
-                    height: 60,
+                    height: 60
                 },
-                headerShown: false,
+                headerShown: false
             })}
-            initialRouteName="Home"
-        >
+            initialRouteName="Home">
             <Tab.Screen
                 name="Home"
                 component={Home}
                 options={{
-                    tabBarButton: (props) => (
+                    tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabHome('#fff')}
@@ -40,14 +41,14 @@ const TabNavigator = ({}) => {
                             label={'Trang chủ'}
                             props={props}
                         />
-                    ),
+                    )
                 }}
             />
             <Tab.Screen
                 name={'CourseList'}
                 component={CourseList}
                 options={({ route, navigation }) => ({
-                    tabBarButton: (props) => (
+                    tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabCourse('#fff')}
@@ -55,14 +56,14 @@ const TabNavigator = ({}) => {
                             label={'Khóa học'}
                             props={props}
                         />
-                    ),
+                    )
                 })}
             />
             <Tab.Screen
                 name="TeacherList"
                 component={TeacherList}
                 options={({ route, navigation }) => ({
-                    tabBarButton: (props) => (
+                    tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabTeacher('#fff')}
@@ -70,14 +71,14 @@ const TabNavigator = ({}) => {
                             label={'Giảng viên'}
                             props={props}
                         />
-                    ),
+                    )
                 })}
             />
             <Tab.Screen
                 name="Notification"
                 component={Notification}
                 options={({ route, navigation }) => ({
-                    tabBarButton: (props) => (
+                    tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabNoti('#fff')}
@@ -85,14 +86,14 @@ const TabNavigator = ({}) => {
                             label={'Thông báo'}
                             props={props}
                         />
-                    ),
+                    )
                 })}
             />
             <Tab.Screen
                 name="Dashboard"
                 component={Dashboard}
                 options={({ route, navigation }) => ({
-                    tabBarButton: (props) => (
+                    tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabMenu('#fff')}
@@ -100,7 +101,7 @@ const TabNavigator = ({}) => {
                             label={'Dashboard'}
                             props={props}
                         />
-                    ),
+                    )
                 })}
             />
         </Tab.Navigator>

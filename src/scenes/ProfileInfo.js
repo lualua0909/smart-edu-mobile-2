@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { View, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { DetailSkeleton, Avatar, Input, showToast } from 'app/atoms'
-import { useGlobalState } from 'app/Store'
-import { Button, Center, Image, Radio, VStack } from 'native-base'
 import Axios from 'app/Axios'
+import { useGlobalState } from 'app/Store'
+import { Avatar, DetailSkeleton, Input, showToast } from 'app/atoms'
 import { API_URL } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
+import React, { useEffect, useState } from 'react'
+
+import { ScrollView, View } from 'react-native'
+
+import { Button, Center, Image, Radio, VStack } from 'native-base'
 
 const ProfileInfo = ({ route }) => {
     const [userInfo, _] = useGlobalState('userInfo')
@@ -20,7 +22,7 @@ const ProfileInfo = ({ route }) => {
 
     useEffect(() => {
         Axios.get(`get-user-info/${userInfo?.id}`)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     const data = res.data.data
                     setData(data)
@@ -48,22 +50,22 @@ const ProfileInfo = ({ route }) => {
     const deactiveAccount = () => {
         setLoading(true)
         Axios.get(`deactive-user`)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     showToast({
                         title: 'Thông báo',
                         description: res?.data?.message,
-                        status: 'success',
+                        status: 'success'
                     })
 
                     clearDataAfterLogout()
                 }
             })
-            .catch((err) => {
+            .catch(err => {
                 showToast({
                     title: 'Thông báo',
                     description: err?.message,
-                    status: 'error',
+                    status: 'error'
                 })
             })
             .finally(() => setLoading(false))
@@ -86,19 +88,18 @@ const ProfileInfo = ({ route }) => {
                 <View
                     style={{
                         alignItems: 'center',
-                        paddingBottom: 30,
-                    }}
-                >
+                        paddingBottom: 30
+                    }}>
                     <Image
                         alt="menu-banner.jpg'"
                         source={{
-                            uri: `${API_URL}public/user-avatars/${userInfo?.id}-cover.webp?rand=${random}`,
+                            uri: `${API_URL}public/user-avatars/${userInfo?.id}-cover.webp?rand=${random}`
                         }}
                         fallbackSource={require('assets/images/fallback.jpg')}
                         style={{
                             width: '100%',
                             position: 'absolute',
-                            height: scale(210),
+                            height: scale(210)
                         }}
                         resizeMode="cover"
                     />
@@ -132,9 +133,8 @@ const ProfileInfo = ({ route }) => {
                                 borderRadius: scale(120),
                                 borderWidth: scale(2),
                                 borderColor: '#fff',
-                                marginTop: '40%',
-                            }}
-                        >
+                                marginTop: '40%'
+                            }}>
                             <Avatar userId={data?.id} size="120" name={name} />
                         </View>
                         {/* <View
@@ -164,15 +164,14 @@ const ProfileInfo = ({ route }) => {
                             <Button
                                 colorScheme="red"
                                 onPress={deactiveAccount}
-                                variant="outline"
-                            >
+                                variant="outline">
                                 Xóa tài khoản
                             </Button>
                             <Input
                                 label="Họ"
                                 w={'100%'}
                                 value={data?.first_name}
-                                onChangeText={(value) =>
+                                onChangeText={value =>
                                     changeValue('first_name', value)
                                 }
                                 error={errors?.name}
@@ -225,10 +224,9 @@ const ProfileInfo = ({ route }) => {
                                 name="myRadioGroup"
                                 accessibilityLabel="favorite number"
                                 value={data?.gender}
-                                onChange={(selectedValue) =>
+                                onChange={selectedValue =>
                                     changeValue('gender', selectedValue)
-                                }
-                            >
+                                }>
                                 <Radio value={1} my={1} size="sm" isDisabled>
                                     Nam
                                 </Radio>

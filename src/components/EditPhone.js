@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { View, Pressable, TextInput } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import React, { useState } from 'react'
+
+import { Pressable, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { Text } from 'native-base'
 
 const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
     const [viewHeight, setViewHeight] = useState({
-        footer: 0,
+        footer: 0
     })
     return (
         <>
@@ -17,14 +19,13 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                         width: '100%',
                         position: 'absolute',
                         height: '100%',
-                        backgroundColor: '#00000066',
-                    }}
-                >
+                        backgroundColor: '#00000066'
+                    }}>
                     <SafeAreaView
-                        onLayout={(e) =>
+                        onLayout={e =>
                             setViewHeight({
                                 ...viewHeight,
-                                footer: e.nativeEvent.layout.height,
+                                footer: e.nativeEvent.layout.height
                             })
                         }
                         edges={['bottom']}
@@ -35,18 +36,16 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                                 width: '100%',
                                 paddingBottom: scale(3),
                                 paddingHorizontal: scale(20),
-                                backgroundColor: '#FFFFFF',
-                            },
-                        ]}
-                    >
+                                backgroundColor: '#FFFFFF'
+                            }
+                        ]}>
                         <Text
                             style={{
                                 fontSize: scale(18),
                                 color: '#1F1F1F',
                                 textAlign: 'center',
-                                padding: scale(20),
-                            }}
-                        >
+                                padding: scale(20)
+                            }}>
                             Sửa số điện thoại
                         </Text>
                         <TextInput
@@ -56,7 +55,7 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                                 padding: scale(10),
                                 borderRadius: scale(5),
                                 borderColor: COLORS.green,
-                                borderLeftWidth: scale(4),
+                                borderLeftWidth: scale(4)
                             }}
                         />
                         <Pressable
@@ -65,18 +64,16 @@ const EditPhone = ({ isVisible, onBackPress, onSubmit }) => {
                                 padding: scale(10),
                                 borderRadius: scale(8),
                                 marginHorizontal: scale(10),
-                                marginVertical: scale(20),
+                                marginVertical: scale(20)
                             }}
-                            onPress={() => onSubmit()}
-                        >
+                            onPress={() => onSubmit()}>
                             <Text
                                 style={{
                                     textAlign: 'center',
                                     color: '#FFFFFF',
 
-                                    fontSize: scale(18),
-                                }}
-                            >
+                                    fontSize: scale(18)
+                                }}>
                                 Lưu
                             </Text>
                         </Pressable>

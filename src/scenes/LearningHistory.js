@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { View, FlatList } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import HistoryItem from 'app/components/HistoryItem'
 import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import HistoryItem from 'app/components/HistoryItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, View } from 'react-native'
 
 const LearningHistory = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false)
@@ -12,7 +13,7 @@ const LearningHistory = ({ navigation, route }) => {
     useEffect(() => {
         setLoading(true)
         Axios.get('courses/get-my-learning-process')
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     console.log('get-my-learning-process', res.data.data)
                     setData(res.data.data)
@@ -30,11 +31,11 @@ const LearningHistory = ({ navigation, route }) => {
                 renderItem={({ item, index }) => {
                     return <HistoryItem key={index} data={item} />
                 }}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
                 style={{
                     paddingHorizontal: scale(16),
                     zIndex: 1,
-                    paddingTop: scale(10),
+                    paddingTop: scale(10)
                 }}
             />
         </View>

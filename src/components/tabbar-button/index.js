@@ -1,7 +1,9 @@
+import { scale } from 'app/helpers/responsive'
 import React from 'react'
+
 import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
+
 import { Text } from 'native-base'
 
 const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
@@ -12,9 +14,8 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
             style={{
                 width: '20%',
                 alignItems: 'center',
-                justifyContent: 'flex-end',
-            }}
-        >
+                justifyContent: 'flex-end'
+            }}>
             {focused ? (
                 <View
                     style={[
@@ -28,10 +29,9 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
                             borderColor: '#fff',
                             backgroundColor: '#52B553',
                             position: 'absolute',
-                            top: -scale(26),
-                        },
-                    ]}
-                >
+                            top: -scale(26)
+                        }
+                    ]}>
                     <SvgXml
                         xml={iconActive}
                         width={iconSize}
@@ -46,11 +46,10 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
                     {
                         fontSize: scale(12),
                         color: '#A3A3A3',
-                        textAlign: 'center',
+                        textAlign: 'center'
                     },
-                    focused && { color: '#52B553' },
-                ]}
-            >
+                    focused && { color: '#52B553' }
+                ]}>
                 {label}
             </Text>
         </Pressable>

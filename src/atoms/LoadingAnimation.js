@@ -1,7 +1,9 @@
-import React from 'react'
-import { Center } from 'native-base'
-import LottieView from 'lottie-react-native'
 import animationImg from 'assets/animations/loading.json'
+import React from 'react'
+
+import LottieView from 'lottie-react-native'
+
+import { Center } from 'native-base'
 
 export default () => (
     <Center>
@@ -11,7 +13,7 @@ export default () => (
             loop
             style={{
                 width: 300,
-                height: 100,
+                height: 100
             }}
         />
     </Center>

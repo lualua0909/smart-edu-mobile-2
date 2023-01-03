@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { View, Image, Pressable, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { STYLES, ROUTES } from 'app/constants'
 import Axios from 'app/Axios'
-import useFormInput from 'app/helpers/useFormInput'
-import EncryptedStorage from 'react-native-encrypted-storage'
 import { useGlobalState } from 'app/Store'
-import { Stack, Button, Center, Text } from 'native-base'
-import messaging from '@react-native-firebase/messaging'
 import { Input, showToast } from 'app/atoms'
+import { ROUTES, STYLES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import useFormInput from 'app/helpers/useFormInput'
+import React, { useEffect, useState } from 'react'
+
+import messaging from '@react-native-firebase/messaging'
+import { Image, Pressable, ScrollView, View } from 'react-native'
+import EncryptedStorage from 'react-native-encrypted-storage'
+
+import { Button, Center, Stack, Text } from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -32,9 +34,9 @@ const Login = ({ navigation }) => {
             Axios.post('login', {
                 username: username.value.toLowerCase(),
                 password: password.value,
-                mobile_fcm_token: fcmToken.value,
+                mobile_fcm_token: fcmToken.value
             })
-                .then((res) => {
+                .then(res => {
                     if (res.data.status === 200) {
                         // if (firebase.messaging.isSupported()) {
                         //     getNewToken()
@@ -48,21 +50,21 @@ const Login = ({ navigation }) => {
                     } else {
                         showToast({
                             title: res.data.message,
-                            status: 'error',
+                            status: 'error'
                         })
                     }
                 })
-                .catch((error) => {
+                .catch(error => {
                     showToast({
                         title: error.message,
-                        status: 'error',
+                        status: 'error'
                     })
                 })
                 .finally(() => setLoading(false))
         } else {
             showToast({
                 title: 'Vui lòng nhập đầy đủ thông tin',
-                status: 'error',
+                status: 'error'
             })
         }
     }
@@ -74,9 +76,8 @@ const Login = ({ navigation }) => {
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{
                     flexGrow: 1,
-                    justifyContent: 'center',
-                }}
-            >
+                    justifyContent: 'center'
+                }}>
                 <Image
                     source={require('assets/images/login-bg.png')}
                     style={{
@@ -84,7 +85,7 @@ const Login = ({ navigation }) => {
                         height: '70%',
                         position: 'absolute',
                         top: 0,
-                        left: 0,
+                        left: 0
                     }}
                     resizeMode="cover"
                 />
@@ -92,9 +93,8 @@ const Login = ({ navigation }) => {
                     style={{
                         paddingHorizontal: scale(30),
                         zIndex: 1,
-                        marginTop: scale(90),
-                    }}
-                >
+                        marginTop: scale(90)
+                    }}>
                     <View
                         style={[
                             STYLES.boxShadow,
@@ -102,18 +102,16 @@ const Login = ({ navigation }) => {
                                 width: '100%',
                                 borderRadius: scale(10),
                                 paddingVertical: scale(42),
-                                paddingHorizontal: scale(28),
-                            },
-                        ]}
-                    >
+                                paddingHorizontal: scale(28)
+                            }
+                        ]}>
                         <Text
                             style={{
                                 fontWeight: '900',
                                 color: '#0E564D',
                                 fontSize: scale(16),
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             ĐĂNG NHẬP
                         </Text>
                         <Text
@@ -121,17 +119,15 @@ const Login = ({ navigation }) => {
                                 marginTop: scale(8),
                                 fontSize: scale(15),
                                 textAlign: 'center',
-                                color: '#6C746E',
-                            }}
-                        >
+                                color: '#6C746E'
+                            }}>
                             Chào mừng bạn đến với SmartEdu !
                         </Text>
                         <Stack
                             space={4}
                             w="100%"
                             alignItems="center"
-                            style={{ marginTop: scale(16) }}
-                        >
+                            style={{ marginTop: scale(16) }}>
                             <Input
                                 size="md"
                                 placeholder="Tài khoản"
@@ -154,16 +150,14 @@ const Login = ({ navigation }) => {
                             hitSlop={20}
                             style={{
                                 marginTop: scale(24),
-                                alignSelf: 'flex-end',
-                            }}
-                        >
+                                alignSelf: 'flex-end'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#0075FF',
-                                    textDecorationLine: 'underline',
-                                }}
-                            >
+                                    textDecorationLine: 'underline'
+                                }}>
                                 Quên mật khẩu?
                             </Text>
                         </Pressable>
@@ -173,10 +167,9 @@ const Login = ({ navigation }) => {
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{
-                                    marginTop: scale(16),
+                                    marginTop: scale(16)
                                 }}
-                                onPress={doLogin}
-                            >
+                                onPress={doLogin}>
                                 Đăng nhập
                             </Button>
                         </Center>
@@ -185,24 +178,21 @@ const Login = ({ navigation }) => {
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
                                 alignSelf: 'center',
-                                marginTop: scale(16),
-                            }}
-                        >
+                                marginTop: scale(16)
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
-                                    textAlign: 'center',
-                                }}
-                            >
+                                    textAlign: 'center'
+                                }}>
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
                                     style={{
                                         fontSize: scale(14),
                                         color: '#0075FF',
-                                        textDecorationLine: 'underline',
-                                    }}
-                                >
+                                        textDecorationLine: 'underline'
+                                    }}>
                                     Đăng ký ngay
                                 </Text>
                             </Text>

@@ -1,38 +1,39 @@
-import React from 'react'
-import {
-    createStackNavigator,
-    TransitionPresets,
-} from '@react-navigation/stack'
-import TabNavigator from './tab-navigator'
 import { ROUTES } from 'app/constants'
-import HeaderTitle from 'app/components/header-title'
-import HeaderBack from 'app/components/header-back'
-
+import Carts from 'app/scenes/Carts'
+import CertificateList from 'app/scenes/CertificateList'
+import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
+import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseDetails from 'app/scenes/CourseDetails'
-import Chat from 'app/scenes/chat'
-import ChatDetail from 'app/scenes/chat-detail'
-import TeacherInfo from 'app/scenes/TeacherDetail'
-import OverviewInfo from 'app/scenes/OverviewInfo'
-import NotificationDetail from 'app/scenes/NotificationDetail'
-import ProfileOverview from 'app/scenes/ProfileOverview'
-import Wishlist from 'app/scenes/Wishlist'
-import Friends from 'app/scenes/Friends'
 import CoursesByUser from 'app/scenes/CoursesByUser'
-import ConnectInstructors from 'app/scenes/ConnectInstructors'
-import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
-import Carts from 'app/scenes/Carts'
-import Payment from 'app/scenes/Payment'
-import Voucher from 'app/scenes/Voucher'
-import ProfileInfo from 'app/scenes/ProfileInfo'
 import EditProfile from 'app/scenes/EditProfile'
-import Policy from 'app/scenes/Policy'
-import Language from 'app/scenes/Language'
-import Support from 'app/scenes/Support'
+import Friends from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
+import Language from 'app/scenes/Language'
 import LearningHistory from 'app/scenes/LearningHistory'
-import CertificateList from 'app/scenes/CertificateList'
+import NotificationDetail from 'app/scenes/NotificationDetail'
+import OverviewInfo from 'app/scenes/OverviewInfo'
+import Payment from 'app/scenes/Payment'
+import Policy from 'app/scenes/Policy'
+import ProfileInfo from 'app/scenes/ProfileInfo'
+import ProfileOverview from 'app/scenes/ProfileOverview'
+import Support from 'app/scenes/Support'
+import TeacherInfo from 'app/scenes/TeacherDetail'
 import TransactionList from 'app/scenes/TransactionList'
+import Voucher from 'app/scenes/Voucher'
+import Wishlist from 'app/scenes/Wishlist'
+import Chat from 'app/scenes/chat'
+import React from 'react'
+
+import {
+    TransitionPresets,
+    createStackNavigator
+} from '@react-navigation/stack'
+
+import TabNavigator from './tab-navigator'
+import HeaderBack from 'app/components/header-back'
+import HeaderTitle from 'app/components/header-title'
+import ChatDetail from 'app/scenes/chat-detail'
 
 const Stack = createStackNavigator()
 const AppNavigator = () => {
@@ -42,18 +43,17 @@ const AppNavigator = () => {
                 headerStyle: {
                     elevation: 0,
                     borderBottomWidth: 1,
-                    borderBottomColor: '#f0f0f0',
+                    borderBottomColor: '#f0f0f0'
                 },
                 cardStyle: { backgroundColor: '#fff' },
                 ...TransitionPresets.SlideFromRightIOS,
-                headerTitleAlign: 'center',
-            }}
-        >
+                headerTitleAlign: 'center'
+            }}>
             <Stack.Screen
                 name={'Tab'}
                 component={TabNavigator}
                 options={{
-                    headerShown: false,
+                    headerShown: false
                 }}
             />
             <Stack.Screen
@@ -63,14 +63,14 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
                 name={ROUTES.CourseDetail}
                 component={CourseContents}
                 options={({ route, navigation }) => ({
-                    headerLeft: () => <HeaderBack whiteBg={true} />,
+                    headerLeft: () => <HeaderBack whiteBg={true} />
                     // headerRight: () => (
                     //     <Pressable
                     //         onPress={() => navigation.navigate(ROUTES.Chat)}
@@ -99,7 +99,7 @@ const AppNavigator = () => {
                 component={Chat}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Chat'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -107,14 +107,14 @@ const AppNavigator = () => {
                 component={ChatDetail}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Chat detail'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
                 name={ROUTES.TeacherInfo}
                 component={TeacherInfo}
                 options={({ route, navigation }) => ({
-                    headerShown: false,
+                    headerShown: false
                 })}
             />
             <Stack.Screen
@@ -124,7 +124,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Trang tổng quan'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -134,7 +134,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Chi tiết thông báo'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -142,7 +142,7 @@ const AppNavigator = () => {
                 component={ProfileOverview}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Hồ sơ học tập'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
 
@@ -151,7 +151,7 @@ const AppNavigator = () => {
                 component={Wishlist}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Đã yêu thích'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
 
@@ -160,7 +160,7 @@ const AppNavigator = () => {
                 component={Friends}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Bạn bè'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
 
@@ -171,7 +171,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Khóa học hiện có'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
 
@@ -179,7 +179,7 @@ const AppNavigator = () => {
                 name={ROUTES.ConnectInstructors}
                 component={ConnectInstructors}
                 options={({ route, navigation }) => ({
-                    headerShown: false,
+                    headerShown: false
                 })}
             />
 
@@ -190,7 +190,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Lịch sử kết nối'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
 
@@ -199,7 +199,7 @@ const AppNavigator = () => {
                 component={Carts}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Giỏ hàng'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -207,7 +207,7 @@ const AppNavigator = () => {
                 component={Payment}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Thanh toán'} />,
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -217,7 +217,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Chọn SE voucher'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -227,7 +227,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Thay đổi thông tin'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -237,7 +237,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Thông tin cá nhân'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -247,7 +247,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Chính sách điều khoản'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -257,7 +257,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title="Thông tin ứng dụng" />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -267,7 +267,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Trợ giúp và hỗ trợ'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -277,7 +277,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Trợ giúp và hỗ trợ'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -287,7 +287,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Quá trình học tập'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -297,7 +297,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Chứng chỉ hiện có'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
@@ -307,7 +307,7 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Lịch sử giao dịch'} />
                     ),
-                    headerLeft: () => <HeaderBack />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
         </Stack.Navigator>

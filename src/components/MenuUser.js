@@ -1,10 +1,12 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-import Modal from 'react-native-modal'
 import { scale } from 'app/helpers/responsive'
-import { svgUser, svgTabCourse, svgCredit, svgClock } from 'assets/svg'
+import { svgClock, svgCredit, svgTabCourse, svgUser } from 'assets/svg'
+import React from 'react'
+
+import { Pressable, View } from 'react-native'
+import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SvgXml } from 'react-native-svg'
+
 import { Text } from 'native-base'
 
 const MenuUser = ({
@@ -13,43 +15,43 @@ const MenuUser = ({
     navigation,
     onBackPress,
     onDropPress,
-    setVisible,
+    setVisible
 }) => {
     const menus = [
         {
             icon: svgUser,
             title: 'Thông tin cá nhân',
-            onPress: () => navigation.navigate('Profile'),
+            onPress: () => navigation.navigate('Profile')
         },
         {
             icon: svgTabCourse('#000000'),
             title: 'Khóa học hiện có',
             onPress: () =>
                 navigation.navigate(ROUTES.CoursesByUser, {
-                    userId,
-                }),
+                    userId
+                })
         },
         {
             icon: svgCredit,
             title: 'Chứng chỉ',
             onPress: () =>
                 navigation.navigate(ROUTES.CertificateList, {
-                    userId,
-                }),
+                    userId
+                })
         },
         {
             icon: svgClock,
             title: 'Quá trình học tập',
-            onPress: () => navigation.navigate(ROUTES.LearningHistory),
+            onPress: () => navigation.navigate(ROUTES.LearningHistory)
         },
         {
             icon: svgUser,
             title: 'Bạn bè',
             onPress: () =>
                 navigation.navigate(ROUTES.Friends, {
-                    userId,
-                }),
-        },
+                    userId
+                })
+        }
         // {
         //     icon: svgGrift,
         //     title: 'Khóa học đã đóng góp',
@@ -61,14 +63,12 @@ const MenuUser = ({
             style={{ margin: 0, justifyContent: 'flex-end' }}
             isVisible={visible}
             onBackButtonPress={onBackPress}
-            onBackdropPress={onDropPress}
-        >
+            onBackdropPress={onDropPress}>
             <View
                 style={{
                     backgroundColor: '#fff',
-                    paddingTop: scale(24),
-                }}
-            >
+                    paddingTop: scale(24)
+                }}>
                 <SafeAreaView>
                     <View style={{ paddingLeft: scale(16) }}>
                         {menus.map((item, index) => (
@@ -78,14 +78,12 @@ const MenuUser = ({
                                 onPress={() => {
                                     setVisible(false)
                                     item.onPress()
-                                }}
-                            >
+                                }}>
                                 <View
                                     style={{
                                         flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}
-                                >
+                                        alignItems: 'center'
+                                    }}>
                                     <SvgXml
                                         xml={item?.icon}
                                         width={scale(21)}
@@ -97,25 +95,23 @@ const MenuUser = ({
                                             fontSize: scale(17),
                                             marginLeft: scale(15),
                                             flex: 1,
-                                            color: '#000',
-                                        }}
-                                    >
+                                            color: '#000'
+                                        }}>
                                         {item?.title}
                                     </Text>
                                 </View>
                                 <View
                                     style={{
                                         flexDirection: 'row',
-                                        marginTop: scale(10),
-                                    }}
-                                >
+                                        marginTop: scale(10)
+                                    }}>
                                     <View style={{ width: scale(21) }} />
                                     <View
                                         style={{
                                             flex: 1,
                                             marginLeft: scale(15),
                                             height: 1,
-                                            backgroundColor: '#ddd',
+                                            backgroundColor: '#ddd'
                                         }}
                                     />
                                 </View>

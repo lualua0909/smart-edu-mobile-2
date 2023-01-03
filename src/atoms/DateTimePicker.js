@@ -1,15 +1,17 @@
+import { Input } from 'app/atoms'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
+
 import DateTimePicker from '@react-native-community/datetimepicker'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import { Icon, Pressable } from 'native-base'
-import { Input } from 'app/atoms'
 
 const CustomDateTimePicker = ({
     date = new Date(),
     mode = 'date',
     onChange,
-    inputProps,
+    inputProps
 }) => {
     const [show, setShow] = useState(false)
 

@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { View, ScrollView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import EditPhone from 'app/components/EditPhone'
-import EditGender from 'app/components/EditGender'
-import EditBirthday from 'app/components/EditBirthday'
-import EditPassword from 'app/components/EditPassword'
-import SystemInfo from 'app/components/SystemInfo'
 import CompanyInfo from 'app/components/CompanyInfo'
+import EditBirthday from 'app/components/EditBirthday'
+import EditGender from 'app/components/EditGender'
+import EditPassword from 'app/components/EditPassword'
+import EditPhone from 'app/components/EditPhone'
+import SystemInfo from 'app/components/SystemInfo'
 import UserInfo from 'app/components/UserInfo'
+import React, { useState } from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import { ScrollView, View } from 'react-native'
 
 const EditProfile = () => {
     const navigation = useNavigation()
@@ -17,7 +18,7 @@ const EditProfile = () => {
     const [isEditBirthday, setIsEditBirthday] = useState(false)
     const [gender, setGender] = useState(true)
     const [viewHeight, setViewHeight] = useState({
-        footer: 0,
+        footer: 0
     })
 
     const onEditPhone = () => {
@@ -50,8 +51,7 @@ const EditProfile = () => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[1]}
-                style={{ backgroundColor: '#E5E5E5' }}
-            >
+                style={{ backgroundColor: '#E5E5E5' }}>
                 <View>
                     <CompanyInfo />
                     <UserInfo

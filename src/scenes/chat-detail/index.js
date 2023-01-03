@@ -1,19 +1,21 @@
+import { STYLES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import React from 'react'
+
+import { useHeaderHeight } from '@react-navigation/elements'
 import {
-    View,
-    Pressable,
     Image,
-    ScrollView,
-    TextInput,
     KeyboardAvoidingView,
     Platform,
+    Pressable,
+    ScrollView,
+    TextInput,
+    View
 } from 'react-native'
-import { Text } from 'native-base'
-import { scale } from 'app/helpers/responsive'
-import { STYLES } from 'app/constants'
 import LinearGradient from 'react-native-linear-gradient'
+
 import HeaderChat from 'app/components/header-chat'
-import { useHeaderHeight } from '@react-navigation/elements'
+import { Text } from 'native-base'
 
 const ChatDetail = ({ navigation }) => {
     const headerHeight = useHeaderHeight()
@@ -24,31 +26,28 @@ const ChatDetail = ({ navigation }) => {
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS == 'ios' ? 'padding' : ''}
-                keyboardVerticalOffset={headerHeight}
-            >
+                keyboardVerticalOffset={headerHeight}>
                 <ScrollView
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{
                         paddingHorizontal: scale(15),
-                        paddingTop: scale(21),
-                    }}
-                >
+                        paddingTop: scale(21)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginBottom: scale(16),
-                        }}
-                    >
+                            marginBottom: scale(16)
+                        }}>
                         <Image
                             source={{
-                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp',
+                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
                             }}
                             style={{
                                 width: scale(48),
                                 height: scale(48),
                                 borderRadius: scale(48),
                                 borderWidth: 1,
-                                borderColor: '#eee',
+                                borderColor: '#eee'
                             }}
                         />
                         <View
@@ -58,21 +57,18 @@ const ChatDetail = ({ navigation }) => {
                                 backgroundColor: '#fff',
                                 padding: scale(16),
                                 borderRadius: scale(16),
-                                borderTopLeftRadius: 0,
-                            }}
-                        >
+                                borderTopLeftRadius: 0
+                            }}>
                             <View
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}
-                            >
+                                    alignItems: 'center'
+                                }}>
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#091230',
-                                    }}
-                                >
+                                        color: '#091230'
+                                    }}>
                                     Tuấn Anh
                                 </Text>
                                 <LinearGradient
@@ -84,15 +80,13 @@ const ChatDetail = ({ navigation }) => {
                                         paddingHorizontal: scale(4),
                                         borderTopLeftRadius: scale(10),
                                         borderBottomRightRadius: scale(10),
-                                        marginLeft: scale(8),
-                                    }}
-                                >
+                                        marginLeft: scale(8)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(12),
-                                            color: '#F4F5F7',
-                                        }}
-                                    >
+                                            color: '#F4F5F7'
+                                        }}>
                                         Khách mời
                                     </Text>
                                 </LinearGradient>
@@ -101,9 +95,8 @@ const ChatDetail = ({ navigation }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#091230',
-                                    marginTop: scale(8),
-                                }}
-                            >
+                                    marginTop: scale(8)
+                                }}>
                                 Text labels need to be Text labels need to be
                                 Text label
                             </Text>
@@ -112,19 +105,18 @@ const ChatDetail = ({ navigation }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginBottom: scale(16),
-                        }}
-                    >
+                            marginBottom: scale(16)
+                        }}>
                         <Image
                             source={{
-                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp',
+                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
                             }}
                             style={{
                                 width: scale(48),
                                 height: scale(48),
                                 borderRadius: scale(48),
                                 borderWidth: 1,
-                                borderColor: '#eee',
+                                borderColor: '#eee'
                             }}
                         />
                         <View
@@ -134,21 +126,18 @@ const ChatDetail = ({ navigation }) => {
                                 backgroundColor: '#fff',
                                 padding: scale(16),
                                 borderRadius: scale(16),
-                                borderTopLeftRadius: 0,
-                            }}
-                        >
+                                borderTopLeftRadius: 0
+                            }}>
                             <View
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}
-                            >
+                                    alignItems: 'center'
+                                }}>
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#091230',
-                                    }}
-                                >
+                                        color: '#091230'
+                                    }}>
                                     Tuấn Anh
                                 </Text>
                                 <LinearGradient
@@ -160,15 +149,13 @@ const ChatDetail = ({ navigation }) => {
                                         paddingHorizontal: scale(4),
                                         borderTopLeftRadius: scale(10),
                                         borderBottomRightRadius: scale(10),
-                                        marginLeft: scale(8),
-                                    }}
-                                >
+                                        marginLeft: scale(8)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(12),
-                                            color: '#F4F5F7',
-                                        }}
-                                    >
+                                            color: '#F4F5F7'
+                                        }}>
                                         Khách mời
                                     </Text>
                                 </LinearGradient>
@@ -177,9 +164,8 @@ const ChatDetail = ({ navigation }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#091230',
-                                    marginTop: scale(8),
-                                }}
-                            >
+                                    marginTop: scale(8)
+                                }}>
                                 Text labels need to be Text labels need to be
                                 Text label
                             </Text>
@@ -188,19 +174,18 @@ const ChatDetail = ({ navigation }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginBottom: scale(16),
-                        }}
-                    >
+                            marginBottom: scale(16)
+                        }}>
                         <Image
                             source={{
-                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp',
+                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
                             }}
                             style={{
                                 width: scale(48),
                                 height: scale(48),
                                 borderRadius: scale(48),
                                 borderWidth: 1,
-                                borderColor: '#eee',
+                                borderColor: '#eee'
                             }}
                         />
                         <View
@@ -210,21 +195,18 @@ const ChatDetail = ({ navigation }) => {
                                 backgroundColor: '#fff',
                                 padding: scale(16),
                                 borderRadius: scale(16),
-                                borderTopLeftRadius: 0,
-                            }}
-                        >
+                                borderTopLeftRadius: 0
+                            }}>
                             <View
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}
-                            >
+                                    alignItems: 'center'
+                                }}>
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#091230',
-                                    }}
-                                >
+                                        color: '#091230'
+                                    }}>
                                     Tuấn Anh
                                 </Text>
                                 <LinearGradient
@@ -236,15 +218,13 @@ const ChatDetail = ({ navigation }) => {
                                         paddingHorizontal: scale(4),
                                         borderTopLeftRadius: scale(10),
                                         borderBottomRightRadius: scale(10),
-                                        marginLeft: scale(8),
-                                    }}
-                                >
+                                        marginLeft: scale(8)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(12),
-                                            color: '#F4F5F7',
-                                        }}
-                                    >
+                                            color: '#F4F5F7'
+                                        }}>
                                         Khách mời
                                     </Text>
                                 </LinearGradient>
@@ -253,9 +233,8 @@ const ChatDetail = ({ navigation }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#091230',
-                                    marginTop: scale(8),
-                                }}
-                            >
+                                    marginTop: scale(8)
+                                }}>
                                 Text labels need to be Text labels need to be
                                 Text label
                             </Text>
@@ -265,21 +244,19 @@ const ChatDetail = ({ navigation }) => {
                         style={{
                             flexDirection: 'row',
                             alignSelf: 'flex-end',
-                            marginBottom: scale(16),
-                        }}
-                    >
+                            marginBottom: scale(16)
+                        }}>
                         <View
                             style={{
                                 padding: scale(8),
                                 borderRadius: scale(8),
-                                backgroundColor: '#EEFCF6',
-                            }}
-                        >
+                                backgroundColor: '#EEFCF6'
+                            }}>
                             <Text>Hello cac ban</Text>
                         </View>
                         <Image
                             source={{
-                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp',
+                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
                             }}
                             style={{
                                 width: scale(48),
@@ -287,26 +264,25 @@ const ChatDetail = ({ navigation }) => {
                                 borderRadius: scale(48),
                                 borderWidth: 1,
                                 borderColor: '#eee',
-                                marginLeft: scale(8),
+                                marginLeft: scale(8)
                             }}
                         />
                     </View>
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginBottom: scale(16),
-                        }}
-                    >
+                            marginBottom: scale(16)
+                        }}>
                         <Image
                             source={{
-                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp',
+                                uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
                             }}
                             style={{
                                 width: scale(48),
                                 height: scale(48),
                                 borderRadius: scale(48),
                                 borderWidth: 1,
-                                borderColor: '#eee',
+                                borderColor: '#eee'
                             }}
                         />
                         <View
@@ -315,9 +291,8 @@ const ChatDetail = ({ navigation }) => {
                                 backgroundColor: '#fff',
                                 padding: scale(16),
                                 borderRadius: scale(16),
-                                borderBottomLeftRadius: 0,
-                            }}
-                        >
+                                borderBottomLeftRadius: 0
+                            }}>
                             {/* <Loader
                                 size={scale(9)}
                                 background="#52B55320"
@@ -333,17 +308,16 @@ const ChatDetail = ({ navigation }) => {
                         {
                             backgroundColor: '#fff',
                             width: '100%',
-                            flexDirection: 'row',
+                            flexDirection: 'row'
                         },
-                        STYLES.boxShadow,
-                    ]}
-                >
+                        STYLES.boxShadow
+                    ]}>
                     <TextInput
                         style={{
                             flex: 1,
                             paddingHorizontal: scale(26),
 
-                            fontSize: scale(14),
+                            fontSize: scale(14)
                         }}
                         placeholderTextColor={'#9C9C9C'}
                         placeholder="Tin nhắn"
@@ -351,9 +325,8 @@ const ChatDetail = ({ navigation }) => {
                     <Pressable
                         style={{
                             padding: scale(16),
-                            backgroundColor: '#EEFCF6',
-                        }}
-                    >
+                            backgroundColor: '#EEFCF6'
+                        }}>
                         {/* <SvgXml xml={svgSend} width={scale(24)} /> */}
                     </Pressable>
                 </View>

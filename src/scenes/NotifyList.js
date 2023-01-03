@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { View, FlatList, RefreshControl, ScrollView } from 'react-native'
-import { Text } from 'native-base'
-import { scale } from 'app/helpers/responsive'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import NotiItem from 'app/components/NotifyItem'
 import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
+import NotiItem from 'app/components/NotifyItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { Text } from 'native-base'
 
 const Notification = ({}) => {
     const [data, setData] = useState([])
@@ -16,10 +18,10 @@ const Notification = ({}) => {
     const getData = (refresh = false) => {
         setLoading(true)
         Axios.get('notifies/paging/' + page * 8)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = resData?.data
 
                 console.log('notifies/paging', list)
@@ -48,35 +50,33 @@ const Notification = ({}) => {
         setPage(page + 1)
     }
 
-    const removeNotify = (id) => {
+    const removeNotify = id => {
         const newData = [...data]
-        const index = newData.findIndex((item) => item.id === id)
+        const index = newData.findIndex(item => item.id === id)
         newData.splice(index, 1)
         setData(newData)
 
         Axios.get('notifies/remove/' + id)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     console.log('Đã xóa thông báo')
                 }
             })
-            .catch((err) => console.log('err', err))
+            .catch(err => console.log('err', err))
     }
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <SafeAreaView
                 edges={['top']}
-                style={{ flex: 1, backgroundColor: 'white' }}
-            >
+                style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={refetch}
                         />
-                    }
-                >
+                    }>
                     <FlatList
                         data={data || []}
                         keyExtractor={(_, index) => index.toString()}
@@ -89,7 +89,7 @@ const Notification = ({}) => {
                         )}
                         contentContainerStyle={{
                             paddingTop: scale(16),
-                            paddingBottom: scale(50),
+                            paddingBottom: scale(50)
                         }}
                         ListHeaderComponent={
                             <Text
@@ -98,9 +98,8 @@ const Notification = ({}) => {
                                     marginBottom: scale(16),
 
                                     fontSize: scale(20),
-                                    color: '#1F1F1F',
-                                }}
-                            >
+                                    color: '#1F1F1F'
+                                }}>
                                 Danh sách thông báo
                             </Text>
                         }

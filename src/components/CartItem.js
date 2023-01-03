@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { View } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { useNavigation } from '@react-navigation/native'
-import { ROUTES, COURSE_IMG_PATH } from 'app/constants'
-import { toCurrency, storeData, getData } from 'app/helpers/utils'
-import { SvgXml } from 'react-native-svg'
 import Swipeout from 'app/components/SwipeOut'
+import { COURSE_IMG_PATH, ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgRedDelete } from 'assets/svg'
-import { useToast, Text, Pressable, Image, Modal, Button } from 'native-base'
+import React, { useState } from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import { View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Button, Image, Modal, Pressable, Text, useToast } from 'native-base'
 
 const CartItem = ({ course, index }) => {
     const toast = useToast()
@@ -18,15 +20,13 @@ const CartItem = ({ course, index }) => {
         const carts = (await getData('@cart')) || []
         storeData(
             '@cart',
-            Array.isArray(carts)
-                ? carts?.filter((i) => i.id !== course?.id)
-                : []
+            Array.isArray(carts) ? carts?.filter(i => i.id !== course?.id) : []
         )
 
         toast.show({
             title: 'Đã xóa khóa học khỏi giỏ hàng',
             status: 'error',
-            placement: 'top',
+            placement: 'top'
         })
 
         navigation.replace(ROUTES.Carts, null, null, Math.random().toString())
@@ -42,10 +42,9 @@ const CartItem = ({ course, index }) => {
                 backgroundColor: '#fff',
                 borderLeftWidth: scale(1),
                 borderColor: '#E5E5E5',
-                marginRight: scale(2),
+                marginRight: scale(2)
             }}
-            onPress={removeFromCart}
-        >
+            onPress={removeFromCart}>
             <SvgXml
                 xml={svgRedDelete}
                 width={scale(28)}
@@ -53,16 +52,15 @@ const CartItem = ({ course, index }) => {
                 style={{
                     alignItems: 'center',
                     color: '#F13642',
-                    marginTop: scale(5),
+                    marginTop: scale(5)
                 }}
             />
             <Text
                 style={{
                     alignItems: 'center',
                     color: '#F13642',
-                    marginTop: scale(5),
-                }}
-            >
+                    marginTop: scale(5)
+                }}>
                 Xóa
             </Text>
         </Pressable>
@@ -75,17 +73,15 @@ const CartItem = ({ course, index }) => {
                     style={{
                         textDecorationLine: 'line-through',
                         fontSize: scale(16),
-                        color: '#1D1D1D',
-                    }}
-                >
+                        color: '#1D1D1D'
+                    }}>
                     {toCurrency(course?.old_price)} đ
                 </Text>
                 <Text
                     style={{
                         color: '#1DA736',
-                        fontSize: scale(16),
-                    }}
-                >
+                        fontSize: scale(16)
+                    }}>
                     {toCurrency(course?.new_price)} đ
                 </Text>
             </>
@@ -94,9 +90,8 @@ const CartItem = ({ course, index }) => {
                 <Text
                     style={{
                         color: '#1DA736',
-                        fontSize: scale(16),
-                    }}
-                >
+                        fontSize: scale(16)
+                    }}>
                     {toCurrency(course?.new_price)} đ
                 </Text>
             </>
@@ -108,26 +103,24 @@ const CartItem = ({ course, index }) => {
                 style={{
                     backgroundColor: '#FFFFFF',
                     padding: scale(10),
-                    paddingTop: scale(3),
-                }}
-            >
+                    paddingTop: scale(3)
+                }}>
                 <View
                     style={{
                         flexDirection: 'row',
                         borderTopWidth: index === 0 ? 0 : 1,
                         borderColor: '#E6E6E6',
-                        paddingTop: 10,
-                    }}
-                >
+                        paddingTop: 10
+                    }}>
                     <View style={{ width: scale(114) }}>
                         <Image
                             resizeMode="contain"
                             source={{
-                                uri: `${COURSE_IMG_PATH}${course?.id}.webp`,
+                                uri: `${COURSE_IMG_PATH}${course?.id}.webp`
                             }}
                             style={{
                                 width: '100%',
-                                height: scale(60),
+                                height: scale(60)
                             }}
                             defaultSource={require('assets/images/menu-banner.jpg')}
                         />
@@ -137,9 +130,8 @@ const CartItem = ({ course, index }) => {
                             numberOfLines={3}
                             style={{
                                 fontSize: scale(14),
-                                color: '#1F1F1F',
-                            }}
-                        >
+                                color: '#1F1F1F'
+                            }}>
                             {course?.title}
                         </Text>
                     </View>
@@ -148,15 +140,13 @@ const CartItem = ({ course, index }) => {
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}
-                >
+                        alignItems: 'center'
+                    }}>
                     {/* {renderPrice} */}
                     <View></View>
                     <Button
                         // onPress={() => navigation.navigate(ROUTES.Payment)}
-                        onPress={() => setShowModal(true)}
-                    >
+                        onPress={() => setShowModal(true)}>
                         Thanh toán
                     </Button>
                 </View>

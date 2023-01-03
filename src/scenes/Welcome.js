@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, Image, Pressable, Dimensions, ScrollView } from 'react-native'
-import { Text, Button } from 'native-base'
+import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
-import { ROUTES } from 'app/constants'
+import React, { useEffect, useRef, useState } from 'react'
+
+import { Dimensions, Image, Pressable, ScrollView, View } from 'react-native'
+
+import { Button, Text } from 'native-base'
 
 const { height, width } = Dimensions.get('window')
 
@@ -12,20 +14,20 @@ const DATA = [
         image: require('assets/images/wireframe-1.png'),
         title: 'Nội dung hấp dẫn',
         content:
-            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành',
+            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
     },
     {
         image: require('assets/images/wireframe-2.png'),
         title: 'Chất lượng hàng đầu',
         content:
-            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành',
+            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
     },
     {
         image: require('assets/images/wireframe-3.png'),
         title: 'Khen thưởng và quà tặng',
         content:
-            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành',
-    },
+            'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
+    }
 ]
 
 const Wireframe = ({ navigation }) => {
@@ -52,12 +54,12 @@ const Wireframe = ({ navigation }) => {
         animateNextTransition()
     }, [pageIndex])
 
-    const onGoToPage = (page) => {
+    const onGoToPage = page => {
         if (page < DATA.length) {
             scrollRef.current.scrollTo({
                 x: width * page,
                 y: 0,
-                animated: true,
+                animated: true
             })
         } else {
             navigation.navigate(ROUTES.Login)
@@ -65,7 +67,7 @@ const Wireframe = ({ navigation }) => {
         setPageIndex(page)
     }
 
-    const onMomentumScrollEnd = (e) => {
+    const onMomentumScrollEnd = e => {
         const index = Math.round(
             parseFloat(e.nativeEvent.contentOffset.x / width)
         )
@@ -77,9 +79,8 @@ const Wireframe = ({ navigation }) => {
             style={{
                 flex: 1,
                 justifyContent: 'space-between',
-                paddingBottom: scale(74),
-            }}
-        >
+                paddingBottom: scale(74)
+            }}>
             {/* <SafeAreaView
             style={{
                 position: 'absolute',
@@ -100,8 +101,7 @@ const Wireframe = ({ navigation }) => {
                 bounces={false}
                 onMomentumScrollEnd={onMomentumScrollEnd}
                 onEndReachedThreshold={1}
-                scrollEventThrottle={16}
-            >
+                scrollEventThrottle={16}>
                 <View style={{ width: width * DATA.length }}>
                     <Image
                         alt="wireframe.jpg"
@@ -110,16 +110,15 @@ const Wireframe = ({ navigation }) => {
                             width: width * DATA.length + 20,
                             height: height * 0.5,
                             marginTop: -1,
-                            marginLeft: -1,
+                            marginLeft: -1
                         }}
                         resizeMode="stretch"
                     />
                     <View
                         style={{
                             flexDirection: 'row',
-                            width: width * DATA.length,
-                        }}
-                    >
+                            width: width * DATA.length
+                        }}>
                         {DATA.map((i, ind) => (
                             <View key={ind} style={{ width }}>
                                 <Image
@@ -128,7 +127,7 @@ const Wireframe = ({ navigation }) => {
                                     style={{
                                         width,
                                         height: scale(300),
-                                        marginTop: -scale(200),
+                                        marginTop: -scale(200)
                                     }}
                                     resizeMode="contain"
                                 />
@@ -138,9 +137,8 @@ const Wireframe = ({ navigation }) => {
                                             fontSize: scale(20),
                                             fontWeight: 'bold',
                                             color: '#095F2B',
-                                            textAlign: 'center',
-                                        }}
-                                    >
+                                            textAlign: 'center'
+                                        }}>
                                         {i.title}
                                     </Text>
                                     <Text
@@ -148,9 +146,8 @@ const Wireframe = ({ navigation }) => {
                                             fontSize: scale(16),
                                             color: '#6C746E',
                                             marginTop: scale(16),
-                                            textAlign: 'center',
-                                        }}
-                                    >
+                                            textAlign: 'center'
+                                        }}>
                                         {i.content}
                                     </Text>
                                 </View>
@@ -162,23 +159,20 @@ const Wireframe = ({ navigation }) => {
             <View
                 style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-around',
-                }}
-            >
+                    justifyContent: 'space-around'
+                }}>
                 {pageIndex > 0 && (
                     <Button
                         size="md"
                         variant="ghost"
-                        onPress={() => onGoToPage(pageIndex - 1)}
-                    >
+                        onPress={() => onGoToPage(pageIndex - 1)}>
                         Quay lại
                     </Button>
                 )}
                 <Button
                     shadow="3"
                     size="md"
-                    onPress={() => onGoToPage(pageIndex + 1)}
-                >
+                    onPress={() => onGoToPage(pageIndex + 1)}>
                     {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
                 </Button>
             </View>

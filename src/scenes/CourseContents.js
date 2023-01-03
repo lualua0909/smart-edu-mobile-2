@@ -1,35 +1,37 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { View, Pressable, Dimensions } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
-import { svgComment } from 'assets/svg'
-import { API_URL } from 'app/constants'
-import { TabView, TabBar } from 'react-native-tab-view'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {
-    Loading,
-    ScormViewer,
-    DocumentViewer,
-    VideoViewer,
-    FinishCourse,
-    EnglishReading,
-    ExamViewer,
-    Input,
-    NoData,
-} from 'app/atoms'
-import LectureTab from 'app/containers/LectureTab'
 import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
-    TextArea,
-    FormControl,
-    Button,
-    Modal,
-    useToast,
-    Text,
-} from 'native-base'
+    DocumentViewer,
+    EnglishReading,
+    ExamViewer,
+    FinishCourse,
+    Input,
+    Loading,
+    NoData,
+    ScormViewer,
+    VideoViewer
+} from 'app/atoms'
+import { API_URL } from 'app/constants'
+import LectureTab from 'app/containers/LectureTab'
+import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
+import { svgComment } from 'assets/svg'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+
 import Countdown from 'react-countdown'
+import { Dimensions, Pressable, View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { SvgXml } from 'react-native-svg'
+import { TabBar, TabView } from 'react-native-tab-view'
+
+import {
+    Button,
+    FormControl,
+    Modal,
+    Text,
+    TextArea,
+    useToast
+} from 'native-base'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -37,16 +39,16 @@ const windowHeight = Dimensions.get('window').height
 const routes = [
     {
         key: 'tab-1',
-        title: 'Giáo trình',
+        title: 'Giáo trình'
     },
     {
         key: 'tab-2',
-        title: 'Thảo luận',
+        title: 'Thảo luận'
     },
     {
         key: 'tab-3',
-        title: 'Đặt câu hỏi',
-    },
+        title: 'Đặt câu hỏi'
+    }
 ]
 
 const CourseDetail = ({ route, navigation }) => {
@@ -56,7 +58,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [viewHeight, setViewHeight] = useState({
         tab1: 0,
         tab2: 0,
-        tab3: 0,
+        tab3: 0
     })
     const [loading, setLoading] = useState(false)
     const [visibleQuestion, setVisibleQuestion] = useState(false)
@@ -89,7 +91,7 @@ const CourseDetail = ({ route, navigation }) => {
                 minutes,
                 seconds,
                 milliseconds,
-                completed,
+                completed
             }) =>
                 renderer(
                     {
@@ -99,7 +101,7 @@ const CourseDetail = ({ route, navigation }) => {
                         minutes,
                         seconds,
                         milliseconds,
-                        completed,
+                        completed
                     },
                     smallSize
                 )
@@ -116,9 +118,8 @@ const CourseDetail = ({ route, navigation }) => {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            paddingVertical: 0,
-                        }}
-                    >
+                            paddingVertical: 0
+                        }}>
                         <Button
                             size={'xs'}
                             onPress={prevLesson}
@@ -126,9 +127,8 @@ const CourseDetail = ({ route, navigation }) => {
                             colorScheme="green"
                             style={{
                                 marginRight: scale(12),
-                                width: 100,
-                            }}
-                        >
+                                width: 100
+                            }}>
                             Bài trước
                         </Button>
                         {data?.is_finish ? (
@@ -136,10 +136,9 @@ const CourseDetail = ({ route, navigation }) => {
                                 size={'xs'}
                                 style={{
                                     backgroundColor: '#52B553',
-                                    width: 120,
+                                    width: 120
                                 }}
-                                onPress={nextLesson}
-                            >
+                                onPress={nextLesson}>
                                 Bài tiếp theo
                             </Button>
                         ) : (
@@ -149,7 +148,7 @@ const CourseDetail = ({ route, navigation }) => {
                 )}
             </>
         ),
-        headerTransparent: true,
+        headerTransparent: true
     })
 
     const renderer = (
@@ -171,22 +170,20 @@ const CourseDetail = ({ route, navigation }) => {
                         backgroundColor: '#52B553',
                         borderRadius: scale(10),
                         justifyContent: 'center',
-                        alignItems: 'center',
+                        alignItems: 'center'
                     }}
                     onPress={() =>
                         toast.show({
                             title: 'Vui lòng đợi hết thời gian chờ qua bài',
                             status: 'info',
-                            placement: 'top',
+                            placement: 'top'
                         })
-                    }
-                >
+                    }>
                     <Text
                         style={{
                             fontSize: scale(14),
-                            color: '#fff',
-                        }}
-                    >
+                            color: '#fff'
+                        }}>
                         {hours} : {minutes} : {seconds}
                     </Text>
                 </Pressable>
@@ -200,9 +197,8 @@ const CourseDetail = ({ route, navigation }) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingVertical: scale(16),
-            }}
-        >
+                paddingVertical: scale(16)
+            }}>
             <Button
                 size={'sm'}
                 onPress={prevLesson}
@@ -211,9 +207,8 @@ const CourseDetail = ({ route, navigation }) => {
                 colorScheme="green"
                 style={{
                     marginRight: scale(12),
-                    width: 'auto',
-                }}
-            >
+                    width: 'auto'
+                }}>
                 Bài trước
             </Button>
             {data?.is_finish ? (
@@ -221,7 +216,7 @@ const CourseDetail = ({ route, navigation }) => {
                     size={'sm'}
                     style={{
                         backgroundColor: '#52B553',
-                        width: 'auto',
+                        width: 'auto'
                     }}
                     onPress={nextLesson}
                     // rightIcon={
@@ -245,10 +240,10 @@ const CourseDetail = ({ route, navigation }) => {
     const getData = () => {
         setLoading(true)
         Axios.get(`lectures/get/${currentId}`)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data.data
             })
-            .then((data) => {
+            .then(data => {
                 setData(data)
                 console.log('CourseDetail', data)
             })
@@ -264,10 +259,10 @@ const CourseDetail = ({ route, navigation }) => {
     const addLessonToFinishedList = () => {
         const params = {
             courseId: courseId,
-            lectureId: currentId,
+            lectureId: currentId
         }
 
-        Axios.post('courses/add-finished-lecture', params).then((res) => {
+        Axios.post('courses/add-finished-lecture', params).then(res => {
             if (res.data.status === 200) {
                 console.log('ok')
                 setFinishedLectures([...finishedLectures, { id: currentId }])
@@ -276,14 +271,14 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const nextLesson = () => {
-        const current = chapters.findIndex((i) => i.id === currentId)
+        const current = chapters.findIndex(i => i.id === currentId)
         const next = chapters[current + 1]
         addLessonToFinishedList()
         setCurrentId(next?.id)
     }
 
     const prevLesson = () => {
-        const current = chapters?.findIndex((i) => i?.id === currentId)
+        const current = chapters?.findIndex(i => i?.id === currentId)
         if (current > 0) {
             const prev = chapters[current - 1]
             addLessonToFinishedList()
@@ -300,13 +295,12 @@ const CourseDetail = ({ route, navigation }) => {
             case 'tab-1':
                 return (
                     <View
-                        onLayout={(e) =>
+                        onLayout={e =>
                             setViewHeight({
                                 ...viewHeight,
-                                tab1: e.nativeEvent.layout.height,
+                                tab1: e.nativeEvent.layout.height
                             })
-                        }
-                    >
+                        }>
                         <LectureTab
                             courseId={courseId}
                             totalLectures={0}
@@ -318,14 +312,13 @@ const CourseDetail = ({ route, navigation }) => {
             case 'tab-2':
                 return (
                     <View
-                        onLayout={(e) =>
+                        onLayout={e =>
                             setViewHeight({
                                 ...viewHeight,
-                                tab2: e.nativeEvent.layout.height,
+                                tab2: e.nativeEvent.layout.height
                             })
                         }
-                        style={{ padding: scale(16) }}
-                    >
+                        style={{ padding: scale(16) }}>
                         <NoData />
                         {/* <CommentCard />
                         <View
@@ -361,19 +354,18 @@ const CourseDetail = ({ route, navigation }) => {
             case 'tab-3':
                 return (
                     <View
-                        onLayout={(e) =>
+                        onLayout={e =>
                             setViewHeight({
                                 ...viewHeight,
-                                tab3: e.nativeEvent.layout.height,
+                                tab3: e.nativeEvent.layout.height
                             })
                         }
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
                             paddingTop: scale(30),
-                            paddingHorizontal: scale(16),
-                        }}
-                    >
+                            paddingHorizontal: scale(16)
+                        }}>
                         <SvgXml
                             xml={svgComment}
                             width={scale(160)}
@@ -383,9 +375,8 @@ const CourseDetail = ({ route, navigation }) => {
                             style={{
                                 paddingTop: 20,
                                 marginTop: scale(26),
-                                fontSize: scale(22),
-                            }}
-                        >
+                                fontSize: scale(22)
+                            }}>
                             Hiện chưa đặt câu hỏi nào
                         </Text>
                         <Text
@@ -393,9 +384,8 @@ const CourseDetail = ({ route, navigation }) => {
                                 fontSize: scale(16),
                                 color: '#6C746E',
                                 marginTop: scale(8),
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             Nội dung câu hỏi được bảo mật, chỉ có giảng viên và
                             bạn biết thôi nhé
                         </Text>
@@ -404,9 +394,8 @@ const CourseDetail = ({ route, navigation }) => {
                             style={{
                                 paddingVertical: scale(10.5),
                                 paddingHorizontal: scale(31),
-                                marginTop: scale(16),
-                            }}
-                        >
+                                marginTop: scale(16)
+                            }}>
                             Đặt câu hỏi
                         </Button>
                     </View>
@@ -421,11 +410,11 @@ const CourseDetail = ({ route, navigation }) => {
         const params = {
             course_id: courseId,
             title: questionTitle.value,
-            content: questionContent.value,
+            content: questionContent.value
         }
 
         Axios.post('qanda/add-question', params)
-            .then((res) => {
+            .then(res => {
                 if (res?.data?.status === 200) {
                     setVisibleQuestion(false)
                 }
@@ -438,22 +427,19 @@ const CourseDetail = ({ route, navigation }) => {
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
-            }}
-        >
+            }}>
             <KeyboardAwareScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
-                extraHeight={scale(100)}
-            >
+                extraHeight={scale(100)}>
                 <View
                     style={{
                         width: Math.max(windowWidth, windowHeight),
                         height: Math.min(windowHeight, windowWidth),
                         justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
+                        alignItems: 'center'
+                    }}>
                     {data?.type === 1 ? (
                         <VideoViewer
                             videoUrl={data?.file_path || data?.video_url}
@@ -477,15 +463,13 @@ const CourseDetail = ({ route, navigation }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        paddingVertical: scale(16),
-                    }}
-                >
+                        paddingVertical: scale(16)
+                    }}>
                     <Text
                         style={{
                             fontSize: scale(14),
-                            color: '#52B553',
-                        }}
-                    >
+                            color: '#52B553'
+                        }}>
                         {data?.name}
                     </Text>
                 </View>
@@ -493,7 +477,7 @@ const CourseDetail = ({ route, navigation }) => {
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
                     renderScene={renderScene}
-                    renderTabBar={(props) => (
+                    renderTabBar={props => (
                         <TabBar
                             {...props}
                             renderLabel={({ route, focused, color }) => (
@@ -502,11 +486,10 @@ const CourseDetail = ({ route, navigation }) => {
                                         {
                                             fontSize: scale(15),
                                             color: '#1F1F1F',
-                                            textAlign: 'center',
+                                            textAlign: 'center'
                                         },
-                                        focused && { color: '#0E564D' },
-                                    ]}
-                                >
+                                        focused && { color: '#0E564D' }
+                                    ]}>
                                     {route.title}
                                 </Text>
                             )}
@@ -514,12 +497,12 @@ const CourseDetail = ({ route, navigation }) => {
                                 backgroundColor: '#fff',
                                 elevation: 0,
                                 borderBottomWidth: 1,
-                                borderBottomColor: '#ddd',
+                                borderBottomColor: '#ddd'
                             }}
                             indicatorStyle={{
                                 backgroundColor: '#0E564D',
                                 borderTopLeftRadius: scale(2),
-                                borderTopRightRadius: scale(2),
+                                borderTopRightRadius: scale(2)
                             }}
                             tabStyle={{ paddingHorizontal: 0 }}
                         />
@@ -531,15 +514,14 @@ const CourseDetail = ({ route, navigation }) => {
                                 viewHeight.tab1,
                                 viewHeight.tab2,
                                 viewHeight.tab3
-                            ) + scale(100),
+                            ) + scale(100)
                     }}
                 />
             </KeyboardAwareScrollView>
 
             <Modal
                 isOpen={visibleQuestion}
-                onClose={() => setVisibleQuestion(false)}
-            >
+                onClose={() => setVisibleQuestion(false)}>
                 <Modal.Content>
                     <Modal.CloseButton />
                     <Modal.Header>Gửi câu hỏi cho giảng viên</Modal.Header>
@@ -564,8 +546,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <Button
                             onPress={sendQuestion}
                             isLoading={questionLoading}
-                            isLoadingText="Đang gửi câu hỏi..."
-                        >
+                            isLoadingText="Đang gửi câu hỏi...">
                             Gửi câu hỏi
                         </Button>
                     </Modal.Footer>

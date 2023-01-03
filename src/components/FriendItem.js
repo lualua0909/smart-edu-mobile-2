@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { ROUTES } from 'app/constants'
 import { Avatar } from 'app/atoms'
+import { ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
+
 import { Text } from 'native-base'
 
 const FriendItem = ({ item, index }) => {
@@ -15,26 +17,23 @@ const FriendItem = ({ item, index }) => {
         <Pressable
             onPress={() =>
                 navigation.navigate(ROUTES.ProfileOverview, {
-                    userId: item?.id,
+                    userId: item?.id
                 })
-            }
-        >
+            }>
             <View
                 key={index}
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    marginTop: scale(8),
-                }}
-            >
+                    marginTop: scale(8)
+                }}>
                 <Avatar size={scale(48)} userId={item?.id} name={name} />
                 <View style={{ flex: 1, marginLeft: scale(8) }}>
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F',
-                        }}
-                    >
+                            color: '#1F1F1F'
+                        }}>
                         {name}
                     </Text>
                     {/* <View

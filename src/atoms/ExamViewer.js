@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
 import {
     Appearance,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
     ScrollView,
-    StyleSheet,
+    StyleSheet
 } from 'react-native'
-import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor'
+import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
+
 import { Text } from 'native-base'
+
 const initHTML = ``
 
 function createContentStyle(theme) {
@@ -19,7 +22,7 @@ function createContentStyle(theme) {
         caretColor: 'red', // initial valid// initial valid
         placeholderColor: 'gray',
         // cssText: '#editor {background-color: #f3f3f3}', // initial valid
-        contentCSSText: 'font-size: 16px; min-height: 200px;', // initial valid
+        contentCSSText: 'font-size: 16px; min-height: 200px;' // initial valid
     }
     if (theme === 'light') {
         contentStyle.backgroundColor = '#fff'
@@ -40,7 +43,7 @@ const ExamViewer = ({ data }) => {
     let contentStyle = useMemo(() => createContentStyle(theme), [theme])
 
     // editor change data
-    let handleChange = useCallback((html) => {
+    let handleChange = useCallback(html => {
         // save html to content ref;
         contentRef.current = html
     }, [])
@@ -57,7 +60,7 @@ const ExamViewer = ({ data }) => {
     }, [])
 
     // editor height change
-    let handleHeightChange = useCallback((height) => {
+    let handleHeightChange = useCallback(height => {
         console.log('editor height change:', height)
     }, [])
 
@@ -80,17 +83,17 @@ const ExamViewer = ({ data }) => {
         richText.current?.setHiliteColor('red')
     }, [])
 
-    let handlePaste = useCallback((data) => {
+    let handlePaste = useCallback(data => {
         console.log('Paste:', data)
     }, [])
 
     // @deprecated Android keyCode 229
-    let handleKeyUp = useCallback((data) => {
+    let handleKeyUp = useCallback(data => {
         // console.log('KeyUp:', data);
     }, [])
 
     // @deprecated Android keyCode 229
-    let handleKeyDown = useCallback((data) => {
+    let handleKeyDown = useCallback(data => {
         // console.log('KeyDown:', data);
     }, [])
 
@@ -124,7 +127,7 @@ const ExamViewer = ({ data }) => {
         console.log('editor blur')
     }, [])
 
-    let handleCursorPosition = useCallback((scrollY) => {
+    let handleCursorPosition = useCallback(scrollY => {
         // Positioning scroll bar
         scrollRef.current.scrollTo({ y: scrollY - 30, animated: true })
     }, [])
@@ -132,7 +135,7 @@ const ExamViewer = ({ data }) => {
     useEffect(() => {
         let listener = [Appearance.addChangeListener(themeChange)]
         return () => {
-            listener.forEach((it) => it.remove())
+            listener.forEach(it => it.remove())
         }
     }, [])
 
@@ -145,8 +148,7 @@ const ExamViewer = ({ data }) => {
                 keyboardDismissMode={'on-drag'}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
-                scrollEventThrottle={20}
-            >
+                scrollEventThrottle={20}>
                 <RichEditor
                     // initialFocus={true}
                     editorStyle={contentStyle} // default light style
@@ -172,8 +174,7 @@ const ExamViewer = ({ data }) => {
                 />
             </ScrollView>
             <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <RichToolbar
                     style={[styles.richBar, dark && styles.richBarDark]}
                     flatContainerStyle={styles.flatStyle}
@@ -202,7 +203,7 @@ const ExamViewer = ({ data }) => {
                         actions.hiliteColor,
                         actions.heading1,
                         actions.heading4,
-                        'fontSize',
+                        'fontSize'
                     ]} // default defaultActions
                     iconMap={{
                         // insertEmoji: phizIcon,
@@ -217,10 +218,9 @@ const ExamViewer = ({ data }) => {
                                     styles.tib,
                                     {
                                         color: tintColor,
-                                        backgroundColor: 'red',
-                                    },
-                                ]}
-                            >
+                                        backgroundColor: 'red'
+                                    }
+                                ]}>
                                 BC
                             </Text>
                         ),
@@ -233,7 +233,7 @@ const ExamViewer = ({ data }) => {
                             <Text style={[styles.tib, { color: tintColor }]}>
                                 H4
                             </Text>
-                        ),
+                        )
                     }}
                     fontSize={handleFontSize}
                     foreColor={handleForeColor}
@@ -252,38 +252,38 @@ const styles = StyleSheet.create({
         backgroundColor: '#efefef',
         marginTop: 40,
         borderWidth: 1,
-        borderColor: '#eee',
+        borderColor: '#eee'
     },
     nav: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: 5,
+        marginHorizontal: 5
     },
     rich: {
         minHeight: 300,
         flex: 1,
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: '#e3e3e3',
+        borderColor: '#e3e3e3'
     },
     topVi: {
-        backgroundColor: '#fafafa',
+        backgroundColor: '#fafafa'
     },
     richBar: {
         borderColor: '#efefef',
-        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopWidth: StyleSheet.hairlineWidth
     },
     richBarDark: {
         backgroundColor: '#191d20',
-        borderColor: '#696969',
+        borderColor: '#696969'
     },
     scroll: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#ffffff'
     },
     scrollDark: {
-        backgroundColor: '#2e3847',
+        backgroundColor: '#2e3847'
     },
     darkBack: {
-        backgroundColor: '#191d20',
+        backgroundColor: '#191d20'
     },
     item: {
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -291,19 +291,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         alignItems: 'center',
-        paddingHorizontal: 15,
+        paddingHorizontal: 15
     },
 
     input: {
-        flex: 1,
+        flex: 1
     },
 
     tib: {
         textAlign: 'center',
-        color: '#515156',
+        color: '#515156'
     },
 
     flatStyle: {
-        paddingHorizontal: 12,
-    },
+        paddingHorizontal: 12
+    }
 })

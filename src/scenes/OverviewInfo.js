@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
-import { View, Pressable, ScrollView, StyleSheet, FlatList } from 'react-native'
-import { Text } from 'native-base'
-import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
-import { svgFourSquares, svgBlueViewMore, svgBlackHome } from 'assets/svg'
-import { STYLES } from 'app/constants'
+import { useGlobalState } from 'app/Store'
+import ComingExam from 'app/components/ComingExamCard'
 import CourseItem from 'app/components/CourseItem'
 import CourseOverviewChart from 'app/components/CourseOverviewChart'
-import ComingExam from 'app/components/ComingExamCard'
-import TeacherItem from 'app/components/TeacherItem'
 import FriendItem from 'app/components/FriendItem'
-import { useGlobalState } from 'app/Store'
-import LottieView from 'lottie-react-native'
+import TeacherItem from 'app/components/TeacherItem'
+import { STYLES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import animationImg from 'assets/animations/dashboard.json'
+import { svgBlackHome, svgBlueViewMore, svgFourSquares } from 'assets/svg'
+import React, { useState } from 'react'
+
+import LottieView from 'lottie-react-native'
+import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Text } from 'native-base'
 import { Center } from 'native-base'
 
 const Overview = ({ navigation, route }) => {
@@ -36,7 +38,7 @@ const Overview = ({ navigation, route }) => {
                         loop
                         style={{
                             width: 500,
-                            height: 200,
+                            height: 200
                         }}
                     />
                 </Center>
@@ -46,9 +48,8 @@ const Overview = ({ navigation, route }) => {
                         paddingHorizontal: scale(35),
                         flexDirection: 'row',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
+                        justifyContent: 'space-between'
+                    }}>
                     <View
                         style={{
                             borderWidth: 1,
@@ -57,16 +58,14 @@ const Overview = ({ navigation, route }) => {
                             padding: scale(10),
                             width: '48%',
                             justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                            alignItems: 'center'
+                        }}>
                         <Text
                             style={{
                                 fontWeight: 'bold',
                                 fontSize: scale(18),
-                                color: '#193769',
-                            }}
-                        >
+                                color: '#193769'
+                            }}>
                             SE xu
                         </Text>
                         <Text
@@ -76,9 +75,8 @@ const Overview = ({ navigation, route }) => {
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#F3C72B',
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             0đ
                         </Text>
                     </View>
@@ -90,16 +88,14 @@ const Overview = ({ navigation, route }) => {
                             padding: scale(10),
                             width: '48%',
                             justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                            alignItems: 'center'
+                        }}>
                         <Text
                             style={{
                                 fontWeight: 'bold',
                                 fontSize: scale(18),
-                                color: '#193769',
-                            }}
-                        >
+                                color: '#193769'
+                            }}>
                             Số khóa học
                         </Text>
                         <Text
@@ -109,9 +105,8 @@ const Overview = ({ navigation, route }) => {
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#16671E',
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             {dashboardInfo?.count}
                         </Text>
                     </View>
@@ -128,12 +123,10 @@ const Overview = ({ navigation, route }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={styles.formTitle}>Thống kê</Text>
                         {/* <Pressable
                             style={{
@@ -190,9 +183,8 @@ const Overview = ({ navigation, route }) => {
                                 fontSize: scale(16),
                                 color: '#0E564D',
                                 textAlign: 'center',
-                                marginTop: scale(16),
-                            }}
-                        >
+                                marginTop: scale(16)
+                            }}>
                             {selectedCourse?.title}
                         </Text>
                         <Text
@@ -200,9 +192,8 @@ const Overview = ({ navigation, route }) => {
                                 fontSize: scale(16),
                                 color: '#6C6C6C',
                                 textAlign: 'center',
-                                marginTop: scale(4),
-                            }}
-                        >
+                                marginTop: scale(4)
+                            }}>
                             Tiến độ hoàn thành:{' '}
                             <Text style={{ fontWeight: 'bold', color: '#000' }}>
                                 {selectedCourse?.process}%
@@ -214,16 +205,14 @@ const Overview = ({ navigation, route }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>
                             Lịch học offline sắp đến
                         </Text>
@@ -231,15 +220,13 @@ const Overview = ({ navigation, route }) => {
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -254,9 +241,8 @@ const Overview = ({ navigation, route }) => {
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
-                                    marginTop: scale(16),
-                                }}
-                            >
+                                    marginTop: scale(16)
+                                }}>
                                 <View
                                     style={{
                                         backgroundColor:
@@ -265,33 +251,29 @@ const Overview = ({ navigation, route }) => {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         paddingHorizontal: scale(4),
-                                        paddingVertical: scale(22),
-                                    }}
-                                >
+                                        paddingVertical: scale(22)
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(19),
-                                            color: '#007739',
-                                        }}
-                                    >
+                                            color: '#007739'
+                                        }}>
                                         02
                                     </Text>
                                     <Text
                                         style={{
                                             fontSize: scale(12),
                                             color: '#007739',
-                                            marginTop: scale(7),
-                                        }}
-                                    >
+                                            marginTop: scale(7)
+                                        }}>
                                         Tháng 12
                                     </Text>
                                     <Text
                                         style={{
                                             fontSize: scale(12),
                                             color: '#007739',
-                                            marginTop: scale(7),
-                                        }}
-                                    >
+                                            marginTop: scale(7)
+                                        }}>
                                         2021
                                     </Text>
                                     <View
@@ -299,35 +281,31 @@ const Overview = ({ navigation, route }) => {
                                             width: '100%',
                                             height: 1,
                                             backgroundColor: '#AEE4B0',
-                                            marginVertical: scale(7),
+                                            marginVertical: scale(7)
                                         }}
                                     />
                                     <Text
                                         style={{
                                             fontSize: scale(12),
-                                            color: '#007739',
-                                        }}
-                                    >
+                                            color: '#007739'
+                                        }}>
                                         Lúc 9:30
                                     </Text>
                                 </View>
                                 <View
-                                    style={{ flex: 1, marginLeft: scale(16) }}
-                                >
+                                    style={{ flex: 1, marginLeft: scale(16) }}>
                                     <Text
                                         style={{
                                             fontSize: scale(16),
-                                            color: '#1F1F1F',
-                                        }}
-                                    >
+                                            color: '#1F1F1F'
+                                        }}>
                                         Khóa học SD1
                                     </Text>
                                     <View
                                         style={{
                                             flexDirection: 'row',
-                                            marginTop: scale(8),
-                                        }}
-                                    >
+                                            marginTop: scale(8)
+                                        }}>
                                         <SvgXml
                                             xml={svgBlackHome}
                                             width={scale(20)}
@@ -340,9 +318,8 @@ const Overview = ({ navigation, route }) => {
                                                 marginLeft: scale(10),
 
                                                 fontSize: scale(14),
-                                                color: '#1F1F1F',
-                                            }}
-                                        >
+                                                color: '#1F1F1F'
+                                            }}>
                                             307A Nguyễn Trọng Tuyển, P.10, Quận
                                             Phú Nhuận, TP.HCM,. chiều cao cứng
                                         </Text>
@@ -421,30 +398,26 @@ const Overview = ({ navigation, route }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>Kì thi sắp đến</Text>
                         <Pressable
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -464,35 +437,31 @@ const Overview = ({ navigation, route }) => {
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
                         padding: scale(16),
-                        paddingBottom: 0,
-                    }}
-                >
+                        paddingBottom: 0
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>Khóa học của tôi</Text>
                         <Pressable
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                             onPress={() =>
                                 navigation.navigate(ROUTES.CoursesByUser, {
-                                    userId: null,
+                                    userId: null
                                 })
-                            }
-                        >
+                            }>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -508,7 +477,7 @@ const Overview = ({ navigation, route }) => {
                             horizontal
                             contentContainerStyle={{
                                 marginTop: scale(16),
-                                paddingLeft: scale(16),
+                                paddingLeft: scale(16)
                             }}
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item, index }) => (
@@ -527,16 +496,14 @@ const Overview = ({ navigation, route }) => {
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
                         padding: scale(16),
-                        paddingBottom: 0,
-                    }}
-                >
+                        paddingBottom: 0
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>
                             Giảng viên yêu thích
                         </Text>
@@ -544,15 +511,13 @@ const Overview = ({ navigation, route }) => {
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -571,35 +536,31 @@ const Overview = ({ navigation, route }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>Bạn bè của bạn</Text>
                         <Pressable
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                             onPress={() =>
                                 navigation.navigate(ROUTES.Friends, {
-                                    userId: null,
+                                    userId: null
                                 })
-                            }
-                        >
+                            }>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -618,16 +579,14 @@ const Overview = ({ navigation, route }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>
                             Có thể bạn quan tâm
                         </Text>
@@ -635,15 +594,13 @@ const Overview = ({ navigation, route }) => {
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
@@ -659,7 +616,7 @@ const Overview = ({ navigation, route }) => {
                             horizontal
                             contentContainerStyle={{
                                 marginTop: scale(16),
-                                paddingLeft: scale(16),
+                                paddingLeft: scale(16)
                             }}
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item, index }) => (
@@ -681,8 +638,8 @@ const styles = StyleSheet.create({
     formTitle: {
         fontWeight: 'bold',
         fontSize: scale(18),
-        color: '#1F1F1F',
-    },
+        color: '#1F1F1F'
+    }
 })
 
 export default Overview
@@ -695,37 +652,33 @@ const Notifications = ({ title, data }) => {
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
-                        padding: scale(16),
-                    }}
-                >
+                        padding: scale(16)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                            justifyContent: 'space-between'
+                        }}>
                         <Text style={styles.formTitle}>{title}</Text>
                         <Pressable
                             hitSlop={20}
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
-                                    color: '#0075FF',
-                                }}
-                            >
+                                    color: '#0075FF'
+                                }}>
                                 Tất cả
                             </Text>
                             <SvgXml
                                 xml={svgBlueViewMore}
                                 style={{
                                     width: scale(16),
-                                    height: scale(16),
+                                    height: scale(16)
                                 }}
                             />
                         </Pressable>
@@ -738,23 +691,21 @@ const Notifications = ({ title, data }) => {
                                     key={index}
                                     style={{
                                         flexDirection: 'row',
-                                        marginBottom: scale(8),
-                                    }}
-                                >
+                                        marginBottom: scale(8)
+                                    }}>
                                     <View style={{ alignItems: 'center' }}>
                                         <View
                                             style={{
                                                 backgroundColor: '#E1E5F1',
                                                 borderRadius: 100,
-                                                padding: scale(4),
-                                            }}
-                                        >
+                                                padding: scale(4)
+                                            }}>
                                             <View
                                                 style={{
                                                     width: scale(10),
                                                     height: scale(10),
                                                     borderRadius: scale(10),
-                                                    backgroundColor: '#4063E0',
+                                                    backgroundColor: '#4063E0'
                                                 }}
                                             />
                                         </View>
@@ -772,16 +723,14 @@ const Notifications = ({ title, data }) => {
                                     <View
                                         style={{
                                             flex: 1,
-                                            marginLeft: scale(4),
-                                        }}
-                                    >
+                                            marginLeft: scale(4)
+                                        }}>
                                         <Text
                                             style={{
                                                 fontWeight: 'bold',
                                                 fontSize: scale(14),
-                                                color: '#4063E0',
-                                            }}
-                                        >
+                                                color: '#4063E0'
+                                            }}>
                                             {item?.title}
                                         </Text>
                                         <Text
@@ -789,9 +738,8 @@ const Notifications = ({ title, data }) => {
                                             style={{
                                                 fontSize: scale(14),
                                                 color: '#1F1F1F',
-                                                marginTop: scale(4),
-                                            }}
-                                        >
+                                                marginTop: scale(4)
+                                            }}>
                                             {item?.content}
                                         </Text>
                                     </View>
@@ -808,11 +756,10 @@ const Notifications = ({ title, data }) => {
                                 right: 0,
                                 padding: scale(13),
                                 borderTopLeftRadius: scale(24),
-                                borderBottomLeftRadius: scale(24),
+                                borderBottomLeftRadius: scale(24)
                             },
-                            STYLES.boxShadow,
-                        ]}
-                    >
+                            STYLES.boxShadow
+                        ]}>
                         <SvgXml
                             xml={svgFourSquares}
                             width={scale(24)}

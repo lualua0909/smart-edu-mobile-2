@@ -1,7 +1,8 @@
-import React from 'react'
-import { View, FlatList } from 'react-native'
-import { scale } from 'app/helpers/responsive'
 import HistoryItem from 'app/components/HistoryItem'
+import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
+import { FlatList, View } from 'react-native'
 
 const ConnectInstructorHistory = () => {
     return (
@@ -11,11 +12,11 @@ const ConnectInstructorHistory = () => {
                 renderItem={({ item, index }) => {
                     return <HistoryItem key={index} />
                 }}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
                 style={{
                     paddingHorizontal: scale(16),
                     zIndex: 1,
-                    paddingTop: scale(10),
+                    paddingTop: scale(10)
                 }}
             />
         </View>

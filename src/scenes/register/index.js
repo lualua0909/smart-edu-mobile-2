@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
-import { View, Image, Pressable, ScrollView, Linking } from 'react-native'
-import { Text } from 'native-base'
+import Axios from 'app/Axios'
+import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { STYLES, ROUTES } from 'app/constants'
-import { SvgXml } from 'react-native-svg'
+import useFormInput from 'app/helpers/useFormInput'
 import {
     svgLoginButton,
     svgLoginMail,
     svgLoginPassword,
     svgLoginUsername,
-    svgTick,
+    svgTick
 } from 'assets/svg'
-import Axios from 'app/Axios'
-import useFormInput from 'app/helpers/useFormInput'
-import { Input, Icon, Stack, Button, useToast, Center } from 'native-base'
+import React, { useState } from 'react'
+
+import { Image, Linking, Pressable, ScrollView, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Text } from 'native-base'
+import { Button, Center, Icon, Input, Stack, useToast } from 'native-base'
 
 const Register = ({ navigation }) => {
     const toast = useToast()
@@ -54,13 +56,13 @@ const Register = ({ navigation }) => {
                 phone: phone.value,
                 email: email.value,
                 username: username.value,
-                password: password.value,
+                password: password.value
             })
-                .then((res) => {
+                .then(res => {
                     if (res.data.status === 200) {
                         toast.show({
                             title: 'Đăng ký tài khoản thành công !',
-                            status: 'success',
+                            status: 'success'
                         })
 
                         navigation.navigate(ROUTES.Login)
@@ -68,7 +70,7 @@ const Register = ({ navigation }) => {
                         toast.show({
                             title: res?.data?.message,
                             status: 'error',
-                            placement: 'top',
+                            placement: 'top'
                         })
                     }
                 })
@@ -85,9 +87,8 @@ const Register = ({ navigation }) => {
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{
                     flexGrow: 1,
-                    justifyContent: 'center',
-                }}
-            >
+                    justifyContent: 'center'
+                }}>
                 <Image
                     source={require('assets/images/login-bg.png')}
                     style={{
@@ -95,7 +96,7 @@ const Register = ({ navigation }) => {
                         height: '70%',
                         position: 'absolute',
                         top: 0,
-                        left: 0,
+                        left: 0
                     }}
                     resizeMode="cover"
                 />
@@ -106,27 +107,24 @@ const Register = ({ navigation }) => {
                             {
                                 width: '100%',
                                 borderRadius: scale(10),
-                                paddingVertical: scale(42),
-                            },
-                        ]}
-                    >
+                                paddingVertical: scale(42)
+                            }
+                        ]}>
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
                                 style={{
                                     fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
-                                    textAlign: 'center',
-                                }}
-                            >
+                                    textAlign: 'center'
+                                }}>
                                 ĐĂNG KÝ TÀI KHOẢN MỚI
                             </Text>
                             <Stack
                                 space={4}
                                 w="100%"
                                 alignItems="center"
-                                style={{ marginTop: scale(16) }}
-                            >
+                                style={{ marginTop: scale(16) }}>
                                 <Input
                                     size="md"
                                     InputLeftElement={
@@ -235,9 +233,8 @@ const Register = ({ navigation }) => {
                                 alignSelf: 'center',
                                 marginTop: scale(16),
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <SvgXml
                                 xml={svgTick}
                                 width={scale(14)}
@@ -248,9 +245,8 @@ const Register = ({ navigation }) => {
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
                                     textAlign: 'center',
-                                    marginLeft: scale(8),
-                                }}
-                            >
+                                    marginLeft: scale(8)
+                                }}>
                                 Đồng ý với{' '}
                             </Text>
                             <Pressable
@@ -258,15 +254,13 @@ const Register = ({ navigation }) => {
                                     Linking.openURL(
                                         'https://smarte.edu.vn/chinh-sach-dieu-khoan'
                                     )
-                                }}
-                            >
+                                }}>
                                 <Text
                                     style={{
                                         fontSize: scale(14),
                                         color: '#0075FF',
-                                        textDecorationLine: 'underline',
-                                    }}
-                                >
+                                        textDecorationLine: 'underline'
+                                    }}>
                                     Chính sách và điều khoản
                                 </Text>
                             </Pressable>
@@ -278,10 +272,9 @@ const Register = ({ navigation }) => {
                                 isLoadingText="Đang tạo tài khoản"
                                 style={{
                                     marginTop: scale(16),
-                                    width: '70%',
+                                    width: '70%'
                                 }}
-                                onPress={doRegister}
-                            >
+                                onPress={doRegister}>
                                 Đăng ký ngay
                             </Button>
                         </Center>
@@ -290,24 +283,21 @@ const Register = ({ navigation }) => {
                             onPress={() => navigation.navigate(ROUTES.Login)}
                             style={{
                                 alignSelf: 'center',
-                                marginTop: scale(16),
-                            }}
-                        >
+                                marginTop: scale(16)
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#1D1D1D',
-                                    textAlign: 'center',
-                                }}
-                            >
+                                    textAlign: 'center'
+                                }}>
                                 Bạn đã có tài khoản?{' '}
                                 <Text
                                     style={{
                                         fontSize: scale(14),
                                         color: '#0075FF',
-                                        textDecorationLine: 'underline',
-                                    }}
-                                >
+                                        textDecorationLine: 'underline'
+                                    }}>
                                     Đăng nhập
                                 </Text>
                             </Text>

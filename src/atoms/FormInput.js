@@ -1,5 +1,6 @@
 import React from 'react'
-import { Input, FormControl, WarningOutlineIcon } from 'native-base'
+
+import { FormControl, Input, WarningOutlineIcon } from 'native-base'
 
 export default () => {
     return (
@@ -7,8 +8,7 @@ export default () => {
             <FormControl.Label>Password</FormControl.Label>
             <Input placeholder="Enter password" />
             <FormControl.ErrorMessage
-                leftIcon={<WarningOutlineIcon size="xs" />}
-            >
+                leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
             </FormControl.ErrorMessage>
         </FormControl>

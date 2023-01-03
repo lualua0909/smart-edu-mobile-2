@@ -1,6 +1,7 @@
-import React from 'react'
-import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
+import { Text } from 'native-base'
 
 const HeaderTitle = ({ title }) => {
     return (
@@ -9,9 +10,8 @@ const HeaderTitle = ({ title }) => {
             style={{
                 fontSize: scale(16),
                 color: '#1F1F1F',
-                textAlign: 'center',
-            }}
-        >
+                textAlign: 'center'
+            }}>
             {title}
         </Text>
     )

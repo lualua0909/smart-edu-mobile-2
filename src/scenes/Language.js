@@ -1,15 +1,16 @@
-import React from 'react'
-import { View, Text } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import DeviceInfo from 'react-native-device-info'
+import React from 'react'
+
+import { Text, View } from 'react-native'
 import Config from 'react-native-config'
+import DeviceInfo from 'react-native-device-info'
 
 const Language = () => {
     const { result: deviceName } = DeviceInfo.useDeviceName()
     const systemVersion = DeviceInfo.getSystemVersion()
     const systemName = DeviceInfo.getSystemName()
 
-    DeviceInfo.supportedAbis().then((abis) => {
+    DeviceInfo.supportedAbis().then(abis => {
         console.log(abis)
     })
 
@@ -20,22 +21,19 @@ const Language = () => {
                     style={{
                         backgroundColor: '#FFFFFF',
                         paddingHorizontal: scale(10),
-                        paddingVertical: scale(10),
-                    }}
-                >
+                        paddingVertical: scale(10)
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
-                            paddingHorizontal: scale(10),
-                        }}
-                    >
+                            paddingHorizontal: scale(10)
+                        }}>
                         <Text
                             style={{
                                 color: '#333333',
-                                fontSize: scale(16),
-                            }}
-                        >
+                                fontSize: scale(16)
+                            }}>
                             {`Phiên bản ứng dụng ${DeviceInfo.getReadableVersion()}\n${deviceName}\n${systemName} ${systemVersion} ${
                                 Config.SERVER_CONFIG
                             }\n`}

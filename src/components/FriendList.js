@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { FlatList, RefreshControl, ScrollView } from 'react-native'
-import { scale } from 'app/helpers/responsive'
 import Axios from 'app/Axios'
+import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import FriendItem from 'app/components/FriendItem'
-import { useGlobalState } from 'app/Store'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, RefreshControl, ScrollView } from 'react-native'
 
 const FriendList = ({}) => {
     const [data, setData] = useState([])
@@ -19,10 +20,10 @@ const FriendList = ({}) => {
         Axios.get(
             `friends/friend_list/${userInfo?.id}${search ? '/' + search : ''}`
         )
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = resData?.data
 
                 console.log('friends/paging', list)
@@ -55,8 +56,7 @@ const FriendList = ({}) => {
         <ScrollView
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }
-        >
+            }>
             {data?.length ? (
                 <FlatList
                     data={data || []}
@@ -67,7 +67,7 @@ const FriendList = ({}) => {
                     contentContainerStyle={{
                         paddingLeft: 16,
                         paddingRight: 16,
-                        paddingBottom: scale(50),
+                        paddingBottom: scale(50)
                     }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}

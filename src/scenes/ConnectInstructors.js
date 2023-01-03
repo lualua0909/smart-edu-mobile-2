@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import {
-    View,
-    Pressable,
-    StatusBar,
-    FlatList,
-    RefreshControl,
-    ScrollView,
-    Linking,
-} from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { TabView } from 'react-native-tab-view'
-import COLORS from 'app/constants/colors'
-import PopupDelete from 'app/components/PopupDelete'
-import PopupSurveyCall from 'app/components/PopupSurveyCall'
-import PopupRate from 'app/components/PopupRate'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { svgWhiteBack } from 'assets/svg'
-import { SvgXml } from 'react-native-svg'
 import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
-import { Box, Heading, HStack, Stack, Text } from 'native-base'
-import LinearGradient from 'react-native-linear-gradient'
-import Countdown from 'react-countdown'
+import PopupDelete from 'app/components/PopupDelete'
+import PopupRate from 'app/components/PopupRate'
+import PopupSurveyCall from 'app/components/PopupSurveyCall'
+import COLORS from 'app/constants/colors'
+import { scale } from 'app/helpers/responsive'
 import { hashing } from 'app/helpers/utils'
-import { useNavigation } from '@react-navigation/native'
+import { svgWhiteBack } from 'assets/svg'
 import dayjs from 'dayjs'
+import React, { useEffect, useState } from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import Countdown from 'react-countdown'
+import {
+    FlatList,
+    Linking,
+    Pressable,
+    RefreshControl,
+    ScrollView,
+    StatusBar,
+    View
+} from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { SvgXml } from 'react-native-svg'
+import { TabView } from 'react-native-tab-view'
+
+import { Box, HStack, Heading, Stack, Text } from 'native-base'
 
 const types = new Map([
     ['booking-list-approved', 'Đã xác nhận'],
     ['booking-list-waiting', 'Chờ xác nhận'],
-    ['booking-list-cancelled', 'Đã hủy'],
+    ['booking-list-cancelled', 'Đã hủy']
 ])
 
 const ConnectInstructors = ({ navigation, route }) => {
@@ -48,16 +50,16 @@ const ConnectInstructors = ({ navigation, route }) => {
     const routes = [
         {
             key: 'tab-1',
-            title: types.get('booking-list-approved'),
+            title: types.get('booking-list-approved')
         },
         {
             key: 'tab-2',
-            title: types.get('booking-list-waiting'),
+            title: types.get('booking-list-waiting')
         },
         {
             key: 'tab-3',
-            title: types.get('booking-list-cancelled'),
-        },
+            title: types.get('booking-list-cancelled')
+        }
     ]
 
     const renderScene = ({ route }) => {
@@ -84,15 +86,13 @@ const ConnectInstructors = ({ navigation, route }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        marginTop: 16,
+                        marginTop: 16
                     }}
-                    edges={['top']}
-                >
+                    edges={['top']}>
                     <Pressable
                         hitSlop={15}
                         onPress={() => navigation.goBack()}
-                        style={{ paddingHorizontal: scale(16) }}
-                    >
+                        style={{ paddingHorizontal: scale(16) }}>
                         <SvgXml
                             xml={svgWhiteBack}
                             width={scale(24)}
@@ -103,9 +103,8 @@ const ConnectInstructors = ({ navigation, route }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#4F4F4F',
-                        }}
-                    >
+                            color: '#4F4F4F'
+                        }}>
                         Lịch kết nối
                     </Text>
                     <View></View>
@@ -128,9 +127,8 @@ const ConnectInstructors = ({ navigation, route }) => {
                 style={{
                     paddingTop: scale(16),
                     paddingBottom: scale(10),
-                    backgroundColor: '#fff',
-                }}
-            >
+                    backgroundColor: '#fff'
+                }}>
                 <View
                     style={{
                         alignSelf: 'center',
@@ -138,32 +136,29 @@ const ConnectInstructors = ({ navigation, route }) => {
                         borderWidth: 1,
                         borderColor: COLORS.green,
                         padding: scale(2),
-                        borderRadius: scale(5),
-                    }}
-                >
+                        borderRadius: scale(5)
+                    }}>
                     <Pressable
                         onPress={() => setTabIndex(0)}
                         style={[
                             {
                                 paddingVertical: scale(6),
                                 width: scale(125),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 0 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 0 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 0 && { color: '#fff' }
+                            ]}>
                             Đã xác nhận
                         </Text>
                     </Pressable>
@@ -173,23 +168,21 @@ const ConnectInstructors = ({ navigation, route }) => {
                             {
                                 paddingVertical: scale(6),
                                 width: scale(125),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 1 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 1 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 1 && { color: '#fff' }
+                            ]}>
                             Chờ xác nhận
                         </Text>
                     </Pressable>
@@ -199,23 +192,21 @@ const ConnectInstructors = ({ navigation, route }) => {
                             {
                                 paddingVertical: scale(6),
                                 width: scale(100),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 2 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 2 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 2 && { color: '#fff' }
+                            ]}>
                             Đã hủy
                         </Text>
                     </Pressable>
@@ -247,7 +238,7 @@ const ConnectInstructors = ({ navigation, route }) => {
                 renderTabBar={() => null}
                 onIndexChange={setTabIndex}
                 style={{
-                    backgroundColor: '#fff',
+                    backgroundColor: '#fff'
                 }}
             />
         </View>
@@ -265,10 +256,10 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
     const getData = (refresh = false) => {
         setLoading(true)
         Axios.get(`mentor-call/${type}/${page * 9}`)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) return res.data
             })
-            .then((resData) => {
+            .then(resData => {
                 const list = resData?.data
                 console.log('list', list)
                 if (refreshing) {
@@ -278,7 +269,7 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                     setData(Array.isArray(data) ? [...data, ...list] : list)
                 }
             })
-            .catch((e) => {
+            .catch(e => {
                 console.log(e)
             })
             .finally(() => {
@@ -303,8 +294,7 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
         <ScrollView
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }
-        >
+            }>
             <FlatList
                 data={data || []}
                 keyExtractor={(_, index) => index.toString()}
@@ -313,7 +303,7 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                 )}
                 contentContainerStyle={{
                     paddingTop: scale(16),
-                    paddingBottom: scale(50),
+                    paddingBottom: scale(50)
                 }}
                 ListHeaderComponent={
                     <Text
@@ -322,9 +312,8 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                             marginBottom: scale(16),
 
                             fontSize: scale(20),
-                            color: '#1F1F1F',
-                        }}
-                    >
+                            color: '#1F1F1F'
+                        }}>
                         Danh sách {types.get(type)}
                     </Text>
                 }
@@ -353,7 +342,7 @@ const MentorCallItem = ({ data }) => {
         minutes,
         seconds,
         milliseconds,
-        completed,
+        completed
     }) => {
         if (completed) {
             // Render a completed state
@@ -367,22 +356,19 @@ const MentorCallItem = ({ data }) => {
                             height: 100,
                             flexDirection: 'row',
                             width: '100%',
-                            justifyContent: 'center',
-                        }}
-                    >
+                            justifyContent: 'center'
+                        }}>
                         <View
                             style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                marginHorizontal: scale(10),
-                            }}
-                        >
+                                marginHorizontal: scale(10)
+                            }}>
                             <Text
                                 style={{
                                     fontSize: scale(20),
-                                    color: '#fff',
-                                }}
-                            >
+                                    color: '#fff'
+                                }}>
                                 Đến cuộc gọi ngay
                             </Text>
                         </View>
@@ -399,30 +385,26 @@ const MentorCallItem = ({ data }) => {
                         height: 100,
                         flexDirection: 'row',
                         width: '100%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <View
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(10),
-                        }}
-                    >
+                            marginHorizontal: scale(10)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(20),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {days}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(14),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Ngày
                         </Text>
                     </View>
@@ -430,23 +412,20 @@ const MentorCallItem = ({ data }) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(10),
-                        }}
-                    >
+                            marginHorizontal: scale(10)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(20),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {hours}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(14),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Giờ
                         </Text>
                     </View>
@@ -454,23 +433,20 @@ const MentorCallItem = ({ data }) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(10),
-                        }}
-                    >
+                            marginHorizontal: scale(10)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(20),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {minutes}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(14),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Phút
                         </Text>
                     </View>
@@ -478,23 +454,20 @@ const MentorCallItem = ({ data }) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(10),
-                        }}
-                    >
+                            marginHorizontal: scale(10)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(20),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {seconds}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(14),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Giây
                         </Text>
                     </View>
@@ -511,16 +484,15 @@ const MentorCallItem = ({ data }) => {
                 overflow="hidden"
                 _dark={{
                     borderColor: 'coolGray.600',
-                    backgroundColor: 'gray.700',
+                    backgroundColor: 'gray.700'
                 }}
                 _web={{
                     shadow: 2,
-                    borderWidth: 0,
+                    borderWidth: 0
                 }}
                 _light={{
-                    backgroundColor: 'gray.50',
-                }}
-            >
+                    backgroundColor: 'gray.50'
+                }}>
                 <Box>
                     <Countdown
                         date={dayjs('2021-07-06 14:53:00')}
@@ -531,7 +503,7 @@ const MentorCallItem = ({ data }) => {
                             minutes,
                             seconds,
                             milliseconds,
-                            completed,
+                            completed
                         }) =>
                             renderer({
                                 total,
@@ -540,7 +512,7 @@ const MentorCallItem = ({ data }) => {
                                 minutes,
                                 seconds,
                                 milliseconds,
-                                completed,
+                                completed
                             })
                         }
                     />
@@ -553,15 +525,14 @@ const MentorCallItem = ({ data }) => {
                         <Text
                             fontSize="xs"
                             _light={{
-                                color: 'violet.500',
+                                color: 'violet.500'
                             }}
                             _dark={{
-                                color: 'violet.400',
+                                color: 'violet.400'
                             }}
                             fontWeight="500"
                             ml="-0.5"
-                            mt="-1"
-                        >
+                            mt="-1">
                             {data?.title}
                         </Text>
                     </Stack>
@@ -572,16 +543,14 @@ const MentorCallItem = ({ data }) => {
                     <HStack
                         alignItems="center"
                         space={4}
-                        justifyContent="space-between"
-                    >
+                        justifyContent="space-between">
                         <HStack alignItems="center">
                             <Text
                                 color="coolGray.600"
                                 _dark={{
-                                    color: 'warmGray.200',
+                                    color: 'warmGray.200'
                                 }}
-                                fontWeight="400"
-                            >
+                                fontWeight="400">
                                 {data?.price || 'Cuộc gọi miễn phí'}
                             </Text>
                         </HStack>

@@ -1,12 +1,14 @@
-import React from 'react'
-import { View, Image, Pressable } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { ROUTES, COLORS, COURSE_IMG_PATH } from 'app/constants'
-import { SvgXml } from 'react-native-svg'
-import { svgTriangle } from 'assets/svg'
-import { useNavigation } from '@react-navigation/native'
 import { Rate } from 'app/atoms'
+import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
+import { svgTriangle } from 'assets/svg'
+import React from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import { Image, Pressable, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
 import { Progress, Text } from 'native-base'
 
 const CourseItem = ({
@@ -14,7 +16,7 @@ const CourseItem = ({
     index,
     isHorizontal,
     isMine,
-    fullWidth = false,
+    fullWidth = false
 }) => {
     const navigation = useNavigation()
     return (
@@ -33,16 +35,15 @@ const CourseItem = ({
                           borderRadius: scale(10),
                           borderBottomWidth: scale(6),
                           borderBottomColor: COLORS.green,
-                          marginBottom: 10,
+                          marginBottom: 10
                       }
                     : {
                           borderWidth: 1,
                           borderRadius: scale(10),
                           borderColor: '#DEDEDE',
-                          marginBottom: scale(12),
+                          marginBottom: scale(12)
                       }
-            }
-        >
+            }>
             {item?.is_offline ? (
                 <View
                     style={{
@@ -52,15 +53,13 @@ const CourseItem = ({
                         backgroundColor: '#E90F0F',
                         zIndex: 1,
                         paddingVertical: scale(2),
-                        paddingHorizontal: scale(8),
-                    }}
-                >
+                        paddingHorizontal: scale(8)
+                    }}>
                     <Text
                         style={{
                             fontSize: scale(12),
-                            color: '#fff',
-                        }}
-                    >
+                            color: '#fff'
+                        }}>
                         Có lớp offline
                     </Text>
                     <SvgXml
@@ -70,7 +69,7 @@ const CourseItem = ({
                         style={{
                             position: 'absolute',
                             right: 0,
-                            bottom: -scale(4),
+                            bottom: -scale(4)
                         }}
                     />
                 </View>
@@ -78,29 +77,27 @@ const CourseItem = ({
             <Image
                 resizeMode="contain"
                 source={{
-                    uri: `${COURSE_IMG_PATH}${item?.id}.webp`,
+                    uri: `${COURSE_IMG_PATH}${item?.id}.webp`
                 }}
                 style={{
                     width: '100%',
                     height: scale(150),
                     borderTopLeftRadius: scale(10),
-                    borderTopRightRadius: scale(10),
+                    borderTopRightRadius: scale(10)
                 }}
                 defaultSource={require('assets/images/menu-banner.jpg')}
             />
             <View
                 style={{
                     paddingHorizontal: scale(15),
-                    paddingVertical: scale(24),
-                }}
-            >
+                    paddingVertical: scale(24)
+                }}>
                 <Text
                     numberOfLines={3}
                     style={{
                         fontSize: scale(18),
-                        color: '#333',
-                    }}
-                >
+                        color: '#333'
+                    }}>
                     {item?.title}
                 </Text>
                 {/* <View
@@ -136,9 +133,8 @@ const CourseItem = ({
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginTop: scale(10),
-                    }}
-                >
+                        marginTop: scale(10)
+                    }}>
                     <Rate rate={item?.rating} />
                     {/* <Pressable
                             style={{
@@ -164,9 +160,8 @@ const CourseItem = ({
                         style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
-                            marginTop: scale(10),
-                        }}
-                    >
+                            marginTop: scale(10)
+                        }}>
                         <Progress
                             colorScheme="emerald"
                             value={item?.process}
@@ -175,9 +170,8 @@ const CourseItem = ({
                         <Text
                             style={{
                                 fontSize: scale(14),
-                                color: '#1F1F1F',
-                            }}
-                        >
+                                color: '#1F1F1F'
+                            }}>
                             100%
                         </Text>
                     </View>
@@ -187,17 +181,15 @@ const CourseItem = ({
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        marginTop: scale(10),
-                    }}
-                >
+                        marginTop: scale(10)
+                    }}>
                     {item?.old_price && (
                         <Text
                             style={{
                                 fontSize: scale(16),
                                 color: '#1D1D1D',
-                                textDecorationLine: 'line-through',
-                            }}
-                        >
+                                textDecorationLine: 'line-through'
+                            }}>
                             {toCurrency(item?.old_price)} đ
                         </Text>
                     )}
@@ -205,9 +197,8 @@ const CourseItem = ({
                         <Text
                             style={{
                                 fontSize: scale(18),
-                                color: '#1DA736',
-                            }}
-                        >
+                                color: '#1DA736'
+                            }}>
                             {toCurrency(item?.new_price)} đ
                         </Text>
                     )}

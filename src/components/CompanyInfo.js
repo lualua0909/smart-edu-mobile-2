@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, TextInput } from 'react-native'
-import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
+import { svgBackPack, svgClipBoard, svgCompany, svgDeparment } from 'assets/svg'
+import React from 'react'
+
+import { TextInput, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import { svgCompany, svgBackPack, svgDeparment, svgClipBoard } from 'assets/svg'
+
+import { Text } from 'native-base'
 
 const CompanyInfo = ({ data }) => {
     return (
@@ -12,18 +14,16 @@ const CompanyInfo = ({ data }) => {
                 marginTop: scale(6),
                 backgroundColor: '#FFFFFF',
                 paddingHorizontal: scale(20),
-                paddingVertical: scale(10),
-            }}
-        >
+                paddingVertical: scale(10)
+            }}>
             <Text
                 style={{
                     color: '#1F1F1F',
                     fontSize: scale(18),
 
                     paddingHorizontal: scale(10),
-                    paddingVertical: scale(7),
-                }}
-            >
+                    paddingVertical: scale(7)
+                }}>
                 Thông tin công ty
             </Text>
             <View
@@ -31,9 +31,8 @@ const CompanyInfo = ({ data }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgCompany}
                     width={scale(24)}
@@ -44,13 +43,12 @@ const CompanyInfo = ({ data }) => {
 
                 <View
                     style={{
-                        marginLeft: scale(20),
-                    }}
-                >
+                        marginLeft: scale(20)
+                    }}>
                     <TextInput
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F',
+                            color: '#1F1F1F'
                         }}
                         value="Feed Ingredient"
                         editable={false}
@@ -60,9 +58,8 @@ const CompanyInfo = ({ data }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#363E57',
-                        }}
-                    >
+                            color: '#363E57'
+                        }}>
                         Công ty
                     </Text>
                 </View>
@@ -72,9 +69,8 @@ const CompanyInfo = ({ data }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgDeparment}
                     width={scale(24)}
@@ -85,14 +81,13 @@ const CompanyInfo = ({ data }) => {
 
                 <View
                     style={{
-                        marginLeft: scale(20),
-                    }}
-                >
+                        marginLeft: scale(20)
+                    }}>
                     <TextInput
                         style={{
                             fontSize: scale(16),
                             color: '#1F1F1F',
-                            alignItems: 'flex-start',
+                            alignItems: 'flex-start'
                         }}
                         value="Sales & Cinema Marketing & support"
                         editable={false}
@@ -102,9 +97,8 @@ const CompanyInfo = ({ data }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#363E57',
-                        }}
-                    >
+                            color: '#363E57'
+                        }}>
                         Bộ phận
                     </Text>
                 </View>
@@ -114,9 +108,8 @@ const CompanyInfo = ({ data }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgClipBoard}
                     width={scale(24)}
@@ -127,13 +120,12 @@ const CompanyInfo = ({ data }) => {
 
                 <View
                     style={{
-                        marginLeft: scale(20),
-                    }}
-                >
+                        marginLeft: scale(20)
+                    }}>
                     <TextInput
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F',
+                            color: '#1F1F1F'
                         }}
                         value="Product Management"
                         editable={false}
@@ -143,9 +135,8 @@ const CompanyInfo = ({ data }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#363E57',
-                        }}
-                    >
+                            color: '#363E57'
+                        }}>
                         Chức vụ
                     </Text>
                 </View>
@@ -155,9 +146,8 @@ const CompanyInfo = ({ data }) => {
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     paddingHorizontal: scale(20),
-                    paddingVertical: scale(10),
-                }}
-            >
+                    paddingVertical: scale(10)
+                }}>
                 <SvgXml
                     xml={svgBackPack}
                     width={scale(24)}
@@ -168,13 +158,12 @@ const CompanyInfo = ({ data }) => {
 
                 <View
                     style={{
-                        marginLeft: scale(20),
-                    }}
-                >
+                        marginLeft: scale(20)
+                    }}>
                     <TextInput
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F',
+                            color: '#1F1F1F'
                         }}
                         value="Sinh viên"
                         editable={false}
@@ -184,9 +173,8 @@ const CompanyInfo = ({ data }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#363E57',
-                        }}
-                    >
+                            color: '#363E57'
+                        }}>
                         Công việc hiện tại
                     </Text>
                 </View>

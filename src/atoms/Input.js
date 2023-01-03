@@ -7,7 +7,7 @@ import {
     Icon,
     Input,
     Pressable,
-    WarningOutlineIcon,
+    WarningOutlineIcon
 } from 'native-base'
 
 const CustomInput = ({
@@ -33,14 +33,14 @@ const CustomInput = ({
             _light={{
                 bg: 'coolGray.100',
                 _hover: {
-                    bg: 'coolGray.200',
+                    bg: 'coolGray.200'
                 },
                 _focus: {
-                    bg: 'coolGray.200:alpha.50',
+                    bg: 'coolGray.200:alpha.50'
                 },
                 _disabled: {
-                    bg: 'coolGray.200:alpha.30',
-                },
+                    bg: 'coolGray.200:alpha.30'
+                }
             }}
             placeholder={props?.placeholder || label}
             InputRightElement={
@@ -61,8 +61,7 @@ const CustomInput = ({
         />
         {error && (
             <FormControl.ErrorMessage
-                leftIcon={<WarningOutlineIcon size="xs" />}
-            >
+                leftIcon={<WarningOutlineIcon size="xs" />}>
                 {error}
             </FormControl.ErrorMessage>
         )}

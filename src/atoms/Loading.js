@@ -1,7 +1,9 @@
-import React from 'react'
-import { VStack, Heading, Center } from 'native-base'
-import LottieView from 'lottie-react-native'
 import animationImg from 'assets/animations/Searching.json'
+import React from 'react'
+
+import LottieView from 'lottie-react-native'
+
+import { Center, Heading, VStack } from 'native-base'
 
 export default () => (
     <Center flex={1} px="3">
@@ -12,7 +14,7 @@ export default () => (
                 loop
                 style={{
                     width: '100%',
-                    height: 200,
+                    height: 200
                 }}
             />
             <Center>

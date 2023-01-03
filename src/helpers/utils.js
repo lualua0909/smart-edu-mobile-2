@@ -1,9 +1,10 @@
-import { LayoutAnimation } from 'react-native'
+import { setGlobalState } from 'app/Store'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { setGlobalState } from 'app/Store'
-import EncryptedStorage from 'react-native-encrypted-storage'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { LayoutAnimation } from 'react-native'
+import EncryptedStorage from 'react-native-encrypted-storage'
 
 require('dayjs/locale/vi')
 dayjs.extend(relativeTime)
@@ -28,22 +29,22 @@ export const animateNextTransition = debounce(
             duration: Platform.select({ ios: 200, android: 350 }),
             create: {
                 type: LayoutAnimation.Types.easeInEaseOut,
-                property: LayoutAnimation.Properties.opacity,
+                property: LayoutAnimation.Properties.opacity
             },
             update: {
-                type: LayoutAnimation.Types.easeInEaseOut,
+                type: LayoutAnimation.Types.easeInEaseOut
             },
             delete: {
                 type: LayoutAnimation.Types.easeInEaseOut,
-                property: LayoutAnimation.Properties.opacity,
-            },
+                property: LayoutAnimation.Properties.opacity
+            }
         })
     },
     Platform.select({ ios: 200, android: 350 }),
     true
 )
 
-export const toCurrency = (value) => {
+export const toCurrency = value => {
     return String(value || 0).replace(/(.)(?=(\d{3})+$)/g, '$1,')
 }
 
@@ -112,7 +113,7 @@ export const storeData = async (key, value) => {
     }
 }
 
-export const getData = async (key) => {
+export const getData = async key => {
     try {
         const jsonValue = await AsyncStorage.getItem(key)
         return jsonValue != null ? JSON.parse(jsonValue) : null
@@ -122,7 +123,7 @@ export const getData = async (key) => {
     }
 }
 
-export const hashing = (s) => {
+export const hashing = s => {
     return s.split('').reduce((a, b) => {
         a = (a << 5) - a + b.charCodeAt(0)
         return a & a

@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react'
-import { View, Pressable, Image, Dimensions } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import React, { useMemo, useState } from 'react'
+
+import { Dimensions, Image, Pressable, View } from 'react-native'
+
 import { Text } from 'native-base'
 
 const { width } = Dimensions.get('window')
@@ -18,7 +20,7 @@ const HeaderChat = ({}) => {
                     width: width * 0.59,
                     height: scale(40),
                     left: -width * 0.21,
-                    zIndex: -1,
+                    zIndex: -1
                 }}
                 resizeMode="stretch"
             />
@@ -28,15 +30,13 @@ const HeaderChat = ({}) => {
                     height: '100%',
                     position: 'absolute',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
+                    alignItems: 'center'
+                }}>
                 <Text
                     style={{
                         fontSize: scale(16),
-                        color: '#0E564D',
-                    }}
-                >
+                        color: '#0E564D'
+                    }}>
                     Trò chuyện
                 </Text>
             </Pressable>
@@ -47,16 +47,14 @@ const HeaderChat = ({}) => {
                     position: 'absolute',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    right: 0,
-                }}
-            >
+                    right: 0
+                }}>
                 <Text
                     style={{
                         fontSize: scale(16),
                         color: '#fff',
-                        left: -scale(10),
-                    }}
-                >
+                        left: -scale(10)
+                    }}>
                     Bạn cùng học
                 </Text>
             </Pressable>

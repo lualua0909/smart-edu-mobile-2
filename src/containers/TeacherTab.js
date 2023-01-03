@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Pressable } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
-import { svgCircleBook, svgCircleBag, svgCircleCompany } from 'assets/svg'
-import { animateNextTransition } from 'app/helpers/utils'
-import { Avatar, NoData } from 'app/atoms'
-import { Center, VStack, ChevronDownIcon, ChevronUpIcon } from 'native-base'
 import Axios from 'app/Axios'
+import { Avatar, NoData } from 'app/atoms'
+import { scale } from 'app/helpers/responsive'
+import { animateNextTransition } from 'app/helpers/utils'
+import { svgCircleBag, svgCircleBook, svgCircleCompany } from 'assets/svg'
+import React, { useEffect, useState } from 'react'
+
+import { Pressable, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+
+import { Center, ChevronDownIcon, ChevronUpIcon, VStack } from 'native-base'
 import { Text } from 'native-base'
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
@@ -15,10 +17,10 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
     useEffect(() => {
         if (mentorId) {
             Axios.get(`get-mentor-info/${mentorId}`)
-                .then((res) => {
+                .then(res => {
                     return res.data
                 })
-                .then((data) => {
+                .then(data => {
                     console.log('TeacherTab', data)
                     setData(data)
                     setTeacherName(
@@ -44,16 +46,14 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
             <View
                 style={{
                     marginTop: scale(10),
-                    alignSelf: 'center',
-                }}
-            >
+                    alignSelf: 'center'
+                }}>
                 <Text
                     style={{
                         fontSize: scale(24),
                         color: '#0E564D',
-                        alignSelf: 'center',
-                    }}
-                >
+                        alignSelf: 'center'
+                    }}>
                     {`${data?.mentor?.first_name} ${data?.mentor?.last_name}`}
                 </Text>
                 <View
@@ -61,9 +61,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         marginTop: scale(10),
-                        width: '85%',
-                    }}
-                >
+                        width: '85%'
+                    }}>
                     <SvgXml
                         xml={svgCircleBag}
                         width={scale(36)}
@@ -74,9 +73,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                             marginLeft: scale(10),
 
                             fontSize: scale(14),
-                            color: '#202020',
-                        }}
-                    >
+                            color: '#202020'
+                        }}>
                         {data?.mentor?.position}
                     </Text>
                 </View>
@@ -84,9 +82,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginTop: scale(8),
-                    }}
-                >
+                        marginTop: scale(8)
+                    }}>
                     <SvgXml
                         xml={svgCircleCompany}
                         width={scale(36)}
@@ -97,9 +94,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                             marginLeft: scale(10),
 
                             fontSize: scale(14),
-                            color: '#202020',
-                        }}
-                    >
+                            color: '#202020'
+                        }}>
                         {data?.mentor?.department}
                     </Text>
                 </View>
@@ -107,9 +103,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        marginTop: scale(8),
-                    }}
-                >
+                        marginTop: scale(8)
+                    }}>
                     <SvgXml
                         xml={svgCircleBook}
                         width={scale(36)}
@@ -120,9 +115,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                             marginLeft: scale(10),
 
                             fontSize: scale(14),
-                            color: '#202020',
-                        }}
-                    >
+                            color: '#202020'
+                        }}>
                         {data?.mentor?.courses?.length || 0} khóa học
                     </Text>
                 </View>
@@ -165,16 +159,14 @@ const ExperienceItem = ({ title, data }) => {
                     backgroundColor: '#E6F4EA',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}
-            >
+                    justifyContent: 'space-between'
+                }}>
                 <Text
                     style={{
                         fontSize: scale(16),
                         flex: 1,
-                        color: '#000',
-                    }}
-                >
+                        color: '#000'
+                    }}>
                     {title}
                 </Text>
                 {isExpand ? (
@@ -189,24 +181,22 @@ const ExperienceItem = ({ title, data }) => {
                         <View
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <View
                                 style={{
                                     width: scale(6),
                                     height: scale(6),
                                     borderRadius: scale(6),
                                     backgroundColor: '#52B553',
-                                    marginRight: scale(5),
+                                    marginRight: scale(5)
                                 }}
                             />
                             <Text
                                 style={{
                                     fontSize: scale(16),
-                                    color: '#000',
-                                }}
-                            >
+                                    color: '#000'
+                                }}>
                                 {item.content}
                             </Text>
                         </View>

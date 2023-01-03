@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, Pressable, Image, FlatList } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { ChevronRightIcon } from 'native-base'
 import { COLORS, ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
 import { useNavigation } from '@react-navigation/native'
+import { FlatList, Image, Pressable, View } from 'react-native'
+
+import { ChevronRightIcon } from 'native-base'
 import { Text } from 'native-base'
 
 const FlatListCredits = ({ data, userId }) => {
@@ -22,51 +24,45 @@ const FlatListCredits = ({ data, userId }) => {
                     borderTopColor: COLORS.borderGrey,
                     paddingTop: scale(16),
                     width: '100%',
-                    marginTop: scale(16),
-                }}
-            >
+                    marginTop: scale(16)
+                }}>
                 <View
                     style={{
                         paddingHorizontal: scale(16),
                         flexDirection: 'row',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
+                        justifyContent: 'space-between'
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'center',
-                        }}
-                    >
+                            alignItems: 'center'
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
                                 color: '#0E564D',
                                 marginLeft: scale(8),
-                                textTransform: 'uppercase',
-                            }}
-                        >
+                                textTransform: 'uppercase'
+                            }}>
                             Chứng chỉ
                         </Text>
                     </View>
                     <Pressable
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
                         onPress={() =>
                             navigation.navigate(ROUTES.CertificateList, {
-                                userId,
+                                userId
                             })
-                        }
-                    >
+                        }>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#A3A3A3',
-                            }}
-                        >
+                                color: '#A3A3A3'
+                            }}>
                             Tất cả
                         </Text>
                         <ChevronRightIcon size={scale(24)} />
@@ -85,26 +81,24 @@ const FlatListCredits = ({ data, userId }) => {
                                 {
                                     paddingTop: scale(7),
                                     paddingHorizontal: paddingHor,
-                                    width: widthView,
-                                },
+                                    width: widthView
+                                }
                             ]}
-                            key={index}
-                        >
+                            key={index}>
                             <Image
                                 source={require('assets/images/chung-chi-SE.png')}
                                 resizeMode="stretch"
                                 style={{
                                     width: '100%',
-                                    height: imageHeight,
+                                    height: imageHeight
                                 }}
                             />
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#000000',
-                                    paddingTop: scale(8),
-                                }}
-                            >
+                                    paddingTop: scale(8)
+                                }}>
                                 {item.name}
                             </Text>
                         </View>

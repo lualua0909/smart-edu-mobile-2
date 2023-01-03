@@ -1,5 +1,6 @@
 import React from 'react'
-import { Skeleton, VStack, Center, HStack } from 'native-base'
+
+import { Center, HStack, Skeleton, VStack } from 'native-base'
 
 export default () => (
     <Center w="100%" style={{ marginTop: 20 }}>
@@ -9,12 +10,11 @@ export default () => (
             rounded="md"
             alignItems="center"
             _dark={{
-                borderColor: 'coolGray.500',
+                borderColor: 'coolGray.500'
             }}
             _light={{
-                borderColor: 'coolGray.200',
-            }}
-        >
+                borderColor: 'coolGray.200'
+            }}>
             <Item />
             <Item />
             <Item />
@@ -30,13 +30,12 @@ const Item = () => (
             space={2}
             rounded="lg"
             _dark={{
-                borderColor: 'coolGray.500',
+                borderColor: 'coolGray.500'
             }}
             _light={{
-                borderColor: 'coolGray.200',
+                borderColor: 'coolGray.200'
             }}
-            p="4"
-        >
+            p="4">
             <Skeleton flex="1" h="150" rounded="md" startColor="green.200" />
             <VStack flex="3" space="4">
                 <Skeleton startColor="lime.200" rounded="md" />

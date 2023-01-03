@@ -17,14 +17,12 @@ const ToastAlert = ({
         status={status}
         variant={variant}
         placement={placement}
-        {...rest}
-    >
+        {...rest}>
         <VStack space={1} flexShrink={1} w="100%">
             <HStack
                 flexShrink={1}
                 alignItems="center"
-                justifyContent="space-between"
-            >
+                justifyContent="space-between">
                 <HStack space={2} flexShrink={1} alignItems="center">
                     <Text
                         fontSize="14"
@@ -36,8 +34,7 @@ const ToastAlert = ({
                                 : variant !== 'outline'
                                 ? 'darkText'
                                 : null
-                        }
-                    >
+                        }>
                         {title}
                     </Text>
                 </HStack>
@@ -50,8 +47,7 @@ const ToastAlert = ({
                         : variant !== 'outline'
                         ? 'darkText'
                         : null
-                }
-            >
+                }>
                 {description}
             </Text>
         </VStack>
@@ -62,7 +58,7 @@ export default ({
     title = '',
     description = '',
     placement = 'top',
-    status = 'info',
+    status = 'info'
 }) => {
     Toast.show({
         placement,
@@ -73,10 +69,10 @@ export default ({
                         status,
                         title,
                         variant: 'left-accent',
-                        description,
+                        description
                     }}
                 />
             )
-        },
+        }
     })
 }

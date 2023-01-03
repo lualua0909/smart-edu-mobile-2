@@ -1,24 +1,24 @@
-import React from 'react'
-import { View, StyleSheet, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
+import { Pressable, StyleSheet, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+
 import { Text } from 'native-base'
+
 const BarChart = ({ data, selectCourse }) => {
     return (
         <View
-            style={{ width: '100%', height: scale(300), marginTop: scale(30) }}
-        >
+            style={{ width: '100%', height: scale(300), marginTop: scale(30) }}>
             <View
-                style={{ position: 'absolute', width: '100%', height: '100%' }}
-            >
+                style={{ position: 'absolute', width: '100%', height: '100%' }}>
                 <View
                     style={{
                         position: 'absolute',
                         width: '100%',
                         top: '0%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={[styles.textPercent, { top: -scale(25) }]}>
                         %
                     </Text>
@@ -35,9 +35,8 @@ const BarChart = ({ data, selectCourse }) => {
                         position: 'absolute',
                         width: '100%',
                         top: '20%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={styles.textPercent}>80</Text>
                     {/*<Dash
                         style={{ flex: 1, height: 1 }}
@@ -51,9 +50,8 @@ const BarChart = ({ data, selectCourse }) => {
                         position: 'absolute',
                         width: '100%',
                         top: '40%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={styles.textPercent}>60</Text>
                     {/*<Dash
                         style={{ flex: 1, height: 1 }}
@@ -67,9 +65,8 @@ const BarChart = ({ data, selectCourse }) => {
                         position: 'absolute',
                         width: '100%',
                         top: '60%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={styles.textPercent}>40</Text>
                     {/*<Dash
                         style={{ flex: 1, height: 1 }}
@@ -83,9 +80,8 @@ const BarChart = ({ data, selectCourse }) => {
                         position: 'absolute',
                         width: '100%',
                         top: '80%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={styles.textPercent}>20</Text>
                     {/*<Dash
                         style={{ flex: 1, height: 1 }}
@@ -99,15 +95,14 @@ const BarChart = ({ data, selectCourse }) => {
                         position: 'absolute',
                         width: '100%',
                         top: '100%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <Text style={styles.textPercent}>0</Text>
                     <View
                         style={{
                             flex: 1,
                             height: 1,
-                            backgroundColor: 'rgba(0, 0, 0, 0.25)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.25)'
                         }}
                     />
                 </View>
@@ -118,9 +113,8 @@ const BarChart = ({ data, selectCourse }) => {
                     height: '100%',
                     alignItems: 'flex-end',
                     paddingLeft: scale(30),
-                    justifyContent: 'space-between',
-                }}
-            >
+                    justifyContent: 'space-between'
+                }}>
                 {data?.map((item, index) => {
                     return (
                         <Pressable onPress={() => selectCourse(item)}>
@@ -129,7 +123,7 @@ const BarChart = ({ data, selectCourse }) => {
                                 colors={['#0EBF46', '#087676']}
                                 style={{
                                     width: scale(26),
-                                    height: `${item?.process}%`,
+                                    height: `${item?.process}%`
                                 }}
                             />
                         </Pressable>
@@ -147,8 +141,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
 
         fontSize: scale(12),
-        color: '#1F1F1F',
-    },
+        color: '#1F1F1F'
+    }
 })
 
 export default BarChart

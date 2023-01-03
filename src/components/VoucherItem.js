@@ -1,7 +1,9 @@
-import React from 'react'
-import { View, Pressable, Image } from 'react-native'
 import { scale } from 'app/helpers/responsive'
-import { Text, Checkbox } from 'native-base'
+import React from 'react'
+
+import { Image, Pressable, View } from 'react-native'
+
+import { Checkbox, Text } from 'native-base'
 
 const VoucherItem = ({ value, index }) => {
     return (
@@ -9,25 +11,23 @@ const VoucherItem = ({ value, index }) => {
             style={{
                 backgroundColor: '#FFFFFF',
                 padding: scale(10),
-                paddingTop: scale(3),
-            }}
-        >
+                paddingTop: scale(3)
+            }}>
             <View
                 style={{
                     flexDirection: 'row',
                     borderTopWidth: index === 0 ? 0 : 1,
                     borderColor: '#E6E6E6',
-                    paddingTop: 10,
-                }}
-            >
+                    paddingTop: 10
+                }}>
                 <View style={{ width: scale(114) }}>
                     <Image
                         source={{
-                            uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/courses/91.webp?0.3996675997251453',
+                            uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/courses/91.webp?0.3996675997251453'
                         }}
                         style={{
                             width: '100%',
-                            height: scale(100),
+                            height: scale(100)
                         }}
                     />
                 </View>
@@ -36,9 +36,8 @@ const VoucherItem = ({ value, index }) => {
                         numberOfLines={3}
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F',
-                        }}
-                    >
+                            color: '#1F1F1F'
+                        }}>
                         Áp dụng cho đơn hàng đầu tiên chi, max 2 d...
                     </Text>
                     <Text
@@ -51,9 +50,8 @@ const VoucherItem = ({ value, index }) => {
                             borderRadius: 5,
                             padding: scale(4),
                             marginTop: scale(8),
-                            alignSelf: 'flex-start',
-                        }}
-                    >
+                            alignSelf: 'flex-start'
+                        }}>
                         Tối đa 100k
                     </Text>
                     <View
@@ -61,23 +59,20 @@ const VoucherItem = ({ value, index }) => {
                             flexDirection: 'row',
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            marginTop: scale(5),
-                        }}
-                    >
+                            marginTop: scale(5)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(12),
-                                color: '#1D1D1D',
-                            }}
-                        >
+                                color: '#1D1D1D'
+                            }}>
                             HSD: 28.08.2022
                         </Text>
                         <Text
                             style={{
                                 color: '#0075FF',
-                                fontSize: scale(12),
-                            }}
-                        >
+                                fontSize: scale(12)
+                            }}>
                             Điều kiện
                         </Text>
                     </View>

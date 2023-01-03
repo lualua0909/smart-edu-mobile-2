@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import Axios from 'app/Axios'
+import { useGlobalState } from 'app/Store'
+import { NoData } from 'app/atoms'
+import Curriculum from 'app/components/Curriculum'
 import { scale } from 'app/helpers/responsive'
 import { svgCircleBook } from 'assets/svg'
-import Curriculum from 'app/components/Curriculum'
-import Axios from 'app/Axios'
-import { NoData } from 'app/atoms'
-import { useGlobalState } from 'app/Store'
+import React, { useEffect, useState } from 'react'
+
 import { useNavigation } from '@react-navigation/native'
+import { Text, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
 
 const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [data, setData] = useState()
@@ -19,21 +20,21 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     useEffect(() => {
         if (courseId) {
             Axios.get(`courses/chapter-list/paging/${courseId}`)
-                .then((res) => {
+                .then(res => {
                     return res.data
                 })
-                .then((data) => {
+                .then(data => {
                     const chapters = data?.data
                     setFinishedLectures(data?.finished_lectures)
 
                     setData(chapters)
                     if (setChapters) {
-                        const c = chapters.map((i) => {
+                        const c = chapters.map(i => {
                             return i.lectures
                         })
                         setChapters(c.flat())
                     }
-                    const sum = chapters.map((i) => {
+                    const sum = chapters.map(i => {
                         const sumWithInitial = i?.lectures.reduce(
                             (previousValue, _) => previousValue + 1,
                             0
@@ -63,9 +64,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     paddingHorizontal: scale(16),
-                    marginTop: scale(16),
-                }}
-            >
+                    marginTop: scale(16)
+                }}>
                 <SvgXml
                     xml={svgCircleBook}
                     width={scale(40)}
@@ -75,9 +75,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     style={{
                         fontSize: scale(16),
                         color: '#007839',
-                        marginLeft: scale(10),
-                    }}
-                >
+                        marginLeft: scale(10)
+                    }}>
                     {totalLectures} bài giảng
                 </Text>
             </View>

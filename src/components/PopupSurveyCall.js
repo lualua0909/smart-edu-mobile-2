@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
 import { scale } from 'app/helpers/responsive'
+import { svgBackgroundSurveyCall, svgClose } from 'assets/svg'
+import React from 'react'
+
+import { Pressable, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
-import { svgClose, svgBackgroundSurveyCall } from 'assets/svg'
+
 import { Text } from 'native-base'
 
 const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
@@ -12,21 +14,18 @@ const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
             <Modal
                 isVisible={isVisible}
                 onBackButtonPress={() => onBackPress(false)}
-                onBackdropPress={() => onBackPress(false)}
-            >
+                onBackdropPress={() => onBackPress(false)}>
                 <View
                     style={{
                         backgroundColor: '#fff',
-                        borderRadius: scale(5),
-                    }}
-                >
+                        borderRadius: scale(5)
+                    }}>
                     <View
                         style={{
                             justifyContent: 'flex-end',
                             flexDirection: 'row',
-                            marginTop: scale(-12),
-                        }}
-                    >
+                            marginTop: scale(-12)
+                        }}>
                         <Pressable
                             onPress={() => onBackPress(false)}
                             hitSlop={15}
@@ -34,9 +33,8 @@ const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
                                 marginRight: scale(12),
                                 marginTop: scale(12),
                                 position: 'absolute',
-                                zIndex: 1,
-                            }}
-                        >
+                                zIndex: 1
+                            }}>
                             <SvgXml
                                 xml={svgClose('#fff')}
                                 width={scale(24)}
@@ -49,39 +47,34 @@ const PopupSurveyCall = ({ isVisible, onBackPress, message, onSubmit }) => {
                     <View
                         style={{
                             justifyContent: 'center',
-                            margin: scale(20),
-                        }}
-                    >
+                            margin: scale(20)
+                        }}>
                         <Text
                             style={{
                                 textAlign: 'center',
                                 fontSize: scale(16),
 
-                                color: '#6C746E',
-                            }}
-                        >
+                                color: '#6C746E'
+                            }}>
                             {message}
                         </Text>
                         <View
                             style={{
                                 justifyContent: 'center',
-                                flexDirection: 'row',
-                            }}
-                        >
+                                flexDirection: 'row'
+                            }}>
                             <Pressable
                                 style={{
                                     alignContent: 'center',
-                                    alignItems: 'center',
+                                    alignItems: 'center'
                                 }}
-                                onPress={() => onSubmit()}
-                            >
+                                onPress={() => onSubmit()}>
                                 <Text
                                     style={{
                                         fontSize: scale(16),
                                         color: '#52B553',
-                                        padding: scale(5),
-                                    }}
-                                >
+                                        padding: scale(5)
+                                    }}>
                                     Đánh giá ngay
                                 </Text>
                             </Pressable>

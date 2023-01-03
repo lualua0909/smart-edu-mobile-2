@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { View, Pressable, ScrollView, FlatList, Linking } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
-import { svgStudy, svgList } from 'assets/svg'
-import {
-    STYLES,
-    ROUTES,
-    COLORS,
-    NEWS_PATH,
-    COURSE_IMG_PATH,
-} from 'app/constants'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import CourseItem from 'app/components/CourseItem'
-import { Box, Progress, Image, Text, Modal } from 'native-base'
-import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
-import { useGlobalState } from 'app/Store'
 import Axios from 'app/Axios'
-import { Flag, Rss } from 'react-native-feather'
+import { useGlobalState } from 'app/Store'
+import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
+import CourseItem from 'app/components/CourseItem'
+import {
+    COLORS,
+    COURSE_IMG_PATH,
+    NEWS_PATH,
+    ROUTES,
+    STYLES
+} from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import { svgList, svgStudy } from 'assets/svg'
 import dayjs from 'dayjs'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, Linking, Pressable, ScrollView, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
+import { Flag, Rss } from 'react-native-feather'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { SvgXml } from 'react-native-svg'
+
+import { Box, Image, Modal, Progress, Text } from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
@@ -28,7 +30,7 @@ const Home = ({ navigation }) => {
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
-        Axios.get('courses/get-list-in-dashboard').then((res) => {
+        Axios.get('courses/get-list-in-dashboard').then(res => {
             if (res.data.status === 200) {
                 setDashboardInfo(res?.data)
             }
@@ -36,7 +38,7 @@ const Home = ({ navigation }) => {
     }, [])
 
     useEffect(() => {
-        Axios.get('homepage-info/iOS').then((res) => {
+        Axios.get('homepage-info/iOS').then(res => {
             setHomeInfo(res?.data?.data)
             const lastestVersion = res?.data?.data?.lastest_version || ''
             if (lastestVersion !== DeviceInfo.getReadableVersion()) {
@@ -49,25 +51,22 @@ const Home = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <SafeAreaView edges={['top']} style={{ flex: 1 }}>
                 <ScrollView
-                    contentContainerStyle={{ paddingBottom: scale(30) }}
-                >
+                    contentContainerStyle={{ paddingBottom: scale(30) }}>
                     <Pressable
                         onPress={() => navigation.navigate(ROUTES.Overview)}
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
                             paddingBottom: scale(16),
-                            paddingHorizontal: scale(16),
-                        }}
-                    >
+                            paddingHorizontal: scale(16)
+                        }}>
                         <Avatar userId={userInfo?.id} />
                         <View style={{ marginLeft: scale(16), flex: 1 }}>
                             <Text
                                 style={{
                                     fontSize: scale(18),
-                                    color: '#1F1F1F',
-                                }}
-                            >
+                                    color: '#1F1F1F'
+                                }}>
                                 Xin chào{' '}
                                 <Text style={{ color: '#0EBF46' }}>
                                     {userInfo?.last_name}
@@ -77,9 +76,8 @@ const Home = ({ navigation }) => {
                                 style={{
                                     fontSize: scale(14),
                                     color: '#1F1F1F',
-                                    marginTop: scale(4),
-                                }}
-                            >
+                                    marginTop: scale(4)
+                                }}>
                                 Chào mừng đến với{' '}
                                 <Text style={{ color: '#0EBF46' }}>
                                     SmartEdu!
@@ -89,29 +87,25 @@ const Home = ({ navigation }) => {
                     </Pressable>
                     <View
                         style={{
-                            padding: scale(16),
-                        }}
-                    >
+                            padding: scale(16)
+                        }}>
                         <View
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <View
                                 style={{
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}
-                            >
+                                    alignItems: 'center'
+                                }}>
                                 <SvgXml xml={svgStudy} width={scale(24)} />
                                 <Text
                                     style={{
                                         fontSize: scale(16),
                                         color: '#0E564D',
-                                        marginLeft: scale(8),
-                                    }}
-                                >
+                                        marginLeft: scale(8)
+                                    }}>
                                     DUY TRÌ HỌC TẬP
                                 </Text>
                             </View>
@@ -126,7 +120,7 @@ const Home = ({ navigation }) => {
                                 showsHorizontalScrollIndicator={false}
                                 horizontal
                                 contentContainerStyle={{
-                                    paddingTop: scale(16),
+                                    paddingTop: scale(16)
                                 }}
                                 renderItem={({ item, index }) => (
                                     <Pressable
@@ -135,16 +129,14 @@ const Home = ({ navigation }) => {
                                             navigation.navigate(
                                                 ROUTES.CourseInfo,
                                                 {
-                                                    id: item?.id,
+                                                    id: item?.id
                                                 }
                                             )
-                                        }
-                                    >
+                                        }>
                                         <View
                                             style={{
-                                                paddingRight: scale(8),
-                                            }}
-                                        >
+                                                paddingRight: scale(8)
+                                            }}>
                                             <View
                                                 style={[
                                                     {
@@ -155,36 +147,31 @@ const Home = ({ navigation }) => {
                                                         paddingLeft: scale(6),
                                                         borderWidth: 1,
                                                         borderColor: '#E6E6E6',
-                                                        borderRadius: scale(5),
+                                                        borderRadius: scale(5)
                                                     },
-                                                    STYLES.boxShadow,
-                                                ]}
-                                            >
+                                                    STYLES.boxShadow
+                                                ]}>
                                                 <View
                                                     style={{
                                                         flex: 1,
                                                         marginRight: scale(4),
                                                         justifyContent:
                                                             'space-between',
-                                                        paddingBottom: scale(7),
-                                                    }}
-                                                >
+                                                        paddingBottom: scale(7)
+                                                    }}>
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
                                                             fontSize: scale(14),
                                                             color: '#1F1F1F',
-                                                            width: 200,
-                                                        }}
-                                                    >
+                                                            width: 200
+                                                        }}>
                                                         {item?.title}
                                                     </Text>
                                                     <View
                                                         style={{
-                                                            marginTop:
-                                                                scale(15),
-                                                        }}
-                                                    >
+                                                            marginTop: scale(15)
+                                                        }}>
                                                         <Box w="80%" maxW="400">
                                                             <Progress
                                                                 colorScheme="green"
@@ -198,9 +185,8 @@ const Home = ({ navigation }) => {
                                                                         scale(
                                                                             12
                                                                         ),
-                                                                    color: '#000',
-                                                                }}
-                                                            >
+                                                                    color: '#000'
+                                                                }}>
                                                                 {item?.process}%
                                                             </Text>
                                                         </Box>
@@ -209,11 +195,11 @@ const Home = ({ navigation }) => {
                                                 <Image
                                                     resizeMode="cover"
                                                     source={{
-                                                        uri: `${COURSE_IMG_PATH}${item?.id}.webp`,
+                                                        uri: `${COURSE_IMG_PATH}${item?.id}.webp`
                                                     }}
                                                     style={{
                                                         width: scale(89),
-                                                        height: scale(89),
+                                                        height: scale(89)
                                                     }}
                                                 />
                                             </View>
@@ -293,24 +279,21 @@ const Home = ({ navigation }) => {
                     </View>
                     <View
                         style={{
-                            padding: scale(16),
-                        }}
-                    >
+                            padding: scale(16)
+                        }}>
                         <View
                             style={{
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                        >
+                                alignItems: 'center'
+                            }}>
                             <SvgXml xml={svgList} width={scale(20)} />
                             <Text
                                 style={{
                                     marginLeft: scale(8),
 
                                     fontSize: scale(16),
-                                    color: '#0E564D',
-                                }}
-                            >
+                                    color: '#0E564D'
+                                }}>
                                 DANH SÁCH THỂ LOẠI
                             </Text>
                         </View>
@@ -319,7 +302,7 @@ const Home = ({ navigation }) => {
                                 data={homeInfo?.course_groups || []}
                                 keyExtractor={(_, index) => index.toString()}
                                 contentContainerStyle={{
-                                    paddingTop: scale(16),
+                                    paddingTop: scale(16)
                                 }}
                                 showsHorizontalScrollIndicator={false}
                                 horizontal
@@ -327,16 +310,14 @@ const Home = ({ navigation }) => {
                                     <Pressable
                                         onPress={() =>
                                             navigation.navigate('CourseList', {
-                                                courseGroupSelected: item?.id,
+                                                courseGroupSelected: item?.id
                                             })
-                                        }
-                                    >
+                                        }>
                                         <View
                                             key={index}
                                             style={{
-                                                paddingRight: scale(8),
-                                            }}
-                                        >
+                                                paddingRight: scale(8)
+                                            }}>
                                             <View
                                                 style={[
                                                     {
@@ -351,28 +332,25 @@ const Home = ({ navigation }) => {
                                                             scale(4),
                                                         borderRadius: scale(5),
                                                         borderBottomColor:
-                                                            COLORS.green,
+                                                            COLORS.green
                                                     },
-                                                    STYLES.boxShadow,
-                                                ]}
-                                            >
+                                                    STYLES.boxShadow
+                                                ]}>
                                                 <View
                                                     style={{
                                                         flex: 1,
                                                         marginRight: scale(4),
                                                         justifyContent:
                                                             'space-between',
-                                                        paddingBottom: scale(7),
-                                                    }}
-                                                >
+                                                        paddingBottom: scale(7)
+                                                    }}>
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
                                                             fontSize: scale(14),
                                                             color: '#1F1F1F',
-                                                            width: 200,
-                                                        }}
-                                                    >
+                                                            width: 200
+                                                        }}>
                                                         {item?.name}
                                                     </Text>
                                                 </View>
@@ -380,7 +358,7 @@ const Home = ({ navigation }) => {
                                                     source={require('assets/images/people.jpg')}
                                                     style={{
                                                         width: scale(60),
-                                                        height: scale(89),
+                                                        height: scale(89)
                                                     }}
                                                 />
                                             </View>
@@ -395,24 +373,21 @@ const Home = ({ navigation }) => {
 
                     <View
                         style={{
-                            paddingVertical: scale(16),
-                        }}
-                    >
+                            paddingVertical: scale(16)
+                        }}>
                         <View
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                paddingHorizontal: scale(16),
-                            }}
-                        >
+                                paddingHorizontal: scale(16)
+                            }}>
                             <Flag stroke="#0E564D" width={18} height={18} />
                             <Text
                                 style={{
                                     fontSize: scale(16),
                                     color: '#0E564D',
-                                    marginLeft: scale(8),
-                                }}
-                            >
+                                    marginLeft: scale(8)
+                                }}>
                                 KHÓA HỌC HOT
                             </Text>
                         </View>
@@ -424,7 +399,7 @@ const Home = ({ navigation }) => {
                                 showsHorizontalScrollIndicator={false}
                                 contentContainerStyle={{
                                     paddingLeft: scale(16),
-                                    paddingTop: scale(16),
+                                    paddingTop: scale(16)
                                 }}
                                 renderItem={({ item, index }) => (
                                     <CourseItem
@@ -441,24 +416,21 @@ const Home = ({ navigation }) => {
 
                     <View
                         style={{
-                            paddingVertical: scale(16),
-                        }}
-                    >
+                            paddingVertical: scale(16)
+                        }}>
                         <View
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                paddingHorizontal: scale(16),
-                            }}
-                        >
+                                paddingHorizontal: scale(16)
+                            }}>
                             <Rss stroke="#0E564D" width={18} height={18} />
                             <Text
                                 style={{
                                     fontSize: scale(16),
                                     color: '#0E564D',
-                                    marginLeft: scale(8),
-                                }}
-                            >
+                                    marginLeft: scale(8)
+                                }}>
                                 TIN TỨC/SỰ KIỆN
                             </Text>
                         </View>
@@ -470,7 +442,7 @@ const Home = ({ navigation }) => {
                                 showsHorizontalScrollIndicator={false}
                                 contentContainerStyle={{
                                     paddingLeft: scale(16),
-                                    marginTop: scale(16),
+                                    marginTop: scale(16)
                                 }}
                                 renderItem={({ item, index }) => {
                                     return (
@@ -481,22 +453,21 @@ const Home = ({ navigation }) => {
                                                 marginRight: scale(12),
                                                 borderBottomWidth: scale(6),
                                                 borderBottomColor: COLORS.green,
-                                                borderRadius: 5,
+                                                borderRadius: 5
                                             }}
                                             onPress={() =>
                                                 Linking.openURL(
                                                     'https://smarte.edu.vn/news-detail/' +
                                                         item?.id
                                                 )
-                                            }
-                                        >
+                                            }>
                                             <Image
                                                 source={{
                                                     uri:
                                                         NEWS_PATH +
                                                         item.id +
                                                         '.webp?' +
-                                                        random,
+                                                        random
                                                 }}
                                                 alt="Alternate Text"
                                                 size={scale(196)}
@@ -506,15 +477,13 @@ const Home = ({ navigation }) => {
                                             <View
                                                 style={{
                                                     paddingVertical: scale(16),
-                                                    paddingHorizontal: scale(8),
-                                                }}
-                                            >
+                                                    paddingHorizontal: scale(8)
+                                                }}>
                                                 <Text
                                                     style={{
                                                         fontSize: scale(16),
-                                                        color: '#1F1F1F',
-                                                    }}
-                                                >
+                                                        color: '#1F1F1F'
+                                                    }}>
                                                     {item.title}
                                                 </Text>
                                                 <Text
@@ -522,9 +491,8 @@ const Home = ({ navigation }) => {
                                                     style={{
                                                         marginTop: scale(8),
                                                         fontSize: scale(16),
-                                                        color: '#1F1F1F',
-                                                    }}
-                                                >
+                                                        color: '#1F1F1F'
+                                                    }}>
                                                     {dayjs(
                                                         item.created_at
                                                     ).format('DD/MM/YYYY')}

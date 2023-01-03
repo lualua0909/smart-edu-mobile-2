@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import { View, Image, Animated } from 'react-native'
-import { SvgXml } from 'react-native-svg'
 import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useRef } from 'react'
+
+import { Animated, Image, View } from 'react-native'
+import { SvgXml } from 'react-native-svg'
 
 const svg = {
     laptop: `<svg width="132" height="67" viewBox="0 0 132 67" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +60,7 @@ const svg = {
   <path d="M12.994 18.1772H6.1582V27.868H12.994V18.1772Z" fill="black"/>
   <path d="M108.639 130.056H71.1758V126.722C71.1758 122.872 74.2982 119.75 78.1484 119.75H101.66C105.51 119.75 108.633 122.872 108.633 126.722V130.056H108.639Z" fill="black"/>
   </svg>
-  `,
+  `
 }
 
 const SpeakingAnimate = ({}) => {
@@ -70,54 +71,54 @@ const SpeakingAnimate = ({}) => {
             toValue: 1,
             duration: 1000,
             useNativeDriver: false,
-            delay: 300,
+            delay: 300
         }).start()
     }, [])
 
     const opacity = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const orangeLeft = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(30), -scale(10)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const orangeTop = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [scale(17), scale(47)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const purpleTop = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(50), -scale(15)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const blueRight = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(40), 0],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const lampBottom = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(20), scale(10)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const lampRight = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(45), scale(5)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const laptopBottom = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-scale(45), scale(5)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
     const laptopRight = animatedValue.interpolate({
         inputRange: [0, 1],
         outputRange: [scale(70), scale(40)],
-        extrapolate: 'clamp',
+        extrapolate: 'clamp'
     })
 
     return (
@@ -131,19 +132,16 @@ const SpeakingAnimate = ({}) => {
                     opacity,
                     left: orangeLeft,
                     top: orangeTop,
-                    position: 'absolute',
-                }}
-            >
+                    position: 'absolute'
+                }}>
                 <SvgXml xml={svg.orange} />
             </Animated.View>
             <Animated.View
-                style={{ position: 'absolute', top: purpleTop, opacity }}
-            >
+                style={{ position: 'absolute', top: purpleTop, opacity }}>
                 <SvgXml xml={svg.purple} />
             </Animated.View>
             <Animated.View
-                style={{ position: 'absolute', right: blueRight, opacity }}
-            >
+                style={{ position: 'absolute', right: blueRight, opacity }}>
                 <SvgXml xml={svg.blue} />
             </Animated.View>
             <Animated.View
@@ -151,9 +149,8 @@ const SpeakingAnimate = ({}) => {
                     position: 'absolute',
                     bottom: lampBottom,
                     right: lampRight,
-                    opacity,
-                }}
-            >
+                    opacity
+                }}>
                 <SvgXml xml={svg.lamp} />
             </Animated.View>
             <Animated.View
@@ -161,9 +158,8 @@ const SpeakingAnimate = ({}) => {
                     position: 'absolute',
                     bottom: laptopBottom,
                     right: laptopRight,
-                    opacity,
-                }}
-            >
+                    opacity
+                }}>
                 <SvgXml xml={svg.laptop} />
             </Animated.View>
         </View>

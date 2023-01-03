@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
+
 // import JitsiMeet, { JitsiMeetView } from 'react-native-jitsi-meet'
-import { StyleSheet, View, StatusBar, Text } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 
 function JitsiMeetScene() {
     return <Text>JitsiMeeting</Text>

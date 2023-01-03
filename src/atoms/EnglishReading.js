@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import { scale } from 'app/helpers/responsive'
+import { similarityString } from 'app/helpers/utils'
+import React, { useEffect, useState } from 'react'
+
+import LottieView from 'lottie-react-native'
 import {
+    Linking,
+    PermissionsAndroid,
+    ScrollView,
     ToastAndroid,
     TouchableHighlight,
-    ScrollView,
-    Linking,
-    View,
-    PermissionsAndroid,
+    View
 } from 'react-native'
-import {
-    VStack,
-    HStack,
-    Text,
-    Box,
-    FlatList,
-    Heading,
-    Spacer,
-    Center,
-    Modal,
-    Button,
-    Alert,
-} from 'native-base'
-import { similarityString } from 'app/helpers/utils'
-import SpeakingAnimate from 'app/components/speaking-animate'
 import { Mic } from 'react-native-feather'
-import { scale } from 'app/helpers/responsive'
-import LottieView from 'lottie-react-native'
+
+import SpeakingAnimate from 'app/components/speaking-animate'
 import animationImg from 'assets/animations/english-reading.json'
+import {
+    Alert,
+    Box,
+    Button,
+    Center,
+    FlatList,
+    HStack,
+    Heading,
+    Modal,
+    Spacer,
+    Text,
+    VStack
+} from 'native-base'
 
 const EnglishReading = ({ data }) => {
     const [visibleSpeaking, setVisibleSpeaking] = useState(true)
@@ -46,7 +48,7 @@ const EnglishReading = ({ data }) => {
         console.log(currentContent)
 
         const _s = [...sentences]
-        const findIndex = _s.findIndex((i) => i.content === currentContent)
+        const findIndex = _s.findIndex(i => i.content === currentContent)
         if (findIndex !== -1) {
             _s[findIndex].result = results
             _s[findIndex].score = similarityString(currentContent, results)
@@ -63,8 +65,7 @@ const EnglishReading = ({ data }) => {
             <HStack
                 space={3}
                 justifyContent="center"
-                style={{ paddingHorizontal: 16 }}
-            >
+                style={{ paddingHorizontal: 16 }}>
                 <ReadingList
                     sentences={sentences}
                     setCurrentContent={setCurrentContent}
@@ -75,16 +76,15 @@ const EnglishReading = ({ data }) => {
                     style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '50%',
-                    }}
-                >
+                        width: '50%'
+                    }}>
                     <LottieView
                         source={animationImg}
                         autoPlay
                         loop
                         style={{
                             width: 200,
-                            height: 200,
+                            height: 200
                         }}
                     />
                     <Alert w="100%" colorScheme="info" status="info">
@@ -93,13 +93,11 @@ const EnglishReading = ({ data }) => {
                                 flexShrink={1}
                                 space={2}
                                 alignItems="center"
-                                justifyContent="space-between"
-                            >
+                                justifyContent="space-between">
                                 <HStack
                                     space={2}
                                     flexShrink={1}
-                                    alignItems="center"
-                                >
+                                    alignItems="center">
                                     <Text>{currentContent || ''}</Text>
                                 </HStack>
                             </HStack>
@@ -109,20 +107,17 @@ const EnglishReading = ({ data }) => {
                         w="100%"
                         colorScheme="info"
                         status="info"
-                        variant="outline"
-                    >
+                        variant="outline">
                         <VStack space={2} flexShrink={1} w="100%">
                             <HStack
                                 flexShrink={1}
                                 space={2}
                                 alignItems="center"
-                                justifyContent="space-between"
-                            >
+                                justifyContent="space-between">
                                 <HStack
                                     space={2}
                                     flexShrink={1}
-                                    alignItems="center"
-                                >
+                                    alignItems="center">
                                     <Text>Kết quả: {results}</Text>
                                 </HStack>
                             </HStack>
@@ -135,19 +130,17 @@ const EnglishReading = ({ data }) => {
                             isLoading={isLoading}
                             isLoadingText="Đang xử lý giọng nói..."
                             style={{
-                                backgroundColor: '#52B553',
+                                backgroundColor: '#52B553'
                             }}
                             leftIcon={
                                 <Mic stroke="#fff" width={24} height={24} />
-                            }
-                        >
+                            }>
                             Bắt đầu đọc
                         </Button>
                         <Button
                             size="sm"
                             variant="outline"
-                            onPress={_stopRecognizing}
-                        >
+                            onPress={_stopRecognizing}>
                             Dừng đọc
                         </Button>
                     </HStack>
@@ -170,8 +163,7 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
     return (
         <ScrollView
             nestedScrollEnabled={true}
-            style={{ backgroundColor: '#eee', borderRadius: 10 }}
-        >
+            style={{ backgroundColor: '#eee', borderRadius: 10 }}>
             <Heading fontSize="xl" p="4" pb="3">
                 Danh sách câu phát âm
             </Heading>
@@ -179,35 +171,31 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
                 data={sentences}
                 renderItem={({ item }) => (
                     <TouchableHighlight
-                        onPress={() => setCurrentContent(item?.content)}
-                    >
+                        onPress={() => setCurrentContent(item?.content)}>
                         <Box
                             borderBottomWidth="1"
                             _dark={{
-                                borderColor: 'gray.600',
+                                borderColor: 'gray.600'
                             }}
                             borderColor="coolGray.200"
                             pl="4"
                             pr="5"
-                            py="2"
-                        >
+                            py="2">
                             <HStack space={3} justifyContent="space-between">
                                 <VStack>
                                     <Text
                                         _dark={{
-                                            color: 'warmGray.50',
+                                            color: 'warmGray.50'
                                         }}
                                         color="coolGray.800"
-                                        bold
-                                    >
+                                        bold>
                                         {item.content}
                                     </Text>
                                     <Text
                                         color="coolGray.600"
                                         _dark={{
-                                            color: 'warmGray.200',
-                                        }}
-                                    >
+                                            color: 'warmGray.200'
+                                        }}>
                                         Kết quả: {item.result}
                                     </Text>
                                 </VStack>
@@ -215,18 +203,17 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
                                 <Text
                                     fontSize="xs"
                                     _dark={{
-                                        color: 'warmGray.50',
+                                        color: 'warmGray.50'
                                     }}
                                     color="coolGray.800"
-                                    alignSelf="flex-start"
-                                >
+                                    alignSelf="flex-start">
                                     {item?.score || 0}%
                                 </Text>
                             </HStack>
                         </Box>
                     </TouchableHighlight>
                 )}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
             />
         </ScrollView>
     )
@@ -253,8 +240,7 @@ const DownloadModal = ({ modalVisible, setModalVisible }) => {
                                 Linking.openURL(
                                     'market://details?id=com.google.android.googlequicksearchbox'
                                 )
-                            }}
-                        >
+                            }}>
                             Tải app ngay
                         </Button>
                     </Button.Group>
@@ -269,30 +255,26 @@ const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {
         <Modal
             isOpen={visibleSpeaking}
             onClose={() => setVisibleSpeaking(false)}
-            size="xl"
-        >
+            size="xl">
             <Modal.Content maxHeight="100%">
                 <Modal.CloseButton />
                 <Modal.Body
                     style={{
-                        backgroundColor: '#fff',
-                    }}
-                >
+                        backgroundColor: '#fff'
+                    }}>
                     <View
                         style={{
                             backgroundColor: '#fff',
                             justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                            alignItems: 'center'
+                        }}>
                         <SpeakingAnimate />
                         <Text
                             style={{
                                 fontSize: scale(22),
                                 color: '#1F1F1F',
-                                marginTop: scale(10),
-                            }}
-                        >
+                                marginTop: scale(10)
+                            }}>
                             Luyện phát âm thôi
                         </Text>
                         <Text
@@ -300,9 +282,8 @@ const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {
                                 fontSize: scale(16),
                                 color: '#6C746E',
                                 marginTop: scale(8),
-                                textAlign: 'center',
-                            }}
-                        >
+                                textAlign: 'center'
+                            }}>
                             Trong bài học này, bạn sẽ trò chuyện với Smart Edu
                             để thực hành phát âm nhé!
                         </Text>

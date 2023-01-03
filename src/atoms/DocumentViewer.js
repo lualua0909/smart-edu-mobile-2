@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Dimensions } from 'react-native'
 import { WebView } from 'react-native-webview'
 
@@ -9,7 +10,7 @@ export default ({ content }) => (
     <WebView
         originWhitelist={['*']}
         source={{
-            html: content,
+            html: content
         }}
         nestedScrollEnabled={true}
         textZoom={100}
@@ -19,13 +20,13 @@ export default ({ content }) => (
             height: Math.min(w, h),
             width: Math.max(w, h),
             padding: 20,
-            marginBottom: 14,
+            marginBottom: 14
         }}
-        onLoadStart={(syntheticEvent) => {
+        onLoadStart={syntheticEvent => {
             const { nativeEvent } = syntheticEvent
             console.log('onLoadStart', nativeEvent.loading)
         }}
-        onLoadEnd={(syntheticEvent) => {
+        onLoadEnd={syntheticEvent => {
             const { nativeEvent } = syntheticEvent
             console.log('onLoadEnd', nativeEvent.loading)
         }}

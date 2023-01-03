@@ -1,8 +1,10 @@
-import React from 'react'
-import { Dimensions } from 'react-native'
-import { Box, Heading, AspectRatio, Stack } from 'native-base'
-import LottieView from 'lottie-react-native'
 import animationImg from 'assets/animations/congratulation.json'
+import React from 'react'
+
+import LottieView from 'lottie-react-native'
+import { Dimensions } from 'react-native'
+
+import { AspectRatio, Box, Heading, Stack } from 'native-base'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -16,19 +18,18 @@ export default () => (
             overflow="hidden"
             shadow={5}
             _dark={{
-                backgroundColor: 'gray.700',
+                backgroundColor: 'gray.700'
             }}
             _light={{
-                backgroundColor: 'gray.50',
-            }}
-        >
+                backgroundColor: 'gray.50'
+            }}>
             <AspectRatio w="100%" ratio={16 / 9}>
                 <LottieView
                     source={animationImg}
                     autoPlay
                     loop
                     style={{
-                        border: 'none',
+                        border: 'none'
                     }}
                 />
             </AspectRatio>

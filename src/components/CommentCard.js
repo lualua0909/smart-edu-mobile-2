@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { View, Pressable } from 'react-native'
-import { Text } from 'native-base'
-import { SvgXml } from 'react-native-svg'
-import { scale } from 'app/helpers/responsive'
-import { svgReply } from 'assets/svg'
-import LinearGradient from 'react-native-linear-gradient'
 import { Avatar, Rate } from 'app/atoms'
-import { HStack } from 'native-base'
+import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
+import { svgReply } from 'assets/svg'
+import React, { useState } from 'react'
+
+import { Pressable, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import { SvgXml } from 'react-native-svg'
+
+import { Text } from 'native-base'
+import { HStack } from 'native-base'
 
 const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
     const [readMore, setReadMore] = useState(false)
@@ -23,28 +25,24 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
             <View
                 style={{
                     flexDirection: 'row',
-                    alignItems: 'center',
-                }}
-            >
+                    alignItems: 'center'
+                }}>
                 <Avatar size={50} userId={data?.id} name={fullname} />
                 <View
                     style={{
                         marginLeft: scale(16),
-                        flex: 1,
-                    }}
-                >
+                        flex: 1
+                    }}>
                     <View
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'center',
-                        }}
-                    >
+                            alignItems: 'center'
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#202020',
-                            }}
-                        >
+                                color: '#202020'
+                            }}>
                             {fullname}
                         </Text>
                         {isTeacher && (
@@ -57,15 +55,13 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                                     paddingVertical: scale(2),
                                     paddingHorizontal: scale(4),
                                     borderTopLeftRadius: scale(10),
-                                    borderBottomRightRadius: scale(10),
-                                }}
-                            >
+                                    borderBottomRightRadius: scale(10)
+                                }}>
                                 <Text
                                     style={{
                                         fontSize: scale(12),
-                                        color: '#F4F5F7',
-                                    }}
-                                >
+                                        color: '#F4F5F7'
+                                    }}>
                                     Giảng viên
                                 </Text>
                             </LinearGradient>
@@ -74,16 +70,14 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                     <HStack
                         space={3}
                         style={{
-                            marginTop: scale(8),
-                        }}
-                    >
+                            marginTop: scale(8)
+                        }}>
                         {data?.rate && <Rate rate={data?.rate} />}
                         <Text
                             style={{
                                 fontSize: scale(13),
-                                color: '#7B7B7B',
-                            }}
-                        >
+                                color: '#7B7B7B'
+                            }}>
                             {toRelativeTime(data?.created_at)}
                         </Text>
                     </HStack>
@@ -92,15 +86,13 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
             <View
                 style={{
                     flexDirection: 'row',
-                    alignItems: 'center',
-                }}
-            >
+                    alignItems: 'center'
+                }}>
                 {isReply && <View style={{ width: scale(50) }} />}
                 <View
                     style={{
-                        flex: 1,
-                    }}
-                >
+                        flex: 1
+                    }}>
                     <Pressable onPress={toggle}>
                         <Text
                             numberOfLines={readMore ? null : 3}
@@ -108,9 +100,8 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                                 marginTop: scale(8),
 
                                 fontSize: scale(16),
-                                color: '#202020',
-                            }}
-                        >
+                                color: '#202020'
+                            }}>
                             {data?.rating_content}
                         </Text>
                     </Pressable>
@@ -122,9 +113,8 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginTop: scale(10),
-                        }}
-                    >
+                            marginTop: scale(10)
+                        }}>
                         <SvgXml
                             xml={svgReply}
                             width={scale(24)}
@@ -135,9 +125,8 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                                 marginLeft: scale(8),
 
                                 fontSize: scale(14),
-                                color: '#0075FF',
-                            }}
-                        >
+                                color: '#0075FF'
+                            }}>
                             Trả lời
                         </Text>
                     </Pressable>

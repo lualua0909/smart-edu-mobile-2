@@ -1,11 +1,13 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { useNavigation } from '@react-navigation/native'
-import { ROUTES } from 'app/constants'
 import { Avatar } from 'app/atoms'
-import { HStack, Center } from 'native-base'
+import { ROUTES } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import React from 'react'
+
+import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { Star } from 'react-native-feather'
+
+import { Center, HStack } from 'native-base'
 import { Text } from 'native-base'
 
 const TeacherItem = ({ item, index }) => {
@@ -18,8 +20,7 @@ const TeacherItem = ({ item, index }) => {
             onPress={() =>
                 navigation.navigate(ROUTES.TeacherInfo, { id: item?.id })
             }
-            style={{ flexDirection: 'row', marginBottom: scale(16) }}
-        >
+            style={{ flexDirection: 'row', marginBottom: scale(16) }}>
             <View style={{ width: scale(114), height: scale(114) }}>
                 <Center>
                     <Avatar isSquare name={fullName} userId={item?.id} />
@@ -36,12 +37,10 @@ const TeacherItem = ({ item, index }) => {
                         bottom: 0,
                         left: 0,
                         backgroundColor: '#eee',
-                        opacity: 0.7,
-                    }}
-                >
+                        opacity: 0.7
+                    }}>
                     <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
+                        style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Star
                             stroke="orange"
                             fill="orange"
@@ -52,9 +51,8 @@ const TeacherItem = ({ item, index }) => {
                             style={{
                                 fontSize: scale(12),
                                 color: '#000',
-                                marginLeft: scale(4),
-                            }}
-                        >
+                                marginLeft: scale(4)
+                            }}>
                             5.0
                         </Text>
                     </View>
@@ -62,9 +60,8 @@ const TeacherItem = ({ item, index }) => {
                         style={{
                             fontSize: scale(12),
                             color: '#000',
-                            marginLeft: scale(4),
-                        }}
-                    >
+                            marginLeft: scale(4)
+                        }}>
                         Việt Nam
                     </Text>
                 </View>
@@ -74,9 +71,8 @@ const TeacherItem = ({ item, index }) => {
                     numberOfLines={1}
                     style={{
                         fontSize: scale(18),
-                        color: '#1F1F1F',
-                    }}
-                >
+                        color: '#1F1F1F'
+                    }}>
                     {fullName}
                 </Text>
                 {/* <View
@@ -97,9 +93,8 @@ const TeacherItem = ({ item, index }) => {
                         style={{
                             fontSize: scale(14),
                             color: '#6C746E',
-                            marginTop: scale(4),
-                        }}
-                    >
+                            marginTop: scale(4)
+                        }}>
                         {item?.department}
                     </Text>
                 </HStack>
@@ -109,9 +104,8 @@ const TeacherItem = ({ item, index }) => {
                         style={{
                             fontSize: scale(14),
                             color: '#6C746E',
-                            marginTop: scale(4),
-                        }}
-                    >
+                            marginTop: scale(4)
+                        }}>
                         {item?.position}
                     </Text>
                 </HStack>

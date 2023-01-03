@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { View, FlatList } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import TransactionItem from 'app/components/TransactionItem'
 import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import TransactionItem from 'app/components/TransactionItem'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { FlatList, View } from 'react-native'
 
 const TransactionList = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false)
@@ -12,7 +13,7 @@ const TransactionList = ({ navigation, route }) => {
     useEffect(() => {
         setLoading(true)
         Axios.get('payment/order-list')
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     console.log('payment/order-list', res.data.data)
                     setData(res.data.data)
@@ -31,11 +32,11 @@ const TransactionList = ({ navigation, route }) => {
                     renderItem={({ item, index }) => {
                         return <TransactionItem key={index} data={item} />
                     }}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={item => item.id}
                     style={{
                         paddingHorizontal: scale(16),
                         zIndex: 1,
-                        paddingTop: scale(10),
+                        paddingTop: scale(10)
                     }}
                 />
             ) : (

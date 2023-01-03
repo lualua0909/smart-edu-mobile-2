@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { View, ScrollView } from 'react-native'
-import FriendItem from 'app/components/Friendtem'
-import { ListSkeleton, NotFoundAnimation } from 'app/atoms'
 import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
+import { ListSkeleton, NotFoundAnimation } from 'app/atoms'
+import FriendItem from 'app/components/Friendtem'
+import React, { useEffect, useState } from 'react'
+
+import { ScrollView, View } from 'react-native'
 
 const Friends = ({ route }) => {
     const { userId } = route.params
@@ -14,7 +15,7 @@ const Friends = ({ route }) => {
     useEffect(() => {
         setLoading(true)
         Axios.get(`friends/friend_list/${userId || userInfo?.id}`)
-            .then((res) => {
+            .then(res => {
                 if (res.data.status === 200) {
                     setData(res.data.data)
                     console.log(res.data.data)
@@ -31,8 +32,7 @@ const Friends = ({ route }) => {
         <View style={{ flex: 1, backgroundColor: '#fff', marginBottom: 20 }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[1]}
-            >
+                stickyHeaderIndices={[1]}>
                 {data?.length ? (
                     <FriendItem data={data} />
                 ) : (

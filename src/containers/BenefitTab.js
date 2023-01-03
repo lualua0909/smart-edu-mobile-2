@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
-import { scale } from 'app/helpers/responsive'
-import { COLORS } from 'app/constants'
-import { CheckIcon, Text } from 'native-base'
 import Axios from 'app/Axios'
 import { NoData } from 'app/atoms'
+import { COLORS } from 'app/constants'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { View } from 'react-native'
+
+import { CheckIcon, Text } from 'native-base'
 
 const Benefit = ({ courseId }) => {
     const [data, setData] = useState()
@@ -12,10 +14,10 @@ const Benefit = ({ courseId }) => {
     useEffect(() => {
         if (courseId) {
             Axios.get(`course-benefits/${courseId}`)
-                .then((res) => {
+                .then(res => {
                     return res.data
                 })
-                .then((data) => {
+                .then(data => {
                     setData(data)
                 })
         }
@@ -30,23 +32,21 @@ const Benefit = ({ courseId }) => {
             key={index}
             style={{
                 flexDirection: 'row',
-                marginTop: scale(8),
-            }}
-        >
+                marginTop: scale(8)
+            }}>
             <CheckIcon
                 size={scale(16)}
                 style={{
                     marginHorizontal: 10,
                     marginVertical: 5,
-                    color: COLORS.green,
+                    color: COLORS.green
                 }}
             />
             <Text
                 style={{
                     flex: 1,
-                    fontSize: scale(16),
-                }}
-            >
+                    fontSize: scale(16)
+                }}>
                 {item?.name}
             </Text>
         </View>

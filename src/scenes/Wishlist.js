@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Pressable, StatusBar } from 'react-native'
-import { Text } from 'native-base'
-import { scale } from 'app/helpers/responsive'
-import { TabView } from 'react-native-tab-view'
-import COLORS from 'app/constants/colors'
-import MentorList from 'app/components/MentorList'
 import FriendList from 'app/components/FriendList'
+import MentorList from 'app/components/MentorList'
 import MyCourseList from 'app/components/MyCourseList'
+import COLORS from 'app/constants/colors'
+import { scale } from 'app/helpers/responsive'
+import React, { useEffect, useState } from 'react'
+
+import { Pressable, StatusBar, View } from 'react-native'
+import { TabView } from 'react-native-tab-view'
+
+import { Text } from 'native-base'
 
 const Wishlist = ({ navigation }) => {
     const [tabIndex, setTabIndex] = useState(0)
@@ -14,16 +16,16 @@ const Wishlist = ({ navigation }) => {
     const routes = [
         {
             key: 'tab-1',
-            title: 'KH yêu thích',
+            title: 'KH yêu thích'
         },
         {
             key: 'tab-2',
-            title: 'GV yêu thích',
+            title: 'GV yêu thích'
         },
         {
             key: 'tab-3',
-            title: 'Bạn bè',
-        },
+            title: 'Bạn bè'
+        }
     ]
 
     const renderScene = ({ route }) => {
@@ -46,9 +48,8 @@ const Wishlist = ({ navigation }) => {
                 style={{
                     paddingTop: scale(16),
                     paddingBottom: scale(10),
-                    backgroundColor: '#fff',
-                }}
-            >
+                    backgroundColor: '#fff'
+                }}>
                 <View
                     style={{
                         alignSelf: 'center',
@@ -56,32 +57,29 @@ const Wishlist = ({ navigation }) => {
                         borderWidth: 1,
                         borderColor: COLORS.green,
                         padding: scale(2),
-                        borderRadius: scale(5),
-                    }}
-                >
+                        borderRadius: scale(5)
+                    }}>
                     <Pressable
                         onPress={() => setTabIndex(0)}
                         style={[
                             {
                                 paddingVertical: scale(6),
                                 width: scale(125),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 0 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 0 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 0 && { color: '#fff' }
+                            ]}>
                             KH yêu thích
                         </Text>
                     </Pressable>
@@ -91,23 +89,21 @@ const Wishlist = ({ navigation }) => {
                             {
                                 paddingVertical: scale(6),
                                 width: scale(125),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 1 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 1 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 1 && { color: '#fff' }
+                            ]}>
                             GV yêu thích
                         </Text>
                     </Pressable>
@@ -117,23 +113,21 @@ const Wishlist = ({ navigation }) => {
                             {
                                 paddingVertical: scale(6),
                                 width: scale(100),
-                                alignItems: 'center',
+                                alignItems: 'center'
                             },
                             tabIndex == 2 && {
                                 backgroundColor: COLORS.green,
-                                borderRadius: scale(5),
-                            },
-                        ]}
-                    >
+                                borderRadius: scale(5)
+                            }
+                        ]}>
                         <Text
                             style={[
                                 {
                                     fontSize: scale(16),
-                                    color: COLORS.green,
+                                    color: COLORS.green
                                 },
-                                tabIndex == 2 && { color: '#fff' },
-                            ]}
-                        >
+                                tabIndex == 2 && { color: '#fff' }
+                            ]}>
                             Bạn bè
                         </Text>
                     </Pressable>
@@ -145,7 +139,7 @@ const Wishlist = ({ navigation }) => {
                 renderTabBar={() => null}
                 onIndexChange={setTabIndex}
                 style={{
-                    backgroundColor: '#fff',
+                    backgroundColor: '#fff'
                 }}
             />
         </View>

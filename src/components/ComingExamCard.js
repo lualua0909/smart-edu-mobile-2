@@ -1,10 +1,12 @@
-import React from 'react'
-import { View } from 'react-native'
-import { Text } from 'native-base'
 import { scale } from 'app/helpers/responsive'
-import LinearGradient from 'react-native-linear-gradient'
-import Countdown from 'react-countdown'
 import dayjs from 'dayjs'
+import React from 'react'
+
+import Countdown from 'react-countdown'
+import { View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+
+import { Text } from 'native-base'
 
 const ComingExam = ({}) => {
     const renderer = ({
@@ -14,7 +16,7 @@ const ComingExam = ({}) => {
         minutes,
         seconds,
         milliseconds,
-        completed,
+        completed
     }) => {
         if (completed) {
             // Render a completed state
@@ -36,30 +38,26 @@ const ComingExam = ({}) => {
                         flexDirection: 'row',
                         borderRadius: scale(5),
                         width: '40%',
-                        justifyContent: 'center',
-                    }}
-                >
+                        justifyContent: 'center'
+                    }}>
                     <View
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(5),
-                        }}
-                    >
+                            marginHorizontal: scale(5)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {days}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(10),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Ngày
                         </Text>
                     </View>
@@ -67,23 +65,20 @@ const ComingExam = ({}) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(5),
-                        }}
-                    >
+                            marginHorizontal: scale(5)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {hours}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(10),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Giờ
                         </Text>
                     </View>
@@ -91,23 +86,20 @@ const ComingExam = ({}) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(5),
-                        }}
-                    >
+                            marginHorizontal: scale(5)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {minutes}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(10),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Phút
                         </Text>
                     </View>
@@ -115,23 +107,20 @@ const ComingExam = ({}) => {
                         style={{
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginHorizontal: scale(5),
-                        }}
-                    >
+                            marginHorizontal: scale(5)
+                        }}>
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             {seconds}
                         </Text>
                         <Text
                             style={{
                                 fontSize: scale(10),
-                                color: '#fff',
-                            }}
-                        >
+                                color: '#fff'
+                            }}>
                             Giây
                         </Text>
                     </View>
@@ -146,9 +135,8 @@ const ComingExam = ({}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 height: scale(73),
-                marginTop: scale(24),
-            }}
-        >
+                marginTop: scale(24)
+            }}>
             <Countdown
                 date={dayjs().add(7, 'day')}
                 renderer={({
@@ -158,7 +146,7 @@ const ComingExam = ({}) => {
                     minutes,
                     seconds,
                     milliseconds,
-                    completed,
+                    completed
                 }) =>
                     renderer({
                         total,
@@ -167,7 +155,7 @@ const ComingExam = ({}) => {
                         minutes,
                         seconds,
                         milliseconds,
-                        completed,
+                        completed
                     })
                 }
             />
@@ -176,32 +164,28 @@ const ComingExam = ({}) => {
                     flex: 1,
                     height: '100%',
                     marginLeft: scale(14),
-                    justifyContent: 'space-between',
-                }}
-            >
+                    justifyContent: 'space-between'
+                }}>
                 <Text
                     style={{
                         fontSize: scale(16),
-                        color: '#1F1F1F',
-                    }}
-                >
+                        color: '#1F1F1F'
+                    }}>
                     Thi tin học đầu vào
                 </Text>
                 <Text
                     style={{
                         fontSize: scale(14),
-                        color: '#1F1F1F',
-                    }}
-                >
+                        color: '#1F1F1F'
+                    }}>
                     Thời gian: 45 phút
                 </Text>
                 <Text
                     numberOfLines={1}
                     style={{
                         fontSize: scale(14),
-                        color: '#1F1F1F',
-                    }}
-                >
+                        color: '#1F1F1F'
+                    }}>
                     Bắt đầu lúc 09:00 - 20.12.2021
                 </Text>
             </View>
