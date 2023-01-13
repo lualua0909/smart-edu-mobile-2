@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
+import axios from 'app/axios'
 import CourseItem from 'app/components/CourseItem'
 import {
     COLORS,
@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
-        Axios.get('courses/get-list-in-dashboard').then(res => {
+        axios.get('courses/get-list-in-dashboard').then(res => {
             if (res.data.status === 200) {
                 setDashboardInfo(res?.data)
             }
@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
     }, [])
 
     useEffect(() => {
-        Axios.get('homepage-info/iOS').then(res => {
+        axios.get('homepage-info/iOS').then(res => {
             setHomeInfo(res?.data?.data)
             const lastestVersion = res?.data?.data?.lastest_version || ''
             if (lastestVersion !== DeviceInfo.getReadableVersion()) {

@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import HistoryItem from 'app/components/HistoryItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -12,7 +12,8 @@ const LearningHistory = ({ navigation, route }) => {
 
     useEffect(() => {
         setLoading(true)
-        Axios.get('courses/get-my-learning-process')
+        axios
+            .get('courses/get-my-learning-process')
             .then(res => {
                 if (res.data.status === 200) {
                     console.log('get-my-learning-process', res.data.data)

@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { Avatar, NoData } from 'app/atoms'
+import axios from 'app/axios'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import { svgCircleBag, svgCircleBook, svgCircleCompany } from 'assets/svg'
@@ -16,7 +16,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
 
     useEffect(() => {
         if (mentorId) {
-            Axios.get(`get-mentor-info/${mentorId}`)
+            axios
+                .get(`get-mentor-info/${mentorId}`)
                 .then(res => {
                     return res.data
                 })

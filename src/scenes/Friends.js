@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { ListSkeleton, NotFoundAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import FriendItem from 'app/components/Friendtem'
 import React, { useEffect, useState } from 'react'
 
@@ -14,7 +14,8 @@ const Friends = ({ route }) => {
 
     useEffect(() => {
         setLoading(true)
-        Axios.get(`friends/friend_list/${userId || userInfo?.id}`)
+        axios
+            .get(`friends/friend_list/${userId || userInfo?.id}`)
             .then(res => {
                 if (res.data.status === 200) {
                     setData(res.data.data)

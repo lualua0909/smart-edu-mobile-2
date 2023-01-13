@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
+import axios from 'app/axios'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
@@ -44,7 +44,8 @@ const TeacherInfo = ({ navigation, route }) => {
     useEffect(() => {
         if (id) {
             setLoading(true)
-            Axios.get(`users/get-mentor-info/${id}`)
+            axios
+                .get(`users/get-mentor-info/${id}`)
                 .then(res => {
                     if (res.data.status === 200) {
                         setData(res.data)

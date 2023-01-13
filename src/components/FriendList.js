@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import FriendItem from 'app/components/FriendItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -17,9 +17,12 @@ const FriendList = ({}) => {
 
     const getData = (refresh = false) => {
         setLoading(true)
-        Axios.get(
-            `friends/friend_list/${userInfo?.id}${search ? '/' + search : ''}`
-        )
+        axios
+            .get(
+                `friends/friend_list/${userInfo?.id}${
+                    search ? '/' + search : ''
+                }`
+            )
             .then(res => {
                 if (res.data.status === 200) return res.data
             })

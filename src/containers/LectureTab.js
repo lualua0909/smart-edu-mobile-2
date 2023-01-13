@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { NoData } from 'app/atoms'
+import axios from 'app/axios'
 import Curriculum from 'app/components/Curriculum'
 import { scale } from 'app/helpers/responsive'
 import { svgCircleBook } from 'assets/svg'
@@ -19,7 +19,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     console.log('finishedLectures', finishedLectures)
     useEffect(() => {
         if (courseId) {
-            Axios.get(`courses/chapter-list/paging/${courseId}`)
+            axios
+                .get(`courses/chapter-list/paging/${courseId}`)
                 .then(res => {
                     return res.data
                 })

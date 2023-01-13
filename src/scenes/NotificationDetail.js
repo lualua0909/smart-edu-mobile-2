@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { DetailSkeleton } from 'app/atoms'
+import axios from 'app/axios'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import { svgWhiteBook } from 'assets/svg'
@@ -17,7 +17,8 @@ const NotificationDetail = ({ route, navigation }) => {
 
     const fetch = () => {
         setLoading(true)
-        Axios.get('notifies/get-info/' + notifyId)
+        axios
+            .get('notifies/get-info/' + notifyId)
             .then(res => {
                 if (res.data.status === 200) {
                     setData(res.data.data)

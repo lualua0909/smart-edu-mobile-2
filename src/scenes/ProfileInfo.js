@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, DetailSkeleton, Input, showToast } from 'app/atoms'
+import axios from 'app/axios'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
@@ -21,7 +21,8 @@ const ProfileInfo = ({ route }) => {
     const name = `${data?.first_name} ${data?.last_name}`
 
     useEffect(() => {
-        Axios.get(`get-user-info/${userInfo?.id}`)
+        axios
+            .get(`get-user-info/${userInfo?.id}`)
             .then(res => {
                 if (res.data.status === 200) {
                     const data = res.data.data
@@ -49,7 +50,8 @@ const ProfileInfo = ({ route }) => {
 
     const deactiveAccount = () => {
         setLoading(true)
-        Axios.get(`deactive-user`)
+        axios
+            .get(`deactive-user`)
             .then(res => {
                 if (res.data.status === 200) {
                     showToast({

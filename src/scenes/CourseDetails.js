@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, CourseDetailSkeleton, NoData } from 'app/atoms'
+import axios from 'app/axios'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
@@ -79,7 +79,8 @@ const CourseInfo = ({ navigation, route }) => {
     useEffect(() => {
         if (id) {
             setLoading(true)
-            Axios.get(`auth-get-course-info/${id}`)
+            axios
+                .get(`auth-get-course-info/${id}`)
                 .then(res => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
@@ -210,7 +211,8 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const addToWishList = () => {
-        Axios.get('courses/add-wishlist/' + data?.id)
+        axios
+            .get('courses/add-wishlist/' + data?.id)
             .then(res => {
                 if (res.data.status === 200) {
                     toast.show({
@@ -225,7 +227,7 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const removeToWishList = () => {
-        Axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
+        axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
             if (res.data.status === 200) {
                 toast.show({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
@@ -259,7 +261,8 @@ const CourseInfo = ({ navigation, route }) => {
 
     const gotoCourse = () => {
         setLoadingVerify(true)
-        Axios.get('courses/verify/' + data?.slug)
+        axios
+            .get('courses/verify/' + data?.slug)
             .then(res => {
                 if (res?.data?.status === 200) {
                     if (res?.data?.survey) {

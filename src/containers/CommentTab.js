@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { NoData } from 'app/atoms'
+import axios from 'app/axios'
 import CommentCard from 'app/components/CommentCard'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +16,8 @@ const CommentTab = ({ courseId }) => {
     const [page, setPage] = useState(0)
 
     const fetchData = () => {
-        Axios.get(`course-comment-ratings/${courseId}/${page * RPP}`)
+        axios
+            .get(`course-comment-ratings/${courseId}/${page * RPP}`)
             .then(res => {
                 return res.data.data
             })

@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupRate from 'app/components/PopupRate'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'
@@ -255,7 +255,8 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
 
     const getData = (refresh = false) => {
         setLoading(true)
-        Axios.get(`mentor-call/${type}/${page * 9}`)
+        axios
+            .get(`mentor-call/${type}/${page * 9}`)
             .then(res => {
                 if (res.data.status === 200) return res.data
             })
