@@ -1,9 +1,7 @@
 import { scale } from 'app/helpers/responsive'
-import { svgStarActive, svgStarInactive } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { Star } from 'react-native-feather'
-import { SvgXml } from 'react-native-svg'
 
 const Rate = ({ rate = 5, size = 22 }) => {
     const [rates, setRates] = useState([1, 1, 1, 1, 1])

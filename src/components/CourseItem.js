@@ -95,8 +95,9 @@ const CourseItem = ({
                 <Text
                     numberOfLines={3}
                     style={{
-                        fontSize: scale(18),
-                        color: '#333'
+                        fontSize: scale(15),
+                        color: '#333',
+                        fontWeight: 'bold'
                     }}>
                     {item?.title}
                 </Text>
@@ -135,7 +136,7 @@ const CourseItem = ({
                         alignItems: 'center',
                         marginTop: scale(10)
                     }}>
-                    <Rate rate={item?.rating} />
+                    <Rate rate={item?.rating || 5} />
                     {/* <Pressable
                             style={{
                                 paddingVertical: scale(4),
@@ -176,7 +177,7 @@ const CourseItem = ({
                         </Text>
                     </View>
                 )}
-                <View
+                {/* <View
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -202,7 +203,7 @@ const CourseItem = ({
                             {toCurrency(item?.new_price)} đ
                         </Text>
                     )}
-                </View>
+                </View> */}
             </View>
         </Pressable>
     )

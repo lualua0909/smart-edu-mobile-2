@@ -199,13 +199,15 @@ const CourseList = ({ route }) => {
                         <Input
                             borderRadius="10"
                             width="100%"
-                            fontSize="16"
+                            fontSize="12"
                             px="2"
                             placeholder="Tìm kiếm theo tên khóa học"
-                            onChangeText={debounce(
-                                text => setSearch(text),
-                                1500
-                            )}
+                            onChangeText={setSearch}
+                            onEndEditing={() => {
+                                setData([])
+                                setPage(0)
+                                getData()
+                            }}
                             clearButtonMode="while-editing"
                             InputLeftElement={
                                 <Search

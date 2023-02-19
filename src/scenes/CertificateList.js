@@ -74,17 +74,17 @@ const CertificateList = ({ navigation, route }) => {
                     paddingHorizontal: scale(10),
                     paddingBottom: scale(20)
                 }}
-                ListHeaderComponent={
-                    <Text
-                        style={{
-                            marginLeft: scale(16),
-                            marginBottom: scale(16),
-                            fontSize: scale(20),
-                            color: '#1F1F1F'
-                        }}>
-                        Danh sách chứng chỉ
-                    </Text>
-                }
+                // ListHeaderComponent={
+                //     <Text
+                //         style={{
+                //             marginLeft: scale(16),
+                //             marginBottom: scale(16),
+                //             fontSize: scale(20),
+                //             color: '#1F1F1F'
+                //         }}>
+                //         Danh sách chứng chỉ
+                //     </Text>
+                // }
                 onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}
                 showsVerticalScrollIndicator={false}

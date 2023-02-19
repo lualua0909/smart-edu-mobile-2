@@ -6,7 +6,7 @@ export default () => (
     <Center
         height={100}
         _text={{
-            fontSize: 20
+            fontSize: 14
         }}>
         <WarningIcon size="10" color="orange.300" />
         Không có dữ liệu

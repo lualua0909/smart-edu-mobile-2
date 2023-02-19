@@ -74,6 +74,7 @@ const Teacher = ({ navigation, route }) => {
         <Modal
             style={{ margin: 0, justifyContent: 'flex-end' }}
             isVisible={visibleFilter}
+            onBackdropPress={() => setVisibleFilter(false)}
             onBackButtonPress={() => setVisibleFilter(false)}>
             <View style={{ backgroundColor: '#fff', paddingTop: scale(24) }}>
                 <SafeAreaView>
@@ -113,10 +114,7 @@ const Teacher = ({ navigation, route }) => {
                         }}>
                         <Pressable
                             style={{
-                                width: '50%',
-                                height: scale(47),
-                                justifyContent: 'center',
-                                alignItems: 'center'
+                                width: '50%'
                             }}></Pressable>
                         <Pressable
                             style={{
@@ -136,7 +134,7 @@ const Teacher = ({ navigation, route }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(18),
+                                    fontSize: scale(16),
                                     color: '#fff'
                                 }}>
                                 Tìm kiếm
@@ -168,9 +166,9 @@ const Teacher = ({ navigation, route }) => {
                         <Input
                             borderRadius="10"
                             width="100%"
-                            fontSize="16"
+                            fontSize="12"
                             px="2"
-                            placeholder="Tìm kiếm giảng viên..."
+                            placeholder="Tìm kiếm giảng viên"
                             clearButtonMode="while-editing"
                             onChangeText={setSearch}
                             onEndEditing={() => {

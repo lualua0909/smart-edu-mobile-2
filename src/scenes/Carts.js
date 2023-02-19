@@ -6,19 +6,18 @@ import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
 import { StatusBar, View } from 'react-native'
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
 import { Button, FlatList, Text } from 'native-base'
 
 const Carts = ({ navigation }) => {
     const [carts, setCarts] = useGlobalState('carts')
 
-    useEffect(() => {
-        const getCarts = async () => {
-            const carts = await getData('@cart')
-            setCarts(carts || [])
-        }
+    const getCarts = async () => {
+        const carts = await getData('@cart')
+        setCarts(carts || [])
+    }
 
+    useEffect(() => {
         getCarts()
     }, [])
 
@@ -66,15 +65,9 @@ const Carts = ({ navigation }) => {
                     <StatusBar barStyle="light-content" />
                     <FlatList
                         data={carts}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <CartItem
-                                    course={item}
-                                    index={index}
-                                    key={index}
-                                />
-                            )
-                        }}
+                        renderItem={({ item, index }) => (
+                            <CartItem course={item} index={index} key={index} />
+                        )}
                         keyExtractor={item => item.id}
                         style={{
                             zIndex: 1,

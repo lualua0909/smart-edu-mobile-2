@@ -18,7 +18,7 @@ const CommentTab = ({ courseId }) => {
     const fetchData = () => {
         Axios.get(`course-comment-ratings/${courseId}/${page * RPP}`)
             .then(res => {
-                return res.data.data
+                return res?.data?.data
             })
             .then(_data => {
                 Array.isArray(data)

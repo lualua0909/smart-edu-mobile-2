@@ -307,7 +307,7 @@ const ProfileOverview = ({ navigation, route }) => {
                             paddingTop: scale(10)
                         }}>
                         <TextArea
-                            fontSize="md"
+                            fontSize="xs"
                             placeholder="Giới thiệu bản thân..."
                             w="80%"
                             h={16}

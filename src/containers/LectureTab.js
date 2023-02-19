@@ -1,22 +1,19 @@
 import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { NoData } from 'app/atoms'
+import { NoDataAnimation } from 'app/atoms'
 import Curriculum from 'app/components/Curriculum'
 import { scale } from 'app/helpers/responsive'
-import { svgCircleBook } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { useNavigation } from '@react-navigation/native'
-import { Text, View } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import { View } from 'react-native'
+
+import { Text } from 'native-base'
 
 const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [data, setData] = useState()
     const [totalLectures, setTotalLectures] = useState(0)
-    const [finishedLectures, setFinishedLectures] =
-        useGlobalState('finishedLectures')
+    const [_, setFinishedLectures] = useGlobalState('finishedLectures')
 
-    console.log('finishedLectures', finishedLectures)
     useEffect(() => {
         if (courseId) {
             Axios.get(`courses/chapter-list/paging/${courseId}`)
@@ -54,7 +51,7 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     }, [courseId])
 
     if (!data) {
-        return <NoData />
+        return <NoDataAnimation />
     }
 
     return (
@@ -66,11 +63,6 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     paddingHorizontal: scale(16),
                     marginTop: scale(16)
                 }}>
-                <SvgXml
-                    xml={svgCircleBook}
-                    width={scale(40)}
-                    height={scale(40)}
-                />
                 <Text
                     style={{
                         fontSize: scale(16),
@@ -93,4 +85,4 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     )
 }
 
-export default LectureTab
+export default React.memo(LectureTab)

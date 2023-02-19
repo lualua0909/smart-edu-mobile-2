@@ -1,27 +1,31 @@
 import Axios from 'app/Axios'
-import { Avatar, NoData } from 'app/atoms'
+import { Avatar, NoDataAnimation } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
-import { svgCircleBag, svgCircleBook, svgCircleCompany } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Pressable, View } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import { View } from 'react-native'
+import { BookOpen, Bookmark, Briefcase } from 'react-native-feather'
 
-import { Center, ChevronDownIcon, ChevronUpIcon, VStack } from 'native-base'
-import { Text } from 'native-base'
+import {
+    Center,
+    ChevronDownIcon,
+    ChevronUpIcon,
+    Pressable,
+    Text,
+    VStack
+} from 'native-base'
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
     const [data, setData] = useState()
 
     useEffect(() => {
         if (mentorId) {
-            Axios.get(`get-mentor-info/${mentorId}`)
+            Axios.get(`users/get-mentor-info/${mentorId}`)
                 .then(res => {
-                    return res.data
+                    return res?.data
                 })
                 .then(data => {
-                    console.log('TeacherTab', data)
                     setData(data)
                     setTeacherName(
                         `${data?.mentor?.first_name} ${data?.mentor?.last_name}`
@@ -31,14 +35,14 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
     }, [mentorId])
 
     if (!data) {
-        return <NoData />
+        return <NoDataAnimation />
     }
 
     return (
         <>
             <Center style={{ marginTop: scale(10) }}>
                 <Avatar
-                    size={scale(140)}
+                    size={100}
                     userId={mentorId}
                     name={`${data?.mentor?.first_name} ${data?.mentor?.last_name}`}
                 />
@@ -52,7 +56,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     style={{
                         fontSize: scale(24),
                         color: '#0E564D',
-                        alignSelf: 'center'
+                        alignSelf: 'center',
+                        paddingVertical: scale(10)
                     }}>
                     {`${data?.mentor?.first_name} ${data?.mentor?.last_name}`}
                 </Text>
@@ -63,15 +68,14 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                         marginTop: scale(10),
                         width: '85%'
                     }}>
-                    <SvgXml
-                        xml={svgCircleBag}
-                        width={scale(36)}
-                        height={scale(36)}
+                    <Briefcase
+                        stroke="#1f1f1f"
+                        width={scale(22)}
+                        height={scale(22)}
                     />
                     <Text
                         style={{
                             marginLeft: scale(10),
-
                             fontSize: scale(14),
                             color: '#202020'
                         }}>
@@ -84,15 +88,14 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                         alignItems: 'center',
                         marginTop: scale(8)
                     }}>
-                    <SvgXml
-                        xml={svgCircleCompany}
-                        width={scale(36)}
-                        height={scale(36)}
+                    <Bookmark
+                        stroke="#1f1f1f"
+                        width={scale(22)}
+                        height={scale(22)}
                     />
                     <Text
                         style={{
                             marginLeft: scale(10),
-
                             fontSize: scale(14),
                             color: '#202020'
                         }}>
@@ -105,15 +108,14 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                         alignItems: 'center',
                         marginTop: scale(8)
                     }}>
-                    <SvgXml
-                        xml={svgCircleBook}
-                        width={scale(36)}
-                        height={scale(36)}
+                    <BookOpen
+                        stroke="#1f1f1f"
+                        width={scale(22)}
+                        height={scale(22)}
                     />
                     <Text
                         style={{
                             marginLeft: scale(10),
-
                             fontSize: scale(14),
                             color: '#202020'
                         }}>
@@ -163,16 +165,16 @@ const ExperienceItem = ({ title, data }) => {
                 }}>
                 <Text
                     style={{
-                        fontSize: scale(16),
+                        fontSize: scale(14),
                         flex: 1,
                         color: '#000'
                     }}>
                     {title}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="6" />
+                    <ChevronUpIcon size="3" />
                 ) : (
-                    <ChevronDownIcon size="6" />
+                    <ChevronDownIcon size="3" />
                 )}
             </Pressable>
             <VStack space={4} style={{ padding: isExpand ? scale(15) : 1 }}>

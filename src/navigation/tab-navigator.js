@@ -15,6 +15,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import BottomTabButton from 'app/components/tabbar-button'
+import { Text } from 'native-base'
 
 const Tab = createBottomTabNavigator()
 
@@ -78,6 +79,12 @@ const TabNavigator = ({}) => {
                 name="Notification"
                 component={Notification}
                 options={({ route, navigation }) => ({
+                    headerShown: true,
+                    headerTitle: () => (
+                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                            Danh sách thông báo
+                        </Text>
+                    ),
                     tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
@@ -98,7 +105,7 @@ const TabNavigator = ({}) => {
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabMenu('#fff')}
                             iconInactive={svgTabMenu('#a3a3a3')}
-                            label={'Dashboard'}
+                            label={'Menu'}
                             props={props}
                         />
                     )

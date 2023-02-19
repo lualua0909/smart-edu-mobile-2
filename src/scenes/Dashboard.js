@@ -59,12 +59,12 @@ const Menu = ({ route }) => {
     const [userInfo, _] = useGlobalState('userInfo')
     const [carts, setCarts] = useGlobalState('carts')
 
-    useEffect(() => {
-        const getCarts = async () => {
-            const carts = await getData('@cart')
-            setCarts(carts || [])
-        }
+    const getCarts = async () => {
+        const carts = await getData('@cart')
+        setCarts(carts || [])
+    }
 
+    useEffect(() => {
         getCarts()
     }, [route])
 
@@ -230,7 +230,7 @@ const Menu = ({ route }) => {
                             </View>
                         </View>
                     </View>
-                    <Pressable
+                    {/* <Pressable
                         style={{
                             position: 'absolute',
                             bottom: scale(16),
@@ -270,7 +270,7 @@ const Menu = ({ route }) => {
                                 {carts?.length || 0}
                             </Text>
                         </View>
-                    </Pressable>
+                    </Pressable> */}
                 </ImageBackground>
                 <View
                     style={{

@@ -7,8 +7,6 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Text } from 'native-base'
-
 const Notification = ({}) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -24,7 +22,6 @@ const Notification = ({}) => {
             .then(resData => {
                 const list = resData?.data
 
-                console.log('notifies/paging', list)
                 if (refreshing) {
                     setIsRefetch(false)
                     setData(list)
@@ -91,18 +88,18 @@ const Notification = ({}) => {
                             paddingTop: scale(16),
                             paddingBottom: scale(50)
                         }}
-                        ListHeaderComponent={
-                            <Text
-                                style={{
-                                    marginLeft: scale(16),
-                                    marginBottom: scale(16),
+                        // ListHeaderComponent={
+                        //     <Text
+                        //         style={{
+                        //             marginLeft: scale(16),
+                        //             marginBottom: scale(16),
 
-                                    fontSize: scale(20),
-                                    color: '#1F1F1F'
-                                }}>
-                                Danh sách thông báo
-                            </Text>
-                        }
+                        //             fontSize: scale(20),
+                        //             color: '#1F1F1F'
+                        //         }}>
+                        //         Danh sách thông báo
+                        //     </Text>
+                        // }
                         onEndReached={handleLoadMore}
                         onEndReachedThreshold={0.5}
                         showsVerticalScrollIndicator={false}

@@ -32,16 +32,16 @@ const Curriculum = ({ data, navigateToLesson }) => {
                 }}>
                 <Text
                     style={{
-                        fontSize: scale(16),
+                        fontSize: scale(13),
                         flex: 1,
                         color: '#000'
                     }}>
                     {data?.name}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="6" />
+                    <ChevronUpIcon size="3" />
                 ) : (
-                    <ChevronDownIcon size="6" />
+                    <ChevronDownIcon size="3" />
                 )}
             </Pressable>
             {isExpand &&
@@ -73,7 +73,7 @@ const Curriculum = ({ data, navigateToLesson }) => {
                                             style={{
                                                 color: '#007739'
                                             }}
-                                            size={14}
+                                            size={12}
                                         />
                                     ) : null}{' '}
                                     {item?.name}

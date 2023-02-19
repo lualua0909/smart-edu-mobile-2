@@ -12,12 +12,14 @@ import { SvgXml } from 'react-native-svg'
 import { Box, Progress } from 'native-base'
 import { Text } from 'native-base'
 
+var customParseFormat = require('dayjs/plugin/customParseFormat')
+dayjs.extend(customParseFormat)
+
 const HistoryItem = ({ data }) => {
     const navigation = useNavigation()
-    const year = data?.end_date !== '' ? dayjs(data?.end_date).get('year') : ''
-    const month =
-        data?.end_date !== '' ? dayjs(data?.end_date).get('month') : ''
-    const day = data?.end_date !== '' ? dayjs(data?.end_date).get('date') : ''
+    const year = dayjs(data?.end_date, 'DD-MM-YYYY').year()
+    const month = dayjs(data?.end_date, 'DD-MM-YYYY').month()
+    const day = dayjs(data?.end_date, 'DD-MM-YYYY').date()
 
     return (
         <Pressable
@@ -56,36 +58,30 @@ const HistoryItem = ({ data }) => {
                         position: 'absolute'
                     }}>
                     <View>
-                        {day ? (
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#000000',
-                                    textAlign: 'right'
-                                }}>
-                                Ngày {day}
-                            </Text>
-                        ) : null}
-                        {month ? (
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#6C746E',
-                                    textAlign: 'right'
-                                }}>
-                                Tháng {month}
-                            </Text>
-                        ) : null}
-                        {year ? (
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#6C746E',
-                                    textAlign: 'right'
-                                }}>
-                                {year}
-                            </Text>
-                        ) : null}
+                        <Text
+                            style={{
+                                fontSize: scale(16),
+                                color: '#000000',
+                                textAlign: 'right'
+                            }}>
+                            Ngày {day || ''}
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: scale(16),
+                                color: '#6C746E',
+                                textAlign: 'right'
+                            }}>
+                            Tháng {month || ''}
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: scale(16),
+                                color: '#6C746E',
+                                textAlign: 'right'
+                            }}>
+                            {year || dayjs().year()}
+                        </Text>
                     </View>
                 </View>
             </View>

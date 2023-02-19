@@ -1,36 +1,22 @@
 import Axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
-import { Avatar, CourseDetailSkeleton, NoData } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import {
-    Dimensions,
-    Linking,
-    Pressable,
-    ScrollView,
-    Share,
-    View
-} from 'react-native'
-import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
-import RenderHtml from 'react-native-render-html'
+import { Linking, Pressable, ScrollView, Share, View } from 'react-native'
+import { BookOpen, Heart, Share2 } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
-import { WebView } from 'react-native-webview'
 
 import { Button, Image, Text, VStack, useToast } from 'native-base'
-
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
 
 const routes = [
     {
@@ -57,7 +43,6 @@ const CourseInfo = ({ navigation, route }) => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingVerify, setLoadingVerify] = useState(false)
-    const [inCart, setInCart] = useState(false)
     const [teacherName, setTeacherName] = useState()
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
@@ -68,7 +53,6 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
-    const [carts, setCarts] = useGlobalState('carts')
 
     useEffect(() => {
         if (data) {
@@ -123,23 +107,13 @@ const CourseInfo = ({ navigation, route }) => {
                                 }}>
                                 Mô tả chi tiết
                             </Text>
-                            {/* {data?.l_des && (
-                                <RenderHtml
-                                    contentWidth={w}
-                                    source={{
-                                        html: data?.l_des,
-                                    }}
-                                    tagsStyles={{
-                                        p: {
-                                            fontSize: 16,
-                                            color: '#202020',
-                                            fontWeight: '300',
-                                            paddingLeft: 24,
-                                            paddingRight: 10,
-                                        },
-                                    }}
-                                />
-                            )} */}
+                            <Text
+                                style={{
+                                    fontSize: scale(16),
+                                    paddingHorizontal: 15
+                                }}>
+                                {data?.l_des?.replace(/<[^>]*>?/gm, '')}
+                            </Text>
                         </VStack>
                     </View>
                 )
@@ -152,10 +126,10 @@ const CourseInfo = ({ navigation, route }) => {
                                 tab2: e.nativeEvent.layout.height
                             })
                         }>
-                        {/* <LectureTab
+                        <LectureTab
                             courseId={data?.id}
                             totalLectures={data?.total_lectures}
-                        /> */}
+                        />
                     </View>
                 )
             case 'tab-3':
@@ -167,14 +141,10 @@ const CourseInfo = ({ navigation, route }) => {
                                 tab3: e.nativeEvent.layout.height
                             })
                         }>
-                        {data?.mentor_id ? (
-                            <TeacherTab
-                                mentorId={data?.mentor_id}
-                                setTeacherName={setTeacherName}
-                            />
-                        ) : (
-                            <NoData />
-                        )}
+                        <TeacherTab
+                            mentorId={data?.mentor_id}
+                            setTeacherName={setTeacherName}
+                        />
                     </View>
                 )
             case 'tab-4':
@@ -237,26 +207,6 @@ const CourseInfo = ({ navigation, route }) => {
         })
     }
 
-    const addToCart = async () => {
-        setInCart(true)
-        const carts = (await getData('@cart')) || []
-        const course = {
-            id: data?.id,
-            title: data?.title,
-            new_price: data?.new_price,
-            old_price: data?.old_price
-        }
-
-        const newCarts = Array.isArray(carts) ? [course, ...carts] : [course]
-        storeData('@cart', newCarts)
-        setCarts(newCarts)
-        toast.show({
-            title: 'Đã thêm khóa học vào giỏ hàng',
-            status: 'success',
-            placement: 'top'
-        })
-    }
-
     const gotoCourse = () => {
         setLoadingVerify(true)
         Axios.get('courses/verify/' + data?.slug)
@@ -283,8 +233,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 data?.first_lecture_id
                         })
                     }
-                } else {
-                    console.log('Error')
                 }
             })
             .finally(() => setLoadingVerify(false))
@@ -296,20 +244,6 @@ const CourseInfo = ({ navigation, route }) => {
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}>
-                {/* <WebView
-                    originWhitelist={['*']}
-                    source={{
-                        html: '<iframe src="https://iframe.mediadelivery.net/embed/71567/53226452-5a34-4c6e-b4af-5d03acfc3b13?autoplay=true" loading="lazy" style="border: none; position: absolute; top: 0; height: 100%; width: 100%;" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>',
-                    }}
-                    style={{
-                        height: 200,
-                        width: 400,
-                        border: 'none',
-                    }}
-                    onLoadEnd={(syntheticEvent) => {
-                        setLoading(false)
-                    }}
-                /> */}
                 {data?.video_path ? (
                     <Video
                         controls
@@ -340,7 +274,8 @@ const CourseInfo = ({ navigation, route }) => {
                     }}>
                     <Text
                         style={{
-                            fontSize: scale(18),
+                            fontSize: scale(16),
+                            fontWeight: 'bold',
                             color: '#1F1F1F'
                         }}>
                         {data?.title}
@@ -528,7 +463,7 @@ const CourseInfo = ({ navigation, route }) => {
                     },
                     STYLES.boxShadow
                 ]}>
-                {data?.new_price || data?.old_price ? (
+                {/* {data?.new_price || data?.old_price ? (
                     <View
                         style={{
                             flexDirection: 'row',
@@ -588,7 +523,7 @@ const CourseInfo = ({ navigation, route }) => {
                             </Text>
                         </View>
                     </View>
-                ) : null}
+                ) : null} */}
                 <View
                     style={{
                         flexDirection: 'row',
@@ -648,27 +583,19 @@ const CourseInfo = ({ navigation, route }) => {
                                 alignItems: 'center'
                             }}>
                             <Button
+                                size="md"
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
                                 style={{
                                     backgroundColor: '#52B553',
                                     borderRadius: 8
                                 }}
-                                isDisabled={!data?.relational && inCart}
-                                onPress={() => {
-                                    if (data?.relational) {
-                                        gotoCourse()
-                                    } else {
-                                        addToCart()
-                                    }
-                                }}
+                                onPress={gotoCourse}
                                 isLoading={loadingVerify}
-                                InputLeftElement={
-                                    data?.relational ? (
-                                        <BookOpen stroke="#fff" size={12} />
-                                    ) : (
-                                        <ShoppingCart stroke="#fff" size={12} />
-                                    )
-                                }>
-                                {data?.relational ? 'Học ngay' : 'Mua ngay'}
+                                leftIcon={<BookOpen stroke="#fff" size={10} />}>
+                                Học ngay
                             </Button>
                         </View>
                     )}

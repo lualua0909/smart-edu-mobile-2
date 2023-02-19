@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
             setHomeInfo(res?.data?.data)
             const lastestVersion = res?.data?.data?.lastest_version || ''
             if (lastestVersion !== DeviceInfo.getReadableVersion()) {
-                setShowModal(true)
+                // setShowModal(true)
             }
         })
     }, [])
@@ -162,7 +162,7 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
-                                                            fontSize: scale(14),
+                                                            fontSize: scale(12),
                                                             color: '#1F1F1F',
                                                             width: 200
                                                         }}>
@@ -347,7 +347,7 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
-                                                            fontSize: scale(14),
+                                                            fontSize: scale(12),
                                                             color: '#1F1F1F',
                                                             width: 200
                                                         }}>
@@ -481,7 +481,7 @@ const Home = ({ navigation }) => {
                                                 }}>
                                                 <Text
                                                     style={{
-                                                        fontSize: scale(16),
+                                                        fontSize: scale(12),
                                                         color: '#1F1F1F'
                                                     }}>
                                                     {item.title}
@@ -490,7 +490,7 @@ const Home = ({ navigation }) => {
                                                     numberOfLines={4}
                                                     style={{
                                                         marginTop: scale(8),
-                                                        fontSize: scale(16),
+                                                        fontSize: scale(12),
                                                         color: '#1F1F1F'
                                                     }}>
                                                     {dayjs(
