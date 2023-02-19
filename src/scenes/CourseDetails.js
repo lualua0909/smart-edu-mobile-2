@@ -1,3 +1,4 @@
+import axios from 'app/Axios'
 import { Avatar, CourseDetailSkeleton } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'

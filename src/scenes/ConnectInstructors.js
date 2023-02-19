@@ -1,5 +1,5 @@
+import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupRate from 'app/components/PopupRate'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'

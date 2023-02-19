@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { Radio } from 'app/atoms'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import { svgGreenTeacher } from 'assets/svg'

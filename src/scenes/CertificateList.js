@@ -1,14 +1,11 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import CertificateItem from 'app/components/CertificateItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { Center, Text } from 'native-base'
+import { FlatList, RefreshControl, View } from 'react-native'
 
 const CertificateList = ({ navigation, route }) => {
     const [data, setData] = useState([])

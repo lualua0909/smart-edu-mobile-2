@@ -1,5 +1,5 @@
+import axios from 'app/Axios'
 import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
-import axios from 'app/axios'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'

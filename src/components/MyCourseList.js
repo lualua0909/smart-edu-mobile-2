@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'

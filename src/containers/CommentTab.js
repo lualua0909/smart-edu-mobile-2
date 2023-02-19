@@ -1,21 +1,22 @@
+import axios from 'app/Axios'
 import { NoData } from 'app/atoms'
-import axios from 'app/axios'
 import CommentCard from 'app/components/CommentCard'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { Pressable, View } from 'react-native'
 
-import { ChevronDownIcon } from 'native-base'
-import { Text } from 'native-base'
+import { Center, HStack, Heading, Spinner, Text } from 'native-base'
 
 const RPP = 4
 
 const CommentTab = ({ courseId }) => {
     const [data, setData] = useState()
     const [page, setPage] = useState(0)
+    const [loading, setLoading] = useState()
 
     const fetchData = () => {
+        setLoading(true)
         axios
             .get(`course-comment-ratings/${courseId}/${page * RPP}`)
             .then(res => {
@@ -26,6 +27,7 @@ const CommentTab = ({ courseId }) => {
                     ? setData([...data, ..._data])
                     : setData(_data)
             })
+            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
@@ -45,29 +47,31 @@ const CommentTab = ({ courseId }) => {
                     <CommentCard rate={5} hideReply data={item} key={index} />
                 ))}
             </View>
-            <Pressable
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    alignSelf: 'center',
-                    marginTop: scale(24)
-                }}
-                onPress={() => setPage(page + 1)}>
-                <Text
+            {loading ? (
+                <HStack mt={3} space={5} justifyContent="center">
+                    <Spinner accessibilityLabel="Loading posts" />
+                    <Heading color="primary.500" fontSize="sm">
+                        Đang tải đánh giá
+                    </Heading>
+                </HStack>
+            ) : (
+                <Pressable
                     style={{
-                        fontSize: scale(14),
-                        color: '#52B553'
-                    }}>
-                    Xem thêm nhận xét
-                </Text>
-                <ChevronDownIcon
-                    size={scale(24)}
-                    style={{
-                        marginLeft: scale(4),
-                        color: '#52B553'
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        marginTop: scale(24)
                     }}
-                />
-            </Pressable>
+                    onPress={() => setPage(page + 1)}>
+                    <Text
+                        style={{
+                            fontSize: scale(14),
+                            color: '#52B553'
+                        }}>
+                        Xem thêm nhận xét
+                    </Text>
+                </Pressable>
+            )}
         </View>
     )
 }

@@ -1,3 +1,4 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { NoDataAnimation } from 'app/atoms'
 import Curriculum from 'app/components/Curriculum'

@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Input, showToast } from 'app/atoms'
-import axios from 'app/axios'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -23,7 +23,6 @@ const Login = ({ navigation }) => {
     useEffect(async () => {
         const token = await messaging().getToken()
         if (token) {
-            console.log('fcm token = ', token)
             fcmToken.setValue(token)
         }
     }, [])

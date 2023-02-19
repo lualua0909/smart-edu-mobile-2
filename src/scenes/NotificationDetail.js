@@ -1,16 +1,14 @@
+import axios from 'app/Axios'
 import { DetailSkeleton } from 'app/atoms'
-import axios from 'app/axios'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
-import { svgWhiteBook } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Pressable, ScrollView, View } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import { ScrollView, View } from 'react-native'
 
 import { Avatar, InfoOutlineIcon, Text } from 'native-base'
 
-const NotificationDetail = ({ route, navigation }) => {
+const NotificationDetail = ({ route }) => {
     const { notifyId } = route.params
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)

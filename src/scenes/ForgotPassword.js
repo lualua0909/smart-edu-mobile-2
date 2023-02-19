@@ -1,4 +1,4 @@
-import axios from 'app/axios'
+import axios from 'app/Axios'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'

@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
-import axios from 'app/axios'
 import CourseItem from 'app/components/CourseItem'
 import {
     COLORS,

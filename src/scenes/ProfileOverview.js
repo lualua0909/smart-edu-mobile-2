@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, DetailSkeleton } from 'app/atoms'
-import axios from 'app/axios'
 import MenuUser from 'app/components/MenuUser'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'

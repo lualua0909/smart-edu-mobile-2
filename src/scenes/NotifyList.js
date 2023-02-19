@@ -1,5 +1,5 @@
+import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import NotiItem from 'app/components/NotifyItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'

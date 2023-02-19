@@ -1,5 +1,5 @@
+import axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
-import axios from 'app/axios'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'

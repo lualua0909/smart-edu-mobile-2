@@ -1,6 +1,6 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, DetailSkeleton, Input, showToast } from 'app/atoms'
-import axios from 'app/axios'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'

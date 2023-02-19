@@ -1,3 +1,4 @@
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
     DocumentViewer,
@@ -10,13 +11,12 @@ import {
     ScormViewer,
     VideoViewer
 } from 'app/atoms'
-import axios from 'app/axios'
 import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { svgComment } from 'assets/svg'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
 import { Dimensions, Pressable, View } from 'react-native'
