@@ -1,4 +1,3 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
     DocumentViewer,
@@ -11,6 +10,7 @@ import {
     ScormViewer,
     VideoViewer
 } from 'app/atoms'
+import axios from 'app/axios'
 import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
@@ -241,7 +241,8 @@ const CourseDetail = ({ route, navigation }) => {
 
     const getData = () => {
         setLoading(true)
-        Axios.get(`lectures/get/${currentId}`)
+        axios
+            .get(`lectures/get/${currentId}`)
             .then(res => {
                 if (res.data.status === 200) return res.data.data
             })
@@ -270,7 +271,7 @@ const CourseDetail = ({ route, navigation }) => {
             lectureId: currentId
         }
 
-        Axios.post('courses/add-finished-lecture', params).then(res => {
+        axios.post('courses/add-finished-lecture', params).then(res => {
             if (res.data.status === 200) {
                 console.log('ok')
                 setFinishedLectures([...finishedLectures, { id: currentId }])
@@ -421,7 +422,8 @@ const CourseDetail = ({ route, navigation }) => {
             content: questionContent.value
         }
 
-        Axios.post('qanda/add-question', params)
+        axios
+            .post('qanda/add-question', params)
             .then(res => {
                 if (res?.data?.status === 200) {
                     setVisibleQuestion(false)

@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { NoData } from 'app/atoms'
+import axios from 'app/axios'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +13,8 @@ const Benefit = ({ courseId }) => {
 
     useEffect(() => {
         if (courseId) {
-            Axios.get(`course-benefits/${courseId}`)
+            axios
+                .get(`course-benefits/${courseId}`)
                 .then(res => {
                     return res.data
                 })

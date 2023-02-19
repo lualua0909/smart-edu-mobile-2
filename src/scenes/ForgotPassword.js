@@ -1,4 +1,4 @@
-import Axios from 'app/Axios'
+import axios from 'app/axios'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -18,7 +18,8 @@ const ForgotPassword = ({ navigation }) => {
     const resetPassword = () => {
         if (email.value !== '') {
             setLoading(true)
-            Axios.post('reset-password/' + email.value)
+            axios
+                .post('reset-password/' + email.value)
                 .then(res => {
                     console.log(res)
                     if (res.data.status === 200) {

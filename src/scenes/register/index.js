@@ -1,4 +1,4 @@
-import Axios from 'app/Axios'
+import axios from 'app/axios'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -50,14 +50,15 @@ const Register = ({ navigation }) => {
     const doRegister = () => {
         if (verify()) {
             setLoading(true)
-            Axios.post('register', {
-                first_name: firstName.value,
-                last_name: lastName.value,
-                phone: phone.value,
-                email: email.value,
-                username: username.value,
-                password: password.value
-            })
+            axios
+                .post('register', {
+                    first_name: firstName.value,
+                    last_name: lastName.value,
+                    phone: phone.value,
+                    email: email.value,
+                    username: username.value,
+                    password: password.value
+                })
                 .then(res => {
                     if (res.data.status === 200) {
                         toast.show({

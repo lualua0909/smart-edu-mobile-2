@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import TransactionItem from 'app/components/TransactionItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -12,7 +12,8 @@ const TransactionList = ({ navigation, route }) => {
 
     useEffect(() => {
         setLoading(true)
-        Axios.get('payment/order-list')
+        axios
+            .get('payment/order-list')
             .then(res => {
                 if (res.data.status === 200) {
                     console.log('payment/order-list', res.data.data)

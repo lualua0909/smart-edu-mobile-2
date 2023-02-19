@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation as NoData, Radio } from 'app/atoms'
+import axios from 'app/axios'
 import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import { debounce } from 'app/helpers/utils'
@@ -42,12 +42,13 @@ const CourseList = ({ route }) => {
 
     const getData = () => {
         setLoading(true)
-        Axios.post(`public-courses/paging-by-filter/${page * 9}`, {
-            course_groups: cgSelected,
-            positions: [],
-            order_by: orderBy,
-            search
-        })
+        axios
+            .post(`public-courses/paging-by-filter/${page * 9}`, {
+                course_groups: cgSelected,
+                positions: [],
+                order_by: orderBy,
+                search
+            })
             .then(res => {
                 if (res.data.status === 200) {
                     const list = res.data?.data

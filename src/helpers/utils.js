@@ -1,10 +1,9 @@
 import { setGlobalState } from 'app/Store'
+import storage from 'app/localStorage'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LayoutAnimation } from 'react-native'
-import EncryptedStorage from 'react-native-encrypted-storage'
 
 require('dayjs/locale/vi')
 dayjs.extend(relativeTime)
@@ -57,21 +56,21 @@ export const toRelativeTime = (date, noSuffix = false) => {
 export const clearDataAfterLogout = () => {
     setGlobalState('userInfo', null)
     setGlobalState('dashboardInfo', null)
-    EncryptedStorage.removeItem('@userInfo')
+    storage.delete('@userInfo')
 }
 
-function editDistance(s1, s2) {
+const editDistance = (s1, s2) => {
     s1 = s1.toLowerCase()
     s2 = s2.toLowerCase()
 
-    var costs = new Array()
-    for (var i = 0; i <= s1.length; i++) {
-        var lastValue = i
-        for (var j = 0; j <= s2.length; j++) {
+    let costs = new Array()
+    for (let i = 0; i <= s1.length; i++) {
+        let lastValue = i
+        for (let j = 0; j <= s2.length; j++) {
             if (i == 0) costs[j] = j
             else {
                 if (j > 0) {
-                    var newValue = costs[j - 1]
+                    let newValue = costs[j - 1]
                     if (s1.charAt(i - 1) != s2.charAt(j - 1))
                         newValue =
                             Math.min(Math.min(newValue, lastValue), costs[j]) +
@@ -87,13 +86,13 @@ function editDistance(s1, s2) {
 }
 
 export const similarityString = (s1, s2) => {
-    var longer = s1
-    var shorter = s2
+    let longer = s1
+    let shorter = s2
     if (s1.length < s2.length) {
         longer = s2
         shorter = s1
     }
-    var longerLength = longer.length
+    const longerLength = longer.length
     if (longerLength == 0) {
         return 1.0
     }
@@ -104,18 +103,13 @@ export const similarityString = (s1, s2) => {
     ).toFixed(0)
 }
 
-export const storeData = async (key, value) => {
-    try {
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem(key, jsonValue)
-    } catch (e) {
-        // saving error
-    }
+export const storeData = (key, value) => {
+    storage.set(key, JSON.stringify(value))
 }
 
-export const getData = async key => {
+export const getData = key => {
     try {
-        const jsonValue = await AsyncStorage.getItem(key)
+        const jsonValue = storage.getString(key)
         return jsonValue != null ? JSON.parse(jsonValue) : null
     } catch (e) {
         // error reading value

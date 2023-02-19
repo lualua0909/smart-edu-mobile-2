@@ -1,34 +1,20 @@
 import { useGlobalState } from 'app/Store'
-import { API_URL } from 'app/constants'
-import React, { useEffect, useState } from 'react'
+import { getData } from 'app/helpers/utils'
+import React, { useEffect } from 'react'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
-import { Dimensions, StatusBar } from 'react-native'
-import EncryptedStorage from 'react-native-encrypted-storage'
-import Orientation from 'react-native-orientation'
+import { StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
-import {
-    Center,
-    NativeBaseProvider,
-    Skeleton,
-    VStack,
-    extendTheme
-} from 'native-base'
+import { NativeBaseProvider, extendTheme } from 'native-base'
 
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
-    const [windowWidth, setWindowWidth] = useGlobalState('windowWidth')
-    const [windowHeight, setWindowHeight] = useGlobalState('windowHeight')
-    const [loading, setLoading] = useState(false)
 
-    async function fetchData() {
-        let userInfo = await EncryptedStorage.getItem('@userInfo')
-        userInfo = userInfo ? JSON.parse(userInfo) : null
-
+    const fetchData = () => {
+        let userInfo = getData('@userInfo')
         if (userInfo) {
             setUserState(userInfo)
         }
@@ -56,57 +42,16 @@ const App = () => {
 
     return (
         <NativeBaseProvider theme={theme}>
-            {!loading ? (
-                <>
-                    <StatusBar hidden />
-                    <NavigationContainer
-                        onStateChange={navigationState => {
-                            const { name } = getFocusRoute(
-                                navigationState.routes[navigationState.index]
-                            )
-                            console.log('Route', name)
-
-                            const w = Dimensions.get('window').width
-                            const h = Dimensions.get('window').height
-
-                            // if (name === 'CourseDetail') {
-                            //     Orientation.lockToLandscapeLeft()
-                            //     setWindowWidth(Math.max(w, h))
-                            //     setWindowHeight(Math.min(w, h))
-                            // } else {
-                            //     Orientation.getOrientation(
-                            //         (err, orientation) => {
-                            //             if (orientation === 'LANDSCAPE') {
-                            //                 Orientation.lockToPortrait()
-                            //             }
-                            //         }
-                            //     )
-                            // }
-                        }}>
-                        <SwitchNavigator />
-                    </NavigationContainer>
-                </>
-            ) : (
-                <Center
-                    w="100%"
-                    style={{ backgroundColor: '#6C746E', padding: 20 }}>
-                    <VStack
-                        w="100%"
-                        h="100%"
-                        maxW="400"
-                        space={8}
-                        overflow="hidden"
-                        rounded="md">
-                        <Skeleton h="40" />
-                        <Skeleton h="10" />
-                        <Skeleton h="10" />
-                        <Skeleton h="10" />
-                        <Skeleton h="20" />
-                        <Skeleton h="10" />
-                        <Skeleton h="10" />
-                    </VStack>
-                </Center>
-            )}
+            <StatusBar hidden />
+            <NavigationContainer
+                onStateChange={navigationState => {
+                    const { name } = getFocusRoute(
+                        navigationState.routes[navigationState.index]
+                    )
+                    console.log('Route', name)
+                }}>
+                <SwitchNavigator />
+            </NavigationContainer>
         </NativeBaseProvider>
     )
 }

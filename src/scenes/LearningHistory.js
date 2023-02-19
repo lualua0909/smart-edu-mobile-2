@@ -12,7 +12,8 @@ const LearningHistory = ({}) => {
 
     useEffect(() => {
         setLoading(true)
-        Axios.get('courses/get-my-learning-process')
+        axios
+            .get('courses/get-my-learning-process')
             .then(res => {
                 if (res?.data?.status === 200) {
                     setData(res?.data?.data?.reverse())

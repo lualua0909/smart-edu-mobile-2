@@ -1,14 +1,14 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Input, showToast } from 'app/atoms'
+import axios from 'app/axios'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
+import { storeData } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
 import { Image, Pressable, ScrollView, View } from 'react-native'
-import EncryptedStorage from 'react-native-encrypted-storage'
 
 import { Button, Center, Stack, Text } from 'native-base'
 
@@ -31,11 +31,12 @@ const Login = ({ navigation }) => {
     const doLogin = () => {
         if (username.value.length > 0 && password.value.length > 0) {
             setLoading(true)
-            Axios.post('login', {
-                username: username.value.toLowerCase(),
-                password: password.value,
-                mobile_fcm_token: fcmToken.value
-            })
+            axios
+                .post('login', {
+                    username: username.value.toLowerCase(),
+                    password: password.value,
+                    mobile_fcm_token: fcmToken.value
+                })
                 .then(res => {
                     if (res.data.status === 200) {
                         // if (firebase.messaging.isSupported()) {
@@ -43,10 +44,7 @@ const Login = ({ navigation }) => {
                         // }
                         setUserInfo(res?.data)
                         setRandom(Math.random())
-                        EncryptedStorage.setItem(
-                            '@userInfo',
-                            JSON.stringify(res?.data)
-                        )
+                        storeData('@userInfo', res?.data)
                     } else {
                         showToast({
                             title: res.data.message,

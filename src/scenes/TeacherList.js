@@ -1,6 +1,6 @@
-import Axios from 'app/Axios'
 import { Radio } from 'app/atoms'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import { svgGreenTeacher } from 'assets/svg'
@@ -34,10 +34,11 @@ const Teacher = ({ navigation, route }) => {
 
     const getData = () => {
         setLoading(true)
-        Axios.post(`mentors/paging-by-filter/0`, {
-            order_by: orderBy,
-            search
-        })
+        axios
+            .post(`mentors/paging-by-filter/0`, {
+                order_by: orderBy,
+                search
+            })
             .then(res => {
                 if (res.data.status === 200) {
                     const list = res?.data?.data

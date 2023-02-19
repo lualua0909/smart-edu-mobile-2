@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -14,7 +14,8 @@ const MentorList = ({}) => {
 
     const getData = (refresh = false) => {
         setLoading(true)
-        Axios.get('get-mentors/paging/' + page * 6)
+        axios
+            .get('get-mentors/paging/' + page * 6)
             .then(res => {
                 if (res.data.status === 200) return res.data
             })

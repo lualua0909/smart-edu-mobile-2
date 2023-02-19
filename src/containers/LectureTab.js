@@ -1,4 +1,3 @@
-import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { NoDataAnimation } from 'app/atoms'
 import Curriculum from 'app/components/Curriculum'
@@ -16,7 +15,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
 
     useEffect(() => {
         if (courseId) {
-            Axios.get(`courses/chapter-list/paging/${courseId}`)
+            axios
+                .get(`courses/chapter-list/paging/${courseId}`)
                 .then(res => {
                     return res.data
                 })

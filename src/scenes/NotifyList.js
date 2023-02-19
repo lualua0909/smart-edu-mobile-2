@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
+import axios from 'app/axios'
 import NotiItem from 'app/components/NotifyItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -15,7 +15,8 @@ const Notification = ({}) => {
 
     const getData = (refresh = false) => {
         setLoading(true)
-        Axios.get('notifies/paging/' + page * 8)
+        axios
+            .get('notifies/paging/' + page * 8)
             .then(res => {
                 if (res.data.status === 200) return res.data
             })
@@ -53,7 +54,8 @@ const Notification = ({}) => {
         newData.splice(index, 1)
         setData(newData)
 
-        Axios.get('notifies/remove/' + id)
+        axios
+            .get('notifies/remove/' + id)
             .then(res => {
                 if (res.data.status === 200) {
                     console.log('Đã xóa thông báo')
