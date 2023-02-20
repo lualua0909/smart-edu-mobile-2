@@ -618,7 +618,9 @@ const Menu = ({ route }) => {
 const styles = StyleSheet.create({
     formTitleText: {
         fontSize: scale(16),
-        color: '#0E564D'
+        color: '#0E564D',
+        fontWeight: 'bold',
+        letterSpacing: 0.5
     },
     formViewMoreText: {
         fontSize: scale(14),

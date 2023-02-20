@@ -23,7 +23,7 @@ import animationBanner from 'assets/animations/online-learning.json'
 import { Text } from 'native-base'
 import { Center, Input } from 'native-base'
 
-const Teacher = ({ navigation, route }) => {
+const Teacher = ({}) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
     const [orderBy, setOrderBy] = useState('asc')
     const [data, setData] = useState([])
@@ -359,7 +359,7 @@ const Teacher = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(8),
-
+                                    fontWeight: 'bold',
                                     fontSize: scale(16),
                                     color: '#0E564D'
                                 }}>
@@ -383,7 +383,7 @@ const Teacher = ({ navigation, route }) => {
                                         paddingTop: scale(16),
                                         paddingLeft: 16,
                                         paddingRight: 16,
-                                        paddingBottom: scale(50)
+                                        paddingBottom: scale(20)
                                     }}
                                     renderItem={({ item, index }) => (
                                         <TeacherItem

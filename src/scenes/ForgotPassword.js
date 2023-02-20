@@ -127,7 +127,7 @@ const ForgotPassword = ({ navigation }) => {
                                 Quên mật khẩu
                             </Button>
                         </Center>
-                        <Pressable
+                        {/* <Pressable
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
                                 alignSelf: 'center',
@@ -149,7 +149,7 @@ const ForgotPassword = ({ navigation }) => {
                                     Đăng ký ngay
                                 </Text>
                             </Text>
-                        </Pressable>
+                        </Pressable> */}
                     </View>
                 </View>
             </ScrollView>

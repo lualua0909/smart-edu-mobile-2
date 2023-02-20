@@ -1,16 +1,14 @@
 import { Avatar, Rate } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
-import { svgReply } from 'assets/svg'
 import React, { useState } from 'react'
 
 import { Pressable, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { SvgXml } from 'react-native-svg'
 
 import { Box, HStack, Spacer, Text, VStack } from 'native-base'
 
-const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
+const CommentCard = ({ data, isReply, isTeacher }) => {
     const [readMore, setReadMore] = useState(false)
 
     const toggle = () => {
@@ -63,17 +61,6 @@ const CommentCard = ({ data, isReply, isTeacher, hideReply, index }) => {
                         <Text>
                             {data?.rate && <Rate rate={data?.rate} size={16} />}
                         </Text>
-                        {/* <Text
-                        fontSize={14}
-                        style={{
-                            marginTop: scale(8)
-                        }}
-                        color="coolGray.600"
-                        _dark={{
-                            color: 'warmGray.200'
-                        }}>
-                        {data?.rating_content}
-                    </Text> */}
                     </VStack>
                     <Spacer />
                     <Text

@@ -4,11 +4,10 @@ import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import { Star } from 'react-native-feather'
 
-import { Center, HStack } from 'native-base'
-import { Text } from 'native-base'
+import { Badge, Center, HStack, Pressable, Text } from 'native-base'
 
 const TeacherItem = ({ item, index }) => {
     const navigation = useNavigation()
@@ -20,7 +19,14 @@ const TeacherItem = ({ item, index }) => {
             onPress={() =>
                 navigation.navigate(ROUTES.TeacherInfo, { id: item?.id })
             }
-            style={{ flexDirection: 'row', marginBottom: scale(16) }}>
+            style={{
+                flexDirection: 'row',
+                marginBottom: scale(8),
+                borderColor: '#eee',
+                borderWidth: 1,
+                borderRadius: scale(16),
+                padding: scale(8)
+            }}>
             <View style={{ width: scale(114), height: scale(114) }}>
                 <Center>
                     <Avatar isSquare name={fullName} userId={item?.id} />
@@ -70,39 +76,26 @@ const TeacherItem = ({ item, index }) => {
                 <Text
                     numberOfLines={1}
                     style={{
-                        fontSize: scale(18),
+                        fontSize: scale(16),
                         color: '#1F1F1F'
                     }}>
                     {fullName}
                 </Text>
-                {/* <View
+                <View
                     style={{
                         paddingVertical: scale(4),
                         marginTop: scale(4),
-                        alignSelf: 'flex-start',
-                    }}
-                >
-                    <Badge colorScheme="success" variant="outline">
+                        alignSelf: 'flex-start'
+                    }}>
+                    <Badge colorScheme="success" variant="subtle">
                         {item?.department}
                     </Badge>
-                </View> */}
-
+                </View>
                 <HStack space={3}>
                     <Text
-                        numberOfLines={2}
+                        numberOfLines={3}
                         style={{
-                            fontSize: scale(14),
-                            color: '#6C746E',
-                            marginTop: scale(4)
-                        }}>
-                        {item?.department}
-                    </Text>
-                </HStack>
-                <HStack space={3}>
-                    <Text
-                        numberOfLines={2}
-                        style={{
-                            fontSize: scale(14),
+                            fontSize: scale(12),
                             color: '#6C746E',
                             marginTop: scale(4)
                         }}>
@@ -113,27 +106,22 @@ const TeacherItem = ({ item, index }) => {
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
-                        alignSelf: 'flex-end',
-                    }}
-                >
+                        alignSelf: 'flex-end'
+                    }}>
                     <Text
                         style={{
-                            
                             fontSize: scale(16),
                             color: '#6C746E',
-                            textDecorationLine: 'line-through',
-                        }}
-                    >
+                            textDecorationLine: 'line-through'
+                        }}>
                         {toCurrency(1234567)}đ
                     </Text>
                     <Text
                         style={{
-                            
                             fontSize: scale(16),
                             color: '#52B553',
-                            marginLeft: scale(8),
-                        }}
-                    >
+                            marginLeft: scale(8)
+                        }}>
                         {toCurrency(1234567)}đ / 30p
                     </Text>
                 </View> */}

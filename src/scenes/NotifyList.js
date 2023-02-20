@@ -54,14 +54,11 @@ const Notification = ({}) => {
         newData.splice(index, 1)
         setData(newData)
 
-        axios
-            .get('notifies/remove/' + id)
-            .then(res => {
-                if (res.data.status === 200) {
-                    console.log('Đã xóa thông báo')
-                }
-            })
-            .catch(err => console.log('err', err))
+        axios.get('notifies/remove/' + id).then(res => {
+            if (res.data.status === 200) {
+                console.log('Đã xóa thông báo')
+            }
+        })
     }
 
     return (
@@ -90,18 +87,6 @@ const Notification = ({}) => {
                             paddingTop: scale(16),
                             paddingBottom: scale(50)
                         }}
-                        // ListHeaderComponent={
-                        //     <Text
-                        //         style={{
-                        //             marginLeft: scale(16),
-                        //             marginBottom: scale(16),
-
-                        //             fontSize: scale(20),
-                        //             color: '#1F1F1F'
-                        //         }}>
-                        //         Danh sách thông báo
-                        //     </Text>
-                        // }
                         onEndReached={handleLoadMore}
                         onEndReachedThreshold={0.5}
                         showsVerticalScrollIndicator={false}

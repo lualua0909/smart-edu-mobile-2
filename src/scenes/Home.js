@@ -104,6 +104,7 @@ const Home = ({ navigation }) => {
                                     style={{
                                         fontSize: scale(16),
                                         color: '#0E564D',
+                                        fontWeight: 'bold',
                                         marginLeft: scale(8)
                                     }}>
                                     DUY TRÌ HỌC TẬP
@@ -289,8 +290,9 @@ const Home = ({ navigation }) => {
                             <SvgXml xml={svgList} width={scale(20)} />
                             <Text
                                 style={{
+                                    letterSpacing: 0.5,
                                     marginLeft: scale(8),
-
+                                    fontWeight: 'bold',
                                     fontSize: scale(16),
                                     color: '#0E564D'
                                 }}>
@@ -384,7 +386,9 @@ const Home = ({ navigation }) => {
                             <Flag stroke="#0E564D" width={18} height={18} />
                             <Text
                                 style={{
+                                    letterSpacing: 0.5,
                                     fontSize: scale(16),
+                                    fontWeight: 'bold',
                                     color: '#0E564D',
                                     marginLeft: scale(8)
                                 }}>
@@ -429,6 +433,8 @@ const Home = ({ navigation }) => {
                                 style={{
                                     fontSize: scale(16),
                                     color: '#0E564D',
+                                    fontWeight: 'bold',
+                                    letterSpacing: 0.5,
                                     marginLeft: scale(8)
                                 }}>
                                 TIN TỨC/SỰ KIỆN

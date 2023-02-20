@@ -45,11 +45,11 @@ const NotiItem = ({ data, index, removeNotify }) => {
                         })
                     }
                     style={{
-                        paddingHorizontal: scale(16)
+                        paddingHorizontal: scale(8)
                     }}>
                     <Box
                         style={{
-                            padding: scale(16),
+                            padding: scale(8),
                             borderColor: '#eee',
                             borderRadius: 12,
                             flexDirection: 'row',
@@ -73,16 +73,17 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                 }}>
                                 <Text
                                     style={{
-                                        fontSize: scale(16),
-                                        color: '#1F1F1F',
+                                        fontSize: scale(14),
+                                        color: '#6C746E',
+                                        fontWeight: 'bold',
                                         flex: 1
                                     }}>
                                     {data?.title}
                                 </Text>
                                 <Text
                                     style={{
-                                        fontSize: scale(13),
-                                        color: '#1F1F1F'
+                                        fontSize: scale(11),
+                                        color: '#6C746E'
                                     }}>
                                     {toRelativeTime(data?.created_at)}
                                 </Text>
@@ -99,7 +100,7 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                         marginLeft: scale(8),
 
                                         color: '#6C746E',
-                                        fontSize: scale(14)
+                                        fontSize: scale(12)
                                     }}
                                     numberOfLines={2}>
                                     {data?.content}
