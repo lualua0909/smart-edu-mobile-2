@@ -1,4 +1,4 @@
-import Axios from 'app/Axios'
+import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
 import HistoryItem from 'app/components/HistoryItem'
 import { scale } from 'app/helpers/responsive'

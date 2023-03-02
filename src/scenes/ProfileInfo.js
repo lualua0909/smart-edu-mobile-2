@@ -163,12 +163,6 @@ const ProfileInfo = ({ route }) => {
                     </View>
                     <Center style={{ marginTop: 20 }}>
                         <VStack width="90%" mx="3" maxW="300px" space="3">
-                            <Button
-                                colorScheme="red"
-                                onPress={deactiveAccount}
-                                variant="outline">
-                                Xóa tài khoản
-                            </Button>
                             <Input
                                 label="Họ"
                                 w={'100%'}
@@ -272,7 +266,12 @@ const ProfileInfo = ({ route }) => {
                                 value={data?.username}
                                 error={errors?.username}
                             />
-
+                            <Button
+                                colorScheme="red"
+                                onPress={deactiveAccount}
+                                variant="outline">
+                                Xóa tài khoản
+                            </Button>
                             {/* <Button onPress={onSubmit} mt="5">
                                 Thay đổi thông tin
                             </Button> */}
