@@ -12,6 +12,7 @@
     "dependencies": {
         "@react-native-community/datetimepicker": "^6.6.0",
         "@react-native-firebase/app": "^14.9.1",
+        "@react-native-firebase/crashlytics": "^17.3.1",
         "@react-native-firebase/firestore": "^14.9.1",
         "@react-native-firebase/messaging": "^14.9.1",
         "@react-navigation/bottom-tabs": "^6.0.9",
@@ -49,6 +50,7 @@
         "react-native-svg-transformer": "^1.0.0",
         "react-native-tab-view": "^3.1.1",
         "react-native-vector-icons": "^9.2.0",
+        "react-native-version-check": "^3.4.7",
         "react-native-video": "^6.0.0-alpha.4",
         "react-native-webview": "^11.18.1"
     },

@@ -1,57 +1,68 @@
 import React from 'react'
 
-import { Alert, HStack, Text, Toast, VStack } from 'native-base'
+import {
+    Alert,
+    Box,
+    Center,
+    CloseIcon,
+    HStack,
+    IconButton,
+    Text,
+    Toast,
+    VStack
+} from 'native-base'
 
-const ToastAlert = ({
-    status,
-    variant,
-    title,
-    placement,
-    description,
-    ...rest
-}) => (
-    <Alert
-        maxWidth="98%"
-        alignSelf="center"
-        flexDirection="row"
-        status={status}
-        variant={variant}
-        placement={placement}
-        {...rest}>
-        <VStack space={1} flexShrink={1} w="100%">
-            <HStack
-                flexShrink={1}
-                alignItems="center"
-                justifyContent="space-between">
-                <HStack space={2} flexShrink={1} alignItems="center">
-                    <Text
-                        fontSize="14"
-                        fontWeight="bold"
-                        flexShrink={1}
-                        color={
-                            variant === 'solid'
-                                ? 'lightText'
-                                : variant !== 'outline'
-                                ? 'darkText'
-                                : null
-                        }>
-                        {title}
-                    </Text>
+const ToastAlert = ({ status, variant, title, placement, description }) => (
+    <Center>
+        <Alert
+            maxWidth="98%"
+            alignSelf="center"
+            flexDirection="row"
+            status={status}
+            variant={variant}
+            placement={placement}>
+            <VStack space={2} flexShrink={1} w="100%">
+                <HStack
+                    flexShrink={1}
+                    space={2}
+                    alignItems="center"
+                    justifyContent="space-between">
+                    <HStack flexShrink={1} space={2} alignItems="center">
+                        <Alert.Icon />
+                        <Text
+                            fontSize="sm"
+                            fontWeight="bold"
+                            color={
+                                variant === 'solid'
+                                    ? 'lightText'
+                                    : variant !== 'outline'
+                                    ? 'darkText'
+                                    : null
+                            }>
+                            {title}
+                        </Text>
+                    </HStack>
+                    <IconButton
+                        variant="unstyled"
+                        _focus={{
+                            borderWidth: 0
+                        }}
+                        icon={<CloseIcon size="3" />}
+                        _icon={{
+                            color: 'coolGray.600'
+                        }}
+                    />
                 </HStack>
-            </HStack>
-            <Text
-                fontSize="12"
-                color={
-                    variant === 'solid'
-                        ? 'lightText'
-                        : variant !== 'outline'
-                        ? 'darkText'
-                        : null
-                }>
-                {description}
-            </Text>
-        </VStack>
-    </Alert>
+                <Box
+                    pl="6"
+                    _text={{
+                        color: 'coolGray.600'
+                    }}>
+                    {description}
+                </Box>
+            </VStack>
+        </Alert>
+    </Center>
 )
 
 export default ({
