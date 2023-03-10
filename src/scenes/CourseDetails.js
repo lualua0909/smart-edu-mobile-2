@@ -223,11 +223,14 @@ const CourseInfo = ({ navigation, route }) => {
                             status: 'success',
                             placement: 'top'
                         })
-                        setTimeout(() => {
-                            Linking.openURL(
-                                `${APP_URL}take-survey/${res?.data?.survey}`
-                            )
-                        }, 500)
+                        navigation.navigate(ROUTES.Survey, {
+                            surveyId: res?.data?.survey
+                        })
+                        // setTimeout(() => {
+                        //     Linking.openURL(
+                        //         `${APP_URL}take-survey/${res?.data?.survey}`
+                        //     )
+                        // }, 500)
                     } else {
                         navigation.navigate(ROUTES.CourseDetail, {
                             courseId: data?.relational?.course_id,
@@ -249,6 +252,7 @@ const CourseInfo = ({ navigation, route }) => {
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
                     <Video
+                        paused
                         controls
                         source={{
                             uri: `${API_URL}public/${data?.video_path}`

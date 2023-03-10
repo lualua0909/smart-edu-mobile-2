@@ -19,6 +19,7 @@ import Policy from 'app/scenes/Policy'
 import ProfileInfo from 'app/scenes/ProfileInfo'
 import ProfileOverview from 'app/scenes/ProfileOverview'
 import Support from 'app/scenes/Support'
+import Survey from 'app/scenes/Survey'
 import TeacherInfo from 'app/scenes/TeacherDetail'
 import TransactionList from 'app/scenes/TransactionList'
 import Voucher from 'app/scenes/Voucher'
@@ -312,6 +313,14 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Lịch sử giao dịch'} />
                     ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.Survey}
+                component={Survey}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Khảo sát'} />,
                     headerLeft: () => <HeaderBack />
                 })}
             />

@@ -19,22 +19,20 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
 import {
     Button,
+    Center,
     FormControl,
     Modal,
     Text,
     TextArea,
     useToast
 } from 'native-base'
-
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
 
 const routes = [
     {
@@ -65,14 +63,14 @@ const CourseDetail = ({ route, navigation }) => {
     const [currentId, setCurrentId] = useState()
     const [data, setData] = useState()
     const [chapters, setChapters] = useState()
-    const [userInfo, setUserState] = useGlobalState('userInfo')
+    const [userInfo, _setUserState] = useGlobalState('userInfo')
     const questionTitle = useFormInput()
     const questionContent = useFormInput()
     const [questionLoading, setQuestionLoading] = useState(false)
     const [hideHeaderTitle, setHideHeaderTitle] = useState(false)
     const [finishedLectures, setFinishedLectures] =
         useGlobalState('finishedLectures')
-    const [currentCourseId, setCurrentCourseId] =
+    const [_currentCourseId, setCurrentCourseId] =
         useGlobalState('currentCourseId')
 
     useEffect(() => {
@@ -123,7 +121,7 @@ const CourseDetail = ({ route, navigation }) => {
                             paddingVertical: 0
                         }}>
                         <Button
-                            size={'xs'}
+                            size={'sm'}
                             onPress={prevLesson}
                             variant="subtle"
                             colorScheme="green"
@@ -135,7 +133,7 @@ const CourseDetail = ({ route, navigation }) => {
                         </Button>
                         {data?.is_finish ? (
                             <Button
-                                size={'xs'}
+                                size={'sm'}
                                 style={{
                                     backgroundColor: '#52B553',
                                     width: 120
@@ -193,46 +191,6 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
 
-    const renderActionButtons = (
-        <View
-            style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: scale(16)
-            }}>
-            <Button
-                size={'sm'}
-                onPress={prevLesson}
-                variant="subtle"
-                // leftIcon={!smallSize && <ChevronLeft stroke="#52B553" />}
-                colorScheme="green"
-                style={{
-                    marginRight: scale(12),
-                    width: 'auto'
-                }}>
-                Bài trước
-            </Button>
-            {data?.is_finish ? (
-                <Button
-                    size={'sm'}
-                    style={{
-                        backgroundColor: '#52B553',
-                        width: 'auto'
-                    }}
-                    onPress={nextLesson}
-                    // rightIcon={
-                    //     !smallSize && <ChevronRight stroke="white" />
-                    // }
-                >
-                    Bài tiếp theo
-                </Button>
-            ) : (
-                countdown
-            )}
-        </View>
-    )
-
     useEffect(() => {
         if (currentLecture) {
             setCurrentId(currentLecture)
@@ -248,7 +206,6 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .then(data => {
                 setData(data)
-                console.log('CourseDetail', data)
             })
             .finally(() => setLoading(false))
     }
@@ -273,7 +230,6 @@ const CourseDetail = ({ route, navigation }) => {
 
         axios.post('courses/add-finished-lecture', params).then(res => {
             if (res.data.status === 200) {
-                console.log('ok')
                 setFinishedLectures([...finishedLectures, { id: currentId }])
             }
         })
@@ -441,12 +397,9 @@ const CourseDetail = ({ route, navigation }) => {
             <KeyboardAwareScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}
-                extraHeight={scale(100)}>
+                showsVerticalScrollIndicator={false}>
                 <View
                     style={{
-                        width: Math.max(windowWidth, windowHeight),
-                        height: Math.min(windowHeight, windowWidth),
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
@@ -468,13 +421,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <FinishCourse />
                     )}
                 </View>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingVertical: scale(16)
-                    }}>
+                <Center mt="3" mb="3">
                     <Text
                         style={{
                             fontSize: scale(14),
@@ -482,8 +429,32 @@ const CourseDetail = ({ route, navigation }) => {
                         }}>
                         {data?.name}
                     </Text>
+                </Center>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                    <Button
+                        size={'sm'}
+                        onPress={prevLesson}
+                        variant="subtle"
+                        colorScheme="green"
+                        style={{
+                            marginRight: scale(12),
+                            width: 'auto'
+                        }}>
+                        Bài trước
+                    </Button>
+                    {data?.is_finish ? (
+                        <Button size={'sm'} onPress={nextLesson}>
+                            Bài tiếp theo
+                        </Button>
+                    ) : (
+                        countdown
+                    )}
                 </View>
-                {renderActionButtons}
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
                     renderScene={renderScene}

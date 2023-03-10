@@ -47,7 +47,6 @@ const Login = ({ navigation }) => {
     const doLogin = () => {
         if (username.value.length > 0 && password.value.length > 0) {
             setLoading(true)
-            console.log('FCM = ', fcmToken.value)
             axios
                 .post('login', {
                     username: username.value.toLowerCase(),
@@ -176,7 +175,6 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{

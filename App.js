@@ -18,19 +18,18 @@ const App = () => {
     const [random, setRandom] = useGlobalState('random')
 
     useEffect(() => {
-        VersionCheck.getLatestVersion({
-            provider: 'playStore' // for Android
-        }).then(latestVersion => {
-            const currentVersion = VersionCheck.getCurrentVersion()
-
-            if (currentVersion !== latestVersion) {
-                showToast({
-                    title: 'Cập nhật phiên bản mới',
-                    description: `Phiên bản hiện tại của bạn ${currentVersion}, phiên bản mới đã có trên Google Play Store`,
-                    status: 'warning'
-                })
-            }
-        })
+        // VersionCheck.getLatestVersion({
+        //     provider: 'playStore' // for Android
+        // }).then(latestVersion => {
+        //     const currentVersion = VersionCheck.getCurrentVersion()
+        //     if (currentVersion !== latestVersion) {
+        //         showToast({
+        //             title: 'Cập nhật phiên bản mới',
+        //             description: `Phiên bản hiện tại của bạn ${currentVersion}, phiên bản mới đã có trên Google Play Store`,
+        //             status: 'warning'
+        //         })
+        //     }
+        // })
     }, [])
 
     useEffect(() => {

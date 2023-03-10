@@ -6,6 +6,11 @@ import { WebView } from 'react-native-webview'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
+function isPortrait() {
+    const dim = Dimensions.get('screen')
+    return dim.height >= dim.width
+}
+
 export default ({ src }) => {
     return (
         <WebView
@@ -15,9 +20,12 @@ export default ({ src }) => {
             }}
             style={{
                 height: Math.min(w, h),
-                width: Math.max(w, h),
+                width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
+                resizeMode: 'contain',
+                flex: 1,
                 border: 'none'
             }}
+            scalesPageToFit={true}
             onLoadStart={syntheticEvent => {
                 const { nativeEvent } = syntheticEvent
                 console.log('onLoadStart', nativeEvent.loading)

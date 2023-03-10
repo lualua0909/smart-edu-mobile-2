@@ -1,4 +1,4 @@
-import Axios from 'app/Axios'
+import axios from 'app/Axios'
 import { Avatar, NoDataAnimation } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
@@ -21,7 +21,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
 
     useEffect(() => {
         if (mentorId) {
-            Axios.get(`users/get-mentor-info/${mentorId}`)
+            axios
+                .get(`users/get-mentor-info/${mentorId}`)
                 .then(res => {
                     return res?.data
                 })

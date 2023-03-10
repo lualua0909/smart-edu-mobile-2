@@ -28,5 +28,6 @@ export default ROUTES = {
     JitsiMeeting: 'JitsiMeeting',
     LearningHistory: 'LearningHistory',
     CertificateList: 'CertificateList',
-    TransactionList: 'TransactionList'
+    TransactionList: 'TransactionList',
+    Survey: 'Survey'
 }
