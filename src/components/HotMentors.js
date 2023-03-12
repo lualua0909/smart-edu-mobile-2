@@ -1,4 +1,4 @@
-import Advise from 'app/components/advise'
+import Advise from 'app/components/Advise'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgList } from 'assets/svg'
@@ -9,7 +9,7 @@ import { SvgXml } from 'react-native-svg'
 
 import { Text } from 'native-base'
 
-const HotMentors = ({}) => {
+const HotMentors = ({ data }) => {
     return (
         <View
             style={{
@@ -28,15 +28,15 @@ const HotMentors = ({}) => {
                 <Text
                     style={{
                         marginLeft: scale(8),
-
                         fontSize: scale(16),
+                        fontWeight: 'bold',
                         color: '#0E564D'
                     }}>
-                    GÓI TƯ VẤN HOT
+                    GÓI TƯ VẤN
                 </Text>
             </View>
             <FlatList
-                data={[1, 2, 3, 4]}
+                data={data}
                 keyExtractor={(_, index) => index.toString()}
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -44,7 +44,7 @@ const HotMentors = ({}) => {
                     paddingLeft: scale(16),
                     marginTop: scale(16)
                 }}
-                renderItem={({ item, index }) => <Advise />}
+                renderItem={({ item, index }) => <Advise data={item} />}
             />
         </View>
     )

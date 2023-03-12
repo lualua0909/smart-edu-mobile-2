@@ -34,6 +34,7 @@
         "react-native-device-info": "^10.0.1",
         "react-native-feather": "^1.1.2",
         "react-native-gesture-handler": "^2.2.0",
+        "react-native-image-crop-picker": "0.37.3",
         "react-native-keyboard-aware-scroll-view": "^0.9.5",
         "react-native-linear-gradient": "^2.5.6",
         "react-native-mmkv": "2.5.1",

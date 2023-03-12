@@ -9,7 +9,7 @@ import { SvgXml } from 'react-native-svg'
 
 import { Text } from 'native-base'
 
-const Advise = () => {
+const Advise = ({ data }) => {
     return (
         <Pressable
             style={{
@@ -34,11 +34,11 @@ const Advise = () => {
                 }}>
                 <Text
                     style={{
-                        fontSize: scale(24),
+                        fontSize: scale(18),
                         color: '#fff',
                         textAlign: 'center'
                     }}>
-                    Ngữ pháp
+                    {data?.title}
                 </Text>
                 <View
                     style={{
@@ -60,7 +60,7 @@ const Advise = () => {
                             fontSize: scale(16),
                             color: '#fff'
                         }}>
-                        {toCurrency(1234567)} đ
+                        {toCurrency(10000)} đ
                     </Text>
                 </View>
                 <View
