@@ -127,6 +127,23 @@ const ProfileInfo = ({}) => {
         setData(newData)
     }
 
+    const uploadBanner = (image, type) => {
+        setLoading(true)
+        axios
+            .post('users/upload-avatar', {
+                image,
+                type
+            })
+            .then(res => {
+                if (type === 1) {
+                    setAvtUploaded(image)
+                } else {
+                    setBannerUploaded(image)
+                }
+            })
+            .finally(() => setLoading(false))
+    }
+
     return (
         <>
             <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -172,13 +189,14 @@ const ProfileInfo = ({}) => {
                                     height: 300,
                                     includeBase64: true
                                 }).then(image => {
-                                    setBannerUploaded(
-                                        `data:${image.mime};base64,${image.data}`
+                                    uploadBanner(
+                                        `data:${image.mime};base64,${image.data}`,
+                                        2
                                     )
                                 })
                             }>
                             <Ionicons
-                                name="cloud-upload"
+                                name="md-camera"
                                 color="white"
                                 size={16}
                             />
@@ -227,8 +245,9 @@ const ProfileInfo = ({}) => {
                                         cropping: true,
                                         includeBase64: true
                                     }).then(image => {
-                                        setAvtUploaded(
-                                            `data:${image.mime};base64,${image.data}`
+                                        uploadBanner(
+                                            `data:${image.mime};base64,${image.data}`,
+                                            1
                                         )
                                     })
                                 }>

@@ -601,6 +601,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 }}
                                 onPress={gotoCourse}
                                 isLoading={loadingVerify}
+                                isLoadingText="Đang vào"
                                 leftIcon={<BookOpen stroke="#fff" size={10} />}>
                                 Học ngay
                             </Button>

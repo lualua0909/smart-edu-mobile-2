@@ -1,18 +1,16 @@
-import { scale } from 'app/helpers/responsive'
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { Dimensions, Image, Pressable, View } from 'react-native'
+import { Pressable } from 'react-native'
 
-import { Button, Center, HStack, Text } from 'native-base'
+import { Center, HStack, Text } from 'native-base'
 
 const HeaderChat = ({}) => {
     const navigation = useNavigation()
     const route = useRoute()
-    console.log('Route', route)
 
     return (
-        <HStack space={2} justifyContent="center">
+        <HStack space={2} justifyContent="center" mt="3">
             <Pressable onPress={() => navigation.navigate('Chat')}>
                 <Center
                     h="10"

@@ -61,7 +61,7 @@ const Home = ({ navigation }) => {
                     <View style={{ marginLeft: scale(16), flex: 1 }}>
                         <Text
                             style={{
-                                fontSize: scale(18),
+                                fontSize: 16,
                                 color: '#1F1F1F'
                             }}>
                             Xin chào{' '}
@@ -75,7 +75,7 @@ const Home = ({ navigation }) => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: scale(18),
+                                fontSize: 16,
                                 color: '#1F1F1F',
                                 marginTop: scale(4)
                             }}>

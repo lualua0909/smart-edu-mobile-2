@@ -150,6 +150,7 @@ const ExamContent = ({ navigation, route }) => {
                 result
             })
             .then(res => {
+                console.log('res', res)
                 if (!res || !res.data || res.data.failed) {
                     message.error('Cập nhật bài khảo sát thất bại')
                 } else {
@@ -222,7 +223,6 @@ const ExamContent = ({ navigation, route }) => {
                     </VStack>
                     <Center>
                         <Button
-                            size="lg"
                             onPress={submit}
                             style={{ margin: 10, width: 200 }}>
                             Gửi kết quả

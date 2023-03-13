@@ -21,7 +21,7 @@ const Type9 = ({ data, index, onSelect, selected }) => {
                     <View key={rowIndex} w={w} rounded="md" p="2">
                         <Text>{item}</Text>
                         <DateTimePicker
-                            date={new Date(date)}
+                            date={date ? new Date(date) : new Date()}
                             onChange={(event, selectedDate) => {
                                 onSelect(
                                     data?.id,

@@ -1,9 +1,11 @@
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import Config from 'react-native-config'
 import DeviceInfo from 'react-native-device-info'
+
+import { Text } from 'native-base'
 
 const Language = () => {
     const { result: deviceName } = DeviceInfo.useDeviceName()
@@ -16,7 +18,7 @@ const Language = () => {
 
     return (
         <>
-            <View style={{ paddingTop: scale(7), backgroundColor: '#E5E5E5' }}>
+            <View style={{ backgroundColor: '#E5E5E5' }}>
                 <View
                     style={{
                         backgroundColor: '#FFFFFF',
