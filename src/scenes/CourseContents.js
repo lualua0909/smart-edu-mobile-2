@@ -7,7 +7,7 @@ import {
     FinishCourse,
     Input,
     Loading,
-    NoData,
+    NoDataAnimation,
     ScormViewer,
     VideoViewer
 } from 'app/atoms'
@@ -19,7 +19,7 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Pressable, View } from 'react-native'
+import { Dimensions, Linking, Pressable, View } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
@@ -234,12 +234,11 @@ const CourseDetail = ({ route, navigation }) => {
     const getDocuments = () => {
         setLoading(true)
         axios
-            .get(`admin/courses/resources/paging/${currentId}`)
+            .get(`admin/courses/resources/paging/${courseId}`)
             .then(res => {
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
-                console.log('data', data)
                 setDocuments(data)
             })
             .finally(() => setLoading(false))
@@ -320,7 +319,7 @@ const CourseDetail = ({ route, navigation }) => {
                             })
                         }
                         style={{ padding: scale(16) }}>
-                        <NoData />
+                        <NoDataAnimation />
                         {/* <CommentCard />
                         <View
                             style={{
@@ -403,31 +402,41 @@ const CourseDetail = ({ route, navigation }) => {
                             })
                         }
                         style={{ padding: scale(16) }}>
-                        <FlatList
-                            data={[
-                                {
-                                    fileName: 'file 1',
-                                    file: 'https://docs.google.com/document/d/1ToAIn6xg3hdSUJ_0KLPKxUCZjWH0IkbTx7KtqPW16W4/edit?usp=sharing'
-                                }
-                            ]}
-                            renderItem={({ item }) => (
-                                <View
-                                    style={{
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: '#e5e5e5',
-                                        paddingVertical: 5
-                                    }}>
-                                    <Pressable
-                                        onPress={() => {
-                                            setSelectedFile(item?.file)
-                                            setOpenViewDoc(true)
+                        {documents?.length ? (
+                            <FlatList
+                                data={documents}
+                                renderItem={({ item }) => (
+                                    <View
+                                        style={{
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: '#e5e5e5',
+                                            paddingVertical: 5
                                         }}>
-                                        <Text>{item?.fileName}</Text>
-                                    </Pressable>
-                                </View>
-                            )}
-                            keyExtractor={item => item.id}
-                        />
+                                        <Pressable
+                                            onPress={() => {
+                                                if (item?.fileName) {
+                                                    Linking.openURL(
+                                                        `${API_URL}public/${item?.fileName}`
+                                                    )
+                                                } else {
+                                                    setSelectedFile(
+                                                        item?.file_url
+                                                    )
+                                                    setOpenViewDoc(true)
+                                                }
+                                            }}>
+                                            <Text>
+                                                {item?.fileName ||
+                                                    item?.file_name}
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                )}
+                                keyExtractor={item => item?.id}
+                            />
+                        ) : (
+                            <NoDataAnimation />
+                        )}
                     </View>
                 )
             default:
@@ -610,8 +619,8 @@ const CourseDetail = ({ route, navigation }) => {
 export default CourseDetail
 
 const ViewDocModal = ({ url, isOpen, onClose }) => (
-    <Modal isOpen={isOpen} onClose={onClose} width={w} style={{ maxWidth: w }}>
-        <Modal.Content>
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal.Content w="100%" h={h} maxH="100%">
             <Modal.Body>
                 <WebView
                     originWhitelist={['*']}

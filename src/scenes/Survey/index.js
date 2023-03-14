@@ -28,9 +28,8 @@ const ExamContent = ({ navigation, route }) => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [selected, setSelected] = useState([])
-    const [unSavedChange, setUnSavedChange] = useState(true)
+    const [unSavedChange, setUnSavedChange] = useState(false)
     const [homeInfo, _setHomeInfo] = useGlobalState('homeInfo')
-    const [userInfo, setUserState] = useGlobalState('userInfo')
 
     const changeType2 = (id, index, option) => {
         const prevSelected = [...selected]
@@ -145,16 +144,24 @@ const ExamContent = ({ navigation, route }) => {
         setLoading(true)
         axios
             .post('survey/upload-result', {
-                survey_list_id: surveyId,
+                survey_list_id: data?.id,
                 temp_user: 'mobile',
                 result
             })
             .then(res => {
-                console.log('res', res)
-                if (!res || !res.data || res.data.failed) {
-                    message.error('Cập nhật bài khảo sát thất bại')
+                console.log('res?.data?.status = ', res?.data?.status)
+                if (res?.data?.status === 200) {
+                    showToast({
+                        title: 'Chúc mừng bạn đã hoàn thành bài khảo sát',
+                        status: 'success'
+                    })
+
+                    navigation.goBack()
                 } else {
-                    message.success('Chúc mừng bạn đã hoàn thành bài khảo sát')
+                    showToast({
+                        title: 'Cập nhật bài khảo sát thất bại',
+                        status: 'error'
+                    })
                 }
             })
             .finally(() => {

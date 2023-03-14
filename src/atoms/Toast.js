@@ -12,13 +12,19 @@ import {
     VStack
 } from 'native-base'
 
-const ToastAlert = ({ status, variant, title, placement, description }) => (
+const ToastAlert = ({
+    status,
+    variant,
+    title,
+    placement = 'top',
+    description
+}) => (
     <Center>
         <Alert
             maxWidth="98%"
             alignSelf="center"
             flexDirection="row"
-            status={status}
+            status={status || 'info'}
             variant={variant}
             placement={placement}>
             <VStack space={2} flexShrink={1} w="100%">

@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton, showToast } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
@@ -69,10 +69,9 @@ const CourseInfo = ({ navigation, route }) => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
                     } else {
-                        toast.show({
+                        showToast({
                             title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
-                            status: 'error',
-                            placement: 'top'
+                            status: 'error'
                         })
                         navigation.goBack()
                     }
@@ -216,21 +215,13 @@ const CourseInfo = ({ navigation, route }) => {
             .then(res => {
                 if (res?.data?.status === 200) {
                     if (res?.data?.survey) {
-                        toast.show({
-                            title: 'Thông báo từ hệ thống',
-                            description:
-                                'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học',
-                            status: 'success',
-                            placement: 'top'
+                        showToast({
+                            title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
                         })
+
                         navigation.navigate(ROUTES.Survey, {
                             surveyId: res?.data?.survey
                         })
-                        // setTimeout(() => {
-                        //     Linking.openURL(
-                        //         `${APP_URL}take-survey/${res?.data?.survey}`
-                        //     )
-                        // }, 500)
                     } else {
                         navigation.navigate(ROUTES.CourseDetail, {
                             courseId: data?.relational?.course_id,
