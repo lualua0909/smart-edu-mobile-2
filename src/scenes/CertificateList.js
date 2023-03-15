@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { LoadingAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import CertificateItem from 'app/components/CertificateItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -55,39 +55,33 @@ const CertificateList = ({ navigation, route }) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <FlatList
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={refetch}
-                    />
-                }
-                data={data || []}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                    <CertificateItem index={index} data={item} />
-                )}
-                contentContainerStyle={{
-                    marginTop: scale(20),
-                    paddingHorizontal: scale(10),
-                    paddingBottom: scale(20)
-                }}
-                // ListHeaderComponent={
-                //     <Text
-                //         style={{
-                //             marginLeft: scale(16),
-                //             marginBottom: scale(16),
-                //             fontSize: scale(20),
-                //             color: '#1F1F1F'
-                //         }}>
-                //         Danh sách chứng chỉ
-                //     </Text>
-                // }
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0.5}
-                showsVerticalScrollIndicator={false}
-            />
-            {loading && <LoadingAnimation />}
+            {loading ? (
+                <LoadingAnimation />
+            ) : data?.length ? (
+                <FlatList
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={refetch}
+                        />
+                    }
+                    data={data}
+                    keyExtractor={(_, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                        <CertificateItem index={index} data={item} />
+                    )}
+                    contentContainerStyle={{
+                        marginTop: scale(20),
+                        paddingHorizontal: scale(10),
+                        paddingBottom: scale(20)
+                    }}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    showsVerticalScrollIndicator={false}
+                />
+            ) : (
+                <NoDataAnimation />
+            )}
         </View>
     )
 }

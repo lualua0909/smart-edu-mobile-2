@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, Input, TeacherSkeleton } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton, Input } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -12,7 +12,7 @@ import {
     Button,
     Center,
     HStack,
-    Icon,
+    Heading,
     Image,
     Pressable,
     Text,
@@ -61,7 +61,7 @@ const ProfileOverview = ({ navigation, route }) => {
     }, [userId])
 
     if (loading || !data) {
-        return <TeacherSkeleton />
+        return <CourseDetailSkeleton />
     }
 
     const renderAddFriendBtn =
@@ -194,36 +194,9 @@ const ProfileOverview = ({ navigation, route }) => {
                     </View>
                 </View>
                 <Center style={{ marginTop: 20 }}>
-                    <Input
-                        fontSize="sm"
-                        value={fullName}
-                        onChange={e => {
-                            const value = e.target.value
-                            setFullName(value)
-                        }}
-                        w={'90%'}
-                        InputRightElement={
-                            <Pressable
-                                onPress={() => setIsEditName(!isEditName)}>
-                                <Icon
-                                    as={
-                                        <Ionicons
-                                            name={
-                                                isEditName
-                                                    ? 'md-checkmark'
-                                                    : 'ios-create'
-                                            }
-                                            size={16}
-                                        />
-                                    }
-                                    size={8}
-                                    mr="2"
-                                    color="muted.400"
-                                />
-                            </Pressable>
-                        }
-                        placeholder="Password"
-                    />
+                    <Heading fontSize={20} bold color={'#0E564D'}>
+                        {fullName}
+                    </Heading>
                 </Center>
 
                 <View
@@ -232,10 +205,10 @@ const ProfileOverview = ({ navigation, route }) => {
                         paddingTop: scale(10)
                     }}>
                     <TextArea
-                        fontSize="sm"
                         placeholder="Giới thiệu bản thân..."
                         w="90%"
                         h={16}
+                        isDisabled
                         value={data?.description}
                     />
                 </View>
@@ -246,8 +219,8 @@ const ProfileOverview = ({ navigation, route }) => {
                 </HStack>
                 <DetailInformation fullName={name} data={data} />
                 <FlatListCredits data={[1, 1, 1]} userId={userId} />
-                <Achievement data={[1, 1, 1]} />
-                <CreditBouns data={[1, 1, 1]} />
+                {/* <Achievement data={[1, 1, 1]} />
+                <CreditBouns data={[1, 1, 1]} /> */}
             </View>
         </ScrollView>
     )

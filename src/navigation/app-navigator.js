@@ -9,7 +9,6 @@ import CourseContents from 'app/scenes/CourseContents'
 import CourseDetails from 'app/scenes/CourseDetails'
 import CoursesByUser from 'app/scenes/CoursesByUser'
 import MyCoursesScreen from 'app/scenes/CoursesByUser'
-import EditProfile from 'app/scenes/EditProfile'
 import Friends from 'app/scenes/Friends'
 import FriendListScreen from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
@@ -266,16 +265,6 @@ const AppNavigator = () => {
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Chọn SE voucher'} />
-                    ),
-                    headerLeft: () => <HeaderBack />
-                })}
-            />
-            <Stack.Screen
-                name={ROUTES.EditProfile}
-                component={EditProfile}
-                options={({ route, navigation }) => ({
-                    headerTitle: () => (
-                        <HeaderTitle title={'Thay đổi thông tin'} />
                     ),
                     headerLeft: () => <HeaderBack />
                 })}

@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupRate from 'app/components/PopupRate'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'
@@ -10,7 +10,6 @@ import { svgWhiteBack } from 'assets/svg'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
-import { useNavigation } from '@react-navigation/native'
 import Countdown from 'react-countdown'
 import {
     FlatList,
@@ -296,39 +295,31 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
             }>
-            <FlatList
-                data={data || []}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                    <MentorCallItem index={index} data={item} />
-                )}
-                contentContainerStyle={{
-                    paddingTop: scale(16),
-                    paddingBottom: scale(50)
-                }}
-                ListHeaderComponent={
-                    <Text
-                        style={{
-                            marginLeft: scale(16),
-                            marginBottom: scale(16),
-
-                            fontSize: scale(20),
-                            color: '#1F1F1F'
-                        }}>
-                        Danh sách {types.get(type)}
-                    </Text>
-                }
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0.5}
-                showsVerticalScrollIndicator={false}
-            />
-            {loading && <LoadingAnimation />}
+            {loading ? (
+                <LoadingAnimation />
+            ) : data?.length ? (
+                <FlatList
+                    data={data}
+                    keyExtractor={(_, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                        <MentorCallItem index={index} data={item} />
+                    )}
+                    contentContainerStyle={{
+                        paddingTop: scale(16),
+                        paddingBottom: scale(50)
+                    }}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    showsVerticalScrollIndicator={false}
+                />
+            ) : (
+                <NoDataAnimation />
+            )}
         </ScrollView>
     )
 }
 
 const MentorCallItem = ({ data }) => {
-    const navigation = useNavigation()
     const fullName = data?.first_name + ' ' + data?.last_name
 
     const openMentorCall = () => {

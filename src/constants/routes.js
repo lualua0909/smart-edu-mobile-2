@@ -19,7 +19,6 @@ export default ROUTES = {
     Carts: 'Carts',
     Payment: 'Payment',
     Voucher: 'Voucher',
-    EditProfile: 'EditProfile',
     ProfileInfo: 'ProfileInfo',
     Policy: 'Policy',
     Language: 'Language',

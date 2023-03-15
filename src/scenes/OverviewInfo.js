@@ -14,23 +14,15 @@ import LottieView from 'lottie-react-native'
 import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
-import { Center } from 'native-base'
+import { Center, Text } from 'native-base'
 
-const Overview = ({ navigation, route }) => {
+const Overview = ({ navigation }) => {
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [selectedCourse, setSelectedCourse] = useState()
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                {/* <Image
-                    source={{
-                        uri: `${API_URL}public/user-avatars/${userInfo?.id}-cover.webp?rand=${random}`,
-                    }}
-                    resizeMode="cover"
-                    style={{ width: '100%', height: scale(200) }}
-                /> */}
                 <Center>
                     <LottieView
                         source={animationImg}
@@ -63,7 +55,7 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 fontWeight: 'bold',
-                                fontSize: scale(18),
+                                fontSize: scale(16),
                                 color: '#193769'
                             }}>
                             SE xu
@@ -93,7 +85,7 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 fontWeight: 'bold',
-                                fontSize: scale(18),
+                                fontSize: scale(16),
                                 color: '#193769'
                             }}>
                             Số khóa học
