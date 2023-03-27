@@ -100,7 +100,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginTop: scale(8),
-
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: '#52B553',
                                     marginLeft: 16

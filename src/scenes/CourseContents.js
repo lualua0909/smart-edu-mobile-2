@@ -410,33 +410,42 @@ const CourseDetail = ({ route, navigation }) => {
                         {documents?.length ? (
                             <FlatList
                                 data={documents}
-                                renderItem={({ item }) => (
-                                    <View
-                                        style={{
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: '#e5e5e5',
-                                            paddingVertical: 5
-                                        }}>
-                                        <Pressable
-                                            onPress={() => {
-                                                if (item?.fileName) {
-                                                    Linking.openURL(
-                                                        `${API_URL}public/${item?.fileName}`
-                                                    )
-                                                } else {
-                                                    setSelectedFile(
-                                                        item?.file_url
-                                                    )
-                                                    setOpenViewDoc(true)
-                                                }
+                                renderItem={({ item }) => {
+                                    let fileName = item?.fileName
+                                        ? item?.fileName
+                                              ?.split('/')
+                                              .slice(-1)
+                                              .pop()
+                                        : item?.file_name
+                                    fileName = fileName.substring(
+                                        fileName.indexOf('-') + 1
+                                    )
+
+                                    return (
+                                        <View
+                                            style={{
+                                                borderBottomWidth: 1,
+                                                borderBottomColor: '#e5e5e5',
+                                                paddingVertical: 5
                                             }}>
-                                            <Text>
-                                                {item?.fileName ||
-                                                    item?.file_name}
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                )}
+                                            <Pressable
+                                                onPress={() => {
+                                                    if (item?.fileName) {
+                                                        Linking.openURL(
+                                                            `${API_URL}public/${item?.fileName}`
+                                                        )
+                                                    } else {
+                                                        setSelectedFile(
+                                                            item?.file_url
+                                                        )
+                                                        setOpenViewDoc(true)
+                                                    }
+                                                }}>
+                                                <Text>{fileName}</Text>
+                                            </Pressable>
+                                        </View>
+                                    )
+                                }}
                                 keyExtractor={item => item?.id}
                             />
                         ) : (
