@@ -68,7 +68,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     style={{
                         fontSize: scale(16),
                         color: '#007839',
-                        marginLeft: scale(10)
+                        marginLeft: scale(10),
+                        paddingTop: scale(2)
                     }}>
                     {totalLectures} bài giảng
                 </Text>

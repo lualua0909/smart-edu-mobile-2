@@ -10,7 +10,8 @@ const HeaderTitle = ({ title }) => {
             style={{
                 fontSize: scale(16),
                 color: '#1F1F1F',
-                textAlign: 'center'
+                textAlign: 'center',
+                paddingTop: scale(2)
             }}>
             {title}
         </Text>

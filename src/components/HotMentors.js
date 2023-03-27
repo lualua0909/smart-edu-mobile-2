@@ -30,7 +30,8 @@ const HotMentors = ({ data }) => {
                         marginLeft: scale(8),
                         fontSize: scale(16),
                         fontWeight: 'bold',
-                        color: '#0E564D'
+                        color: '#0E564D',
+                        paddingTop: scale(5)
                     }}>
                     GÓI TƯ VẤN
                 </Text>

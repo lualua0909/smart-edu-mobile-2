@@ -36,7 +36,8 @@ const Advise = ({ data }) => {
                     style={{
                         fontSize: scale(18),
                         color: '#fff',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        paddingTop: scale(5)
                     }}>
                     {data?.title}
                 </Text>
@@ -51,14 +52,16 @@ const Advise = ({ data }) => {
                         style={{
                             fontSize: scale(16),
                             color: '#fff',
-                            marginRight: scale(20)
+                            marginRight: scale(20),
+                            paddingTop: scale(5)
                         }}>
                         30 phút
                     </Text>
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#fff'
+                            color: '#fff',
+                            paddingTop: scale(5)
                         }}>
                         {toCurrency(10000)} đ
                     </Text>
@@ -74,9 +77,10 @@ const Advise = ({ data }) => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff'
+                                color: '#fff',
+                                paddingTop: scale(5)
                             }}>
-                            Anton Vu
+                            Smart Training
                         </Text>
                         <View
                             style={{
@@ -111,7 +115,7 @@ const Advise = ({ data }) => {
                                     fontSize: scale(14),
                                     color: '#fff'
                                 }}>
-                                Singapore
+                                Vietnam
                             </Text>
                         </View>
                     </View>

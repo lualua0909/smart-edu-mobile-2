@@ -62,9 +62,10 @@ const TransactionItem = ({ data }) => {
                         {day ? (
                             <Text
                                 style={{
-                                    fontSize: scale(16),
+                                    fontSize: scale(14),
                                     color: '#000000',
-                                    textAlign: 'right'
+                                    textAlign: 'right',
+                                    lineHeight: scale(20)
                                 }}>
                                 Ngày {day}
                             </Text>
@@ -72,9 +73,10 @@ const TransactionItem = ({ data }) => {
                         {month ? (
                             <Text
                                 style={{
-                                    fontSize: scale(16),
+                                    fontSize: scale(14),
                                     color: '#6C746E',
-                                    textAlign: 'right'
+                                    textAlign: 'right',
+                                    lineHeight: scale(20)
                                 }}>
                                 Tháng {month}
                             </Text>
@@ -82,9 +84,10 @@ const TransactionItem = ({ data }) => {
                         {year ? (
                             <Text
                                 style={{
-                                    fontSize: scale(16),
+                                    fontSize: scale(14),
                                     color: '#6C746E',
-                                    textAlign: 'right'
+                                    textAlign: 'right',
+                                    lineHeight: scale(20)
                                 }}>
                                 {year}
                             </Text>
@@ -108,7 +111,8 @@ const TransactionItem = ({ data }) => {
                         numberOfLines={2}
                         style={{
                             fontSize: scale(16),
-                            color: '#000'
+                            color: '#000',
+                            lineHeight: scale(20)
                         }}>
                         {data?.order_detail[0]?.title}
                     </Text>

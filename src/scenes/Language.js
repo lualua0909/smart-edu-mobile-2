@@ -34,7 +34,8 @@ const Language = () => {
                         <Text
                             style={{
                                 color: '#333333',
-                                fontSize: scale(16)
+                                fontSize: scale(16),
+                                lineHeight: scale(20)
                             }}>
                             {`Phiên bản ứng dụng ${DeviceInfo.getReadableVersion()}\n${deviceName}\n${systemName} ${systemVersion} ${
                                 Config.SERVER_CONFIG

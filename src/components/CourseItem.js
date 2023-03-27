@@ -1,15 +1,14 @@
 import { Rate } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { toCurrency } from 'app/helpers/utils'
 import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Image, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Progress, Text } from 'native-base'
+import { Image, Progress, Text } from 'native-base'
 
 const CourseItem = ({
     item,
@@ -85,7 +84,7 @@ const CourseItem = ({
                     borderTopLeftRadius: scale(10),
                     borderTopRightRadius: scale(10)
                 }}
-                defaultSource={require('assets/images/menu-banner.jpg')}
+                fallbackSource={require('assets/images/fallback.jpg')}
             />
             <View
                 style={{
@@ -97,7 +96,8 @@ const CourseItem = ({
                     style={{
                         fontSize: scale(15),
                         color: '#333',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        paddingTop: scale(5)
                     }}>
                     {item?.title}
                 </Text>

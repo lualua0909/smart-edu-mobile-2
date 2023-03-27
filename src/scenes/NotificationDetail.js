@@ -72,7 +72,8 @@ const NotificationDetail = ({ route }) => {
                     <Text
                         style={{
                             fontSize: scale(14),
-                            color: '#222'
+                            color: '#222',
+                            lineHeight: scale(20)
                         }}>
                         {data?.content}
                     </Text>

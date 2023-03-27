@@ -94,15 +94,16 @@ const ConnectInstructors = ({ navigation, route }) => {
                         style={{ paddingHorizontal: scale(16) }}>
                         <SvgXml
                             xml={svgWhiteBack}
-                            width={scale(24)}
-                            height={scale(24)}
+                            width={scale(16)}
+                            height={scale(16)}
                             color="#4F4F4F"
                         />
                     </Pressable>
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#4F4F4F'
+                            color: '#4F4F4F',
+                            lineHeight: scale(20)
                         }}>
                         Lịch kết nối
                     </Text>
@@ -153,6 +154,7 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },
@@ -177,6 +179,7 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },
@@ -201,6 +204,7 @@ const ConnectInstructors = ({ navigation, route }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },
@@ -308,8 +312,8 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                         paddingTop: scale(16),
                         paddingBottom: scale(50)
                     }}
-                    onEndReached={handleLoadMore}
-                    onEndReachedThreshold={0.5}
+                    // onEndReached={handleLoadMore}
+                    // onEndReachedThreshold={0.5}
                     showsVerticalScrollIndicator={false}
                 />
             ) : (
@@ -358,8 +362,9 @@ const MentorCallItem = ({ data }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(20),
-                                    color: '#fff'
+                                    fontSize: scale(18),
+                                    color: '#fff',
+                                    lineHeight: scale(20)
                                 }}>
                                 Đến cuộc gọi ngay
                             </Text>

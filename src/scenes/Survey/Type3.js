@@ -1,12 +1,33 @@
+import { scale } from 'app/helpers/responsive'
+import kemImg from 'assets/images/kem.png'
+import khaImg from 'assets/images/kha.png'
+import totImg from 'assets/images/tot.png'
+import tbImg from 'assets/images/trungbinh.png'
+import xuatsacImg from 'assets/images/xuatsac.png'
 import React from 'react'
 
 import { Dimensions } from 'react-native'
 
-import { HStack, Pressable, Text, VStack, View } from 'native-base'
+import { Avatar, HStack, Pressable, Text, VStack, View } from 'native-base'
 
 import Title from './Title'
 
 const w = Dimensions.get('window').width * 0.9
+
+const indexToImg = index => {
+    switch (index) {
+        case 1:
+            return kemImg
+        case 2:
+            return tbImg
+        case 3:
+            return khaImg
+        case 4:
+            return totImg
+        case 5:
+            return xuatsacImg
+    }
+}
 
 const Type3 = ({ data, index, onSelect, selected }) => {
     const select = selected?.find(i => i?.id === data?.id)
@@ -20,19 +41,13 @@ const Type3 = ({ data, index, onSelect, selected }) => {
                         <Pressable
                             key={index}
                             onPress={() => onSelect(data?.id, index + 1)}>
-                            <View
+                            <Avatar
                                 key={index}
-                                w={w / 6}
-                                bg={isSelected ? 'primary.50' : 'cyan.50'}
-                                rounded="md"
-                                p="2"
-                                shadow={3}>
-                                <Text
-                                    color={isSelected ? '#fff' : '#000'}
-                                    style={{ textAlign: 'center' }}>
-                                    {index + 1}
-                                </Text>
-                            </View>
+                                size={scale(isSelected ? w / 8 : w / 10)}
+                                shadow={3}
+                                source={indexToImg(index + 1)}>
+                                {index + 1}
+                            </Avatar>
                         </Pressable>
                     )
                 })}

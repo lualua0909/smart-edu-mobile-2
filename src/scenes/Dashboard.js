@@ -605,7 +605,7 @@ const Menu = ({ route }) => {
                         style={{
                             textAlign: 'center',
                             marginTop: scale(20),
-
+                            lineHeight: scale(20),
                             fontSize: scale(16),
                             color: '#6C746E'
                         }}>
@@ -626,7 +626,8 @@ const styles = StyleSheet.create({
         fontSize: scale(16),
         color: '#0E564D',
         fontWeight: 'bold',
-        letterSpacing: 0.5
+        letterSpacing: 0.7,
+        paddingTop: scale(5)
     },
     formViewMoreText: {
         fontSize: scale(14),
@@ -635,7 +636,8 @@ const styles = StyleSheet.create({
     actionText: {
         fontSize: scale(16),
         color: '#0E564D',
-        marginLeft: scale(10)
+        marginLeft: scale(10),
+        lineHeight: scale(18)
     }
 })
 

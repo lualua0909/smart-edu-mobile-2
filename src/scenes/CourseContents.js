@@ -118,7 +118,7 @@ const CourseDetail = ({ route, navigation }) => {
                         milliseconds,
                         completed
                     },
-                    smallSize
+                    false
                 )
             }
         />
@@ -172,13 +172,18 @@ const CourseDetail = ({ route, navigation }) => {
         headerTransparent: true
     })
 
-    const renderer = (
-        { total, days, hours, minutes, seconds, milliseconds, completed },
-        smallSize = false
-    ) => {
+    const renderer = ({
+        total,
+        days,
+        hours,
+        minutes,
+        seconds,
+        milliseconds,
+        completed
+    }) => {
         if (completed) {
             return (
-                <Button size={smallSize ? 'sm' : 'lg'} onPress={nextLesson}>
+                <Button size={'sm'} onPress={nextLesson}>
                     Bài tiếp theo
                 </Button>
             )

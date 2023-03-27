@@ -193,8 +193,12 @@ const ProfileOverview = ({ navigation, route }) => {
                         </Pressable>
                     </View>
                 </View>
-                <Center style={{ marginTop: 20 }}>
-                    <Heading fontSize={20} bold color={'#0E564D'}>
+                <Center style={{ marginTop: 30 }}>
+                    <Heading
+                        fontSize={20}
+                        bold
+                        color={'#0E564D'}
+                        style={{ lineHeight: scale(20) }}>
                         {fullName}
                     </Heading>
                 </Center>
@@ -218,7 +222,7 @@ const ProfileOverview = ({ navigation, route }) => {
                     <MenuUser userId={data?.id} navigation={navigation} />
                 </HStack>
                 <DetailInformation fullName={name} data={data} />
-                <FlatListCredits data={[1, 1, 1]} userId={userId} />
+                {/* <FlatListCredits data={[1, 1, 1]} userId={userId} /> */}
                 {/* <Achievement data={[1, 1, 1]} />
                 <CreditBouns data={[1, 1, 1]} /> */}
             </View>

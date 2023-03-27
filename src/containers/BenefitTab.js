@@ -46,7 +46,9 @@ const Benefit = ({ courseId }) => {
             <Text
                 style={{
                     flex: 1,
-                    fontSize: scale(16)
+                    fontSize: scale(16),
+                    paddingTop: scale(2),
+                    lineHeight: scale(20)
                 }}>
                 {item?.name}
             </Text>

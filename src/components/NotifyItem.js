@@ -98,7 +98,7 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                     style={{
                                         flex: 1,
                                         marginLeft: scale(8),
-
+                                        lineHeight: scale(20),
                                         color: '#6C746E',
                                         fontSize: scale(12)
                                     }}

@@ -110,7 +110,9 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     fontSize: scale(16),
-                                    paddingHorizontal: 15
+                                    paddingHorizontal: 15,
+                                    paddingTop: scale(2),
+                                    lineHeight: scale(20)
                                 }}>
                                 {data?.l_des?.replace(/<[^>]*>?/gm, '')}
                             </Text>
@@ -274,7 +276,8 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             fontSize: scale(16),
                             fontWeight: 'bold',
-                            color: '#1F1F1F'
+                            color: '#1F1F1F',
+                            paddingTop: scale(5)
                         }}>
                         {data?.title}
                     </Text>
@@ -290,7 +293,8 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#1F1F1F'
+                                        color: '#1F1F1F',
+                                        paddingTop: scale(2)
                                     }}>
                                     {teacherName}
                                 </Text>
@@ -326,8 +330,9 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             marginTop: scale(16),
                             fontSize: scale(16),
-
-                            color: '#1F1F1F'
+                            paddingTop: scale(5),
+                            color: '#1F1F1F',
+                            lineHeight: scale(20)
                         }}>
                         {data?.s_des}
                     </Text>
@@ -345,7 +350,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-
+                                    paddingTop: scale(2),
                                     fontSize: scale(16),
                                     color: '#1F1F1F'
                                 }}>
@@ -369,7 +374,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-
+                                    paddingTop: scale(2),
                                     fontSize: scale(16),
                                     color: '#1F1F1F'
                                 }}>
@@ -391,7 +396,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={{
                                         marginLeft: scale(9),
-
+                                        paddingTop: scale(2),
                                         fontSize: scale(16),
                                         color: '#1F1F1F'
                                     }}>

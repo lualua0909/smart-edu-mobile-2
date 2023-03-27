@@ -179,7 +179,7 @@ const ExamContent = ({ navigation, route }) => {
                         borderColor="coolGray.200"
                         borderWidth="1"
                         style={{ marginHorizontal: 10 }}>
-                        <Text fontSize="md" style={{ padding: 10 }}>
+                        <Text fontSize="sm" style={{ padding: 10 }}>
                             {data?.description.replace(/<[^>]*>?/gm, '')}
                         </Text>
                     </Box>
@@ -230,6 +230,7 @@ const ExamContent = ({ navigation, route }) => {
                     </VStack>
                     <Center>
                         <Button
+                            size="lg"
                             onPress={submit}
                             style={{ margin: 10, width: 200 }}>
                             Gửi kết quả

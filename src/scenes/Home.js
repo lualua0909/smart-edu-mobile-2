@@ -108,7 +108,8 @@ const Home = ({ navigation }) => {
                                         fontSize: scale(16),
                                         color: '#0E564D',
                                         fontWeight: 'bold',
-                                        marginLeft: scale(8)
+                                        marginLeft: scale(8),
+                                        paddingTop: scale(5)
                                     }}>
                                     DUY TRÌ HỌC TẬP
                                 </Text>
@@ -297,7 +298,8 @@ const Home = ({ navigation }) => {
                                     marginLeft: scale(8),
                                     fontWeight: 'bold',
                                     fontSize: scale(16),
-                                    color: '#0E564D'
+                                    color: '#0E564D',
+                                    paddingTop: scale(5)
                                 }}>
                                 DANH SÁCH THỂ LOẠI
                             </Text>
@@ -393,7 +395,8 @@ const Home = ({ navigation }) => {
                                     fontSize: scale(16),
                                     fontWeight: 'bold',
                                     color: '#0E564D',
-                                    marginLeft: scale(8)
+                                    marginLeft: scale(8),
+                                    paddingTop: scale(5)
                                 }}>
                                 KHÓA HỌC HOT
                             </Text>
@@ -438,7 +441,8 @@ const Home = ({ navigation }) => {
                                     color: '#0E564D',
                                     fontWeight: 'bold',
                                     letterSpacing: 0.5,
-                                    marginLeft: scale(8)
+                                    marginLeft: scale(8),
+                                    paddingTop: scale(5)
                                 }}>
                                 GIẢNG VIÊN NỔI BẬT
                             </Text>
@@ -516,8 +520,7 @@ const Home = ({ navigation }) => {
                                                 <Text
                                                     style={{
                                                         fontSize: scale(12),
-                                                        color: '#000',
-                                                        marginLeft: scale(4)
+                                                        color: '#000'
                                                     }}>
                                                     Việt Nam
                                                 </Text>
