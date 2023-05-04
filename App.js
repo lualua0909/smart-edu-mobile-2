@@ -7,7 +7,7 @@ import messaging from '@react-native-firebase/messaging'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider, extendTheme } from 'native-base'
 
@@ -73,15 +73,17 @@ const App = () => {
     return (
         <NativeBaseProvider theme={theme}>
             <StatusBar hidden />
-            <NavigationContainer
-                onStateChange={navigationState => {
-                    const { name } = getFocusRoute(
-                        navigationState.routes[navigationState.index]
-                    )
-                    console.log('Route', name)
-                }}>
-                <SwitchNavigator />
-            </NavigationContainer>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer
+                    onStateChange={navigationState => {
+                        const { name } = getFocusRoute(
+                            navigationState.routes[navigationState.index]
+                        )
+                        console.log('Route', name)
+                    }}>
+                    <SwitchNavigator />
+                </NavigationContainer>
+            </GestureHandlerRootView>
         </NativeBaseProvider>
     )
 }
