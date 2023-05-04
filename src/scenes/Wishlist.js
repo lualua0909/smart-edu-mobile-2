@@ -75,6 +75,7 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },
@@ -99,6 +100,7 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },
@@ -123,6 +125,7 @@ const Wishlist = ({ navigation }) => {
                         <Text
                             style={[
                                 {
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: COLORS.green
                                 },

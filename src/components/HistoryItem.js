@@ -9,7 +9,7 @@ import { Pressable, View } from 'react-native'
 import { Book } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Box, Progress } from 'native-base'
+import { Box, HStack, Progress } from 'native-base'
 import { Text } from 'native-base'
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
@@ -60,7 +60,7 @@ const HistoryItem = ({ data }) => {
                     <View>
                         <Text
                             style={{
-                                fontSize: scale(16),
+                                fontSize: scale(14),
                                 color: '#000000',
                                 textAlign: 'right'
                             }}>
@@ -68,7 +68,7 @@ const HistoryItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: scale(16),
+                                fontSize: scale(14),
                                 color: '#6C746E',
                                 textAlign: 'right'
                             }}>
@@ -76,7 +76,7 @@ const HistoryItem = ({ data }) => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: scale(16),
+                                fontSize: scale(14),
                                 color: '#6C746E',
                                 textAlign: 'right'
                             }}>
@@ -100,31 +100,44 @@ const HistoryItem = ({ data }) => {
                     <Text
                         numberOfLines={2}
                         style={{
-                            fontSize: scale(16),
+                            fontSize: scale(14),
                             color: '#000'
                         }}>
                         {data?.title}
                     </Text>
-                    <Progress
-                        bg="coolGray.100"
-                        _filledTrack={{
-                            bg: 'lime.500'
-                        }}
-                        value={75}
-                        mx="4"
-                        style={{ marginVertical: scale(10) }}
-                    />
+                    <HStack>
+                        <Progress
+                            bg="coolGray.100"
+                            _filledTrack={{
+                                bg:
+                                    data?.process >= 100
+                                        ? 'lime.300'
+                                        : 'orange.300'
+                            }}
+                            value={data?.process}
+                            w="80%"
+                            style={{ marginVertical: scale(10) }}
+                        />
+                        <Text
+                            ml="2"
+                            style={{
+                                fontSize: scale(10),
+                                color: '#6C746E'
+                            }}>
+                            {data?.process}%
+                        </Text>
+                    </HStack>
                     <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
                             marginTop: 5
                         }}>
-                        <Book stroke="#0E564D" width={18} height={18} />
+                        <Book stroke="#6C746E" width={18} height={18} />
                         <Text
                             numberOfLines={2}
                             style={{
-                                fontSize: scale(14),
+                                fontSize: scale(13),
                                 color: '#6C746E',
                                 marginLeft: scale(4)
                             }}>

@@ -32,7 +32,8 @@ const FriendItem = ({ item, index }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F'
+                            color: '#1F1F1F',
+                            lineHeight: scale(20)
                         }}>
                         {name}
                     </Text>

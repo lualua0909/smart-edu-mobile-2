@@ -75,7 +75,7 @@ const TeacherInfo = ({ navigation, route }) => {
                 <Text
                     style={{
                         flex: 1,
-
+                        lineHeight: scale(20),
                         color: '#202020',
                         fontSize: scale(16)
                     }}>
@@ -169,7 +169,8 @@ const TeacherInfo = ({ navigation, route }) => {
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#fff'
+                            color: '#fff',
+                            lineHeight: scale(20)
                         }}>
                         Thông tin giảng viên
                     </Text>
@@ -197,7 +198,8 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={{
                         fontSize: scale(18),
                         color: '#000',
-                        marginTop: scale(10)
+                        marginTop: scale(10),
+                        lineHeight: scale(20)
                     }}>
                     {fullName}
                 </Text>
@@ -213,7 +215,8 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={{
                         fontSize: scale(16),
                         color: '#6C746E',
-                        marginTop: scale(8)
+                        marginTop: scale(8),
+                        lineHeight: scale(20)
                     }}>
                     {data?.mentor?.department}
                 </Text>
@@ -221,7 +224,8 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={{
                         fontSize: scale(16),
                         color: '#6C746E',
-                        marginTop: scale(8)
+                        marginTop: scale(8),
+                        lineHeight: scale(20)
                     }}>
                     {data?.mentor?.position}
                 </Text>

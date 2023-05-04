@@ -22,6 +22,7 @@ import {
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
+import crashlytics from '@react-native-firebase/crashlytics'
 import { useNavigation } from '@react-navigation/native'
 import {
     Image,
@@ -124,6 +125,11 @@ const Menu = ({ route }) => {
             icon: <Info stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.Language)
         },
+        // {
+        //     title: 'Test crash',
+        //     icon: <Info stroke="#52B553" width={18} height={18} />,
+        //     onPress: () => crashlytics().crash()
+        // },
         {
             title: 'Đăng xuất',
             icon: <LogOut stroke="#52B553" width={18} height={18} />,
@@ -599,7 +605,7 @@ const Menu = ({ route }) => {
                         style={{
                             textAlign: 'center',
                             marginTop: scale(20),
-
+                            lineHeight: scale(20),
                             fontSize: scale(16),
                             color: '#6C746E'
                         }}>
@@ -620,7 +626,8 @@ const styles = StyleSheet.create({
         fontSize: scale(16),
         color: '#0E564D',
         fontWeight: 'bold',
-        letterSpacing: 0.5
+        letterSpacing: 0.7,
+        paddingTop: scale(5)
     },
     formViewMoreText: {
         fontSize: scale(14),
@@ -629,7 +636,8 @@ const styles = StyleSheet.create({
     actionText: {
         fontSize: scale(16),
         color: '#0E564D',
-        marginLeft: scale(10)
+        marginLeft: scale(10),
+        lineHeight: scale(18)
     }
 })
 

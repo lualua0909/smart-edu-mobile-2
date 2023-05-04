@@ -7,7 +7,7 @@ import {
     FinishCourse,
     Input,
     Loading,
-    NoData,
+    NoDataAnimation,
     ScormViewer,
     VideoViewer
 } from 'app/atoms'
@@ -19,13 +19,17 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Pressable, View } from 'react-native'
+import { Dimensions, Linking, Pressable, View } from 'react-native'
+import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
+import { WebView } from 'react-native-webview'
 
 import {
     Button,
+    Center,
+    FlatList,
     FormControl,
     Modal,
     Text,
@@ -33,13 +37,17 @@ import {
     useToast
 } from 'native-base'
 
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
+const w = Dimensions.get('screen').width
+const h = Dimensions.get('screen').height
 
 const routes = [
     {
         key: 'tab-1',
-        title: 'Giáo trình'
+        title: 'Chương'
+    },
+    {
+        key: 'tab-4',
+        title: 'Tài liệu'
     },
     {
         key: 'tab-2',
@@ -47,7 +55,7 @@ const routes = [
     },
     {
         key: 'tab-3',
-        title: 'Đặt câu hỏi'
+        title: 'Câu hỏi'
     }
 ]
 
@@ -60,23 +68,28 @@ const CourseDetail = ({ route, navigation }) => {
         tab2: 0,
         tab3: 0
     })
+    const [documents, setDocuments] = useState([])
     const [loading, setLoading] = useState(false)
     const [visibleQuestion, setVisibleQuestion] = useState(false)
     const [currentId, setCurrentId] = useState()
     const [data, setData] = useState()
     const [chapters, setChapters] = useState()
-    const [userInfo, setUserState] = useGlobalState('userInfo')
+    const [userInfo, _setUserState] = useGlobalState('userInfo')
     const questionTitle = useFormInput()
     const questionContent = useFormInput()
     const [questionLoading, setQuestionLoading] = useState(false)
     const [hideHeaderTitle, setHideHeaderTitle] = useState(false)
     const [finishedLectures, setFinishedLectures] =
         useGlobalState('finishedLectures')
-    const [currentCourseId, setCurrentCourseId] =
+    const [_currentCourseId, setCurrentCourseId] =
         useGlobalState('currentCourseId')
+    const [openViewDoc, setOpenViewDoc] = useState(false)
+    const [selectedFile, setSelectedFile] = useState()
+
+    const onCloseViewDoc = () => setOpenViewDoc(false)
 
     useEffect(() => {
-        const t = setTimeout(() => setHideHeaderTitle(true), 3000)
+        const t = setTimeout(() => setHideHeaderTitle(true), 5000)
 
         return () => {
             clearTimeout(t)
@@ -105,7 +118,7 @@ const CourseDetail = ({ route, navigation }) => {
                         milliseconds,
                         completed
                     },
-                    smallSize
+                    false
                 )
             }
         />
@@ -123,26 +136,32 @@ const CourseDetail = ({ route, navigation }) => {
                             paddingVertical: 0
                         }}>
                         <Button
-                            size={'xs'}
                             onPress={prevLesson}
+                            style={{
+                                marginRight: scale(12)
+                            }}
                             variant="subtle"
                             colorScheme="green"
-                            style={{
-                                marginRight: scale(12),
-                                width: 100
-                            }}>
-                            Bài trước
-                        </Button>
+                            leftIcon={
+                                <ChevronLeft
+                                    stroke="green"
+                                    width={24}
+                                    height={24}
+                                />
+                            }></Button>
                         {data?.is_finish ? (
                             <Button
-                                size={'xs'}
+                                onPress={nextLesson}
                                 style={{
-                                    backgroundColor: '#52B553',
-                                    width: 120
+                                    marginRight: scale(12)
                                 }}
-                                onPress={nextLesson}>
-                                Bài tiếp theo
-                            </Button>
+                                leftIcon={
+                                    <ChevronRight
+                                        stroke="#fff"
+                                        width={24}
+                                        height={24}
+                                    />
+                                }></Button>
                         ) : (
                             countdown
                         )}
@@ -153,13 +172,18 @@ const CourseDetail = ({ route, navigation }) => {
         headerTransparent: true
     })
 
-    const renderer = (
-        { total, days, hours, minutes, seconds, milliseconds, completed },
-        smallSize = false
-    ) => {
+    const renderer = ({
+        total,
+        days,
+        hours,
+        minutes,
+        seconds,
+        milliseconds,
+        completed
+    }) => {
         if (completed) {
             return (
-                <Button size={smallSize ? 'sm' : 'lg'} onPress={nextLesson}>
+                <Button size={'sm'} onPress={nextLesson}>
                     Bài tiếp theo
                 </Button>
             )
@@ -193,46 +217,6 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }
 
-    const renderActionButtons = (
-        <View
-            style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: scale(16)
-            }}>
-            <Button
-                size={'sm'}
-                onPress={prevLesson}
-                variant="subtle"
-                // leftIcon={!smallSize && <ChevronLeft stroke="#52B553" />}
-                colorScheme="green"
-                style={{
-                    marginRight: scale(12),
-                    width: 'auto'
-                }}>
-                Bài trước
-            </Button>
-            {data?.is_finish ? (
-                <Button
-                    size={'sm'}
-                    style={{
-                        backgroundColor: '#52B553',
-                        width: 'auto'
-                    }}
-                    onPress={nextLesson}
-                    // rightIcon={
-                    //     !smallSize && <ChevronRight stroke="white" />
-                    // }
-                >
-                    Bài tiếp theo
-                </Button>
-            ) : (
-                countdown
-            )}
-        </View>
-    )
-
     useEffect(() => {
         if (currentLecture) {
             setCurrentId(currentLecture)
@@ -248,7 +232,19 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .then(data => {
                 setData(data)
-                console.log('CourseDetail', data)
+            })
+            .finally(() => setLoading(false))
+    }
+
+    const getDocuments = () => {
+        setLoading(true)
+        axios
+            .get(`admin/courses/resources/paging/${courseId}`)
+            .then(res => {
+                if (res.data.status === 200) return res.data.data
+            })
+            .then(data => {
+                setDocuments(data)
             })
             .finally(() => setLoading(false))
     }
@@ -262,6 +258,7 @@ const CourseDetail = ({ route, navigation }) => {
     useEffect(() => {
         if (courseId && currentId) {
             getData()
+            getDocuments()
         }
     }, [courseId, currentId])
 
@@ -273,7 +270,6 @@ const CourseDetail = ({ route, navigation }) => {
 
         axios.post('courses/add-finished-lecture', params).then(res => {
             if (res.data.status === 200) {
-                console.log('ok')
                 setFinishedLectures([...finishedLectures, { id: currentId }])
             }
         })
@@ -328,7 +324,7 @@ const CourseDetail = ({ route, navigation }) => {
                             })
                         }
                         style={{ padding: scale(16) }}>
-                        <NoData />
+                        <NoDataAnimation />
                         {/* <CommentCard />
                         <View
                             style={{
@@ -377,20 +373,12 @@ const CourseDetail = ({ route, navigation }) => {
                         }}>
                         <SvgXml
                             xml={svgComment}
-                            width={scale(160)}
-                            height={scale(160)}
+                            width={scale(100)}
+                            height={scale(100)}
                         />
                         <Text
                             style={{
-                                paddingTop: 20,
-                                marginTop: scale(26),
-                                fontSize: scale(22)
-                            }}>
-                            Hiện chưa đặt câu hỏi nào
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: scale(16),
+                                fontSize: 14,
                                 color: '#6C746E',
                                 marginTop: scale(8),
                                 textAlign: 'center'
@@ -407,6 +395,62 @@ const CourseDetail = ({ route, navigation }) => {
                             }}>
                             Đặt câu hỏi
                         </Button>
+                    </View>
+                )
+            case 'tab-4':
+                return (
+                    <View
+                        onLayout={e =>
+                            setViewHeight({
+                                ...viewHeight,
+                                tab2: e.nativeEvent.layout.height
+                            })
+                        }
+                        style={{ padding: scale(16) }}>
+                        {documents?.length ? (
+                            <FlatList
+                                data={documents}
+                                renderItem={({ item }) => {
+                                    let fileName = item?.fileName
+                                        ? item?.fileName
+                                              ?.split('/')
+                                              .slice(-1)
+                                              .pop()
+                                        : item?.file_name
+                                    fileName = fileName.substring(
+                                        fileName.indexOf('-') + 1
+                                    )
+
+                                    return (
+                                        <View
+                                            style={{
+                                                borderBottomWidth: 1,
+                                                borderBottomColor: '#e5e5e5',
+                                                paddingVertical: 5
+                                            }}>
+                                            <Pressable
+                                                onPress={() => {
+                                                    if (item?.fileName) {
+                                                        Linking.openURL(
+                                                            `${API_URL}public/${item?.fileName}`
+                                                        )
+                                                    } else {
+                                                        setSelectedFile(
+                                                            item?.file_url
+                                                        )
+                                                        setOpenViewDoc(true)
+                                                    }
+                                                }}>
+                                                <Text>{fileName}</Text>
+                                            </Pressable>
+                                        </View>
+                                    )
+                                }}
+                                keyExtractor={item => item?.id}
+                            />
+                        ) : (
+                            <NoDataAnimation />
+                        )}
                     </View>
                 )
             default:
@@ -441,12 +485,9 @@ const CourseDetail = ({ route, navigation }) => {
             <KeyboardAwareScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}
-                extraHeight={scale(100)}>
+                showsVerticalScrollIndicator={false}>
                 <View
                     style={{
-                        width: Math.max(windowWidth, windowHeight),
-                        height: Math.min(windowHeight, windowWidth),
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
@@ -468,13 +509,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <FinishCourse />
                     )}
                 </View>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingVertical: scale(16)
-                    }}>
+                <Center mt="3" mb="3">
                     <Text
                         style={{
                             fontSize: scale(14),
@@ -482,8 +517,32 @@ const CourseDetail = ({ route, navigation }) => {
                         }}>
                         {data?.name}
                     </Text>
+                </Center>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                    <Button
+                        size={'sm'}
+                        onPress={prevLesson}
+                        variant="subtle"
+                        colorScheme="green"
+                        style={{
+                            marginRight: scale(12),
+                            width: 'auto'
+                        }}>
+                        Bài trước
+                    </Button>
+                    {data?.is_finish ? (
+                        <Button size={'sm'} onPress={nextLesson}>
+                            Bài tiếp theo
+                        </Button>
+                    ) : (
+                        countdown
+                    )}
                 </View>
-                {renderActionButtons}
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
                     renderScene={renderScene}
@@ -494,20 +553,21 @@ const CourseDetail = ({ route, navigation }) => {
                                 <Text
                                     style={[
                                         {
-                                            fontSize: scale(15),
+                                            fontSize: 13,
                                             color: '#1F1F1F',
                                             textAlign: 'center'
                                         },
-                                        focused && { color: '#0E564D' }
+                                        focused && {
+                                            color: '#0E564D',
+                                            fontWeight: 'bold'
+                                        }
                                     ]}>
                                     {route.title}
                                 </Text>
                             )}
                             style={{
                                 backgroundColor: '#fff',
-                                elevation: 0,
-                                borderBottomWidth: 1,
-                                borderBottomColor: '#ddd'
+                                elevation: 0
                             }}
                             indicatorStyle={{
                                 backgroundColor: '#0E564D',
@@ -533,8 +593,7 @@ const CourseDetail = ({ route, navigation }) => {
                 isOpen={visibleQuestion}
                 onClose={() => setVisibleQuestion(false)}>
                 <Modal.Content>
-                    <Modal.CloseButton />
-                    <Modal.Header>Gửi câu hỏi cho giảng viên</Modal.Header>
+                    <Modal.Header>Gửi câu hỏi</Modal.Header>
                     <Modal.Body>
                         <FormControl>
                             <Input
@@ -562,8 +621,38 @@ const CourseDetail = ({ route, navigation }) => {
                     </Modal.Footer>
                 </Modal.Content>
             </Modal>
+            <ViewDocModal
+                isOpen={openViewDoc}
+                onClose={onCloseViewDoc}
+                url={selectedFile}
+            />
         </View>
     )
 }
 
 export default CourseDetail
+
+const ViewDocModal = ({ url, isOpen, onClose }) => (
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal.Content w="100%" h={h} maxH="100%">
+            <Modal.Body>
+                <WebView
+                    originWhitelist={['*']}
+                    source={{
+                        uri: url
+                    }}
+                    style={{
+                        width: '100%',
+                        height: h,
+                        border: 'none'
+                    }}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button colorScheme={'danger'} onPress={onClose}>
+                    Đóng
+                </Button>
+            </Modal.Footer>
+        </Modal.Content>
+    </Modal>
+)

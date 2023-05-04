@@ -8,6 +8,20 @@ import { WebView } from 'react-native-webview'
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
 
+function isPortrait() {
+    const dim = Dimensions.get('screen')
+    return dim.height >= dim.width
+}
+
+const frameStyle = {
+    height: Math.min(w, h),
+    width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
+    resizeMode: 'contain',
+    flex: 1,
+    border: 'none',
+    border: 'none'
+}
+
 export default ({ videoUrl }) => {
     const [loading, setLoading] = useState(true)
 
@@ -29,11 +43,7 @@ export default ({ videoUrl }) => {
                     source={{
                         uri: embedLink
                     }}
-                    style={{
-                        height: Math.min(w, h),
-                        width: Math.max(w, h),
-                        border: 'none'
-                    }}
+                    style={frameStyle}
                     onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}
@@ -44,11 +54,7 @@ export default ({ videoUrl }) => {
                     source={{
                         html: embedLink
                     }}
-                    style={{
-                        height: Math.min(w, h),
-                        width: Math.max(w, h),
-                        border: 'none'
-                    }}
+                    style={frameStyle}
                     onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}

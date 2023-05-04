@@ -2,16 +2,19 @@ import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import Carts from 'app/scenes/Carts'
 import CertificateList from 'app/scenes/CertificateList'
+import MyCertificatesScreen from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseDetails from 'app/scenes/CourseDetails'
 import CoursesByUser from 'app/scenes/CoursesByUser'
-import EditProfile from 'app/scenes/EditProfile'
+import MyCoursesScreen from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
+import FriendListScreen from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
 import Language from 'app/scenes/Language'
 import LearningHistory from 'app/scenes/LearningHistory'
+import MyOfflineScheduleScreen from 'app/scenes/MyOfflineSchedule'
 import NotificationDetail from 'app/scenes/NotificationDetail'
 import OverviewInfo from 'app/scenes/OverviewInfo'
 import Payment from 'app/scenes/Payment'
@@ -19,6 +22,7 @@ import Policy from 'app/scenes/Policy'
 import ProfileInfo from 'app/scenes/ProfileInfo'
 import ProfileOverview from 'app/scenes/ProfileOverview'
 import Support from 'app/scenes/Support'
+import Survey from 'app/scenes/Survey'
 import TeacherInfo from 'app/scenes/TeacherDetail'
 import TransactionList from 'app/scenes/TransactionList'
 import Voucher from 'app/scenes/Voucher'
@@ -142,14 +146,54 @@ const AppNavigator = () => {
                     headerLeft: () => <HeaderBack />
                 })}
             />
-            <Stack.Screen
-                name={ROUTES.ProfileOverview}
-                component={ProfileOverview}
-                options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Hồ sơ học tập'} />,
-                    headerLeft: () => <HeaderBack />
-                })}
-            />
+            <Stack.Group>
+                <Stack.Screen
+                    name={ROUTES.ProfileOverview}
+                    component={ProfileOverview}
+                    options={({ route, navigation }) => ({
+                        headerTitle: () => (
+                            <HeaderTitle title={'Hồ sơ học tập'} />
+                        ),
+                        headerLeft: () => <HeaderBack />
+                    })}
+                />
+                <Stack.Screen
+                    name="MyCourses"
+                    component={MyCoursesScreen}
+                    options={({ route, navigation }) => ({
+                        headerTitle: () => (
+                            <HeaderTitle title={'Khóa học của tôi'} />
+                        )
+                    })}
+                />
+                <Stack.Screen
+                    name="MyCertificates"
+                    component={MyCertificatesScreen}
+                    options={({ route, navigation }) => ({
+                        headerTitle: () => (
+                            <HeaderTitle title={'Danh sách chứng chỉ'} />
+                        )
+                    })}
+                />
+                <Stack.Screen
+                    name="MyOfflineSchedule"
+                    component={MyOfflineScheduleScreen}
+                    options={({ route, navigation }) => ({
+                        headerTitle: () => (
+                            <HeaderTitle title={'Lịch học offline'} />
+                        )
+                    })}
+                />
+                <Stack.Screen
+                    name="FriendList"
+                    component={FriendListScreen}
+                    options={({ route, navigation }) => ({
+                        headerTitle: () => (
+                            <HeaderTitle title={'Danh sách bạn bè'} />
+                        )
+                    })}
+                />
+            </Stack.Group>
 
             <Stack.Screen
                 name={ROUTES.Wishlist}
@@ -221,16 +265,6 @@ const AppNavigator = () => {
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Chọn SE voucher'} />
-                    ),
-                    headerLeft: () => <HeaderBack />
-                })}
-            />
-            <Stack.Screen
-                name={ROUTES.EditProfile}
-                component={EditProfile}
-                options={({ route, navigation }) => ({
-                    headerTitle: () => (
-                        <HeaderTitle title={'Thay đổi thông tin'} />
                     ),
                     headerLeft: () => <HeaderBack />
                 })}
@@ -312,6 +346,14 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={'Lịch sử giao dịch'} />
                     ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.Survey}
+                component={Survey}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Khảo sát'} />,
                     headerLeft: () => <HeaderBack />
                 })}
             />

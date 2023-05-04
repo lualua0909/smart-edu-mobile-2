@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton, showToast } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
@@ -69,10 +69,9 @@ const CourseInfo = ({ navigation, route }) => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
                     } else {
-                        toast.show({
+                        showToast({
                             title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
-                            status: 'error',
-                            placement: 'top'
+                            status: 'error'
                         })
                         navigation.goBack()
                     }
@@ -101,7 +100,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginTop: scale(8),
-
+                                    lineHeight: scale(20),
                                     fontSize: scale(16),
                                     color: '#52B553',
                                     marginLeft: 16
@@ -111,7 +110,9 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     fontSize: scale(16),
-                                    paddingHorizontal: 15
+                                    paddingHorizontal: 15,
+                                    paddingTop: scale(2),
+                                    lineHeight: scale(20)
                                 }}>
                                 {data?.l_des?.replace(/<[^>]*>?/gm, '')}
                             </Text>
@@ -216,18 +217,13 @@ const CourseInfo = ({ navigation, route }) => {
             .then(res => {
                 if (res?.data?.status === 200) {
                     if (res?.data?.survey) {
-                        toast.show({
-                            title: 'Thông báo từ hệ thống',
-                            description:
-                                'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học',
-                            status: 'success',
-                            placement: 'top'
+                        showToast({
+                            title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
                         })
-                        setTimeout(() => {
-                            Linking.openURL(
-                                `${APP_URL}take-survey/${res?.data?.survey}`
-                            )
-                        }, 500)
+
+                        navigation.navigate(ROUTES.Survey, {
+                            surveyId: res?.data?.survey
+                        })
                     } else {
                         navigation.navigate(ROUTES.CourseDetail, {
                             courseId: data?.relational?.course_id,
@@ -249,6 +245,7 @@ const CourseInfo = ({ navigation, route }) => {
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
                     <Video
+                        paused
                         controls
                         source={{
                             uri: `${API_URL}public/${data?.video_path}`
@@ -279,7 +276,8 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             fontSize: scale(16),
                             fontWeight: 'bold',
-                            color: '#1F1F1F'
+                            color: '#1F1F1F',
+                            paddingTop: scale(5)
                         }}>
                         {data?.title}
                     </Text>
@@ -295,7 +293,8 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#1F1F1F'
+                                        color: '#1F1F1F',
+                                        paddingTop: scale(2)
                                     }}>
                                     {teacherName}
                                 </Text>
@@ -331,8 +330,9 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             marginTop: scale(16),
                             fontSize: scale(16),
-
-                            color: '#1F1F1F'
+                            paddingTop: scale(5),
+                            color: '#1F1F1F',
+                            lineHeight: scale(20)
                         }}>
                         {data?.s_des}
                     </Text>
@@ -350,7 +350,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-
+                                    paddingTop: scale(2),
                                     fontSize: scale(16),
                                     color: '#1F1F1F'
                                 }}>
@@ -374,7 +374,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text
                                 style={{
                                     marginLeft: scale(9),
-
+                                    paddingTop: scale(2),
                                     fontSize: scale(16),
                                     color: '#1F1F1F'
                                 }}>
@@ -396,7 +396,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 <Text
                                     style={{
                                         marginLeft: scale(9),
-
+                                        paddingTop: scale(2),
                                         fontSize: scale(16),
                                         color: '#1F1F1F'
                                     }}>
@@ -466,67 +466,6 @@ const CourseInfo = ({ navigation, route }) => {
                     },
                     STYLES.boxShadow
                 ]}>
-                {/* {data?.new_price || data?.old_price ? (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                        }}>
-                        {data?.new_price && data?.old_price ? (
-                            <View
-                                style={{
-                                    paddingVertical: scale(5),
-                                    paddingHorizontal: scale(10),
-                                    borderRadius: scale(5),
-                                    borderWidth: 1,
-                                    borderColor: '#FC0000'
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: scale(14),
-                                        color: '#FF0000'
-                                    }}>
-                                    giảm{' '}
-                                    {((data?.old_price - data?.new_price) /
-                                        data?.old_price) *
-                                        100}
-                                    %
-                                </Text>
-                            </View>
-                        ) : null}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#656565',
-                                    textDecorationLine: 'line-through'
-                                }}>
-                                {data?.old_price && data?.new_price
-                                    ? toCurrency(data?.old_price)
-                                    : null}
-                            </Text>
-                            <Text
-                                style={{
-                                    marginLeft: scale(24),
-
-                                    fontSize: scale(18),
-                                    color: '#095F2B'
-                                }}>
-                                {data?.old_price && data?.new_price
-                                    ? toCurrency(data?.new_price)
-                                    : data?.old_price && !data?.new_price
-                                    ? toCurrency(data?.old_price)
-                                    : null}
-                                đ
-                            </Text>
-                        </View>
-                    </View>
-                ) : null} */}
                 <View
                     style={{
                         flexDirection: 'row',
@@ -579,29 +518,29 @@ const CourseInfo = ({ navigation, route }) => {
                             </Text>
                         </Pressable>
                     </View>
-                    {data && (
-                        <View
+
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                        <Button
+                            isDisabled={!data?.relational}
+                            pt={2}
+                            pb={2}
+                            pr={5}
+                            pl={5}
                             style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <Button
-                                size="md"
-                                pt={2}
-                                pb={2}
-                                pr={5}
-                                pl={5}
-                                style={{
-                                    backgroundColor: '#52B553',
-                                    borderRadius: 8
-                                }}
-                                onPress={gotoCourse}
-                                isLoading={loadingVerify}
-                                leftIcon={<BookOpen stroke="#fff" size={10} />}>
-                                Học ngay
-                            </Button>
-                        </View>
-                    )}
+                                backgroundColor: '#52B553',
+                                borderRadius: 8
+                            }}
+                            onPress={gotoCourse}
+                            isLoading={loadingVerify}
+                            isLoadingText="Đang vào"
+                            leftIcon={<BookOpen stroke="#fff" size={10} />}>
+                            Học ngay
+                        </Button>
+                    </View>
                 </View>
             </SafeAreaView>
         </View>

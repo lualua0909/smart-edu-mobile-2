@@ -9,7 +9,7 @@ import { SvgXml } from 'react-native-svg'
 
 import { Text } from 'native-base'
 
-const Advise = () => {
+const Advise = ({ data }) => {
     return (
         <Pressable
             style={{
@@ -34,11 +34,12 @@ const Advise = () => {
                 }}>
                 <Text
                     style={{
-                        fontSize: scale(24),
+                        fontSize: scale(18),
                         color: '#fff',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        paddingTop: scale(5)
                     }}>
-                    Ngữ pháp
+                    {data?.title}
                 </Text>
                 <View
                     style={{
@@ -51,16 +52,18 @@ const Advise = () => {
                         style={{
                             fontSize: scale(16),
                             color: '#fff',
-                            marginRight: scale(20)
+                            marginRight: scale(20),
+                            paddingTop: scale(5)
                         }}>
                         30 phút
                     </Text>
                     <Text
                         style={{
                             fontSize: scale(16),
-                            color: '#fff'
+                            color: '#fff',
+                            paddingTop: scale(5)
                         }}>
-                        {toCurrency(1234567)} đ
+                        {toCurrency(10000)} đ
                     </Text>
                 </View>
                 <View
@@ -74,9 +77,10 @@ const Advise = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-                                color: '#fff'
+                                color: '#fff',
+                                paddingTop: scale(5)
                             }}>
-                            Anton Vu
+                            Smart Training
                         </Text>
                         <View
                             style={{
@@ -111,7 +115,7 @@ const Advise = () => {
                                     fontSize: scale(14),
                                     color: '#fff'
                                 }}>
-                                Singapore
+                                Vietnam
                             </Text>
                         </View>
                     </View>

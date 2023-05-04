@@ -14,23 +14,15 @@ import LottieView from 'lottie-react-native'
 import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
-import { Center } from 'native-base'
+import { Center, Text } from 'native-base'
 
-const Overview = ({ navigation, route }) => {
+const Overview = ({ navigation }) => {
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [selectedCourse, setSelectedCourse] = useState()
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                {/* <Image
-                    source={{
-                        uri: `${API_URL}public/user-avatars/${userInfo?.id}-cover.webp?rand=${random}`,
-                    }}
-                    resizeMode="cover"
-                    style={{ width: '100%', height: scale(200) }}
-                /> */}
                 <Center>
                     <LottieView
                         source={animationImg}
@@ -63,19 +55,20 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 fontWeight: 'bold',
-                                fontSize: scale(18),
-                                color: '#193769'
+                                fontSize: scale(16),
+                                color: '#193769',
+                                lineHeight: scale(20)
                             }}>
                             SE xu
                         </Text>
                         <Text
                             style={{
                                 marginTop: scale(4),
-
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#F3C72B',
-                                textAlign: 'center'
+                                textAlign: 'center',
+                                lineHeight: scale(20)
                             }}>
                             0đ
                         </Text>
@@ -93,15 +86,16 @@ const Overview = ({ navigation, route }) => {
                         <Text
                             style={{
                                 fontWeight: 'bold',
-                                fontSize: scale(18),
-                                color: '#193769'
+                                fontSize: scale(16),
+                                color: '#193769',
+                                lineHeight: scale(20)
                             }}>
                             Số khóa học
                         </Text>
                         <Text
                             style={{
                                 marginTop: scale(4),
-
+                                lineHeight: scale(20),
                                 fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#16671E',
@@ -183,7 +177,8 @@ const Overview = ({ navigation, route }) => {
                                 fontSize: scale(16),
                                 color: '#0E564D',
                                 textAlign: 'center',
-                                marginTop: scale(16)
+                                marginTop: scale(16),
+                                lineHeight: scale(20)
                             }}>
                             {selectedCourse?.title}
                         </Text>
@@ -192,10 +187,15 @@ const Overview = ({ navigation, route }) => {
                                 fontSize: scale(16),
                                 color: '#6C6C6C',
                                 textAlign: 'center',
-                                marginTop: scale(4)
+                                marginTop: scale(4),
+                                lineHeight: scale(20)
                             }}>
                             Tiến độ hoàn thành:{' '}
-                            <Text style={{ fontWeight: 'bold', color: '#000' }}>
+                            <Text
+                                style={{
+                                    fontWeight: 'bold',
+                                    color: '#000'
+                                }}>
                                 {selectedCourse?.process}%
                             </Text>
                         </Text>
@@ -638,7 +638,8 @@ const styles = StyleSheet.create({
     formTitle: {
         fontWeight: 'bold',
         fontSize: scale(18),
-        color: '#1F1F1F'
+        color: '#1F1F1F',
+        lineHeight: scale(20)
     }
 })
 

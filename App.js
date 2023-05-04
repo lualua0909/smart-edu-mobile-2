@@ -1,10 +1,14 @@
 import { useGlobalState } from 'app/Store'
+import { showToast } from 'app/atoms'
 import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
+import crashlytics from '@react-native-firebase/crashlytics'
+import messaging from '@react-native-firebase/messaging'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
+import VersionCheck from 'react-native-version-check'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider, extendTheme } from 'native-base'
@@ -12,6 +16,50 @@ import { NativeBaseProvider, extendTheme } from 'native-base'
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
+
+    useEffect(() => {
+        // VersionCheck.getLatestVersion({
+        //     provider: 'playStore' // for Android
+        // }).then(latestVersion => {
+        //     const currentVersion = VersionCheck.getCurrentVersion()
+        //     if (currentVersion !== latestVersion) {
+        //         showToast({
+        //             title: 'Cập nhật phiên bản mới',
+        //             description: `Phiên bản hiện tại của bạn ${currentVersion}, phiên bản mới đã có trên Google Play Store`,
+        //             status: 'warning'
+        //         })
+        //     }
+        // })
+    }, [])
+
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            const { title, body } = remoteMessage?.notification
+            showToast({
+                title,
+                description: body,
+                status: 'info'
+            })
+        })
+
+        return unsubscribe
+    }, [])
+
+    const requestUserPermission = async () => {
+        const authStatus = await messaging().requestPermission()
+        const enabled =
+            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            authStatus === messaging.AuthorizationStatus.PROVISIONAL
+
+        if (enabled) {
+            console.log('Authorization status:', authStatus)
+        }
+    }
+
+    useEffect(() => {
+        requestUserPermission()
+        crashlytics().log('App mounted.')
+    }, [])
 
     const fetchData = () => {
         let userInfo = getData('@userInfo')

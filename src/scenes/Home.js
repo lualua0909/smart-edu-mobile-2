@@ -2,6 +2,7 @@ import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
+import HotMentors from 'app/components/HotMentors'
 import {
     COLORS,
     COURSE_IMG_PATH,
@@ -10,23 +11,21 @@ import {
     STYLES
 } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { svgList, svgStudy } from 'assets/svg'
-import dayjs from 'dayjs'
+import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, Linking, Pressable, ScrollView, View } from 'react-native'
+import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 
-import { Box, Image, Modal, Progress, Text } from 'native-base'
+import { Badge, Box, Center, Image, Modal, Progress, Text } from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
-    const [random, setRandom] = useGlobalState('random')
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
@@ -50,41 +49,45 @@ const Home = ({ navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+                <Pressable
+                    onPress={() => navigation.navigate(ROUTES.Overview)}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingVertical: scale(5),
+                        paddingHorizontal: scale(16)
+                    }}>
+                    <Avatar userId={userInfo?.id} />
+                    <View style={{ marginLeft: scale(16), flex: 1 }}>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: '#1F1F1F'
+                            }}>
+                            Xin chào{' '}
+                            <Text
+                                style={{
+                                    color: '#0EBF46',
+                                    fontWeight: 'bold'
+                                }}>
+                                {userInfo?.last_name}
+                            </Text>
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: '#1F1F1F',
+                                marginTop: scale(4)
+                            }}>
+                            Đến{' '}
+                            <Text style={{ color: '#0EBF46' }}>
+                                trang tổng quan
+                            </Text>
+                        </Text>
+                    </View>
+                </Pressable>
                 <ScrollView
                     contentContainerStyle={{ paddingBottom: scale(30) }}>
-                    <Pressable
-                        onPress={() => navigation.navigate(ROUTES.Overview)}
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            paddingBottom: scale(16),
-                            paddingHorizontal: scale(16)
-                        }}>
-                        <Avatar userId={userInfo?.id} />
-                        <View style={{ marginLeft: scale(16), flex: 1 }}>
-                            <Text
-                                style={{
-                                    fontSize: scale(18),
-                                    color: '#1F1F1F'
-                                }}>
-                                Xin chào{' '}
-                                <Text style={{ color: '#0EBF46' }}>
-                                    {userInfo?.last_name}
-                                </Text>
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#1F1F1F',
-                                    marginTop: scale(4)
-                                }}>
-                                Chào mừng đến với{' '}
-                                <Text style={{ color: '#0EBF46' }}>
-                                    SmartEdu!
-                                </Text>
-                            </Text>
-                        </View>
-                    </Pressable>
                     <View
                         style={{
                             padding: scale(16)
@@ -105,7 +108,8 @@ const Home = ({ navigation }) => {
                                         fontSize: scale(16),
                                         color: '#0E564D',
                                         fontWeight: 'bold',
-                                        marginLeft: scale(8)
+                                        marginLeft: scale(8),
+                                        paddingTop: scale(5)
                                     }}>
                                     DUY TRÌ HỌC TẬP
                                 </Text>
@@ -294,7 +298,8 @@ const Home = ({ navigation }) => {
                                     marginLeft: scale(8),
                                     fontWeight: 'bold',
                                     fontSize: scale(16),
-                                    color: '#0E564D'
+                                    color: '#0E564D',
+                                    paddingTop: scale(5)
                                 }}>
                                 DANH SÁCH THỂ LOẠI
                             </Text>
@@ -390,7 +395,8 @@ const Home = ({ navigation }) => {
                                     fontSize: scale(16),
                                     fontWeight: 'bold',
                                     color: '#0E564D',
-                                    marginLeft: scale(8)
+                                    marginLeft: scale(8),
+                                    paddingTop: scale(5)
                                 }}>
                                 KHÓA HỌC HOT
                             </Text>
@@ -435,12 +441,119 @@ const Home = ({ navigation }) => {
                                     color: '#0E564D',
                                     fontWeight: 'bold',
                                     letterSpacing: 0.5,
-                                    marginLeft: scale(8)
+                                    marginLeft: scale(8),
+                                    paddingTop: scale(5)
                                 }}>
-                                TIN TỨC/SỰ KIỆN
+                                GIẢNG VIÊN NỔI BẬT
                             </Text>
                         </View>
-                        {homeInfo?.news?.length ? (
+                        {homeInfo?.pinned_mentors?.length ? (
+                            <FlatList
+                                data={homeInfo?.pinned_mentors || []}
+                                keyExtractor={(_, index) => index.toString()}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{
+                                    paddingLeft: scale(16),
+                                    marginTop: scale(16)
+                                }}
+                                renderItem={({ item, index }) => (
+                                    <Pressable
+                                        onPress={() =>
+                                            navigation.navigate(
+                                                ROUTES.TeacherInfo,
+                                                { id: item?.id }
+                                            )
+                                        }
+                                        style={{
+                                            width: scale(124),
+                                            borderWidth: 1,
+                                            borderColor: '#d9d9d9',
+                                            marginRight: scale(16),
+                                            borderRadius: scale(5),
+                                            borderBottomWidth: scale(6),
+                                            borderBottomColor: COLORS.green
+                                        }}>
+                                        <View>
+                                            <Center>
+                                                <Avatar
+                                                    userId={item?.id}
+                                                    size={scale(124)}
+                                                    isSquare
+                                                />
+                                            </Center>
+                                            <View
+                                                style={{
+                                                    paddingHorizontal:
+                                                        scale(11),
+                                                    paddingVertical: scale(5),
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    justifyContent:
+                                                        'space-between',
+                                                    width: '100%',
+                                                    position: 'absolute',
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    backgroundColor: '#eee',
+                                                    opacity: 0.7
+                                                }}>
+                                                <View
+                                                    style={{
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center'
+                                                    }}>
+                                                    <SvgXml
+                                                        xml={svgOrangeStar}
+                                                        width={scale(16)}
+                                                        height={scale(16)}
+                                                    />
+                                                    <Text
+                                                        style={{
+                                                            fontSize: scale(12),
+                                                            color: '#000',
+                                                            marginLeft: scale(4)
+                                                        }}>
+                                                        5.0
+                                                    </Text>
+                                                </View>
+                                                <Text
+                                                    style={{
+                                                        fontSize: scale(12),
+                                                        color: '#000'
+                                                    }}>
+                                                    Việt Nam
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View
+                                            style={{
+                                                paddingVertical: scale(7),
+                                                paddingHorizontal: scale(11)
+                                            }}>
+                                            <Text
+                                                style={{
+                                                    fontSize: scale(14),
+                                                    color: '#333'
+                                                }}>
+                                                {item?.first_name}{' '}
+                                                {item?.last_name}
+                                            </Text>
+                                            <Text
+                                                style={{
+                                                    fontSize: scale(12),
+                                                    color: '#333'
+                                                }}>
+                                                {item?.department}
+                                            </Text>
+                                        </View>
+                                    </Pressable>
+                                )}
+                            />
+                        ) : (
+                            <NoData />
+                        )}
+                        {/* {homeInfo?.news?.length ? (
                             <FlatList
                                 data={homeInfo?.news || []}
                                 keyExtractor={(_, index) => index.toString()}
@@ -510,10 +623,10 @@ const Home = ({ navigation }) => {
                             />
                         ) : (
                             <NoData />
-                        )}
+                        )} */}
                     </View>
 
-                    {/* <HotMentors /> */}
+                    <HotMentors data={homeInfo?.mentor_fields} />
                 </ScrollView>
             </SafeAreaView>
             <UpdateAlert

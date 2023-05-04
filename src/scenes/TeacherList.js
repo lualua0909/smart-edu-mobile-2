@@ -361,7 +361,8 @@ const Teacher = ({}) => {
                                     marginLeft: scale(8),
                                     fontWeight: 'bold',
                                     fontSize: scale(16),
-                                    color: '#0E564D'
+                                    color: '#0E564D',
+                                    paddingTop: scale(5)
                                 }}>
                                 TẤT CẢ GIẢNG VIÊN
                             </Text>

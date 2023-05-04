@@ -15,16 +15,33 @@ import { Button, Center, Stack, Text } from 'native-base'
 const Login = ({ navigation }) => {
     const username = useFormInput('')
     const password = useFormInput('')
-    const fcmToken = useFormInput('')
     const [loading, setLoading] = useState(false)
+    const [fcmToken, setFcmToken] = useState()
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
 
-    useEffect(async () => {
-        const token = await messaging().getToken()
-        if (token) {
-            fcmToken.setValue(token)
+    const getNewToken = async () => {
+        try {
+            const authorizationStatus = await messaging().requestPermission({
+                sound: false,
+                announcement: true,
+                provisional: true
+            })
+
+            if (authorizationStatus) {
+                console.log('Permission status:', authorizationStatus)
+            }
+            const token = await messaging().getToken()
+            if (token) {
+                console.log('token = ', token)
+                setFcmToken(token)
+            }
+        } catch (error) {
+            console.log('error = ', error)
         }
+    }
+    useEffect(() => {
+        getNewToken()
     }, [])
 
     const doLogin = () => {
@@ -34,13 +51,11 @@ const Login = ({ navigation }) => {
                 .post('login', {
                     username: username.value.toLowerCase(),
                     password: password.value,
-                    mobile_fcm_token: fcmToken.value
+                    mobile_fcm_token: fcmToken,
+                    is_mobile: true
                 })
                 .then(res => {
                     if (res.data.status === 200) {
-                        // if (firebase.messaging.isSupported()) {
-                        //     getNewToken()
-                        // }
                         setUserInfo(res?.data)
                         setRandom(Math.random())
                         storeData('@userInfo', res?.data)
@@ -160,7 +175,6 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{

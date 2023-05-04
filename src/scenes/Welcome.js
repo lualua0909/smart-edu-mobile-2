@@ -131,13 +131,17 @@ const Wireframe = ({ navigation }) => {
                                     }}
                                     resizeMode="contain"
                                 />
-                                <View style={{ paddingHorizontal: scale(16) }}>
+                                <View
+                                    style={{
+                                        paddingHorizontal: 20
+                                    }}>
                                     <Text
                                         style={{
                                             fontSize: scale(20),
                                             fontWeight: 'bold',
                                             color: '#095F2B',
-                                            textAlign: 'center'
+                                            textAlign: 'center',
+                                            paddingVertical: 20
                                         }}>
                                         {i.title}
                                     </Text>
@@ -146,7 +150,8 @@ const Wireframe = ({ navigation }) => {
                                             fontSize: scale(16),
                                             color: '#6C746E',
                                             marginTop: scale(16),
-                                            textAlign: 'center'
+                                            textAlign: 'center',
+                                            paddingVertical: 10
                                         }}>
                                         {i.content}
                                     </Text>
@@ -163,7 +168,7 @@ const Wireframe = ({ navigation }) => {
                 }}>
                 {pageIndex > 0 && (
                     <Button
-                        size="md"
+                        size="lg"
                         variant="ghost"
                         onPress={() => onGoToPage(pageIndex - 1)}>
                         Quay lại
@@ -171,7 +176,7 @@ const Wireframe = ({ navigation }) => {
                 )}
                 <Button
                     shadow="3"
-                    size="md"
+                    size="lg"
                     onPress={() => onGoToPage(pageIndex + 1)}>
                     {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
                 </Button>

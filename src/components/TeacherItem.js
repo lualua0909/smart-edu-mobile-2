@@ -53,20 +53,18 @@ const TeacherItem = ({ item, index }) => {
                             width={scale(16)}
                             height={scale(16)}
                         />
-                        <Text
+                        {/* <Text
                             style={{
                                 fontSize: scale(12),
-                                color: '#000',
-                                marginLeft: scale(4)
+                                color: '#000'
                             }}>
-                            5.0
-                        </Text>
+                            5
+                        </Text> */}
                     </View>
                     <Text
                         style={{
                             fontSize: scale(12),
-                            color: '#000',
-                            marginLeft: scale(4)
+                            color: '#000'
                         }}>
                         Việt Nam
                     </Text>
@@ -77,7 +75,8 @@ const TeacherItem = ({ item, index }) => {
                     numberOfLines={1}
                     style={{
                         fontSize: scale(16),
-                        color: '#1F1F1F'
+                        color: '#1F1F1F',
+                        paddingTop: scale(5)
                     }}>
                     {fullName}
                 </Text>

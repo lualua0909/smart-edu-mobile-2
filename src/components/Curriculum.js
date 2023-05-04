@@ -65,15 +65,14 @@ const Curriculum = ({ data, navigateToLesson }) => {
                                 }>
                                 <Text
                                     style={{
-                                        fontSize: scale(16),
+                                        fontSize: scale(13),
                                         color: isFinished ? '#000' : '#b6b6b6'
                                     }}>
                                     {isFinished ? (
                                         <CheckCircle
-                                            style={{
-                                                color: '#007739'
-                                            }}
-                                            size={12}
+                                            stroke="#007739"
+                                            width={14}
+                                            height={14}
                                         />
                                     ) : null}{' '}
                                     {item?.name}

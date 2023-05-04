@@ -52,12 +52,8 @@ const MenuUser = ({
                     userId
                 })
         }
-        // {
-        //     icon: svgGrift,
-        //     title: 'Khóa học đã đóng góp',
-        //     onPress: () => navigation.navigate('Profile'),
-        // },
     ]
+
     return (
         <Modal
             style={{ margin: 0, justifyContent: 'flex-end' }}
@@ -71,7 +67,7 @@ const MenuUser = ({
                 }}>
                 <SafeAreaView>
                     <View style={{ paddingLeft: scale(16) }}>
-                        {menus.map((item, index) => (
+                        {menus?.map((item, index) => (
                             <Pressable
                                 style={{ paddingTop: scale(12) }}
                                 key={index}

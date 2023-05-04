@@ -18,7 +18,9 @@ export default () => (
                 }}
             />
             <Center>
-                <Heading fontSize="xl">Đang tải thông tin bài học</Heading>
+                <Heading fontSize="md" style={{ color: 'green' }}>
+                    Đang tải thông tin bài học
+                </Heading>
             </Center>
         </VStack>
     </Center>

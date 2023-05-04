@@ -28,7 +28,7 @@ const Support = () => {
                 <Text
                     style={{
                         fontSize: scale(20),
-
+                        lineHeight: scale(20),
                         color: '#1F1F1F'
                     }}>
                     Liên hệ với chúng tôi qua
@@ -36,7 +36,7 @@ const Support = () => {
                 <Text
                     style={{
                         fontSize: scale(14),
-
+                        lineHeight: scale(20),
                         fontStyle: 'italic',
                         color: '#6C746E'
                     }}>
@@ -46,7 +46,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-
+                            lineHeight: scale(20),
                             color: '#1F1F1F'
                         }}>
                         Trụ sở chính:{' '}
@@ -62,7 +62,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-
+                                lineHeight: scale(20),
                                 color: '#1F1F1F'
                             }}>
                             60 Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM
@@ -73,7 +73,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-
+                            lineHeight: scale(20),
                             color: '#1F1F1F'
                         }}>
                         Trung tâm đào tạo:{' '}
@@ -89,7 +89,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-
+                                lineHeight: scale(20),
                                 color: '#1F1F1F'
                             }}>
                             5B Phổ Quang, phường 2, quận Tân Bình, TP.HCM
@@ -105,7 +105,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-
+                            lineHeight: scale(20),
                             color: '#1F1F1F'
                         }}>
                         Email:{' '}
@@ -119,7 +119,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-
+                                lineHeight: scale(20),
                                 color: '#1F1F1F'
                             }}>
                             training@ifa.edu.vn
@@ -135,7 +135,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-
+                            lineHeight: scale(20),
                             color: '#1F1F1F'
                         }}>
                         Hotline:{' '}
@@ -145,7 +145,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-
+                                lineHeight: scale(20),
                                 color: '#1F1F1F'
                             }}>
                             0942993979
@@ -161,7 +161,7 @@ const Support = () => {
                     <Text
                         style={{
                             fontSize: scale(16),
-
+                            lineHeight: scale(20),
                             color: '#1F1F1F'
                         }}>
                         Điện thoại:{' '}
@@ -171,7 +171,7 @@ const Support = () => {
                         <Text
                             style={{
                                 fontSize: scale(16),
-
+                                lineHeight: scale(20),
                                 color: '#1F1F1F'
                             }}>
                             02866814320

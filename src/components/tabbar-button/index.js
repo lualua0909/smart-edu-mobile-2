@@ -39,19 +39,22 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
                     />
                 </View>
             ) : (
-                <SvgXml xml={iconInactive} width={iconSize} height={iconSize} />
+                <>
+                    <SvgXml
+                        xml={iconInactive}
+                        width={iconSize}
+                        height={iconSize}
+                    />
+                    <Text
+                        style={{
+                            fontSize: scale(12),
+                            color: '#A3A3A3',
+                            textAlign: 'center'
+                        }}>
+                        {label}
+                    </Text>
+                </>
             )}
-            <Text
-                style={[
-                    {
-                        fontSize: scale(12),
-                        color: '#A3A3A3',
-                        textAlign: 'center'
-                    },
-                    focused && { color: '#52B553' }
-                ]}>
-                {label}
-            </Text>
         </Pressable>
     )
 }
