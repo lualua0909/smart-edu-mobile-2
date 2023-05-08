@@ -3,34 +3,24 @@ import { showToast } from 'app/atoms'
 import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
-import crashlytics from '@react-native-firebase/crashlytics'
+import firebase from '@react-native-firebase/app'
 import messaging from '@react-native-firebase/messaging'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
-import VersionCheck from 'react-native-version-check'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider, extendTheme } from 'native-base'
 
+const firebaseConfig = {
+    // Your project's configuration object goes here.
+}
+firebase.initializeApp(firebaseConfig)
+
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
-
-    useEffect(() => {
-        // VersionCheck.getLatestVersion({
-        //     provider: 'playStore' // for Android
-        // }).then(latestVersion => {
-        //     const currentVersion = VersionCheck.getCurrentVersion()
-        //     if (currentVersion !== latestVersion) {
-        //         showToast({
-        //             title: 'Cập nhật phiên bản mới',
-        //             description: `Phiên bản hiện tại của bạn ${currentVersion}, phiên bản mới đã có trên Google Play Store`,
-        //             status: 'warning'
-        //         })
-        //     }
-        // })
-    }, [])
 
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -58,7 +48,6 @@ const App = () => {
 
     useEffect(() => {
         requestUserPermission()
-        crashlytics().log('App mounted.')
     }, [])
 
     const fetchData = () => {
@@ -91,15 +80,17 @@ const App = () => {
     return (
         <NativeBaseProvider theme={theme}>
             <StatusBar hidden />
-            <NavigationContainer
-                onStateChange={navigationState => {
-                    const { name } = getFocusRoute(
-                        navigationState.routes[navigationState.index]
-                    )
-                    console.log('Route', name)
-                }}>
-                <SwitchNavigator />
-            </NavigationContainer>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer
+                    onStateChange={navigationState => {
+                        const { name } = getFocusRoute(
+                            navigationState.routes[navigationState.index]
+                        )
+                        console.log('Route', name)
+                    }}>
+                    <SwitchNavigator />
+                </NavigationContainer>
+            </GestureHandlerRootView>
         </NativeBaseProvider>
     )
 }

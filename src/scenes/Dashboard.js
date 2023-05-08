@@ -18,11 +18,9 @@ import {
     svgVoucher,
     svgWaitingConfirm,
     svgWallet,
-    svgWhiteCart
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import crashlytics from '@react-native-firebase/crashlytics'
 import { useNavigation } from '@react-navigation/native'
 import {
     Image,
@@ -125,11 +123,6 @@ const Menu = ({ route }) => {
             icon: <Info stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.Language)
         },
-        // {
-        //     title: 'Test crash',
-        //     icon: <Info stroke="#52B553" width={18} height={18} />,
-        //     onPress: () => crashlytics().crash()
-        // },
         {
             title: 'Đăng xuất',
             icon: <LogOut stroke="#52B553" width={18} height={18} />,
