@@ -79,7 +79,7 @@ const Wireframe = ({ navigation }) => {
             style={{
                 flex: 1,
                 justifyContent: 'space-between',
-                paddingBottom: scale(74)
+                paddingBottom: scale(30)
             }}>
             {/* <SafeAreaView
             style={{

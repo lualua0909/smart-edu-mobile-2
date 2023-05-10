@@ -42,7 +42,7 @@ const Overview = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'space-between'
                     }}>
-                    <View
+                    {/* <View
                         style={{
                             borderWidth: 1,
                             borderColor: '#F3C72B',
@@ -72,14 +72,14 @@ const Overview = ({ navigation }) => {
                             }}>
                             0đ
                         </Text>
-                    </View>
+                    </View> */}
                     <View
                         style={{
                             borderWidth: 1,
                             borderColor: '#16671E',
                             borderRadius: scale(10),
                             padding: scale(10),
-                            width: '48%',
+                            width: '100%',
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>

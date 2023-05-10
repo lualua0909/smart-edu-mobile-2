@@ -114,7 +114,7 @@ const Payment = () => {
                             marginTop: scale(8),
                             height: scale(60)
                         }}>
-                        <View
+                        {/* <View
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center'
@@ -128,7 +128,7 @@ const Payment = () => {
                                 }}>
                                 Dùng 30.000 SE xu
                             </Text>
-                        </View>
+                        </View> */}
                         <Pressable
                             style={{
                                 flexDirection: 'row',
@@ -169,7 +169,7 @@ const Payment = () => {
                                 backgroundColor: '#FFFFFF',
                                 marginTop: scale(8)
                             }}>
-                            <View
+                            {/* <View
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center'
@@ -183,7 +183,7 @@ const Payment = () => {
                                     }}>
                                     Phương thức thanh toán
                                 </Text>
-                            </View>
+                            </View> */}
                             <Pressable
                                 style={{
                                     flexDirection: 'row',
@@ -286,7 +286,7 @@ const Payment = () => {
                                 backgroundColor: '#FFFFFF',
                                 marginTop: scale(8)
                             }}>
-                            <View
+                            {/* <View
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center'
@@ -299,7 +299,7 @@ const Payment = () => {
                                     }}>
                                     SE xu
                                 </Text>
-                            </View>
+                            </View> */}
                             <Pressable
                                 style={{
                                     flexDirection: 'row',

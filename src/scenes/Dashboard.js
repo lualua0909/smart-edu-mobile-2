@@ -17,7 +17,7 @@ import {
     svgMyMeeting,
     svgVoucher,
     svgWaitingConfirm,
-    svgWallet,
+    svgWallet
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -94,12 +94,12 @@ const Menu = ({ route }) => {
             icon: <HelpCircle stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.Support)
         },
-        {
-            title: 'Phương thức thanh toán',
-            icon: <CreditCard stroke="#52B553" width={18} height={18} />,
-            onPress: () =>
-                Linking.openURL('https://smarte.edu.vn/phuong-thuc-thanh-toan')
-        },
+        // {
+        //     title: 'Phương thức thanh toán',
+        //     icon: <CreditCard stroke="#52B553" width={18} height={18} />,
+        //     onPress: () =>
+        //         Linking.openURL('https://smarte.edu.vn/phuong-thuc-thanh-toan')
+        // },
         {
             title: 'Chính sách điều khoản',
             icon: <Book stroke="#52B553" width={18} height={18} />,
@@ -112,12 +112,12 @@ const Menu = ({ route }) => {
             onPress: () =>
                 Linking.openURL('https://smarte.edu.vn/chinh-sach-bao-mat')
         },
-        {
-            title: 'Chính sách hoàn/hủy',
-            icon: <SkipBack stroke="#52B553" width={18} height={18} />,
-            onPress: () =>
-                Linking.openURL('https://smarte.edu.vn/chinh-sach-hoan-huy')
-        },
+        // {
+        //     title: 'Chính sách hoàn/hủy',
+        //     icon: <SkipBack stroke="#52B553" width={18} height={18} />,
+        //     onPress: () =>
+        //         Linking.openURL('https://smarte.edu.vn/chinh-sach-hoan-huy')
+        // },
         {
             title: 'Thông tin ứng dụng',
             icon: <Info stroke="#52B553" width={18} height={18} />,
@@ -407,7 +407,7 @@ const Menu = ({ route }) => {
                         />
                     </View>
                 </View>
-                <View
+                {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -451,7 +451,7 @@ const Menu = ({ route }) => {
                             onPress={() => setVisibleComingSoon(true)}
                         />
                     </View>
-                </View>
+                </View> */}
                 <View
                     style={{
                         backgroundColor: '#fff',

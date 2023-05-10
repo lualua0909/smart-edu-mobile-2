@@ -75,8 +75,8 @@ const CertificateList = ({ navigation, route }) => {
                         paddingHorizontal: scale(10),
                         paddingBottom: scale(20)
                     }}
-                    onEndReached={handleLoadMore}
-                    onEndReachedThreshold={0.5}
+                    // onEndReached={handleLoadMore}
+                    // onEndReachedThreshold={0.5}
                     showsVerticalScrollIndicator={false}
                 />
             ) : (
