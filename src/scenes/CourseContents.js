@@ -143,11 +143,13 @@ const CourseDetail = ({ route, navigation }) => {
                             variant="subtle"
                             colorScheme="green"
                             leftIcon={
-                                <ChevronLeft
-                                    stroke="green"
-                                    width={24}
-                                    height={24}
-                                />
+                                <>
+                                    <ChevronLeft
+                                        stroke="green"
+                                        width={24}
+                                        height={24}
+                                    />
+                                </>
                             }></Button>
                         {data?.is_finish ? (
                             <Button
@@ -156,11 +158,13 @@ const CourseDetail = ({ route, navigation }) => {
                                     marginRight: scale(12)
                                 }}
                                 leftIcon={
-                                    <ChevronRight
-                                        stroke="#fff"
-                                        width={24}
-                                        height={24}
-                                    />
+                                    <>
+                                        <ChevronRight
+                                            stroke="#fff"
+                                            width={24}
+                                            height={24}
+                                        />
+                                    </>
                                 }></Button>
                         ) : (
                             countdown

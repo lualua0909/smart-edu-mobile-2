@@ -9,8 +9,26 @@ import { scale } from 'app/helpers/responsive'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Linking, Pressable, ScrollView, Share, View } from 'react-native'
+import {
+    Linking,
+    Platform,
+    Pressable,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
+import {
+    endConnection,
+    flushFailedPurchasesCachedAsPendingAndroid,
+    getProducts,
+    initConnection,
+    purchaseErrorListener,
+    purchaseUpdatedListener,
+    requestPurchase,
+    useIAP,
+    validateReceiptIos
+} from 'react-native-iap'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -37,6 +55,20 @@ const routes = [
     }
 ]
 
+const IAP_errors = {
+    21000: 'The request to the App Store was not made using the HTTP POST request method.',
+    21001: 'This status code is no longer sent by the App Store.',
+    21002: 'The data in the receipt-data property was malformed or the service experienced a temporary issue. Try again.',
+    21003: 'The receipt could not be authenticated.',
+    21004: 'The shared secret you provided does not match the shared secret on file for your account.',
+    21005: 'The receipt server was temporarily unable to provide the receipt. Try again.',
+    21006: `This receipt is valid but the subscription has expired. When this status code is returned to your server, the receipt data is also decoded and returned as part of the response. Only returned for iOS 6-style transaction receipts for auto-renewable subscriptions.`,
+    21007: 'This receipt is from the test environment, but it was sent to the production environment for verification.',
+    21008: 'This receipt is from the production environment, but it was sent to the test environment for verification.',
+    21009: 'Internal data access error. Try again later.',
+    21010: 'The user account cannot be found or has been deleted.'
+}
+
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
     const toast = useToast()
@@ -53,6 +85,108 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
+    const [course, setCourse] = useState([])
+    const course_id_ipa = Platform.OS === 'ios' ? `course_id_101` : ''
+    const [allowLearning, setAllowLearning] = useState(false)
+
+    useEffect(() => {
+        let purchaseUpdateSubscription
+        let purchaseErrorSubscription
+
+        const initializeIAP = async () => {
+            try {
+                await initConnection()
+                await flushFailedPurchasesCachedAsPendingAndroid()
+            } catch (error) {
+                // Handle initialization error
+                console.log('Error initializing IAP:', error)
+            }
+        }
+
+        const fetchProducts = async () => {
+            try {
+                const products = await getProducts({
+                    skus: [course_id_ipa]
+                })
+                console.log('Available products:', products)
+            } catch (error) {
+                console.log('Error fetching products:', error)
+            }
+        }
+
+        const handlePurchaseUpdate = async purchase => {
+            console.log('purchaseUpdatedListener', purchase)
+        }
+
+        const handlePurchaseError = error => {
+            console.warn('purchaseErrorListener', error)
+        }
+
+        Promise.all([initializeIAP(), fetchProducts()])
+            .then(() => {
+                purchaseUpdateSubscription =
+                    purchaseUpdatedListener(handlePurchaseUpdate)
+                purchaseErrorSubscription =
+                    purchaseErrorListener(handlePurchaseError)
+            })
+            .catch(error => {
+                // Handle initialization error
+                console.log('Error initializing IAP:', error)
+            })
+
+        return () => {
+            if (purchaseUpdateSubscription) {
+                purchaseUpdateSubscription.remove()
+            }
+
+            if (purchaseErrorSubscription) {
+                purchaseErrorSubscription.remove()
+            }
+            endConnection()
+        }
+    }, [])
+
+    const handlePurchase = async productionId => {
+        try {
+            const purchase = await requestPurchase({
+                sku: course_id_ipa,
+                andDangerouslyFinishTransactionAutomaticallyIOS: false
+            })
+
+            if (purchase && purchase.transactionReceipt) {
+                const result = await validateReceipt(
+                    purchase.transactionReceipt
+                )
+
+                if (result.status === 0) {
+                    // call api to mark allow learning
+                    setAllowLearning(true)
+                } else {
+                    console.error(
+                        `*********** IAP_errors ***********`,
+                        IAP_errors[result.status]
+                    )
+                }
+            }
+        } catch (error) {
+            console.log('Error purchasing item:', error)
+        }
+    }
+
+    const validateReceipt = async receipt => {
+        const receiptBody = {
+            'receipt-data': receipt,
+            password: '3e21c5d0ef9e48868ca2b9a0dde0f618'
+        }
+
+        try {
+            const result = await validateReceiptIos(receiptBody, null)
+            return result // Return the result if needed
+        } catch (error) {
+            console.error('Receipt validation failed:', error)
+            throw error // Throw the error to handle it in the calling code
+        }
+    }
 
     useEffect(() => {
         if (data) {
@@ -262,6 +396,7 @@ const CourseInfo = ({ navigation, route }) => {
                             width: '100%',
                             height: scale(200)
                         }}
+                        alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
                         fallbackSource={require('assets/images/fallback.jpg')}
                     />
                 )}
@@ -534,11 +669,17 @@ const CourseInfo = ({ navigation, route }) => {
                                 backgroundColor: '#52B553',
                                 borderRadius: 8
                             }}
-                            onPress={gotoCourse}
+                            onPress={
+                                !data?.old_price ? handlePurchase : gotoCourse
+                            }
                             isLoading={loadingVerify}
                             isLoadingText="Đang vào"
-                            leftIcon={<BookOpen stroke="#fff" size={10} />}>
-                            Học ngay
+                            leftIcon={
+                                <>
+                                    <BookOpen stroke="#fff" size={10} />
+                                </>
+                            }>
+                            {!data?.old_price ? 'Mua ngay' : 'Học ngay'}
                         </Button>
                     </View>
                 </View>
