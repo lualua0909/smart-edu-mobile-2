@@ -20,6 +20,7 @@ import {
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
 import {
     endConnection,
+    finishTransaction,
     flushFailedPurchasesCachedAsPendingAndroid,
     getProducts,
     initConnection,
@@ -86,7 +87,7 @@ const CourseInfo = ({ navigation, route }) => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const [course, setCourse] = useState([])
-    const course_id_ipa = Platform.OS === 'ios' ? `course_id_101` : ''
+    const course_id_ipa = Platform.OS === 'ios' ? `course_id_${id}` : ''
     const [allowLearning, setAllowLearning] = useState(false)
 
     useEffect(() => {
@@ -167,6 +168,8 @@ const CourseInfo = ({ navigation, route }) => {
                         IAP_errors[result.status]
                     )
                 }
+
+                await finishTransaction()
             }
         } catch (error) {
             console.log('Error purchasing item:', error)
