@@ -180,7 +180,7 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         try {
-            const result = await validateReceiptIos(receiptBody, null)
+            const result = await validateReceiptIos(receiptBody)
             return result // Return the result if needed
         } catch (error) {
             console.error('Receipt validation failed:', error)
