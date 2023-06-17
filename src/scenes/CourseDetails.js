@@ -92,11 +92,12 @@ const CourseInfo = ({ navigation, route }) => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const [course, setCourse] = useState([])
-    const course_id_ipa = 'course_id_101'
+    const course_id_ipa = `course_id_${id}`
     const [allowLearning, setAllowLearning] = useState(false)
-    const { products, getPurchaseHistory, purchaseHistory } = useIAP()
+    const { getPurchaseHistory, purchaseHistory } = useIAP()
 
     const [success, setSuccess] = useState(false)
+    const [products, setProducts] = useState()
 
     useEffect(() => {
         let purchaseUpdateSubscription
@@ -128,6 +129,7 @@ const CourseInfo = ({ navigation, route }) => {
                 const products = await getProducts({
                     skus: [course_id_ipa]
                 })
+                setProducts(products)
                 console.log('Available products:', products)
             } catch (error) {
                 console.log('Error fetching products:', error)
@@ -182,7 +184,7 @@ const CourseInfo = ({ navigation, route }) => {
 
     const handlePurchase = async (sku: Sku) => {
         try {
-            await requestPurchase({ sku })
+            await requestPurchase({ sku: products[0]?.productId })
         } catch (error) {
             if (error instanceof PurchaseError) {
                 errorLog({
@@ -190,7 +192,6 @@ const CourseInfo = ({ navigation, route }) => {
                     error
                 })
             } else {
-                console.log(`*********** 1 ***********`, 1)
                 errorLog({ message: 'handleBuyProduct', error })
             }
         }
@@ -233,10 +234,6 @@ const CourseInfo = ({ navigation, route }) => {
     useEffect(() => {
         checkCurrentPurchase(currentPurchase, finishTransaction, setSuccess)
     }, [currentPurchase, finishTransaction, setSuccess])
-
-    useEffect(() => {
-        console.log(`*********** products ***********`, products)
-    }, [products])
 
     useEffect(() => {
         if (data) {
@@ -721,9 +718,7 @@ const CourseInfo = ({ navigation, route }) => {
                             }}
                             onPress={() => {
                                 !data?.old_price
-                                    ? handlePurchase(
-                                          products[0]?.productId || {}
-                                      )
+                                    ? handlePurchase()
                                     : gotoCourse()
                             }}
                             isLoading={loadingVerify}
