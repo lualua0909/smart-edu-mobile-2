@@ -3,7 +3,7 @@ import storage from 'app/localStorage'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-import { LayoutAnimation } from 'react-native'
+import { LayoutAnimation, Platform } from 'react-native'
 
 require('dayjs/locale/vi')
 dayjs.extend(relativeTime)
@@ -123,3 +123,15 @@ export const hashing = s => {
         return a & a
     }, 0)
 }
+
+export const errorLog = ({
+    message,
+    error
+}: {
+    message: string,
+    error: unknown
+}) => {
+    console.error('An error happened', message, error)
+}
+
+export const isAndroid = Platform.OS === 'android'

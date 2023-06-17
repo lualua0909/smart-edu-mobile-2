@@ -26,6 +26,7 @@
 		A21907202149402BBFD9ACC5 /* Mulish-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */; };
 		ABE0E9816AE74C7CBB90AEA7 /* Mulish-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9F02525B46F4E56BEEFEC29 /* Mulish-ExtraBoldItalic.ttf */; };
 		B8ACF0D98DA846C8BBD0E795 /* Mulish-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E24731FFC7B24775A81A76FA /* Mulish-BoldItalic.ttf */; };
+		BE3D5ADA2A3DEBC800D67C09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */; };
 		BE3E78F92A08AC5500A9BFA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE3E78F82A08AC5400A9BFA8 /* GoogleService-Info.plist */; };
 		BF0B61C464A64E7F9141EB8D /* Mulish-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58FE5B3258F24E2D8A8B8C57 /* Mulish-MediumItalic.ttf */; };
 		C079B2CFF3BA46F6816F67D0 /* Mulish-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29AE577454F24BCBAFC98048 /* Mulish-Black.ttf */; };
@@ -85,6 +86,7 @@
 		A102D69701E54EB0AF4387E5 /* Mulish-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBoldItalic.ttf"; path = "../assets/fonts/Mulish-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-ExtraLightItalic.ttf"; path = "../assets/fonts/Mulish-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		B204CE39A254EA3907830FC7 /* Pods-SmartTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.release.xcconfig"; sourceTree = "<group>"; };
+		BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE3E78F72A0786A100A9BFA8 /* SmartTraining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SmartTraining.entitlements; path = SmartTraining/SmartTraining.entitlements; sourceTree = "<group>"; };
 		BE3E78F82A08AC5400A9BFA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "SmartTraining/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE90DF79D908D25FF97B6094 /* Pods-SmartTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E03408562D41D35DCD42EDF /* libPods-SmartTraining.a in Frameworks */,
+				BE3D5ADA2A3DEBC800D67C09 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +158,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				76B040B5C93B5B60DA1DB6A1 /* libPods-SmartTraining.a */,
 				3C4FBC32630528D2B68CD9DF /* libPods-SmartTraining-SmartTrainingTests.a */,

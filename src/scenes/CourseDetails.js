@@ -19,16 +19,19 @@ import {
 } from 'react-native'
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
 import {
+    PurchaseError,
+    Sku,
+    currentPurchase,
     endConnection,
     finishTransaction,
     flushFailedPurchasesCachedAsPendingAndroid,
     getProducts,
     initConnection,
+    isIosStorekit2,
     purchaseErrorListener,
     purchaseUpdatedListener,
     requestPurchase,
-    useIAP,
-    validateReceiptIos
+    useIAP
 } from 'react-native-iap'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -36,6 +39,8 @@ import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
 
 import { Button, Image, Text, VStack, useToast } from 'native-base'
+
+import { errorLog, isAndroid } from '../helpers/utils'
 
 const routes = [
     {
@@ -87,8 +92,11 @@ const CourseInfo = ({ navigation, route }) => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const [course, setCourse] = useState([])
-    const course_id_ipa = Platform.OS === 'ios' ? `course_id_${id}` : ''
+    const course_id_ipa = 'course_id_101'
     const [allowLearning, setAllowLearning] = useState(false)
+    const { products, getPurchaseHistory, purchaseHistory } = useIAP()
+
+    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
         let purchaseUpdateSubscription
@@ -97,10 +105,21 @@ const CourseInfo = ({ navigation, route }) => {
         const initializeIAP = async () => {
             try {
                 await initConnection()
-                await flushFailedPurchasesCachedAsPendingAndroid()
+
+                if (isAndroid) {
+                    await flushFailedPurchasesCachedAsPendingAndroid()
+                } else {
+                    // await clearTransactionIOS()
+                }
             } catch (error) {
-                // Handle initialization error
-                console.log('Error initializing IAP:', error)
+                if (error instanceof PurchaseError) {
+                    errorLog({
+                        message: `[${error.code}]: ${error.message}`,
+                        error
+                    })
+                } else {
+                    errorLog({ message: 'finishTransaction', error })
+                }
             }
         }
 
@@ -116,7 +135,21 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         const handlePurchaseUpdate = async purchase => {
-            console.log('purchaseUpdatedListener', purchase)
+            const receipt = purchase.transactionReceipt
+                ? purchase.transactionReceipt
+                : purchase.originalJson
+
+            if (receipt) {
+                try {
+                    const acknowledgeResult = await finishTransaction({
+                        purchase
+                    })
+
+                    console.info('acknowledgeResult', acknowledgeResult)
+                } catch (error) {
+                    errorLog({ message: 'finishTransaction', error })
+                }
+            }
         }
 
         const handlePurchaseError = error => {
@@ -147,49 +180,63 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [])
 
-    const handlePurchase = async productionId => {
+    const handlePurchase = async (sku: Sku) => {
         try {
-            const purchase = await requestPurchase({
-                sku: course_id_ipa,
-                andDangerouslyFinishTransactionAutomaticallyIOS: false
-            })
+            await requestPurchase({ sku })
+        } catch (error) {
+            if (error instanceof PurchaseError) {
+                errorLog({
+                    message: `[${error.code}]: ${error.message}`,
+                    error
+                })
+            } else {
+                console.log(`*********** 1 ***********`, 1)
+                errorLog({ message: 'handleBuyProduct', error })
+            }
+        }
+    }
 
-            if (purchase && purchase.transactionReceipt) {
-                const result = await validateReceipt(
-                    purchase.transactionReceipt
-                )
+    const markUserAsBought = async () => {}
 
-                if (result.status === 0) {
-                    // call api to mark allow learning
-                    setAllowLearning(true)
-                } else {
-                    console.error(
-                        `*********** IAP_errors ***********`,
-                        IAP_errors[result.status]
-                    )
-                }
+    const checkCurrentPurchase = async (
+        currentPurchase,
+        finishTransaction,
+        setSuccess
+    ) => {
+        try {
+            if (
+                (isIosStorekit2() && currentPurchase?.transactionId) ||
+                currentPurchase?.transactionReceipt
+            ) {
+                await finishTransaction({
+                    purchase: currentPurchase,
+                    isConsumable: true
+                })
 
-                await finishTransaction()
+                setSuccess(true)
+
+                // Call the API to mark the user as bought
+                await markUserAsBought()
             }
         } catch (error) {
-            console.log('Error purchasing item:', error)
+            if (error instanceof PurchaseError) {
+                errorLog({
+                    message: `[${error.code}]: ${error.message}`,
+                    error
+                })
+            } else {
+                errorLog({ message: 'handleBuyProduct', error })
+            }
         }
     }
 
-    const validateReceipt = async receipt => {
-        const receiptBody = {
-            'receipt-data': receipt,
-            password: '3e21c5d0ef9e48868ca2b9a0dde0f618'
-        }
+    useEffect(() => {
+        checkCurrentPurchase(currentPurchase, finishTransaction, setSuccess)
+    }, [currentPurchase, finishTransaction, setSuccess])
 
-        try {
-            const result = await validateReceiptIos(receiptBody)
-            return result // Return the result if needed
-        } catch (error) {
-            console.error('Receipt validation failed:', error)
-            throw error // Throw the error to handle it in the calling code
-        }
-    }
+    useEffect(() => {
+        console.log(`*********** products ***********`, products)
+    }, [products])
 
     useEffect(() => {
         if (data) {
@@ -672,9 +719,13 @@ const CourseInfo = ({ navigation, route }) => {
                                 backgroundColor: '#52B553',
                                 borderRadius: 8
                             }}
-                            onPress={
-                                !data?.old_price ? handlePurchase : gotoCourse
-                            }
+                            onPress={() => {
+                                !data?.old_price
+                                    ? handlePurchase(
+                                          products[0]?.productId || {}
+                                      )
+                                    : gotoCourse()
+                            }}
                             isLoading={loadingVerify}
                             isLoadingText="Đang vào"
                             leftIcon={
