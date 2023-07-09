@@ -1,5 +1,10 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton, showToast } from 'app/atoms'
+import {
+    AbsoluteSpinner,
+    Avatar,
+    CourseDetailSkeleton,
+    showToast
+} from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
@@ -7,9 +12,10 @@ import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
+    Alert,
     Linking,
     Platform,
     Pressable,
@@ -80,6 +86,7 @@ const CourseInfo = ({ navigation, route }) => {
     const toast = useToast()
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
+    const [loadingSpinner, setLoadingSpinner] = useState(false)
     const [loadingVerify, setLoadingVerify] = useState(false)
     const [teacherName, setTeacherName] = useState()
     const [tabIndex, setTabIndex] = useState(0)
@@ -141,12 +148,17 @@ const CourseInfo = ({ navigation, route }) => {
                 ? purchase.transactionReceipt
                 : purchase.originalJson
 
+            setLoadingSpinner(false)
+
             if (receipt) {
                 try {
+                    await markUserAsBought(purchase)
                     const acknowledgeResult = await finishTransaction({
-                        purchase
+                        purchase,
+                        isConsumable: false
                     })
 
+                    setLoadingSpinner(false)
                     console.info('acknowledgeResult', acknowledgeResult)
                 } catch (error) {
                     errorLog({ message: 'finishTransaction', error })
@@ -155,6 +167,14 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         const handlePurchaseError = error => {
+            setLoadingSpinner(false)
+            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'default'
+                }
+            ])
             console.warn('purchaseErrorListener', error)
         }
 
@@ -182,10 +202,25 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [])
 
-    const handlePurchase = async (sku: Sku) => {
+    const handlePurchase = async () => {
+        if (!products[0]?.productId) return
+        setLoadingSpinner(true)
         try {
-            await requestPurchase({ sku: products[0]?.productId })
+            const purchase = await requestPurchase({
+                sku: products[0]?.productId
+            })
+
+            await markUserAsBought(purchase)
+            setLoadingSpinner(false)
         } catch (error) {
+            setLoadingSpinner(false)
+            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'default'
+                }
+            ])
             if (error instanceof PurchaseError) {
                 errorLog({
                     message: `[${error.code}]: ${error.message}`,
@@ -197,13 +232,44 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }
 
-    const markUserAsBought = async () => {}
+    const markUserAsBought = async purchase => {
+        await axios.post('payment/activate', {
+            productId: purchase.productId,
+            transactionDate: purchase.transactionDate,
+            transactionId: purchase.transactionId,
+            transactionReceipt: purchase.transactionReceipt,
+            courseId: id
+        })
+
+        if (id) {
+            setLoading(true)
+            axios
+                .get(`auth-get-course-info/${id}`)
+                .then(res => {
+                    if (res.data && res?.data?.status === 200) {
+                        return res.data
+                    } else {
+                        showToast({
+                            title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
+                            status: 'error'
+                        })
+                        navigation.goBack()
+                    }
+                })
+                .then(data => {
+                    setData(data?.data)
+                })
+                .catch(err => console.error(err))
+                .finally(() => setLoading(false))
+        }
+    }
 
     const checkCurrentPurchase = async (
         currentPurchase,
         finishTransaction,
         setSuccess
     ) => {
+        setLoadingSpinner(false)
         try {
             if (
                 (isIosStorekit2() && currentPurchase?.transactionId) ||
@@ -211,13 +277,13 @@ const CourseInfo = ({ navigation, route }) => {
             ) {
                 await finishTransaction({
                     purchase: currentPurchase,
-                    isConsumable: true
+                    isConsumable: false
                 })
 
                 setSuccess(true)
 
                 // Call the API to mark the user as bought
-                await markUserAsBought()
+                await markUserAsBought(currentPurchase)
             }
         } catch (error) {
             if (error instanceof PurchaseError) {
@@ -358,10 +424,6 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }
 
-    if (loading) {
-        return <CourseDetailSkeleton />
-    }
-
     const addToWishList = () => {
         axios
             .get('courses/add-wishlist/' + data?.id)
@@ -391,31 +453,48 @@ const CourseInfo = ({ navigation, route }) => {
         })
     }
 
-    const gotoCourse = () => {
+    const gotoCourse = async () => {
         setLoadingVerify(true)
-        axios
-            .get('courses/verify/' + data?.slug)
-            .then(res => {
-                if (res?.data?.status === 200) {
-                    if (res?.data?.survey) {
-                        showToast({
-                            title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
-                        })
+        try {
+            const res = await axios.get('courses/verify/' + data?.slug)
 
-                        navigation.navigate(ROUTES.Survey, {
-                            surveyId: res?.data?.survey
-                        })
-                    } else {
-                        navigation.navigate(ROUTES.CourseDetail, {
-                            courseId: data?.relational?.course_id,
-                            currentLecture:
-                                data?.relational?.current_lecture ||
-                                data?.first_lecture_id
-                        })
-                    }
+            if (res?.data?.status === 200) {
+                if (res?.data?.survey) {
+                    showToast({
+                        title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
+                    })
+
+                    navigation.navigate(ROUTES.Survey, {
+                        surveyId: res?.data?.survey
+                    })
+                } else {
+                    navigation.navigate(ROUTES.CourseDetail, {
+                        courseId: data?.relational?.course_id,
+                        currentLecture:
+                            data?.relational?.current_lecture ||
+                            data?.first_lecture_id
+                    })
                 }
-            })
-            .finally(() => setLoadingVerify(false))
+            }
+        } catch (error) {
+            console.log(`*********** error ***********`, error)
+        }
+
+        setLoadingVerify(false)
+    }
+
+    const playerRef = useRef(null)
+
+    const onBuffer = () => {
+        // Callback when remote video is buffering
+    }
+
+    const videoError = () => {
+        // Callback when video cannot be loaded
+    }
+
+    if (loading) {
+        return <CourseDetailSkeleton />
     }
 
     return (
@@ -425,14 +504,18 @@ const CourseInfo = ({ navigation, route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
-                    <Video
-                        paused
-                        controls
-                        source={{
-                            uri: `${API_URL}public/${data?.video_path}`
-                        }} // Can be a URL or a local file.
-                        style={{ height: 200, width: '100%' }}
-                    />
+                    <>
+                        {/* <Video
+                            paused
+                            controls
+                            source={{
+                                uri: `${API_URL}public/${data?.video_path}`
+                            }} // Can be a URL or a local file.
+                            onBuffer={() => {}} // Callback when remote video is buffering
+                            onError={() => {}} // Callback when video cannot be loaded
+                            style={{ height: 200, width: '100%' }}
+                        /> */}
+                    </>
                 ) : (
                     <Image
                         resizeMode="contain"
@@ -707,7 +790,11 @@ const CourseInfo = ({ navigation, route }) => {
                             alignItems: 'center'
                         }}>
                         <Button
-                            isDisabled={!data?.relational}
+                            isDisabled={
+                                !data?.relational &&
+                                !products?.length &&
+                                !!data?.old_price
+                            }
                             pt={2}
                             pb={2}
                             pr={5}
@@ -717,7 +804,9 @@ const CourseInfo = ({ navigation, route }) => {
                                 borderRadius: 8
                             }}
                             onPress={() => {
-                                !data?.old_price
+                                !data?.relational &&
+                                !!data?.old_price &&
+                                !!products?.length
                                     ? handlePurchase()
                                     : gotoCourse()
                             }}
@@ -728,11 +817,20 @@ const CourseInfo = ({ navigation, route }) => {
                                     <BookOpen stroke="#fff" size={10} />
                                 </>
                             }>
-                            {!data?.old_price ? 'Mua ngay' : 'Học ngay'}
+                            {!data?.relational && !!data?.old_price
+                                ? 'Mua ngay'
+                                : 'Học ngay'}
                         </Button>
                     </View>
                 </View>
             </SafeAreaView>
+            {loadingSpinner && (
+                <AbsoluteSpinner
+                    style={{
+                        marginTop: 20
+                    }}
+                />
+            )}
         </View>
     )
 }

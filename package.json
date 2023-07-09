@@ -33,7 +33,7 @@
         "react-native-config": "^1.4.5",
         "react-native-device-info": "^10.0.1",
         "react-native-feather": "^1.1.2",
-        "react-native-gesture-handler": "^2.2.0",
+        "react-native-gesture-handler": "^2.9.0",
         "react-native-iap": "12.10.5",
         "react-native-image-crop-picker": "0.37.3",
         "react-native-keyboard-aware-scroll-view": "^0.9.5",
