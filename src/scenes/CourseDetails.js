@@ -505,30 +505,35 @@ const CourseInfo = ({ navigation, route }) => {
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
                     <>
-                        {/* <Video
+                        <Video
                             paused
                             controls
                             source={{
-                                uri: `${API_URL}public/${data?.video_path}`
+                                uri: `${API_URL}public/${data?.video_path}`.replace(
+                                    /\s/g,
+                                    '%20'
+                                )
                             }} // Can be a URL or a local file.
                             onBuffer={() => {}} // Callback when remote video is buffering
                             onError={() => {}} // Callback when video cannot be loaded
                             style={{ height: 200, width: '100%' }}
-                        /> */}
+                        />
                     </>
                 ) : (
-                    <Image
-                        resizeMode="contain"
-                        source={{
-                            uri: `${COURSE_IMG_PATH}${data?.id}.webp`
-                        }}
-                        style={{
-                            width: '100%',
-                            height: scale(200)
-                        }}
-                        alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
-                        fallbackSource={require('assets/images/fallback.jpg')}
-                    />
+                    <>
+                        <Image
+                            resizeMode="contain"
+                            source={{
+                                uri: `${COURSE_IMG_PATH}${data?.id}.webp`
+                            }}
+                            style={{
+                                width: '100%',
+                                height: scale(200)
+                            }}
+                            alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
+                            fallbackSource={require('assets/images/fallback.jpg')}
+                        />
+                    </>
                 )}
                 <View
                     style={{
@@ -789,38 +794,56 @@ const CourseInfo = ({ navigation, route }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}>
-                        <Button
-                            isDisabled={
-                                !data?.relational &&
-                                !products?.length &&
-                                !!data?.old_price
-                            }
-                            pt={2}
-                            pb={2}
-                            pr={5}
-                            pl={5}
-                            style={{
-                                backgroundColor: '#52B553',
-                                borderRadius: 8
-                            }}
-                            onPress={() => {
-                                !data?.relational &&
-                                !!data?.old_price &&
-                                !!products?.length
-                                    ? handlePurchase()
-                                    : gotoCourse()
-                            }}
-                            isLoading={loadingVerify}
-                            isLoadingText="Đang vào"
-                            leftIcon={
-                                <>
-                                    <BookOpen stroke="#fff" size={10} />
-                                </>
-                            }>
-                            {!data?.relational && !!data?.old_price
-                                ? 'Mua ngay'
-                                : 'Học ngay'}
-                        </Button>
+                        {!data?.relational && data?.old_price ? (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={() => {
+                                    handlePurchase()
+                                }}
+                                isLoading={loadingVerify}
+                                isLoadingText="Đang vào"
+                                leftIcon={
+                                    <>
+                                        <BookOpen stroke="#fff" size={10} />
+                                    </>
+                                }>
+                                Mua ngay
+                            </Button>
+                        ) : (
+                            <></>
+                        )}
+                        {!!data?.relational ? (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={() => {
+                                    gotoCourse()
+                                }}
+                                isLoading={loadingVerify}
+                                isLoadingText="Đang vào"
+                                leftIcon={
+                                    <>
+                                        <BookOpen stroke="#fff" size={10} />
+                                    </>
+                                }>
+                                Học ngay
+                            </Button>
+                        ) : (
+                            <></>
+                        )}
                     </View>
                 </View>
             </SafeAreaView>
