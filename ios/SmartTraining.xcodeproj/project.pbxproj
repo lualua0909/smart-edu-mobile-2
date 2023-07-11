@@ -591,7 +591,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmartTraining/SmartTraining.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 6FXA3GNJWR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
@@ -627,7 +627,7 @@
 				CODE_SIGN_ENTITLEMENTS = SmartTraining/SmartTraining.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 6FXA3GNJWR;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Smart Training";

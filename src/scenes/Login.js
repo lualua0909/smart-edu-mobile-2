@@ -184,7 +184,7 @@ const Login = ({ navigation }) => {
                                 Đăng nhập
                             </Button>
                         </Center>
-                        {/* 
+
                         <Pressable
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
@@ -207,7 +207,7 @@ const Login = ({ navigation }) => {
                                     Đăng ký ngay
                                 </Text>
                             </Text>
-                        </Pressable> */}
+                        </Pressable>
                     </View>
                 </View>
                 {/* <SafeAreaView
