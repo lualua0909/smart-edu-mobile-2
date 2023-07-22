@@ -46,31 +46,36 @@ const MentorList = ({}) => {
     }
 
     return (
-        <ScrollView
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }>
-            {data?.length ? (
-                <FlatList
-                    data={data || []}
-                    keyExtractor={(_, index) => index.toString()}
-                    renderItem={({ item, index }) => (
-                        <TeacherItem index={index} item={item} />
-                    )}
-                    contentContainerStyle={{
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        paddingBottom: scale(50)
-                    }}
-                    onEndReached={handleLoadMore}
-                    onEndReachedThreshold={1}
-                    showsVerticalScrollIndicator={false}
-                />
-            ) : !loading ? (
-                <NoDataAnimation />
-            ) : null}
-            {loading && <LoadingAnimation />}
-        </ScrollView>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={refetch}
+                    />
+                }>
+                {data?.length ? (
+                    <FlatList
+                        data={data || []}
+                        keyExtractor={(_, index) => index.toString()}
+                        renderItem={({ item, index }) => (
+                            <TeacherItem index={index} item={item} />
+                        )}
+                        contentContainerStyle={{
+                            paddingLeft: 16,
+                            paddingRight: 16,
+                            paddingBottom: scale(50)
+                        }}
+                        onEndReached={handleLoadMore}
+                        onEndReachedThreshold={1}
+                        showsVerticalScrollIndicator={false}
+                    />
+                ) : !loading ? (
+                    <NoDataAnimation />
+                ) : null}
+                {loading && <LoadingAnimation />}
+            </ScrollView>
+        </View>
     )
 }
 

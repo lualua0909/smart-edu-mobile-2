@@ -1,4 +1,5 @@
 import axios from 'app/Axios'
+import { useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
@@ -11,6 +12,7 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
+import { clearDataAfterLogout, errorLog, isAndroid } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -45,8 +47,6 @@ import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
 
 import { Button, Image, Text, VStack, useToast } from 'native-base'
-
-import { errorLog, isAndroid } from '../helpers/utils'
 
 const routes = [
     {
@@ -105,6 +105,7 @@ const CourseInfo = ({ navigation, route }) => {
 
     const [success, setSuccess] = useState(false)
     const [products, setProducts] = useState()
+    const [userInfo, _setuserInfo] = useGlobalState('userInfo')
 
     useEffect(() => {
         let purchaseUpdateSubscription
@@ -311,7 +312,7 @@ const CourseInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             axios
-                .get(`auth-get-course-info/${id}`)
+                .get(`get-course-info/${id}`)
                 .then(res => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
@@ -744,7 +745,7 @@ const CourseInfo = ({ navigation, route }) => {
                     }}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {data && (
+                        {data && userInfo?.id !== 'trial' ? (
                             <Pressable
                                 style={{
                                     justifyContent: 'center',
@@ -769,7 +770,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     {isLiked ? 'Đã thích' : 'Yêu thích'}
                                 </Text>
                             </Pressable>
-                        )}
+                        ) : null}
                         <Pressable
                             style={{
                                 justifyContent: 'center',
@@ -794,6 +795,20 @@ const CourseInfo = ({ navigation, route }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}>
+                        {userInfo?.id === 'trial' && (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={clearDataAfterLogout}>
+                                Đến trang đăng nhập
+                            </Button>
+                        )}
                         {!data?.relational && data?.old_price ? (
                             <Button
                                 pt={2}
@@ -816,9 +831,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 }>
                                 Mua ngay
                             </Button>
-                        ) : (
-                            <></>
-                        )}
+                        ) : null}
                         {!!data?.relational ? (
                             <Button
                                 pt={2}
@@ -841,9 +854,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 }>
                                 Học ngay
                             </Button>
-                        ) : (
-                            <></>
-                        )}
+                        ) : null}
                     </View>
                 </View>
             </SafeAreaView>

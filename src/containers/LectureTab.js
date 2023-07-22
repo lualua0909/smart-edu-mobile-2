@@ -13,9 +13,10 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [data, setData] = useState()
     const [totalLectures, setTotalLectures] = useState(0)
     const [_, setFinishedLectures] = useGlobalState('finishedLectures')
+    const [userInfo, _setuserInfo] = useGlobalState('userInfo')
 
     useEffect(() => {
-        if (courseId) {
+        if (courseId && userInfo?.id !== 'trial') {
             axios
                 .get(`courses/chapter-list/paging/${courseId}`)
                 .then(res => {
@@ -24,7 +25,6 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                 .then(data => {
                     const chapters = data?.data
                     setFinishedLectures(data?.finished_lectures)
-
                     setData(chapters)
                     if (setChapters) {
                         const c = chapters.map(i => {
@@ -37,10 +37,8 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                             (previousValue, _) => previousValue + 1,
                             0
                         )
-
                         return sumWithInitial
                     })
-
                     const sumWithInitial = sum.reduce(
                         (previousValue, currentValue) =>
                             previousValue + currentValue,

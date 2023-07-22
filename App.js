@@ -1,5 +1,5 @@
 import { useGlobalState } from 'app/Store'
-import { showToast } from 'app/atoms'
+import { ModalNotLogin, showToast } from 'app/atoms'
 import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
@@ -21,6 +21,7 @@ firebase.initializeApp(firebaseConfig)
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
+    const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -90,6 +91,7 @@ const App = () => {
                     }}>
                     <SwitchNavigator />
                 </NavigationContainer>
+                <ModalNotLogin visible={visible} setVisible={setVisible} />
             </GestureHandlerRootView>
         </NativeBaseProvider>
     )

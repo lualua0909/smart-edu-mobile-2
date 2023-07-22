@@ -85,7 +85,24 @@ const Login = ({ navigation }) => {
         }
     }
 
-    const toTrialPage = () => {}
+    const toTrialPage = () => {
+        const userInfo = {
+            expiredDate: null,
+            first_name: 'Học',
+            id: 'trial',
+            last_name: 'Thử',
+            level: 3,
+            notifications: [],
+            status: 200,
+            step: null,
+            token: 'Bearer',
+            totalCoins: null,
+            username: 'Học thử'
+        }
+        setUserInfo(userInfo)
+        setRandom(Math.random())
+        storeData('@userInfo', userInfo)
+    }
 
     return (
         <View style={{ flex: 1 }}>

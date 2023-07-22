@@ -58,22 +58,26 @@ const HistoryItem = ({ data }) => {
                         position: 'absolute'
                     }}>
                     <View>
-                        <Text
-                            style={{
-                                fontSize: scale(14),
-                                color: '#000000',
-                                textAlign: 'right'
-                            }}>
-                            Ngày {day || ''}
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: scale(14),
-                                color: '#6C746E',
-                                textAlign: 'right'
-                            }}>
-                            Tháng {month || ''}
-                        </Text>
+                        {day ? (
+                            <Text
+                                style={{
+                                    fontSize: scale(14),
+                                    color: '#000000',
+                                    textAlign: 'right'
+                                }}>
+                                Ngày {day}
+                            </Text>
+                        ) : null}
+                        {month ? (
+                            <Text
+                                style={{
+                                    fontSize: scale(14),
+                                    color: '#6C746E',
+                                    textAlign: 'right'
+                                }}>
+                                Tháng {month}
+                            </Text>
+                        ) : null}
                         <Text
                             style={{
                                 fontSize: scale(14),

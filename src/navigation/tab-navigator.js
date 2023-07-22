@@ -1,3 +1,4 @@
+import { useGlobalState } from 'app/Store'
 import CourseList from 'app/scenes/CourseList'
 import Dashboard from 'app/scenes/Dashboard'
 import Home from 'app/scenes/Home'
@@ -20,6 +21,7 @@ import { Text } from 'native-base'
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = ({}) => {
+    const [userInfo, setUserInfo] = useGlobalState('userInfo')
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -81,12 +83,17 @@ const TabNavigator = ({}) => {
                 options={({ route, navigation }) => ({
                     headerShown: true,
                     headerTitle: () => (
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 'bold'
+                            }}>
                             Danh sách thông báo
                         </Text>
                     ),
                     tabBarButton: props => (
                         <BottomTabButton
+                            disabled={userInfo?.id === 'trial'}
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabNoti('#fff')}
                             iconInactive={svgTabNoti('#a3a3a3')}
@@ -102,6 +109,7 @@ const TabNavigator = ({}) => {
                 options={({ route, navigation }) => ({
                     tabBarButton: props => (
                         <BottomTabButton
+                            disabled={userInfo?.id === 'trial'}
                             focused={props.accessibilityState.selected}
                             iconActive={svgTabMenu('#fff')}
                             iconInactive={svgTabMenu('#a3a3a3')}

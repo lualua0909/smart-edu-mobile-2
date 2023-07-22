@@ -1,28 +1,23 @@
 import { useGlobalState } from 'app/Store'
-import React from 'react'
+import React, { useState } from 'react'
 
-import { View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import ErrorBoundary from 'react-native-error-boundary'
 
 import AppNavigator from './app-navigator'
 import AuthNavigator from './auth-navigator'
-import { Text } from 'native-base'
 
 const SwitchNavigator = () => {
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
-
     const errorHandler = (error, stackTrace) => {
         /* Log the error to an error reporting service */
-        return (
-            <View>
-                <Text>Something happened!</Text>
-                <Text>{error.toString()}</Text>
-            </View>
-        )
+        console.log('error ====', error)
     }
 
     return (
-        <ErrorBoundary onError={errorHandler}>
+        <ErrorBoundary
+            onError={errorHandler}
+            FallbackComponent={props => <Text>ERROR</Text>}>
             {userInfo?.token ? <AppNavigator /> : <AuthNavigator />}
         </ErrorBoundary>
     )

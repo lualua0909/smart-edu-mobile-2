@@ -63,37 +63,32 @@ const Notification = ({}) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <SafeAreaView
-                edges={['top']}
-                style={{ flex: 1, backgroundColor: 'white' }}>
-                <ScrollView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={refetch}
-                        />
-                    }>
-                    <FlatList
-                        data={data || []}
-                        keyExtractor={(_, index) => index.toString()}
-                        renderItem={({ item, index }) => (
-                            <NotiItem
-                                index={index}
-                                data={item}
-                                removeNotify={removeNotify}
-                            />
-                        )}
-                        contentContainerStyle={{
-                            paddingTop: scale(16),
-                            paddingBottom: scale(50)
-                        }}
-                        onEndReached={handleLoadMore}
-                        onEndReachedThreshold={0.5}
-                        showsVerticalScrollIndicator={false}
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={refetch}
                     />
-                    {loading && <LoadingAnimation />}
-                </ScrollView>
-            </SafeAreaView>
+                }>
+                <FlatList
+                    data={data || []}
+                    keyExtractor={(_, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                        <NotiItem
+                            index={index}
+                            data={item}
+                            removeNotify={removeNotify}
+                        />
+                    )}
+                    contentContainerStyle={{
+                        paddingBottom: scale(20)
+                    }}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    showsVerticalScrollIndicator={false}
+                />
+                {loading && <LoadingAnimation />}
+            </ScrollView>
         </View>
     )
 }
