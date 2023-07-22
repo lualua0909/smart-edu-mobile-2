@@ -14,7 +14,6 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {
     AlertDialog,
@@ -195,11 +194,11 @@ const ProfileInfo = ({}) => {
                                     )
                                 })
                             }>
-                            <Ionicons
+                            {/* <Ionicons
                                 name="md-camera"
                                 color="white"
                                 size={16}
-                            />
+                            /> */}
                         </Pressable>
                     </View>
                     <View>
@@ -251,11 +250,11 @@ const ProfileInfo = ({}) => {
                                         )
                                     })
                                 }>
-                                <Ionicons
+                                {/* <Ionicons
                                     name="md-camera"
                                     color="white"
                                     size={16}
-                                />
+                                /> */}
                             </Pressable>
                         </View>
                     </View>
@@ -376,13 +375,13 @@ const ProfileInfo = ({}) => {
                             />
                             <Center>
                                 <Button
-                                    leftIcon={
-                                        <Icon
-                                            as={Ionicons}
-                                            name="person-remove"
-                                            size="sm"
-                                        />
-                                    }
+                                    // leftIcon={
+                                    //     <Icon
+                                    //         as={Ionicons}
+                                    //         name="person-remove"
+                                    //         size="sm"
+                                    //     />
+                                    // }
                                     w="70%"
                                     colorScheme="red"
                                     onPress={() => setIsOpen(!isOpen)}

@@ -6,7 +6,6 @@ import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {
     Button,
@@ -74,22 +73,22 @@ const ProfileOverview = ({ navigation, route }) => {
                             alignItems: 'center',
                             width: '40%'
                         }}
-                        leftIcon={
-                            <Ionicons
-                                name="ios-person-add"
-                                color="white"
-                                size={16}
-                            />
-                        }
+                        // leftIcon={
+                        //     <Ionicons
+                        //         name="ios-person-add"
+                        //         color="white"
+                        //         size={16}
+                        //     />
+                        // }
                         onPress={() => setIsFriend(!isFriend)}>
                         Thêm bạn bè
                     </Button>
                 </>
             ) : (
                 <>
-                    <Pressable>
+                    {/* <Pressable>
                         <Ionicons name="cloud-upload" color="red" size={24} />
-                    </Pressable>
+                    </Pressable> */}
                     <Pressable
                         style={{
                             backgroundColor: '#52B553',
@@ -154,14 +153,14 @@ const ProfileOverview = ({ navigation, route }) => {
                         width: '100%',
                         marginTop: scale(170)
                     }}>
-                    <Pressable
+                    {/* <Pressable
                         style={{
                             backgroundColor: '#aaa',
                             borderRadius: 50,
                             padding: 5
                         }}>
                         <Ionicons name="cloud-upload" color="white" size={16} />
-                    </Pressable>
+                    </Pressable> */}
                 </View>
                 <View>
                     <View
@@ -179,7 +178,7 @@ const ProfileOverview = ({ navigation, route }) => {
                             justifyContent: 'flex-end',
                             marginTop: scale(-40)
                         }}>
-                        <Pressable
+                        {/* <Pressable
                             style={{
                                 backgroundColor: '#aaa',
                                 borderRadius: 50,
@@ -190,7 +189,7 @@ const ProfileOverview = ({ navigation, route }) => {
                                 color="white"
                                 size={16}
                             />
-                        </Pressable>
+                        </Pressable> */}
                     </View>
                 </View>
                 <Center style={{ marginTop: 30 }}>

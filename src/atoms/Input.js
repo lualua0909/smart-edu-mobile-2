@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Ionicons from 'react-native-vector-icons/Ionicons'
-
 import {
     FormControl,
     Icon,
@@ -47,12 +45,12 @@ const CustomInput = ({
                 <>
                     {allowClear && props.value && (
                         <Pressable onPress={() => props.onChangeText('')}>
-                            <Icon
+                            {/* <Icon
                                 as={<Ionicons name="close-circle" />}
                                 size={5}
                                 mr="2"
                                 color="muted.400:alpha.60"
-                            />
+                            /> */}
                         </Pressable>
                     )}
                     {props.InputRightElement}

@@ -2,7 +2,6 @@ import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { Text, View } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const CreditBouns = ({ data }) => {
     return (
@@ -49,7 +48,7 @@ const CreditBouns = ({ data }) => {
                                 paddingBottom: scale(10)
                             }}
                             key={index}>
-                            <Ionicons name="medal" color="orange" size={32} />
+                            {/* <Ionicons name="medal" color="orange" size={32} /> */}
                             <Text
                                 style={{
                                     fontSize: 14,

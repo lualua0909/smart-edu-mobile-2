@@ -8,8 +8,12 @@ import { storeData } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
+import LottieView from 'lottie-react-native'
 import { Image, Pressable, ScrollView, View } from 'react-native'
+import { ArrowUpCircle, ChevronRight } from 'react-native-feather'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
+import animationImg from 'assets/animations/english-reading.json'
 import { Button, Center, Stack, Text } from 'native-base'
 
 const Login = ({ navigation }) => {
@@ -80,6 +84,8 @@ const Login = ({ navigation }) => {
             })
         }
     }
+
+    const toTrialPage = () => {}
 
     return (
         <View style={{ flex: 1 }}>
@@ -210,34 +216,53 @@ const Login = ({ navigation }) => {
                         </Pressable>
                     </View>
                 </View>
-                {/* <SafeAreaView
+                <SafeAreaView
                     style={{
                         position: 'absolute',
                         bottom: scale(0),
                         alignSelf: 'center',
-                        marginBottom: scale(15),
+                        marginBottom: scale(30),
+                        width: '100%'
                     }}
-                    edges={['bottom']}
-                >
-                    <Pressable
-                        hitSlop={30}
-                        style={{
-                            position: 'absolute',
-                            bottom: scale(0),
-                            alignSelf: 'center',
-                        }}
-                    >
+                    edges={['bottom']}>
+                    <Center>
+                        <LottieView
+                            source={animationImg}
+                            autoPlay
+                            loop
+                            style={{
+                                width: 100,
+                                height: 100,
+                                marginBottom: 10
+                            }}
+                        />
                         <Text
                             style={{
-                                fontWeight: 'bold',
-                                color: '#23B55D',
-                                fontSize: scale(16),
-                            }}
-                        >
-                            Khám phá ngay
+                                color: '#111',
+                                fontSize: scale(15)
+                            }}>
+                            Trải nghiệm không cần tài khoản?
                         </Text>
-                    </Pressable>
-                </SafeAreaView> */}
+                        <Pressable
+                            hitSlop={30}
+                            style={{ marginTop: 6 }}
+                            onPress={toTrialPage}>
+                            <Text
+                                style={{
+                                    fontFamily: 'Mulish-SemiBold',
+                                    color: '#23B55D',
+                                    fontSize: scale(15)
+                                }}>
+                                Khám phá ngay{' '}
+                                <ChevronRight
+                                    stroke="#23B55D"
+                                    width={18}
+                                    height={32}
+                                />
+                            </Text>
+                        </Pressable>
+                    </Center>
+                </SafeAreaView>
             </ScrollView>
         </View>
     )

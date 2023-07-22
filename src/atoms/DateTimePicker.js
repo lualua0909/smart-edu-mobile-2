@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import React, { useState } from 'react'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { Icon, Pressable } from 'native-base'
 
@@ -25,14 +24,14 @@ const CustomDateTimePicker = ({
                 <Input
                     w="100%"
                     value={dayjs(date).format('DD/MM/YYYY')}
-                    InputRightElement={
-                        <Icon
-                            as={<Ionicons name="ios-calendar-outline" />}
-                            size={5}
-                            mr="2"
-                            color="muted.400"
-                        />
-                    }
+                    // InputRightElement={
+                    //     <Icon
+                    //         as={<Ionicons name="ios-calendar-outline" />}
+                    //         size={5}
+                    //         mr="2"
+                    //         color="muted.400"
+                    //     />
+                    // }
                     {...inputProps}
                 />
             </Pressable>
