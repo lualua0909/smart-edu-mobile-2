@@ -312,7 +312,11 @@ const CourseInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             axios
-                .get(`get-course-info/${id}`)
+                .get(
+                    `${
+                        userInfo?.id !== 'trial' ? 'auth-' : ''
+                    }get-course-info/${id}`
+                )
                 .then(res => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
@@ -482,16 +486,6 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         setLoadingVerify(false)
-    }
-
-    const playerRef = useRef(null)
-
-    const onBuffer = () => {
-        // Callback when remote video is buffering
-    }
-
-    const videoError = () => {
-        // Callback when video cannot be loaded
     }
 
     if (loading) {

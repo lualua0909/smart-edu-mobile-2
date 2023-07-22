@@ -11,6 +11,7 @@ import {
     STYLES
 } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -20,7 +21,16 @@ import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 
-import { Badge, Box, Center, Image, Modal, Progress, Text } from 'native-base'
+import {
+    Badge,
+    Box,
+    Button,
+    Center,
+    Image,
+    Modal,
+    Progress,
+    Text
+} from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
@@ -42,10 +52,6 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         axios.get('homepage-info/iOS').then(res => {
             setHomeInfo(res?.data?.data)
-            const lastestVersion = res?.data?.data?.lastest_version || ''
-            if (lastestVersion !== DeviceInfo.getReadableVersion()) {
-                // setShowModal(true)
-            }
         })
     }, [])
 
@@ -84,7 +90,15 @@ const Home = ({ navigation }) => {
                                     : userInfo?.last_name}
                             </Text>
                         </Text>
-                        {userInfo?.id === 'trial' ? null : (
+                        {userInfo?.id === 'trial' ? (
+                            <Button
+                                size="md"
+                                width={200}
+                                mt={2}
+                                onPress={clearDataAfterLogout}>
+                                Đến trang đăng nhập
+                            </Button>
+                        ) : (
                             <Text
                                 style={{
                                     fontSize: 16,
@@ -362,10 +376,10 @@ const Home = ({ navigation }) => {
                                                 style={[
                                                     {
                                                         flexDirection: 'row',
-                                                        paddingTop: scale(3),
+                                                        paddingTop: scale(10),
                                                         paddingBottom: scale(8),
                                                         paddingRight: scale(3),
-                                                        paddingLeft: scale(6),
+                                                        paddingLeft: scale(10),
                                                         borderWidth: 1,
                                                         borderColor: '#E6E6E6',
                                                         borderBottomWidth:
@@ -387,6 +401,7 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
+                                                            fontWeight: 'bold',
                                                             fontSize: scale(12),
                                                             color: '#1F1F1F',
                                                             width: 200

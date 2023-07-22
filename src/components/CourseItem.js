@@ -1,6 +1,7 @@
 import { Rate } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { toCurrency } from 'app/helpers/utils'
 import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
@@ -177,14 +178,14 @@ const CourseItem = ({
                         </Text>
                     </View>
                 )}
-                {/* <View
+                <View
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         marginTop: scale(10)
                     }}>
-                    {item?.old_price && (
+                    {item?.old_price ? (
                         <Text
                             style={{
                                 fontSize: scale(16),
@@ -193,8 +194,8 @@ const CourseItem = ({
                             }}>
                             {toCurrency(item?.old_price)} đ
                         </Text>
-                    )}
-                    {item?.new_price && (
+                    ) : null}
+                    {item?.new_price ? (
                         <Text
                             style={{
                                 fontSize: scale(18),
@@ -202,8 +203,8 @@ const CourseItem = ({
                             }}>
                             {toCurrency(item?.new_price)} đ
                         </Text>
-                    )}
-                </View> */}
+                    ) : null}
+                </View>
             </View>
         </Pressable>
     )

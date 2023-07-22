@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import LottieView from 'lottie-react-native'
 import { Image, Pressable, ScrollView, View } from 'react-native'
-import { ArrowUpCircle, ChevronRight } from 'react-native-feather'
+import { ArrowUpCircle, ChevronRight, Key, Shield } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
@@ -164,13 +164,29 @@ const Login = ({ navigation }) => {
                             alignItems="center"
                             style={{ marginTop: scale(16) }}>
                             <Input
-                                size="md"
+                                allowClear
+                                InputLeftElement={
+                                    <Shield
+                                        width={18}
+                                        height={18}
+                                        color="#555"
+                                        style={{ marginLeft: 10 }}
+                                    />
+                                }
                                 placeholder="Tài khoản"
                                 {...username}
                                 blurOnSubmit={true}
                             />
                             <Input
-                                size="md"
+                                allowClear
+                                InputLeftElement={
+                                    <Key
+                                        width={18}
+                                        height={18}
+                                        color="#555"
+                                        style={{ marginLeft: 10 }}
+                                    />
+                                }
                                 type="password"
                                 placeholder="Mật khẩu"
                                 {...password}
@@ -198,6 +214,7 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
+                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{

@@ -1,4 +1,5 @@
 import axios from 'app/Axios'
+import { Input } from 'app/atoms'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -11,10 +12,11 @@ import {
 import React, { useState } from 'react'
 
 import { Image, Linking, Pressable, ScrollView, View } from 'react-native'
+import { AtSign, Key, Phone, Shield, User } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
 import { Text } from 'native-base'
-import { Button, Center, Icon, Input, Stack, useToast } from 'native-base'
+import { Button, Center, Icon, Stack, useToast } from 'native-base'
 
 const Register = ({ navigation }) => {
     const toast = useToast()
@@ -126,51 +128,39 @@ const Register = ({ navigation }) => {
                                 alignItems="center"
                                 style={{ marginTop: scale(16) }}>
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={
-                                                <SvgXml
-                                                    xml={svgLoginUsername}
-                                                />
-                                            }
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <User
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     placeholder="Họ"
                                     {...firstName}
                                 />
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={
-                                                <SvgXml
-                                                    xml={svgLoginUsername}
-                                                />
-                                            }
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <User
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     placeholder="Tên"
                                     {...lastName}
                                 />
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={
-                                                <SvgXml
-                                                    xml={svgLoginUsername}
-                                                />
-                                            }
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <Phone
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     keyboardType="phone-pad"
@@ -178,13 +168,13 @@ const Register = ({ navigation }) => {
                                     {...phone}
                                 />
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={<SvgXml xml={svgLoginMail} />}
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <AtSign
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     placeholder="Email"
@@ -192,34 +182,26 @@ const Register = ({ navigation }) => {
                                     {...email}
                                 />
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={
-                                                <SvgXml
-                                                    xml={svgLoginUsername}
-                                                />
-                                            }
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <Shield
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     placeholder="Tên đăng nhập"
                                     {...username}
                                 />
                                 <Input
-                                    size="md"
+                                    allowClear
                                     InputLeftElement={
-                                        <Icon
-                                            as={
-                                                <SvgXml
-                                                    xml={svgLoginPassword}
-                                                />
-                                            }
-                                            size={5}
-                                            ml="4"
-                                            color="muted.400"
+                                        <Key
+                                            width={18}
+                                            height={18}
+                                            color="#555"
+                                            style={{ marginLeft: 10 }}
                                         />
                                     }
                                     type="password"

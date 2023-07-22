@@ -16,14 +16,19 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
 
     useEffect(() => {
-        if (courseId && userInfo?.id !== 'trial') {
+        if (courseId) {
             axios
-                .get(`courses/chapter-list/paging/${courseId}`)
+                .get(
+                    `${
+                        userInfo?.id === 'trial' ? 'public-courses' : 'courses'
+                    }/chapter-list/paging/${courseId}`
+                )
                 .then(res => {
                     return res.data
                 })
                 .then(data => {
                     const chapters = data?.data
+                    console.log('chapters', chapters)
                     setFinishedLectures(data?.finished_lectures)
                     setData(chapters)
                     if (setChapters) {

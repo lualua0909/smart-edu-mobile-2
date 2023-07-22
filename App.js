@@ -152,7 +152,7 @@ const theme = extendTheme({
             baseStyle: { rounded: 7 },
             sizes: {
                 xs: { px: 6, py: 1 },
-                md: { px: 6, py: 1 },
+                md: { px: 6 },
                 sm: { px: 6, py: 1 }
             },
             variants: {

@@ -1,8 +1,8 @@
 import { ROUTES } from 'app/constants'
 import ForgotPassword from 'app/scenes/ForgotPassword'
 import Login from 'app/scenes/Login'
+import Register from 'app/scenes/Register'
 import Wireframe from 'app/scenes/Welcome'
-import Register from 'app/scenes/register'
 import React from 'react'
 
 import {
