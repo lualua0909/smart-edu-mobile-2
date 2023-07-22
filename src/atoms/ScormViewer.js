@@ -25,7 +25,7 @@ export default ({ src }) => {
                 flex: 1,
                 border: 'none'
             }}
-            scalesPageToFit={true}
+            allowsInlineMediaPlayback={true}
             onLoadStart={syntheticEvent => {
                 const { nativeEvent } = syntheticEvent
                 console.log('onLoadStart', nativeEvent.loading)

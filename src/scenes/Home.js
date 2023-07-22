@@ -11,6 +11,7 @@ import {
     STYLES
 } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -20,29 +21,37 @@ import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 
-import { Badge, Box, Center, Image, Modal, Progress, Text } from 'native-base'
+import {
+    Badge,
+    Box,
+    Button,
+    Center,
+    Image,
+    Modal,
+    Progress,
+    Text
+} from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
     const [showModal, setShowModal] = useState(false)
+    const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
     useEffect(() => {
-        axios.get('courses/get-list-in-dashboard').then(res => {
-            if (res.data.status === 200) {
-                setDashboardInfo(res?.data)
-            }
-        })
-    }, [])
+        if (userInfo?.id !== 'trial') {
+            axios.get('courses/get-list-in-dashboard').then(res => {
+                if (res.data.status === 200) {
+                    setDashboardInfo(res?.data)
+                }
+            })
+        }
+    }, [userInfo])
 
     useEffect(() => {
         axios.get('homepage-info/iOS').then(res => {
             setHomeInfo(res?.data?.data)
-            const lastestVersion = res?.data?.data?.lastest_version || ''
-            if (lastestVersion !== DeviceInfo.getReadableVersion()) {
-                // setShowModal(true)
-            }
         })
     }, [])
 
@@ -50,172 +59,209 @@ const Home = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <SafeAreaView edges={['top']} style={{ flex: 1 }}>
                 <Pressable
-                    onPress={() => navigation.navigate(ROUTES.Overview)}
+                    onPress={() =>
+                        userInfo?.id !== 'trial'
+                            ? navigation.navigate(ROUTES.Overview)
+                            : null
+                    }
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
                         paddingVertical: scale(5),
                         paddingHorizontal: scale(16)
                     }}>
-                    <Avatar userId={userInfo?.id} />
+                    {userInfo?.id !== 'trial' ? (
+                        <Avatar userId={userInfo?.id} />
+                    ) : null}
                     <View style={{ marginLeft: scale(16), flex: 1 }}>
                         <Text
                             style={{
                                 fontSize: 16,
                                 color: '#1F1F1F'
                             }}>
-                            Xin chào{' '}
+                            Xin chào,{' '}
                             <Text
                                 style={{
                                     color: '#0EBF46',
                                     fontWeight: 'bold'
                                 }}>
-                                {userInfo?.last_name}
+                                {userInfo?.id === 'trial'
+                                    ? 'mừng bạn đến với Smart Training'
+                                    : userInfo?.last_name}
                             </Text>
                         </Text>
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                color: '#1F1F1F',
-                                marginTop: scale(4)
-                            }}>
-                            Đến{' '}
-                            <Text style={{ color: '#0EBF46' }}>
-                                trang tổng quan
+                        {userInfo?.id === 'trial' ? (
+                            <Button
+                                size="md"
+                                width={200}
+                                mt={2}
+                                onPress={clearDataAfterLogout}>
+                                Đến trang đăng nhập
+                            </Button>
+                        ) : (
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: '#1F1F1F',
+                                    marginTop: scale(4)
+                                }}>
+                                Đến{' '}
+                                <Text style={{ color: '#0EBF46' }}>
+                                    trang tổng quan
+                                </Text>
                             </Text>
-                        </Text>
+                        )}
                     </View>
                 </Pressable>
                 <ScrollView
                     contentContainerStyle={{ paddingBottom: scale(30) }}>
-                    <View
-                        style={{
-                            padding: scale(16)
-                        }}>
+                    {userInfo?.id !== 'trial' ? (
                         <View
                             style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
+                                padding: scale(16)
                             }}>
                             <View
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center'
                                 }}>
-                                <SvgXml xml={svgStudy} width={scale(24)} />
-                                <Text
+                                <View
                                     style={{
-                                        fontSize: scale(16),
-                                        color: '#0E564D',
-                                        fontWeight: 'bold',
-                                        marginLeft: scale(8),
-                                        paddingTop: scale(5)
+                                        flexDirection: 'row',
+                                        alignItems: 'center'
                                     }}>
-                                    DUY TRÌ HỌC TẬP
-                                </Text>
+                                    <SvgXml xml={svgStudy} width={scale(24)} />
+                                    <Text
+                                        style={{
+                                            fontSize: scale(16),
+                                            color: '#0E564D',
+                                            fontWeight: 'bold',
+                                            marginLeft: scale(8),
+                                            paddingTop: scale(5)
+                                        }}>
+                                        DUY TRÌ HỌC TẬP
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
-                        {dashboardInfo?.continue_courses?.length ? (
-                            <FlatList
-                                data={dashboardInfo?.continue_courses?.slice(
-                                    0,
-                                    3
-                                )}
-                                keyExtractor={(_, index) => index.toString()}
-                                showsHorizontalScrollIndicator={false}
-                                horizontal
-                                contentContainerStyle={{
-                                    paddingTop: scale(16)
-                                }}
-                                renderItem={({ item, index }) => (
-                                    <Pressable
-                                        key={index}
-                                        onPress={() =>
-                                            navigation.navigate(
-                                                ROUTES.CourseInfo,
-                                                {
-                                                    id: item?.id
-                                                }
-                                            )
-                                        }>
-                                        <View
-                                            style={{
-                                                paddingRight: scale(8)
-                                            }}>
-                                            <View
-                                                style={[
+                            {dashboardInfo?.continue_courses?.length ? (
+                                <FlatList
+                                    data={dashboardInfo?.continue_courses?.slice(
+                                        0,
+                                        3
+                                    )}
+                                    keyExtractor={(_, index) =>
+                                        index.toString()
+                                    }
+                                    showsHorizontalScrollIndicator={false}
+                                    horizontal
+                                    contentContainerStyle={{
+                                        paddingTop: scale(16)
+                                    }}
+                                    renderItem={({ item, index }) => (
+                                        <Pressable
+                                            key={index}
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    ROUTES.CourseInfo,
                                                     {
-                                                        flexDirection: 'row',
-                                                        paddingTop: scale(8),
-                                                        paddingBottom: scale(8),
-                                                        paddingRight: scale(3),
-                                                        paddingLeft: scale(6),
-                                                        borderWidth: 1,
-                                                        borderColor: '#E6E6E6',
-                                                        borderRadius: scale(5)
-                                                    },
-                                                    STYLES.boxShadow
-                                                ]}>
+                                                        id: item?.id
+                                                    }
+                                                )
+                                            }>
+                                            <View
+                                                style={{
+                                                    paddingRight: scale(8)
+                                                }}>
                                                 <View
-                                                    style={{
-                                                        flex: 1,
-                                                        marginRight: scale(4),
-                                                        justifyContent:
-                                                            'space-between',
-                                                        paddingBottom: scale(7)
-                                                    }}>
-                                                    <Text
-                                                        numberOfLines={3}
-                                                        style={{
-                                                            fontSize: scale(12),
-                                                            color: '#1F1F1F',
-                                                            width: 200
-                                                        }}>
-                                                        {item?.title}
-                                                    </Text>
+                                                    style={[
+                                                        {
+                                                            flexDirection:
+                                                                'row',
+                                                            paddingTop:
+                                                                scale(8),
+                                                            paddingBottom:
+                                                                scale(8),
+                                                            paddingRight:
+                                                                scale(3),
+                                                            paddingLeft:
+                                                                scale(6),
+                                                            borderWidth: 1,
+                                                            borderColor:
+                                                                '#E6E6E6',
+                                                            borderRadius:
+                                                                scale(5)
+                                                        },
+                                                        STYLES.boxShadow
+                                                    ]}>
                                                     <View
                                                         style={{
-                                                            marginTop: scale(15)
+                                                            flex: 1,
+                                                            marginRight:
+                                                                scale(4),
+                                                            justifyContent:
+                                                                'space-between',
+                                                            paddingBottom:
+                                                                scale(7)
                                                         }}>
-                                                        <Box w="80%" maxW="400">
-                                                            <Progress
-                                                                colorScheme="green"
-                                                                value={
-                                                                    item?.process
-                                                                }
-                                                            />
-                                                            <Text
-                                                                style={{
-                                                                    fontSize:
-                                                                        scale(
-                                                                            12
-                                                                        ),
-                                                                    color: '#000'
-                                                                }}>
-                                                                {item?.process}%
-                                                            </Text>
-                                                        </Box>
+                                                        <Text
+                                                            numberOfLines={3}
+                                                            style={{
+                                                                fontSize:
+                                                                    scale(12),
+                                                                color: '#1F1F1F',
+                                                                width: 200
+                                                            }}>
+                                                            {item?.title}
+                                                        </Text>
+                                                        <View
+                                                            style={{
+                                                                marginTop:
+                                                                    scale(15)
+                                                            }}>
+                                                            <Box
+                                                                w="80%"
+                                                                maxW="400">
+                                                                <Progress
+                                                                    colorScheme="green"
+                                                                    value={
+                                                                        item?.process
+                                                                    }
+                                                                />
+                                                                <Text
+                                                                    style={{
+                                                                        fontSize:
+                                                                            scale(
+                                                                                12
+                                                                            ),
+                                                                        color: '#000'
+                                                                    }}>
+                                                                    {
+                                                                        item?.process
+                                                                    }
+                                                                    %
+                                                                </Text>
+                                                            </Box>
+                                                        </View>
                                                     </View>
+                                                    <Image
+                                                        resizeMode="cover"
+                                                        source={{
+                                                            uri: `${COURSE_IMG_PATH}${item?.id}.webp`
+                                                        }}
+                                                        style={{
+                                                            width: scale(89),
+                                                            height: scale(89)
+                                                        }}
+                                                    />
                                                 </View>
-                                                <Image
-                                                    resizeMode="cover"
-                                                    source={{
-                                                        uri: `${COURSE_IMG_PATH}${item?.id}.webp`
-                                                    }}
-                                                    style={{
-                                                        width: scale(89),
-                                                        height: scale(89)
-                                                    }}
-                                                />
                                             </View>
-                                        </View>
-                                    </Pressable>
-                                )}
-                            />
-                        ) : (
-                            <NoData />
-                        )}
-                        {/* <FlatList
+                                        </Pressable>
+                                    )}
+                                />
+                            ) : (
+                                <NoData />
+                            )}
+                            {/* <FlatList
                             data={dashboardInfo?.continue_courses?.slice(0, 3)}
                             keyExtractor={(_, index) => index.toString()}
                             contentContainerStyle={{ padding: scale(16) }}
@@ -281,7 +327,8 @@ const Home = ({ navigation }) => {
                                 </View>
                             )}
                         /> */}
-                    </View>
+                        </View>
+                    ) : null}
                     <View
                         style={{
                             padding: scale(16)
@@ -329,10 +376,10 @@ const Home = ({ navigation }) => {
                                                 style={[
                                                     {
                                                         flexDirection: 'row',
-                                                        paddingTop: scale(3),
+                                                        paddingTop: scale(10),
                                                         paddingBottom: scale(8),
                                                         paddingRight: scale(3),
-                                                        paddingLeft: scale(6),
+                                                        paddingLeft: scale(10),
                                                         borderWidth: 1,
                                                         borderColor: '#E6E6E6',
                                                         borderBottomWidth:
@@ -354,6 +401,7 @@ const Home = ({ navigation }) => {
                                                     <Text
                                                         numberOfLines={3}
                                                         style={{
+                                                            fontWeight: 'bold',
                                                             fontSize: scale(12),
                                                             color: '#1F1F1F',
                                                             width: 200
@@ -459,12 +507,18 @@ const Home = ({ navigation }) => {
                                 }}
                                 renderItem={({ item, index }) => (
                                     <Pressable
-                                        onPress={() =>
-                                            navigation.navigate(
-                                                ROUTES.TeacherInfo,
-                                                { id: item?.id }
-                                            )
-                                        }
+                                        onPress={() => {
+                                            if (userInfo?.id !== 'trial') {
+                                                navigation.navigate(
+                                                    ROUTES.TeacherInfo,
+                                                    {
+                                                        id: item?.id
+                                                    }
+                                                )
+                                            } else {
+                                                setVisible(true)
+                                            }
+                                        }}
                                         style={{
                                             width: scale(124),
                                             borderWidth: 1,

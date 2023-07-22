@@ -36,6 +36,7 @@ import {
     createStackNavigator
 } from '@react-navigation/stack'
 import { Pressable } from 'react-native'
+import { withIAPContext } from 'react-native-iap'
 import { SvgXml } from 'react-native-svg'
 
 import TabNavigator from './tab-navigator'
@@ -66,7 +67,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
-                component={CourseDetails}
+                component={withIAPContext(CourseDetails)}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />

@@ -55,7 +55,6 @@ const Teacher = ({}) => {
     }
 
     const refetch = () => {
-        setData([])
         setPage(0)
     }
 

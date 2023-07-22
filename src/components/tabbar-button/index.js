@@ -1,13 +1,24 @@
+import { useGlobalState } from 'app/Store'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { Pressable, View } from 'react-native'
+import { Lock } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
 import { Text } from 'native-base'
 
-const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
+const TabbarButton = ({
+    focused,
+    label,
+    iconActive,
+    iconInactive,
+    props,
+    disabled = false
+}) => {
     const iconSize = focused ? scale(20) : scale(18)
+    const [visible, setVisible] = useGlobalState('visibleNotLogin')
+
     return (
         <Pressable
             {...props}
@@ -15,6 +26,10 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
                 width: '20%',
                 alignItems: 'center',
                 justifyContent: 'flex-end'
+            }}
+            onPress={() => {
+                if (disabled) setVisible(true)
+                else props.onPress()
             }}>
             {focused ? (
                 <View
@@ -38,6 +53,22 @@ const TabbarButton = ({ focused, label, iconActive, iconInactive, props }) => {
                         height={iconSize}
                     />
                 </View>
+            ) : disabled ? (
+                <>
+                    <Lock
+                        stroke="#A3A3A3"
+                        width={scale(16)}
+                        height={scale(16)}
+                    />
+                    <Text
+                        style={{
+                            fontSize: scale(12),
+                            color: '#A3A3A3',
+                            textAlign: 'center'
+                        }}>
+                        {label}
+                    </Text>
+                </>
             ) : (
                 <>
                     <SvgXml

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SmartTrainingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SmartTrainingTests.m */; };
-		0783072960E0407A221D0C7C /* libPods-SmartTraining.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BBC2545FDD174F8E5C71FC /* libPods-SmartTraining.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -17,15 +16,17 @@
 		31DBCE7900FD402FAD6BAC93 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA2EF11086F74FCAA7C47F10 /* Mulish-ExtraLight.ttf */; };
 		366E070115BF4F09A96273A2 /* Mulish-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 833E7FEE6AD547F4AE833D32 /* Mulish-LightItalic.ttf */; };
 		3C08D4E87B974C64BEE70B2F /* Mulish-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58C07F2AFD534D7EBC436F06 /* Mulish-Light.ttf */; };
+		4E03408562D41D35DCD42EDF /* libPods-SmartTraining.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B040B5C93B5B60DA1DB6A1 /* libPods-SmartTraining.a */; };
 		5B50655B047C4910B5373983 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 598251C043024D74AF93DEA7 /* Mulish-Regular.ttf */; };
 		632EC5960F824A7EBD31C6A9 /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5A0363996A4AE581779752 /* Mulish-SemiBold.ttf */; };
 		730E195E38B244B5946E11C3 /* Mulish-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBAAE366989D412484BDA64C /* Mulish-ExtraBold.ttf */; };
 		79B86395CAD7465FAF2F9857 /* Mulish-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9CA813CAE3146BBA2BC986E /* Mulish-Medium.ttf */; };
+		8C0F4197ADE2288E49B9B51B /* libPods-SmartTraining-SmartTrainingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C4FBC32630528D2B68CD9DF /* libPods-SmartTraining-SmartTrainingTests.a */; };
 		90B09FDE0C7B441B8C43BD15 /* Mulish-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85D92BDE220042C897290323 /* Mulish-Italic.ttf */; };
-		9D32E8D92FF6F7660501A30C /* libPods-SmartTraining-SmartTrainingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D39E537B7788A76D011AAEDB /* libPods-SmartTraining-SmartTrainingTests.a */; };
 		A21907202149402BBFD9ACC5 /* Mulish-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */; };
 		ABE0E9816AE74C7CBB90AEA7 /* Mulish-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9F02525B46F4E56BEEFEC29 /* Mulish-ExtraBoldItalic.ttf */; };
 		B8ACF0D98DA846C8BBD0E795 /* Mulish-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E24731FFC7B24775A81A76FA /* Mulish-BoldItalic.ttf */; };
+		BE3D5ADA2A3DEBC800D67C09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */; };
 		BE3E78F92A08AC5500A9BFA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE3E78F82A08AC5400A9BFA8 /* GoogleService-Info.plist */; };
 		BF0B61C464A64E7F9141EB8D /* Mulish-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58FE5B3258F24E2D8A8B8C57 /* Mulish-MediumItalic.ttf */; };
 		C079B2CFF3BA46F6816F67D0 /* Mulish-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29AE577454F24BCBAFC98048 /* Mulish-Black.ttf */; };
@@ -62,6 +63,7 @@
 		29AE577454F24BCBAFC98048 /* Mulish-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Black.ttf"; path = "../assets/fonts/Mulish-Black.ttf"; sourceTree = "<group>"; };
 		33D54C276DEA47A5B5FD0A21 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		36F2FCBA389CAFDBF5BA1C7E /* Pods-SmartTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.debug.xcconfig"; sourceTree = "<group>"; };
+		3C4FBC32630528D2B68CD9DF /* libPods-SmartTraining-SmartTrainingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartTraining-SmartTrainingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A7489A977984F36AFBB0A7D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		4F5BA509BEB24AAFAC6916F5 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		58C07F2AFD534D7EBC436F06 /* Mulish-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Light.ttf"; path = "../assets/fonts/Mulish-Light.ttf"; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		6972BB977D14A56DD99615EC /* Pods-SmartTraining-SmartTrainingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		69EA069B88A346C5872D9F0F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		738720B1FD71ED461E043C83 /* Pods-SmartTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.release.xcconfig"; sourceTree = "<group>"; };
+		76B040B5C93B5B60DA1DB6A1 /* libPods-SmartTraining.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartTraining.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B46CF56AE60451EA6C2C1BF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		7E5A0363996A4AE581779752 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBold.ttf"; path = "../assets/fonts/Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
 		7F6A6EFD0E8349C09F9A6F68 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -83,13 +86,12 @@
 		A102D69701E54EB0AF4387E5 /* Mulish-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBoldItalic.ttf"; path = "../assets/fonts/Mulish-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		AE5A353C4E71407ABCD6F16A /* Mulish-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-ExtraLightItalic.ttf"; path = "../assets/fonts/Mulish-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		B204CE39A254EA3907830FC7 /* Pods-SmartTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.release.xcconfig"; sourceTree = "<group>"; };
+		BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE3E78F72A0786A100A9BFA8 /* SmartTraining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SmartTraining.entitlements; path = SmartTraining/SmartTraining.entitlements; sourceTree = "<group>"; };
 		BE3E78F82A08AC5400A9BFA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "SmartTraining/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE90DF79D908D25FF97B6094 /* Pods-SmartTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining/Pods-SmartTraining.debug.xcconfig"; sourceTree = "<group>"; };
 		C4A9B372394B56F370BF1130 /* Pods-SmartTraining-SmartTrainingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7A9BF6EA8054BE8AEF74085 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		D39E537B7788A76D011AAEDB /* libPods-SmartTraining-SmartTrainingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartTraining-SmartTrainingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8BBC2545FDD174F8E5C71FC /* libPods-SmartTraining.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartTraining.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9CA813CAE3146BBA2BC986E /* Mulish-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Medium.ttf"; path = "../assets/fonts/Mulish-Medium.ttf"; sourceTree = "<group>"; };
 		D9F02525B46F4E56BEEFEC29 /* Mulish-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-ExtraBoldItalic.ttf"; path = "../assets/fonts/Mulish-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		E087FEC518E44B3B9D39D4F1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -106,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D32E8D92FF6F7660501A30C /* libPods-SmartTraining-SmartTrainingTests.a in Frameworks */,
+				8C0F4197ADE2288E49B9B51B /* libPods-SmartTraining-SmartTrainingTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0783072960E0407A221D0C7C /* libPods-SmartTraining.a in Frameworks */,
+				4E03408562D41D35DCD42EDF /* libPods-SmartTraining.a in Frameworks */,
+				BE3D5ADA2A3DEBC800D67C09 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,9 +158,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE3D5AD92A3DEBC800D67C09 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				D8BBC2545FDD174F8E5C71FC /* libPods-SmartTraining.a */,
-				D39E537B7788A76D011AAEDB /* libPods-SmartTraining-SmartTrainingTests.a */,
+				76B040B5C93B5B60DA1DB6A1 /* libPods-SmartTraining.a */,
+				3C4FBC32630528D2B68CD9DF /* libPods-SmartTraining-SmartTrainingTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -586,11 +590,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SmartTraining/SmartTraining.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6FXA3GNJWR;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 22;
+				DEVELOPMENT_TEAM = 6FXA3GNJWR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Smart Training";
@@ -609,7 +611,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.smart.training;
 				PRODUCT_NAME = SmartTraining;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SmartTraining_Production_2_com.smart.training;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -625,11 +626,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SmartTraining/SmartTraining.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6FXA3GNJWR;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 22;
+				DEVELOPMENT_TEAM = 6FXA3GNJWR;
 				INFOPLIST_FILE = SmartTraining/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Smart Training";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -647,7 +646,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.smart.training;
 				PRODUCT_NAME = SmartTraining;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SmartTraining_Production_2_com.smart.training;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

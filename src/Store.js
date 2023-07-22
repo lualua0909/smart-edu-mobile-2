@@ -9,7 +9,8 @@ const initialState = {
     windowHeight: null,
     finishedLectures: [],
     carts: [],
-    currentCourseId: null
+    currentCourseId: null,
+    visibleNotLogin: false
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =

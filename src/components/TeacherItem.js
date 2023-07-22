@@ -1,7 +1,8 @@
+import { useGlobalState } from 'app/Store'
 import { Avatar } from 'app/atoms'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
@@ -12,13 +13,21 @@ import { Badge, Center, HStack, Pressable, Text } from 'native-base'
 const TeacherItem = ({ item, index }) => {
     const navigation = useNavigation()
     const fullName = `${item?.first_name} ${item?.last_name}`
+    const [userInfo, setUserInfo] = useGlobalState('userInfo')
+    const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
     return (
         <Pressable
             key={index}
-            onPress={() =>
-                navigation.navigate(ROUTES.TeacherInfo, { id: item?.id })
-            }
+            onPress={() => {
+                if (userInfo?.id === 'trial') {
+                    setVisible(true)
+                } else {
+                    navigation.navigate(ROUTES.TeacherInfo, {
+                        id: item?.id
+                    })
+                }
+            }}
             style={{
                 flexDirection: 'row',
                 marginBottom: scale(8),
@@ -46,7 +55,10 @@ const TeacherItem = ({ item, index }) => {
                         opacity: 0.7
                     }}>
                     <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
                         <Star
                             stroke="orange"
                             fill="orange"

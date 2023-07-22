@@ -10,6 +10,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "@jeremybarbet/apple-api-types": "^1.4.0",
         "@react-native-community/datetimepicker": "^6.6.0",
         "@react-native-firebase/app": "^14.9.1",
         "@react-native-firebase/firestore": "^14.9.1",
@@ -31,8 +32,10 @@
         "react-native-axios": "^0.17.1",
         "react-native-config": "^1.4.5",
         "react-native-device-info": "^10.0.1",
+        "react-native-error-boundary": "^1.2.3",
         "react-native-feather": "^1.1.2",
-        "react-native-gesture-handler": "^2.2.0",
+        "react-native-gesture-handler": "^2.9.0",
+        "react-native-iap": "12.10.5",
         "react-native-image-crop-picker": "0.37.3",
         "react-native-keyboard-aware-scroll-view": "^0.9.5",
         "react-native-linear-gradient": "^2.5.6",
@@ -49,9 +52,8 @@
         "react-native-svg": "^12.3.0",
         "react-native-svg-transformer": "^1.0.0",
         "react-native-tab-view": "^3.1.1",
-        "react-native-vector-icons": "^9.2.0",
         "react-native-version-check": "^3.4.7",
-        "react-native-video": "^6.0.0-alpha.4",
+        "react-native-video": "5.2.1",
         "react-native-webview": "^11.18.1"
     },
     "devDependencies": {

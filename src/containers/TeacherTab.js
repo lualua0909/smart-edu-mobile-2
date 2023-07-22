@@ -22,7 +22,7 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
     useEffect(() => {
         if (mentorId) {
             axios
-                .get(`users/get-mentor-info/${mentorId}`)
+                .get(`public-courses/get-mentor-info/${mentorId}`)
                 .then(res => {
                     return res?.data
                 })

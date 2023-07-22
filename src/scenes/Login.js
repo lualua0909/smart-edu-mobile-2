@@ -8,8 +8,12 @@ import { storeData } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
+import LottieView from 'lottie-react-native'
 import { Image, Pressable, ScrollView, View } from 'react-native'
+import { ArrowUpCircle, ChevronRight, Key, Shield } from 'react-native-feather'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
+import animationImg from 'assets/animations/english-reading.json'
 import { Button, Center, Stack, Text } from 'native-base'
 
 const Login = ({ navigation }) => {
@@ -81,6 +85,25 @@ const Login = ({ navigation }) => {
         }
     }
 
+    const toTrialPage = () => {
+        const userInfo = {
+            expiredDate: null,
+            first_name: 'Học',
+            id: 'trial',
+            last_name: 'Thử',
+            level: 3,
+            notifications: [],
+            status: 200,
+            step: null,
+            token: 'Bearer',
+            totalCoins: null,
+            username: 'Học thử'
+        }
+        setUserInfo(userInfo)
+        setRandom(Math.random())
+        storeData('@userInfo', userInfo)
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView
@@ -141,13 +164,29 @@ const Login = ({ navigation }) => {
                             alignItems="center"
                             style={{ marginTop: scale(16) }}>
                             <Input
-                                size="md"
+                                allowClear
+                                InputLeftElement={
+                                    <Shield
+                                        width={18}
+                                        height={18}
+                                        color="#555"
+                                        style={{ marginLeft: 10 }}
+                                    />
+                                }
                                 placeholder="Tài khoản"
                                 {...username}
                                 blurOnSubmit={true}
                             />
                             <Input
-                                size="md"
+                                allowClear
+                                InputLeftElement={
+                                    <Key
+                                        width={18}
+                                        height={18}
+                                        color="#555"
+                                        style={{ marginLeft: 10 }}
+                                    />
+                                }
                                 type="password"
                                 placeholder="Mật khẩu"
                                 {...password}
@@ -175,6 +214,7 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
+                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{
@@ -184,7 +224,7 @@ const Login = ({ navigation }) => {
                                 Đăng nhập
                             </Button>
                         </Center>
-                        {/* 
+
                         <Pressable
                             onPress={() => navigation.navigate(ROUTES.Register)}
                             style={{
@@ -207,37 +247,56 @@ const Login = ({ navigation }) => {
                                     Đăng ký ngay
                                 </Text>
                             </Text>
-                        </Pressable> */}
+                        </Pressable>
                     </View>
                 </View>
-                {/* <SafeAreaView
+                <SafeAreaView
                     style={{
                         position: 'absolute',
                         bottom: scale(0),
                         alignSelf: 'center',
-                        marginBottom: scale(15),
+                        marginBottom: scale(30),
+                        width: '100%'
                     }}
-                    edges={['bottom']}
-                >
-                    <Pressable
-                        hitSlop={30}
-                        style={{
-                            position: 'absolute',
-                            bottom: scale(0),
-                            alignSelf: 'center',
-                        }}
-                    >
+                    edges={['bottom']}>
+                    <Center>
+                        <LottieView
+                            source={animationImg}
+                            autoPlay
+                            loop
+                            style={{
+                                width: 100,
+                                height: 100,
+                                marginBottom: 10
+                            }}
+                        />
                         <Text
                             style={{
-                                fontWeight: 'bold',
-                                color: '#23B55D',
-                                fontSize: scale(16),
-                            }}
-                        >
-                            Khám phá ngay
+                                color: '#111',
+                                fontSize: scale(15)
+                            }}>
+                            Trải nghiệm không cần tài khoản?
                         </Text>
-                    </Pressable>
-                </SafeAreaView> */}
+                        <Pressable
+                            hitSlop={30}
+                            style={{ marginTop: 6 }}
+                            onPress={toTrialPage}>
+                            <Text
+                                style={{
+                                    fontFamily: 'Mulish-SemiBold',
+                                    color: '#23B55D',
+                                    fontSize: scale(15)
+                                }}>
+                                Khám phá ngay{' '}
+                                <ChevronRight
+                                    stroke="#23B55D"
+                                    width={18}
+                                    height={32}
+                                />
+                            </Text>
+                        </Pressable>
+                    </Center>
+                </SafeAreaView>
             </ScrollView>
         </View>
     )

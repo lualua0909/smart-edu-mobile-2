@@ -1,14 +1,8 @@
 import React from 'react'
 
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { XCircle } from 'react-native-feather'
 
-import {
-    FormControl,
-    Icon,
-    Input,
-    Pressable,
-    WarningOutlineIcon
-} from 'native-base'
+import { FormControl, Input, Pressable, WarningOutlineIcon } from 'native-base'
 
 const CustomInput = ({
     icon,
@@ -25,18 +19,13 @@ const CustomInput = ({
             {...props}
             size="sm"
             variant="outline"
-            InputLeftElement={
-                icon ? (
-                    <Icon as={icon} size={5} ml={3} color="muted.400" />
-                ) : null
-            }
             _light={{
                 bg: 'coolGray.100',
                 _hover: {
                     bg: 'coolGray.200'
                 },
                 _focus: {
-                    bg: 'coolGray.200:alpha.50'
+                    // bg: 'coolGray.200:alpha.50'
                 },
                 _disabled: {
                     bg: 'coolGray.200:alpha.30'
@@ -47,11 +36,12 @@ const CustomInput = ({
                 <>
                     {allowClear && props.value && (
                         <Pressable onPress={() => props.onChangeText('')}>
-                            <Icon
-                                as={<Ionicons name="close-circle" />}
-                                size={5}
-                                mr="2"
-                                color="muted.400:alpha.60"
+                            <XCircle
+                                width={16}
+                                height={16}
+                                fill={'#777'}
+                                color="#fff"
+                                style={{ marginRight: 7 }}
                             />
                         </Pressable>
                     )}

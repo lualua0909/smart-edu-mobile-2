@@ -16,7 +16,6 @@ const CommentCard = ({ data, isReply, isTeacher }) => {
     }
 
     const fullname = `${data?.first_name} ${data?.last_name}`
-
     return (
         <Box
             borderBottomWidth="1"
@@ -58,9 +57,7 @@ const CommentCard = ({ data, isReply, isTeacher }) => {
                                 </LinearGradient>
                             )}
                         </Text>
-                        <Text>
-                            {data?.rate && <Rate rate={data?.rate} size={16} />}
-                        </Text>
+                        {data?.rate && <Rate rate={data?.rate} size={16} />}
                     </VStack>
                     <Spacer />
                     <Text
@@ -70,7 +67,7 @@ const CommentCard = ({ data, isReply, isTeacher }) => {
                         }}
                         color="coolGray.800"
                         alignSelf="flex-start">
-                        {toRelativeTime(data?.created_at)}
+                        {toRelativeTime(data?.rating_date)}
                     </Text>
                 </HStack>
 

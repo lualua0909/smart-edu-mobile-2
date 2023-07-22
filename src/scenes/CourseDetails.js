@@ -1,16 +1,46 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton, showToast } from 'app/atoms'
+import { useGlobalState } from 'app/Store'
+import {
+    AbsoluteSpinner,
+    Avatar,
+    CourseDetailSkeleton,
+    showToast
+} from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
+import { clearDataAfterLogout, errorLog, isAndroid } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { Linking, Pressable, ScrollView, Share, View } from 'react-native'
+import {
+    Alert,
+    Linking,
+    Platform,
+    Pressable,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
+import {
+    PurchaseError,
+    Sku,
+    currentPurchase,
+    endConnection,
+    finishTransaction,
+    flushFailedPurchasesCachedAsPendingAndroid,
+    getProducts,
+    initConnection,
+    isIosStorekit2,
+    purchaseErrorListener,
+    purchaseUpdatedListener,
+    requestPurchase,
+    useIAP
+} from 'react-native-iap'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -37,11 +67,26 @@ const routes = [
     }
 ]
 
+const IAP_errors = {
+    21000: 'The request to the App Store was not made using the HTTP POST request method.',
+    21001: 'This status code is no longer sent by the App Store.',
+    21002: 'The data in the receipt-data property was malformed or the service experienced a temporary issue. Try again.',
+    21003: 'The receipt could not be authenticated.',
+    21004: 'The shared secret you provided does not match the shared secret on file for your account.',
+    21005: 'The receipt server was temporarily unable to provide the receipt. Try again.',
+    21006: `This receipt is valid but the subscription has expired. When this status code is returned to your server, the receipt data is also decoded and returned as part of the response. Only returned for iOS 6-style transaction receipts for auto-renewable subscriptions.`,
+    21007: 'This receipt is from the test environment, but it was sent to the production environment for verification.',
+    21008: 'This receipt is from the production environment, but it was sent to the test environment for verification.',
+    21009: 'Internal data access error. Try again later.',
+    21010: 'The user account cannot be found or has been deleted.'
+}
+
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
     const toast = useToast()
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
+    const [loadingSpinner, setLoadingSpinner] = useState(false)
     const [loadingVerify, setLoadingVerify] = useState(false)
     const [teacherName, setTeacherName] = useState()
     const [tabIndex, setTabIndex] = useState(0)
@@ -53,6 +98,209 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
+    const [course, setCourse] = useState([])
+    const course_id_ipa = `course_id_${id}`
+    const [allowLearning, setAllowLearning] = useState(false)
+    const { getPurchaseHistory, purchaseHistory } = useIAP()
+
+    const [success, setSuccess] = useState(false)
+    const [products, setProducts] = useState()
+    const [userInfo, _setuserInfo] = useGlobalState('userInfo')
+
+    useEffect(() => {
+        let purchaseUpdateSubscription
+        let purchaseErrorSubscription
+
+        const initializeIAP = async () => {
+            try {
+                await initConnection()
+
+                if (isAndroid) {
+                    await flushFailedPurchasesCachedAsPendingAndroid()
+                } else {
+                    // await clearTransactionIOS()
+                }
+            } catch (error) {
+                if (error instanceof PurchaseError) {
+                    errorLog({
+                        message: `[${error.code}]: ${error.message}`,
+                        error
+                    })
+                } else {
+                    errorLog({ message: 'finishTransaction', error })
+                }
+            }
+        }
+
+        const fetchProducts = async () => {
+            try {
+                const products = await getProducts({
+                    skus: [course_id_ipa]
+                })
+                setProducts(products)
+                console.log('Available products:', products)
+            } catch (error) {
+                console.log('Error fetching products:', error)
+            }
+        }
+
+        const handlePurchaseUpdate = async purchase => {
+            const receipt = purchase.transactionReceipt
+                ? purchase.transactionReceipt
+                : purchase.originalJson
+
+            setLoadingSpinner(false)
+
+            if (receipt) {
+                try {
+                    await markUserAsBought(purchase)
+                    const acknowledgeResult = await finishTransaction({
+                        purchase,
+                        isConsumable: false
+                    })
+
+                    setLoadingSpinner(false)
+                    console.info('acknowledgeResult', acknowledgeResult)
+                } catch (error) {
+                    errorLog({ message: 'finishTransaction', error })
+                }
+            }
+        }
+
+        const handlePurchaseError = error => {
+            setLoadingSpinner(false)
+            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'default'
+                }
+            ])
+            console.warn('purchaseErrorListener', error)
+        }
+
+        Promise.all([initializeIAP(), fetchProducts()])
+            .then(() => {
+                purchaseUpdateSubscription =
+                    purchaseUpdatedListener(handlePurchaseUpdate)
+                purchaseErrorSubscription =
+                    purchaseErrorListener(handlePurchaseError)
+            })
+            .catch(error => {
+                // Handle initialization error
+                console.log('Error initializing IAP:', error)
+            })
+
+        return () => {
+            if (purchaseUpdateSubscription) {
+                purchaseUpdateSubscription.remove()
+            }
+
+            if (purchaseErrorSubscription) {
+                purchaseErrorSubscription.remove()
+            }
+            endConnection()
+        }
+    }, [])
+
+    const handlePurchase = async () => {
+        if (!products[0]?.productId) return
+        setLoadingSpinner(true)
+        try {
+            const purchase = await requestPurchase({
+                sku: products[0]?.productId
+            })
+
+            await markUserAsBought(purchase)
+            setLoadingSpinner(false)
+        } catch (error) {
+            setLoadingSpinner(false)
+            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'default'
+                }
+            ])
+            if (error instanceof PurchaseError) {
+                errorLog({
+                    message: `[${error.code}]: ${error.message}`,
+                    error
+                })
+            } else {
+                errorLog({ message: 'handleBuyProduct', error })
+            }
+        }
+    }
+
+    const markUserAsBought = async purchase => {
+        await axios.post('payment/activate', {
+            productId: purchase.productId,
+            transactionDate: purchase.transactionDate,
+            transactionId: purchase.transactionId,
+            transactionReceipt: purchase.transactionReceipt,
+            courseId: id
+        })
+
+        if (id) {
+            setLoading(true)
+            axios
+                .get(`auth-get-course-info/${id}`)
+                .then(res => {
+                    if (res.data && res?.data?.status === 200) {
+                        return res.data
+                    } else {
+                        showToast({
+                            title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
+                            status: 'error'
+                        })
+                        navigation.goBack()
+                    }
+                })
+                .then(data => {
+                    setData(data?.data)
+                })
+                .catch(err => console.error(err))
+                .finally(() => setLoading(false))
+        }
+    }
+
+    const checkCurrentPurchase = async (
+        currentPurchase,
+        finishTransaction,
+        setSuccess
+    ) => {
+        setLoadingSpinner(false)
+        try {
+            if (
+                (isIosStorekit2() && currentPurchase?.transactionId) ||
+                currentPurchase?.transactionReceipt
+            ) {
+                await finishTransaction({
+                    purchase: currentPurchase,
+                    isConsumable: false
+                })
+
+                setSuccess(true)
+
+                // Call the API to mark the user as bought
+                await markUserAsBought(currentPurchase)
+            }
+        } catch (error) {
+            if (error instanceof PurchaseError) {
+                errorLog({
+                    message: `[${error.code}]: ${error.message}`,
+                    error
+                })
+            } else {
+                errorLog({ message: 'handleBuyProduct', error })
+            }
+        }
+    }
+
+    useEffect(() => {
+        checkCurrentPurchase(currentPurchase, finishTransaction, setSuccess)
+    }, [currentPurchase, finishTransaction, setSuccess])
 
     useEffect(() => {
         if (data) {
@@ -64,7 +312,11 @@ const CourseInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             axios
-                .get(`auth-get-course-info/${id}`)
+                .get(
+                    `${
+                        userInfo?.id !== 'trial' ? 'auth-' : ''
+                    }get-course-info/${id}`
+                )
                 .then(res => {
                     if (res.data && res?.data?.status === 200) {
                         return res.data
@@ -177,10 +429,6 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }
 
-    if (loading) {
-        return <CourseDetailSkeleton />
-    }
-
     const addToWishList = () => {
         axios
             .get('courses/add-wishlist/' + data?.id)
@@ -210,31 +458,38 @@ const CourseInfo = ({ navigation, route }) => {
         })
     }
 
-    const gotoCourse = () => {
+    const gotoCourse = async () => {
         setLoadingVerify(true)
-        axios
-            .get('courses/verify/' + data?.slug)
-            .then(res => {
-                if (res?.data?.status === 200) {
-                    if (res?.data?.survey) {
-                        showToast({
-                            title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
-                        })
+        try {
+            const res = await axios.get('courses/verify/' + data?.slug)
 
-                        navigation.navigate(ROUTES.Survey, {
-                            surveyId: res?.data?.survey
-                        })
-                    } else {
-                        navigation.navigate(ROUTES.CourseDetail, {
-                            courseId: data?.relational?.course_id,
-                            currentLecture:
-                                data?.relational?.current_lecture ||
-                                data?.first_lecture_id
-                        })
-                    }
+            if (res?.data?.status === 200) {
+                if (res?.data?.survey) {
+                    showToast({
+                        title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
+                    })
+
+                    navigation.navigate(ROUTES.Survey, {
+                        surveyId: res?.data?.survey
+                    })
+                } else {
+                    navigation.navigate(ROUTES.CourseDetail, {
+                        courseId: data?.relational?.course_id,
+                        currentLecture:
+                            data?.relational?.current_lecture ||
+                            data?.first_lecture_id
+                    })
                 }
-            })
-            .finally(() => setLoadingVerify(false))
+            }
+        } catch (error) {
+            console.log(`*********** error ***********`, error)
+        }
+
+        setLoadingVerify(false)
+    }
+
+    if (loading) {
+        return <CourseDetailSkeleton />
     }
 
     return (
@@ -244,26 +499,36 @@ const CourseInfo = ({ navigation, route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
-                    <Video
-                        paused
-                        controls
-                        source={{
-                            uri: `${API_URL}public/${data?.video_path}`
-                        }} // Can be a URL or a local file.
-                        style={{ height: 200, width: '100%' }}
-                    />
+                    <>
+                        <Video
+                            paused
+                            controls
+                            source={{
+                                uri: `${API_URL}public/${data?.video_path}`.replace(
+                                    /\s/g,
+                                    '%20'
+                                )
+                            }} // Can be a URL or a local file.
+                            onBuffer={() => {}} // Callback when remote video is buffering
+                            onError={() => {}} // Callback when video cannot be loaded
+                            style={{ height: 200, width: '100%' }}
+                        />
+                    </>
                 ) : (
-                    <Image
-                        resizeMode="contain"
-                        source={{
-                            uri: `${COURSE_IMG_PATH}${data?.id}.webp`
-                        }}
-                        style={{
-                            width: '100%',
-                            height: scale(200)
-                        }}
-                        fallbackSource={require('assets/images/fallback.jpg')}
-                    />
+                    <>
+                        <Image
+                            resizeMode="contain"
+                            source={{
+                                uri: `${COURSE_IMG_PATH}${data?.id}.webp`
+                            }}
+                            style={{
+                                width: '100%',
+                                height: scale(200)
+                            }}
+                            alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
+                            fallbackSource={require('assets/images/fallback.jpg')}
+                        />
+                    </>
                 )}
                 <View
                     style={{
@@ -474,7 +739,7 @@ const CourseInfo = ({ navigation, route }) => {
                     }}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {data && (
+                        {data && userInfo?.id !== 'trial' ? (
                             <Pressable
                                 style={{
                                     justifyContent: 'center',
@@ -499,7 +764,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     {isLiked ? 'Đã thích' : 'Yêu thích'}
                                 </Text>
                             </Pressable>
-                        )}
+                        ) : null}
                         <Pressable
                             style={{
                                 justifyContent: 'center',
@@ -524,25 +789,76 @@ const CourseInfo = ({ navigation, route }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}>
-                        <Button
-                            isDisabled={!data?.relational}
-                            pt={2}
-                            pb={2}
-                            pr={5}
-                            pl={5}
-                            style={{
-                                backgroundColor: '#52B553',
-                                borderRadius: 8
-                            }}
-                            onPress={gotoCourse}
-                            isLoading={loadingVerify}
-                            isLoadingText="Đang vào"
-                            leftIcon={<BookOpen stroke="#fff" size={10} />}>
-                            Học ngay
-                        </Button>
+                        {userInfo?.id === 'trial' && (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={clearDataAfterLogout}>
+                                Đến trang đăng nhập
+                            </Button>
+                        )}
+                        {!data?.relational && data?.old_price ? (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={() => {
+                                    handlePurchase()
+                                }}
+                                isLoading={loadingVerify}
+                                isLoadingText="Đang vào"
+                                leftIcon={
+                                    <>
+                                        <BookOpen stroke="#fff" size={10} />
+                                    </>
+                                }>
+                                Mua ngay
+                            </Button>
+                        ) : null}
+                        {!!data?.relational ? (
+                            <Button
+                                pt={2}
+                                pb={2}
+                                pr={5}
+                                pl={5}
+                                style={{
+                                    backgroundColor: '#52B553',
+                                    borderRadius: 8
+                                }}
+                                onPress={() => {
+                                    gotoCourse()
+                                }}
+                                isLoading={loadingVerify}
+                                isLoadingText="Đang vào"
+                                leftIcon={
+                                    <>
+                                        <BookOpen stroke="#fff" size={10} />
+                                    </>
+                                }>
+                                Học ngay
+                            </Button>
+                        ) : null}
                     </View>
                 </View>
             </SafeAreaView>
+            {loadingSpinner && (
+                <AbsoluteSpinner
+                    style={{
+                        marginTop: 20
+                    }}
+                />
+            )}
         </View>
     )
 }

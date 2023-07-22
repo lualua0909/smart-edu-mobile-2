@@ -8,7 +8,8 @@ const HeaderTitle = ({ title }) => {
         <Text
             numberOfLines={2}
             style={{
-                fontSize: scale(16),
+                fontWeight: 'bold',
+                fontSize: 18,
                 color: '#1F1F1F',
                 textAlign: 'center',
                 paddingTop: scale(2)

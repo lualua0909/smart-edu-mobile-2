@@ -3,7 +3,7 @@ import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Dimensions, Image, Pressable, ScrollView, View } from 'react-native'
+import { Dimensions, Image, ScrollView, View } from 'react-native'
 
 import { Button, Text } from 'native-base'
 
@@ -32,23 +32,7 @@ const DATA = [
 
 const Wireframe = ({ navigation }) => {
     const [pageIndex, setPageIndex] = useState(0)
-    const [display, setDisplay] = useState(true)
     const scrollRef = useRef()
-    const timerRef = useRef(null)
-
-    useEffect(() => {
-        // if (display) {
-        //     clearTimeout(timerRef.current)
-        //     timerRef.current = setTimeout(() => {
-        //         setDisplay(false)
-        //     }, 10000)
-        // }
-        // return () => {
-        //     if (timerRef.current) {
-        //         clearTimeout(timerRef.current)
-        //     }
-        // }
-    }, [display])
 
     useEffect(() => {
         animateNextTransition()
@@ -168,16 +152,12 @@ const Wireframe = ({ navigation }) => {
                 }}>
                 {pageIndex > 0 && (
                     <Button
-                        size="lg"
                         variant="ghost"
                         onPress={() => onGoToPage(pageIndex - 1)}>
                         Quay lại
                     </Button>
                 )}
-                <Button
-                    shadow="3"
-                    size="lg"
-                    onPress={() => onGoToPage(pageIndex + 1)}>
+                <Button shadow="3" onPress={() => onGoToPage(pageIndex + 1)}>
                     {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
                 </Button>
             </View>
