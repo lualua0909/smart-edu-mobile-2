@@ -42,7 +42,7 @@ const CourseList = ({ route }) => {
     const getData = () => {
         setLoading(true)
         axios
-            .post(`public-courses/paging-by-filter/${page * 9}`, {
+            .post(`public-courses/list-on-mobile/${page * 9}`, {
                 course_groups: cgSelected,
                 positions: [],
                 order_by: orderBy,
