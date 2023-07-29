@@ -4,6 +4,7 @@ import {
     AbsoluteSpinner,
     Avatar,
     CourseDetailSkeleton,
+    Rate,
     showToast
 } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
@@ -557,36 +558,23 @@ const CourseInfo = ({ navigation, route }) => {
                             <View style={{ marginLeft: scale(8) }}>
                                 <Text
                                     style={{
-                                        fontSize: scale(16),
+                                        fontSize: scale(18),
                                         color: '#1F1F1F',
-                                        paddingTop: scale(2)
+                                        paddingTop: scale(2),
+                                        fontWeight: 'bold'
                                     }}>
-                                    {teacherName}
+                                    {teacherName || 'Giảng viên'}
                                 </Text>
                                 <View
                                     style={{
                                         paddingVertical: scale(3.5),
                                         paddingHorizontal: scale(8),
-                                        borderRadius: scale(5),
-                                        backgroundColor: '#FFF1DB',
                                         marginTop: scale(6),
                                         alignSelf: 'flex-start',
                                         flexDirection: 'row',
                                         alignItems: 'center'
                                     }}>
-                                    <SvgXml
-                                        xml={svgOrangeStar}
-                                        width={scale(15)}
-                                        height={scale(15)}
-                                    />
-                                    <Text
-                                        style={{
-                                            fontSize: scale(16),
-                                            color: '#FF9A02',
-                                            marginLeft: scale(4)
-                                        }}>
-                                        4.5
-                                    </Text>
+                                    <Rate rate={data?.rate || 5} size="18" />
                                 </View>
                             </View>
                         </View>
@@ -789,7 +777,7 @@ const CourseInfo = ({ navigation, route }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}>
-                        {userInfo?.id === 'trial' && (
+                        {userInfo?.id === 'trial' ? (
                             <Button
                                 pt={2}
                                 pb={2}
@@ -802,53 +790,62 @@ const CourseInfo = ({ navigation, route }) => {
                                 onPress={clearDataAfterLogout}>
                                 Đến trang đăng nhập
                             </Button>
+                        ) : (
+                            <>
+                                {!data?.relational && data?.old_price ? (
+                                    <Button
+                                        pt={2}
+                                        pb={2}
+                                        pr={5}
+                                        pl={5}
+                                        style={{
+                                            backgroundColor: '#52B553',
+                                            borderRadius: 8
+                                        }}
+                                        onPress={() => {
+                                            handlePurchase()
+                                        }}
+                                        isLoading={loadingVerify}
+                                        isLoadingText="Đang vào"
+                                        leftIcon={
+                                            <>
+                                                <BookOpen
+                                                    stroke="#fff"
+                                                    size={10}
+                                                />
+                                            </>
+                                        }>
+                                        Mua ngay
+                                    </Button>
+                                ) : null}
+                                {!!data?.relational ? (
+                                    <Button
+                                        pt={2}
+                                        pb={2}
+                                        pr={5}
+                                        pl={5}
+                                        style={{
+                                            backgroundColor: '#52B553',
+                                            borderRadius: 8
+                                        }}
+                                        onPress={() => {
+                                            gotoCourse()
+                                        }}
+                                        isLoading={loadingVerify}
+                                        isLoadingText="Đang vào"
+                                        leftIcon={
+                                            <>
+                                                <BookOpen
+                                                    stroke="#fff"
+                                                    size={10}
+                                                />
+                                            </>
+                                        }>
+                                        Học ngay
+                                    </Button>
+                                ) : null}
+                            </>
                         )}
-                        {!data?.relational && data?.old_price ? (
-                            <Button
-                                pt={2}
-                                pb={2}
-                                pr={5}
-                                pl={5}
-                                style={{
-                                    backgroundColor: '#52B553',
-                                    borderRadius: 8
-                                }}
-                                onPress={() => {
-                                    handlePurchase()
-                                }}
-                                isLoading={loadingVerify}
-                                isLoadingText="Đang vào"
-                                leftIcon={
-                                    <>
-                                        <BookOpen stroke="#fff" size={10} />
-                                    </>
-                                }>
-                                Mua ngay
-                            </Button>
-                        ) : null}
-                        {!!data?.relational ? (
-                            <Button
-                                pt={2}
-                                pb={2}
-                                pr={5}
-                                pl={5}
-                                style={{
-                                    backgroundColor: '#52B553',
-                                    borderRadius: 8
-                                }}
-                                onPress={() => {
-                                    gotoCourse()
-                                }}
-                                isLoading={loadingVerify}
-                                isLoadingText="Đang vào"
-                                leftIcon={
-                                    <>
-                                        <BookOpen stroke="#fff" size={10} />
-                                    </>
-                                }>
-                                Học ngay
-                            </Button>
-                        ) : null}
                     </View>
                 </View>
             </SafeAreaView>

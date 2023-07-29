@@ -14,13 +14,15 @@ const SwitchNavigator = () => {
         console.log('error ====', error)
     }
 
-    return (
-        <ErrorBoundary
-            onError={errorHandler}
-            FallbackComponent={props => <Text>ERROR</Text>}>
-            {userInfo?.token ? <AppNavigator /> : <AuthNavigator />}
-        </ErrorBoundary>
-    )
+    return userInfo?.token ? <AppNavigator /> : <AuthNavigator />
+
+    // return (
+    //     <ErrorBoundary
+    //         onError={errorHandler}
+    //         FallbackComponent={props => <Text>ERROR</Text>}>
+    //         {userInfo?.token ? <AppNavigator /> : <AuthNavigator />}
+    //     </ErrorBoundary>
+    // )
 }
 
 export default SwitchNavigator

@@ -136,6 +136,7 @@ const CourseDetail = ({ route, navigation }) => {
                             paddingVertical: 0
                         }}>
                         <Button
+                            size="sm"
                             onPress={prevLesson}
                             style={{
                                 marginRight: scale(12)
@@ -153,6 +154,7 @@ const CourseDetail = ({ route, navigation }) => {
                             }></Button>
                         {data?.is_finish ? (
                             <Button
+                                size="sm"
                                 onPress={nextLesson}
                                 style={{
                                     marginRight: scale(12)
@@ -479,7 +481,7 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .finally(() => setQuestionLoading(false))
     }
-
+    console.log('data = ', data)
     return (
         <View
             style={{ flex: 1 }}
@@ -500,7 +502,10 @@ const CourseDetail = ({ route, navigation }) => {
                             videoUrl={data?.file_path || data?.video_url}
                         />
                     ) : data?.type === 2 ? (
-                        <DocumentViewer content={data?.text_document} />
+                        <DocumentViewer
+                            content={data?.text_document}
+                            uri={`${API_URL}public/${data?.file_path}`}
+                        />
                     ) : data?.type === 3 ? (
                         <ScormViewer
                             src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}

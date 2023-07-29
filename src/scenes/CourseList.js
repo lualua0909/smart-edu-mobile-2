@@ -5,18 +5,12 @@ import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useRef, useState } from 'react'
 
-import {
-    FlatList,
-    Pressable,
-    RefreshControl,
-    ScrollView,
-    View
-} from 'react-native'
+import { FlatList, Pressable, RefreshControl, View } from 'react-native'
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Input, Text } from 'native-base'
+import { Input, ScrollView, Text } from 'native-base'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -27,6 +21,7 @@ const CourseList = ({ route }) => {
     const [search, setSearch] = useState('')
     const [page, setPage] = useState(0)
     const [homeInfo, _] = useGlobalState('homeInfo')
+    const [refreshing, setRefreshing] = useState(false)
     const scrollViewRef = useRef()
 
     useEffect(() => {
@@ -62,6 +57,7 @@ const CourseList = ({ route }) => {
     const refetch = () => {
         setData([])
         setPage(0)
+        setRefreshing(false)
     }
 
     useEffect(() => {
@@ -185,87 +181,91 @@ const CourseList = ({ route }) => {
     )
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <SafeAreaView edges={['top']} style={{ backgroundColor: '#fff' }}>
-                <ScrollView
-                    ref={scrollViewRef}
-                    showsVerticalScrollIndicator={false}
-                    refreshControl={<RefreshControl onRefresh={refetch} />}>
-                    <View
-                        style={{
-                            padding: scale(16),
-                            paddingBottom: 5
-                        }}>
-                        <Input
-                            borderRadius="10"
-                            width="100%"
-                            fontSize="12"
-                            px="2"
-                            placeholder="Tìm kiếm theo tên khóa học"
-                            onChangeText={setSearch}
-                            onEndEditing={() => {
-                                setData([])
-                                setPage(0)
-                                getData()
-                            }}
-                            clearButtonMode="while-editing"
-                            InputLeftElement={
-                                <Search
-                                    stroke="#52B553"
-                                    style={{ marginLeft: 12 }}
-                                />
-                            }
-                            InputRightElement={
-                                <Pressable
-                                    onPress={() => setVisibleFilter(true)}
-                                    hitSlop={15}
-                                    style={{ marginRight: 10 }}>
-                                    <Filter stroke="#52B553" />
-                                </Pressable>
-                            }
-                            _focus={{
-                                borderColor: '#52B553'
-                            }}
-                        />
-                    </View>
-                    {data?.length ? (
-                        <FlatList
-                            data={data || []}
-                            keyExtractor={(_, index) => index.toString()}
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{
-                                paddingTop: scale(16),
-                                paddingLeft: 16,
-                                paddingRight: 16,
-                                paddingBottom: scale(50)
-                            }}
-                            renderItem={({ item, index }) => (
-                                <CourseItem item={item} index={index} />
-                            )}
-                            onEndReached={handleLoadMore}
-                        />
-                    ) : (
-                        !loading && (
-                            <NoData
-                                style={{
-                                    marginTop: 20,
-                                    width: 800,
-                                    height: 300
-                                }}
+        <SafeAreaView
+            edges={['top']}
+            style={{ backgroundColor: '#fff', flex: 1 }}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={refetch}
+                    />
+                }>
+                <View
+                    style={{
+                        padding: scale(16),
+                        paddingBottom: 5
+                    }}>
+                    <Input
+                        borderRadius="10"
+                        width="100%"
+                        fontSize="12"
+                        px="2"
+                        placeholder="Tìm kiếm theo tên khóa học"
+                        onChangeText={setSearch}
+                        onEndEditing={() => {
+                            setData([])
+                            setPage(0)
+                            getData()
+                        }}
+                        clearButtonMode="while-editing"
+                        InputLeftElement={
+                            <Search
+                                stroke="#52B553"
+                                style={{ marginLeft: 12 }}
                             />
-                        )
-                    )}
-                    {loading && (
-                        <LoadingAnimation
+                        }
+                        InputRightElement={
+                            <Pressable
+                                onPress={() => setVisibleFilter(true)}
+                                hitSlop={15}
+                                style={{ marginRight: 10 }}>
+                                <Filter stroke="#52B553" />
+                            </Pressable>
+                        }
+                        _focus={{
+                            borderColor: '#52B553'
+                        }}
+                    />
+                </View>
+                {data?.length ? (
+                    <FlatList
+                        data={data || []}
+                        keyExtractor={(_, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                            paddingTop: scale(16),
+                            paddingLeft: 16,
+                            paddingRight: 16,
+                            paddingBottom: scale(50)
+                        }}
+                        renderItem={({ item, index }) => (
+                            <CourseItem item={item} index={index} />
+                        )}
+                        onEndReached={handleLoadMore}
+                    />
+                ) : (
+                    !loading && (
+                        <NoData
                             style={{
-                                marginTop: 20
+                                marginTop: 20,
+                                width: 800,
+                                height: 300
                             }}
                         />
-                    )}
-                </ScrollView>
-                {filterModal}
-            </SafeAreaView>
-        </View>
+                    )
+                )}
+                {loading && (
+                    <LoadingAnimation
+                        style={{
+                            marginTop: 20
+                        }}
+                    />
+                )}
+            </ScrollView>
+            {filterModal}
+        </SafeAreaView>
     )
 }
 

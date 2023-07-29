@@ -1,4 +1,5 @@
-import React from 'react'
+import { showToast } from 'app/atoms'
+import React, { useEffect } from 'react'
 
 import { Dimensions } from 'react-native'
 import { WebView } from 'react-native-webview'
@@ -12,6 +13,13 @@ function isPortrait() {
 }
 
 export default ({ src }) => {
+    useEffect(() => {
+        showToast({
+            title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
+            status: 'info'
+        })
+    }, [])
+
     return (
         <WebView
             originWhitelist={['*']}

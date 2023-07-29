@@ -1,4 +1,5 @@
 import axios from 'app/Axios'
+import { useGlobalState } from 'app/Store'
 import { Avatar, NoDataAnimation } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
@@ -18,16 +19,22 @@ import {
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
     const [data, setData] = useState()
+    const [userInfo, setUserState] = useGlobalState('userInfo')
 
     useEffect(() => {
         if (mentorId) {
             axios
-                .get(`public-courses/get-mentor-info/${mentorId}`)
+                .get(
+                    `${
+                        userInfo?.id === 'trial' ? 'public-courses' : 'users'
+                    }/get-mentor-info/${mentorId}`
+                )
                 .then(res => {
                     return res?.data
                 })
                 .then(data => {
                     setData(data)
+                    console.log('data?.mentor', data?.mentor)
                     setTeacherName(
                         `${data?.mentor?.first_name} ${data?.mentor?.last_name}`
                     )
@@ -58,7 +65,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                         fontSize: scale(24),
                         color: '#0E564D',
                         alignSelf: 'center',
-                        paddingVertical: scale(10)
+                        paddingVertical: scale(10),
+                        fontWeight: 'bold'
                     }}>
                     {`${data?.mentor?.first_name} ${data?.mentor?.last_name}`}
                 </Text>

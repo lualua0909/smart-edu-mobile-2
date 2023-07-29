@@ -19,6 +19,50 @@ const CourseItem = ({
     fullWidth = false
 }) => {
     const navigation = useNavigation()
+    console.log('item = ', item)
+    const renderPrice = () => {
+        if (item?.old_price > 0 && item?.new_price > 0) {
+            return (
+                <>
+                    <Text
+                        style={{
+                            fontSize: scale(16),
+                            color: '#1D1D1D',
+                            textDecorationLine: 'line-through'
+                        }}>
+                        {toCurrency(item?.old_price)} đ
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: scale(18),
+                            color: '#1DA736',
+                            fontWeight: 'bold'
+                        }}>
+                        {toCurrency(item?.new_price)} đ
+                    </Text>
+                </>
+            )
+        }
+
+        if (item?.old_price > 0 && !item?.new_price) {
+            return (
+                <>
+                    <Text />
+                    <Text
+                        style={{
+                            fontSize: scale(18),
+                            color: '#1DA736',
+                            fontWeight: 'bold'
+                        }}>
+                        {toCurrency(item?.old_price)} đ
+                    </Text>
+                </>
+            )
+        }
+
+        return null
+    }
+
     return (
         <Pressable
             key={index}
@@ -185,25 +229,7 @@ const CourseItem = ({
                         justifyContent: 'space-between',
                         marginTop: scale(10)
                     }}>
-                    {item?.old_price ? (
-                        <Text
-                            style={{
-                                fontSize: scale(16),
-                                color: '#1D1D1D',
-                                textDecorationLine: 'line-through'
-                            }}>
-                            {toCurrency(item?.old_price)} đ
-                        </Text>
-                    ) : null}
-                    {item?.new_price ? (
-                        <Text
-                            style={{
-                                fontSize: scale(18),
-                                color: '#1DA736'
-                            }}>
-                            {toCurrency(item?.new_price)} đ
-                        </Text>
-                    ) : null}
+                    {renderPrice()}
                 </View>
             </View>
         </Pressable>
