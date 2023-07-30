@@ -17,15 +17,15 @@ export default ({ isChecked, text, onPress }) => (
             {isChecked ? (
                 <SvgXml
                     xml={svgCircleTick}
-                    width={scale(21)}
-                    height={scale(21)}
+                    width={scale(16)}
+                    height={scale(16)}
                 />
             ) : (
                 <View
                     style={{
-                        width: scale(21),
-                        height: scale(21),
-                        borderRadius: scale(21),
+                        width: scale(16),
+                        height: scale(16),
+                        borderRadius: scale(16),
                         borderWidth: 1,
                         borderColor: '#000'
                     }}
@@ -34,7 +34,7 @@ export default ({ isChecked, text, onPress }) => (
 
             <Text
                 style={{
-                    fontSize: scale(17),
+                    fontSize: scale(14),
                     marginLeft: scale(15),
                     flex: 1,
                     color: '#000'
@@ -47,7 +47,7 @@ export default ({ isChecked, text, onPress }) => (
                 flexDirection: 'row',
                 marginTop: scale(10)
             }}>
-            <View style={{ width: scale(21) }} />
+            <View style={{ width: scale(16) }} />
             <View
                 style={{
                     flex: 1,

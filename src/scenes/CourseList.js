@@ -22,7 +22,6 @@ const CourseList = ({ route }) => {
     const [page, setPage] = useState(0)
     const [homeInfo, _] = useGlobalState('homeInfo')
     const [refreshing, setRefreshing] = useState(false)
-    const scrollViewRef = useRef()
 
     useEffect(() => {
         if (route?.params?.courseGroupSelected) {
@@ -79,7 +78,7 @@ const CourseList = ({ route }) => {
             isVisible={visibleFilter}
             onBackButtonPress={() => setVisibleFilter(false)}
             onBackdropPress={() => setVisibleFilter(false)}>
-            <View style={{ backgroundColor: '#fff', paddingTop: scale(24) }}>
+            <View style={{ backgroundColor: '#fff', flex: 1 }}>
                 <SafeAreaView>
                     <View style={{ paddingLeft: scale(16) }}>
                         <Text
@@ -89,29 +88,23 @@ const CourseList = ({ route }) => {
                             }}>
                             Danh mục
                         </Text>
-                        {homeInfo?.course_groups?.map((item, index) => {
-                            console.log(item)
-                            return (
-                                <Radio
-                                    key={index}
-                                    text={item?.name}
-                                    isChecked={cgSelected?.includes(item?.id)}
-                                    onPress={() => {
-                                        if (cgSelected?.includes(item?.id))
-                                            setCGSelected(
-                                                cgSelected.filter(
-                                                    i => i !== item?.id
-                                                )
+                        {homeInfo?.course_groups?.map((item, index) => (
+                            <Radio
+                                key={index}
+                                text={item?.name}
+                                isChecked={cgSelected?.includes(item?.id)}
+                                onPress={() => {
+                                    if (cgSelected?.includes(item?.id))
+                                        setCGSelected(
+                                            cgSelected.filter(
+                                                i => i !== item?.id
                                             )
-                                        else
-                                            setCGSelected([
-                                                ...cgSelected,
-                                                item?.id
-                                            ])
-                                    }}
-                                />
-                            )
-                        })}
+                                        )
+                                    else
+                                        setCGSelected([...cgSelected, item?.id])
+                                }}
+                            />
+                        ))}
                     </View>
                     <View
                         style={{
@@ -149,11 +142,23 @@ const CourseList = ({ route }) => {
                                 height: scale(47),
                                 justifyContent: 'center',
                                 alignItems: 'center'
-                            }}></Pressable>
+                            }}
+                            onPress={() => {
+                                setVisibleFilter(false)
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: scale(16),
+                                    color: '#555',
+                                    fontWeight: 'bold'
+                                }}>
+                                Đóng
+                            </Text>
+                        </Pressable>
                         <Pressable
                             style={{
                                 width: '50%',
-                                height: scale(47),
+                                height: scale(45),
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 borderWidth: 1,
@@ -168,8 +173,9 @@ const CourseList = ({ route }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(18),
-                                    color: '#fff'
+                                    fontSize: scale(16),
+                                    color: '#fff',
+                                    fontWeight: 'bold'
                                 }}>
                                 Tìm kiếm
                             </Text>
@@ -212,7 +218,8 @@ const CourseList = ({ route }) => {
                         clearButtonMode="while-editing"
                         InputLeftElement={
                             <Search
-                                stroke="#52B553"
+                                width={scale(18)}
+                                stroke="#0E564D"
                                 style={{ marginLeft: 12 }}
                             />
                         }
@@ -221,7 +228,7 @@ const CourseList = ({ route }) => {
                                 onPress={() => setVisibleFilter(true)}
                                 hitSlop={15}
                                 style={{ marginRight: 10 }}>
-                                <Filter stroke="#52B553" />
+                                <Filter stroke="#0E564D" width={scale(18)} />
                             </Pressable>
                         }
                         _focus={{

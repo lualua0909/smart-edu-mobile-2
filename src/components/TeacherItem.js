@@ -65,13 +65,14 @@ const TeacherItem = ({ item, index }) => {
                             width={scale(16)}
                             height={scale(16)}
                         />
-                        {/* <Text
+                        <Text
+                            ml="1"
                             style={{
                                 fontSize: scale(12),
                                 color: '#000'
                             }}>
                             5
-                        </Text> */}
+                        </Text>
                     </View>
                     <Text
                         style={{

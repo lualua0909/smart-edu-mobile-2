@@ -178,7 +178,8 @@ const Teacher = ({}) => {
                             }}
                             InputLeftElement={
                                 <Search
-                                    stroke="#52B553"
+                                    width={scale(18)}
+                                    stroke="#0E564D"
                                     style={{ marginLeft: 12 }}
                                 />
                             }
@@ -187,7 +188,10 @@ const Teacher = ({}) => {
                                     onPress={() => setVisibleFilter(true)}
                                     hitSlop={15}
                                     style={{ marginRight: 10 }}>
-                                    <Filter stroke="#52B553" />
+                                    <Filter
+                                        stroke="#0E564D"
+                                        width={scale(18)}
+                                    />
                                 </Pressable>
                             }
                             _focus={{
