@@ -9,8 +9,7 @@ import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
 import LottieView from 'lottie-react-native'
-import { Dimensions, Image, Pressable, ScrollView, View } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
+import { Image, Platform, Pressable, ScrollView, View } from 'react-native'
 import {
     ArrowUpCircle,
     ChevronRight,
@@ -22,9 +21,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
 import { Button, Center, Stack, Text } from 'native-base'
-
-const { height, width } = Dimensions.get('screen')
-const aspectRatio = height / width
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -270,8 +266,7 @@ const Login = ({ navigation }) => {
                     }}
                     edges={['bottom']}>
                     <Center>
-                        {DeviceInfo.isTablet() ||
-                        DeviceInfo.isTabletMode() ? null : (
+                        {Platform.isPad ? null : (
                             <LottieView
                                 source={animationImg}
                                 autoPlay
