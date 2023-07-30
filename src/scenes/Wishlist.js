@@ -17,15 +17,15 @@ const Wishlist = ({ navigation }) => {
         {
             key: 'tab-1',
             title: 'KH yêu thích'
-        },
-        {
-            key: 'tab-2',
-            title: 'GV yêu thích'
-        },
-        {
-            key: 'tab-3',
-            title: 'Bạn bè'
         }
+        // {
+        //     key: 'tab-2',
+        //     title: 'GV yêu thích'
+        // }
+        // {
+        //     key: 'tab-3',
+        //     title: 'Bạn bè'
+        // }
     ]
 
     const renderScene = ({ route }) => {
@@ -84,7 +84,7 @@ const Wishlist = ({ navigation }) => {
                             KH yêu thích
                         </Text>
                     </Pressable>
-                    <Pressable
+                    {/* <Pressable
                         onPress={() => setTabIndex(1)}
                         style={[
                             {
@@ -108,8 +108,8 @@ const Wishlist = ({ navigation }) => {
                             ]}>
                             GV yêu thích
                         </Text>
-                    </Pressable>
-                    <Pressable
+                    </Pressable> */}
+                    {/* <Pressable
                         onPress={() => setTabIndex(2)}
                         style={[
                             {
@@ -133,7 +133,7 @@ const Wishlist = ({ navigation }) => {
                             ]}>
                             Bạn bè
                         </Text>
-                    </Pressable>
+                    </Pressable> */}
                 </View>
             </View>
             <TabView

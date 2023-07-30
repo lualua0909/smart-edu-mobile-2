@@ -6,6 +6,12 @@ import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'
+import {
+    MessageCircle,
+    Upload,
+    UserMinus,
+    UserPlus
+} from 'react-native-feather'
 
 import {
     Button,
@@ -68,59 +74,26 @@ const ProfileOverview = ({ navigation, route }) => {
             !isFriend ? (
                 <>
                     <Button
-                        size="xs"
                         style={{
                             alignItems: 'center',
                             width: '40%'
                         }}
-                        // leftIcon={
-                        //     <Ionicons
-                        //         name="ios-person-add"
-                        //         color="white"
-                        //         size={16}
-                        //     />
-                        // }
+                        leftIcon={<UserPlus color="white" width={16} />}
                         onPress={() => setIsFriend(!isFriend)}>
-                        Thêm bạn bè
+                        Thêm bạn
                     </Button>
                 </>
             ) : (
                 <>
-                    {/* <Pressable>
-                        <Ionicons name="cloud-upload" color="red" size={24} />
-                    </Pressable> */}
-                    <Pressable
+                    <Button
                         style={{
-                            backgroundColor: '#52B553',
-                            borderRadius: scale(5),
-                            width: '40%',
-                            marginLeft: scale(10),
-                            position: 'relative',
-                            height: scale(40),
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            width: '40%'
                         }}
+                        leftIcon={<UserMinus color="white" width={16} />}
                         onPress={() => setIsFriend(!isFriend)}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                padding: scale(8)
-                            }}>
-                            <MessageSquare
-                                stroke="#fff"
-                                width={24}
-                                height={24}
-                            />
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#FFFFFF',
-                                    textAlign: 'center',
-                                    marginLeft: scale(8)
-                                }}>
-                                Trò chuyện
-                            </Text>
-                        </View>
-                    </Pressable>
+                        Huỷ kết bạn
+                    </Button>
                 </>
             )
         ) : null
@@ -144,7 +117,7 @@ const ProfileOverview = ({ navigation, route }) => {
                     }}
                     resizeMode="cover"
                 />
-                <View
+                {/* <View
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
@@ -153,24 +126,24 @@ const ProfileOverview = ({ navigation, route }) => {
                         width: '100%',
                         marginTop: scale(170)
                     }}>
-                    {/* <Pressable
+                    <Pressable
                         style={{
                             backgroundColor: '#aaa',
                             borderRadius: 50,
                             padding: 5
                         }}>
-                        <Ionicons name="cloud-upload" color="white" size={16} />
-                    </Pressable> */}
-                </View>
+                        <Upload width={16} height={16} color={'#fff'} />
+                    </Pressable>
+                </View> */}
                 <View>
                     <View
                         style={{
                             borderRadius: scale(120),
                             borderWidth: scale(2),
                             borderColor: '#fff',
-                            marginTop: '40%'
+                            marginTop: '35%'
                         }}>
-                        <Avatar userId={data?.id} size="120" name={name} />
+                        <Avatar userId={data?.id} size="110" name={name} />
                     </View>
                     <View
                         style={{
@@ -192,7 +165,7 @@ const ProfileOverview = ({ navigation, route }) => {
                         </Pressable> */}
                     </View>
                 </View>
-                <Center style={{ marginTop: 30 }}>
+                <Center style={{ marginTop: 60 }}>
                     <Heading
                         fontSize={20}
                         bold
@@ -208,17 +181,23 @@ const ProfileOverview = ({ navigation, route }) => {
                         paddingTop: scale(10)
                     }}>
                     <TextArea
+                        fontSize={scale(14)}
                         placeholder="Giới thiệu bản thân..."
                         w="90%"
                         h={16}
                         isDisabled
                         value={data?.description}
+                        style={{
+                            borderWidth: 1,
+                            borderColor: '#999',
+                            borderRadius: 7
+                        }}
                     />
                 </View>
 
                 <HStack space={5} justifyContent="space-around" mt="3">
                     {renderAddFriendBtn}
-                    <MenuUser userId={data?.id} navigation={navigation} />
+                    <MenuUser userId={userId} navigation={navigation} />
                 </HStack>
                 <DetailInformation fullName={name} data={data} />
                 {/* <FlatListCredits data={[1, 1, 1]} userId={userId} /> */}

@@ -15,7 +15,7 @@ const FriendList = ({}) => {
     const [search, setSearch] = useState(null)
     const [userInfo, setUserState] = useGlobalState('userInfo')
 
-    const getData = (refresh = false) => {
+    const getData = () => {
         setLoading(true)
         axios
             .get(
@@ -39,9 +39,7 @@ const FriendList = ({}) => {
             })
             .finally(() => {
                 setLoading(false)
-                if (refresh) {
-                    setRefreshing(false)
-                }
+                setRefreshing(false)
             })
     }
 

@@ -43,15 +43,15 @@ const MenuUser = ({
             icon: svgClock,
             title: 'Quá trình học tập',
             onPress: () => navigation.navigate(ROUTES.LearningHistory)
-        },
-        {
-            icon: svgUser,
-            title: 'Bạn bè',
-            onPress: () =>
-                navigation.navigate(ROUTES.Friends, {
-                    userId
-                })
         }
+        // {
+        //     icon: svgUser,
+        //     title: 'Bạn bè',
+        //     onPress: () =>
+        //         navigation.navigate(ROUTES.Friends, {
+        //             userId
+        //         })
+        // }
     ]
 
     return (

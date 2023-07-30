@@ -1,5 +1,4 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
 import { Avatar, NoDataAnimation } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
@@ -19,16 +18,11 @@ import {
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
     const [data, setData] = useState()
-    const [userInfo, setUserState] = useGlobalState('userInfo')
 
     useEffect(() => {
         if (mentorId) {
             axios
-                .get(
-                    `${
-                        userInfo?.id === 'trial' ? 'public-courses' : 'users'
-                    }/get-mentor-info/${mentorId}`
-                )
+                .get(`public-courses/get-mentor-info/${mentorId}`)
                 .then(res => {
                     return res?.data
                 })

@@ -164,7 +164,8 @@ const AppNavigator = () => {
                     options={({ route, navigation }) => ({
                         headerTitle: () => (
                             <HeaderTitle title={'Khóa học của tôi'} />
-                        )
+                        ),
+                        headerLeft: () => <HeaderBack />
                     })}
                 />
                 <Stack.Screen
@@ -173,7 +174,8 @@ const AppNavigator = () => {
                     options={({ route, navigation }) => ({
                         headerTitle: () => (
                             <HeaderTitle title={'Danh sách chứng chỉ'} />
-                        )
+                        ),
+                        headerLeft: () => <HeaderBack />
                     })}
                 />
                 <Stack.Screen

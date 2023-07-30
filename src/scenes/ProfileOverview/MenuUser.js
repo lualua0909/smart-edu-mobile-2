@@ -1,16 +1,28 @@
 import React from 'react'
 
+import { useNavigation } from '@react-navigation/native'
+import {
+    Award,
+    BookOpen,
+    Calendar,
+    ChevronDown,
+    List,
+    Users
+} from 'react-native-feather'
+
 import { Button, Menu } from 'native-base'
 
-const MenuUser = ({ userId, navigation }) => {
+const MenuUser = ({ userId }) => {
+    const navigation = useNavigation()
+
     const menus = [
+        // {
+        //     icon: <List color="#1F2937" width={16} height={16} />,
+        //     title: 'Thông tin cá nhân',
+        //     onPress: () => navigation.navigate('Profile')
+        // },
         {
-            // icon: <Ionicons name="person-circle" color="#aaa" size={18} />,
-            title: 'Thông tin cá nhân',
-            onPress: () => navigation.navigate('Profile')
-        },
-        {
-            // icon: <Ionicons name="server" color="#aaa" size={18} />,
+            icon: <BookOpen color="#1F2937" width={16} height={16} />,
             title: 'Khóa học hiện có',
             onPress: () =>
                 navigation.navigate('MyCourses', {
@@ -18,26 +30,23 @@ const MenuUser = ({ userId, navigation }) => {
                 })
         },
         {
-            // icon: <Ionicons name="school" color="#aaa" size={18} />,
+            icon: <Award color="#1F2937" width={16} height={16} />,
             title: 'Chứng chỉ',
             onPress: () =>
                 navigation.navigate('MyCertificates', {
                     userId
                 })
-        },
-        {
-            // icon: <Ionicons name="ios-analytics" color="#aaa" size={18} />,
-            title: 'Quá trình học tập',
-            onPress: () => navigation.navigate('LearningHistory')
-        },
-        {
-            // icon: <Ionicons name="people-circle" color="#aaa" size={18} />,
-            title: 'Bạn bè',
-            onPress: () =>
-                navigation.navigate('FriendList', {
-                    userId
-                })
         }
+        // {
+        //     icon: <Calendar color="#1F2937" width={16} height={16} />,
+        //     title: 'Quá trình học tập',
+        //     onPress: () => navigation.navigate('LearningHistory')
+        // }
+        // {
+        //     icon: <Users color="#1F2937" width={16} height={16} />,
+        //     title: 'Bạn bè',
+        //     onPress: () => navigation.navigate('FriendList')
+        // }
     ]
     return (
         <Menu
@@ -48,13 +57,9 @@ const MenuUser = ({ userId, navigation }) => {
                     _text={{
                         color: '#1F2937'
                     }}
-                    // endIcon={
-                    //     <Ionicons
-                    //         name="ios-chevron-down"
-                    //         color="#1F2937"
-                    //         size={16}
-                    //     />
-                    // }
+                    endIcon={
+                        <ChevronDown color="#1F2937" width={16} height={16} />
+                    }
                     {...triggerProps}>
                     Xem thêm thông tin
                 </Button>

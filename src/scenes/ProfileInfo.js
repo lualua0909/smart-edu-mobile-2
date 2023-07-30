@@ -13,6 +13,7 @@ import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'
+import { Camera, UserX } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
 
 import {
@@ -194,11 +195,7 @@ const ProfileInfo = ({}) => {
                                     )
                                 })
                             }>
-                            {/* <Ionicons
-                                name="md-camera"
-                                color="white"
-                                size={16}
-                            /> */}
+                            <Camera width={18} height={18} color="#fff" />
                         </Pressable>
                     </View>
                     <View>
@@ -250,16 +247,12 @@ const ProfileInfo = ({}) => {
                                         )
                                     })
                                 }>
-                                {/* <Ionicons
-                                    name="md-camera"
-                                    color="white"
-                                    size={16}
-                                /> */}
+                                <Camera width={18} height={18} color="#fff" />
                             </Pressable>
                         </View>
                     </View>
                     <Center style={{ marginTop: 20 }}>
-                        <VStack width="90%" mx="3" maxW="300px" space="3">
+                        <VStack width="90%" mx="3" maxW="400px" space="3">
                             <Input
                                 label="Họ"
                                 w={'100%'}
@@ -375,13 +368,13 @@ const ProfileInfo = ({}) => {
                             />
                             <Center>
                                 <Button
-                                    // leftIcon={
-                                    //     <Icon
-                                    //         as={Ionicons}
-                                    //         name="person-remove"
-                                    //         size="sm"
-                                    //     />
-                                    // }
+                                    leftIcon={
+                                        <UserX
+                                            width={18}
+                                            height={18}
+                                            color="red"
+                                        />
+                                    }
                                     w="70%"
                                     colorScheme="red"
                                     onPress={() => setIsOpen(!isOpen)}

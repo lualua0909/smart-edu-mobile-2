@@ -68,13 +68,13 @@ const Menu = ({ route }) => {
     }, [route])
 
     const menus = [
+        // {
+        //     title: 'Đã yêu thích',
+        //     icon: <Heart stroke="#52B553" width={18} height={18} />,
+        //     onPress: () => navigation.navigate(ROUTES.Wishlist)
+        // },
         {
-            title: 'Đã yêu thích',
-            icon: <Heart stroke="#52B553" width={18} height={18} />,
-            onPress: () => navigation.navigate(ROUTES.Wishlist)
-        },
-        {
-            title: 'Thiết lập thông tin',
+            title: 'Thông tin cá nhân',
             icon: <Edit stroke="#52B553" width={18} height={18} />,
             onPress: null,
             onPress: () => navigation.navigate(ROUTES.ProfileInfo)
@@ -84,11 +84,11 @@ const Menu = ({ route }) => {
             icon: <DollarSign stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.TransactionList)
         },
-        {
-            title: 'Lan tỏa tri thức',
-            icon: <Radio stroke="#52B553" width={18} height={18} />,
-            onPress: () => setVisibleWarning(true)
-        },
+        // {
+        //     title: 'Lan tỏa tri thức',
+        //     icon: <Radio stroke="#52B553" width={18} height={18} />,
+        //     onPress: () => setVisibleWarning(true)
+        // },
         {
             title: 'Trợ giúp và hỗ trợ',
             icon: <HelpCircle stroke="#52B553" width={18} height={18} />,
@@ -178,6 +178,82 @@ const Menu = ({ route }) => {
                 </Text>
             </View>
         </Modal>
+    )
+
+    const renderMentorConnect = (
+        <View
+            style={{
+                backgroundColor: '#fff',
+                paddingVertical: scale(16)
+            }}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingLeft: scale(16)
+                }}>
+                <Text style={styles.formTitleText}>KẾT NỐI GIẢNG VIÊN</Text>
+                {/* <Pressable
+            style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}
+            onPress={() =>
+                navigation.navigate(ROUTES.ConnectInstructors, {
+                    initTab: 0,
+                })
+            }
+        >
+            <Text style={styles.formViewMoreText}>
+                Xem lịch sử kết nối
+            </Text>
+            <ChevronRightIcon size={scale(24)} />
+        </Pressable> */}
+            </View>
+            <View
+                style={{
+                    marginTop: scale(12),
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}>
+                <MenuAction
+                    icon={svgWaitingConfirm}
+                    title="Chờ xác nhận"
+                    // description="03 lịch chờ"
+                    backgroundColor="#EBFFFB"
+                    // badge={3}
+                    onPress={() =>
+                        navigation.navigate(ROUTES.ConnectInstructors, {
+                            initTab: 0
+                        })
+                    }
+                />
+                <MenuAction
+                    icon={svgConfirmed}
+                    title="Đã xác nhận"
+                    // description="02 lịch học"
+                    backgroundColor="#EBFFFB"
+                    // badge={2}
+                    onPress={() =>
+                        navigation.navigate(ROUTES.ConnectInstructors, {
+                            initTab: 1
+                        })
+                    }
+                />
+                <MenuAction
+                    icon={svgCanceled}
+                    title="Đã hủy"
+                    // description="01 mục"
+                    backgroundColor="#EBFFFB"
+                    onPress={() =>
+                        navigation.navigate(ROUTES.ConnectInstructors, {
+                            initTab: 2
+                        })
+                    }
+                />
+            </View>
+        </View>
     )
 
     return (
@@ -317,11 +393,23 @@ const Menu = ({ route }) => {
                         />
                         <MenuAction
                             icon={svgCalendarOffline}
-                            title="Lịch học offline"
+                            title="KH yêu thích"
                             // description="02 Lịch học"
                             backgroundColor="#E8F9FE"
-                            onPress={() => setVisibleComingSoon(true)}
+                            onPress={() => navigation.navigate(ROUTES.Wishlist)}
                         />
+                        {/* <MenuAction
+                            icon={svgMyMeeting}
+                            title="Bạn bè"
+                            // description="02 lịch học"
+                            backgroundColor="#FFF4F0"
+                            // badge={2}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Friends, {
+                                    userId: null
+                                })
+                            }
+                        /> */}
                         <MenuAction
                             icon={svgAchievement}
                             title="Chứng chỉ"
@@ -332,81 +420,7 @@ const Menu = ({ route }) => {
                         />
                     </View>
                 </View>
-                <View
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingVertical: scale(16)
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: scale(16)
-                        }}>
-                        <Text style={styles.formTitleText}>
-                            KẾT NỐI GIẢNG VIÊN
-                        </Text>
-                        {/* <Pressable
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.ConnectInstructors, {
-                                    initTab: 0,
-                                })
-                            }
-                        >
-                            <Text style={styles.formViewMoreText}>
-                                Xem lịch sử kết nối
-                            </Text>
-                            <ChevronRightIcon size={scale(24)} />
-                        </Pressable> */}
-                    </View>
-                    <View
-                        style={{
-                            marginTop: scale(12),
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }}>
-                        <MenuAction
-                            icon={svgWaitingConfirm}
-                            title="Chờ xác nhận"
-                            // description="03 lịch chờ"
-                            backgroundColor="#EBFFFB"
-                            // badge={3}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.ConnectInstructors, {
-                                    initTab: 0
-                                })
-                            }
-                        />
-                        <MenuAction
-                            icon={svgConfirmed}
-                            title="Đã xác nhận"
-                            // description="02 lịch học"
-                            backgroundColor="#EBFFFB"
-                            // badge={2}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.ConnectInstructors, {
-                                    initTab: 1
-                                })
-                            }
-                        />
-                        <MenuAction
-                            icon={svgCanceled}
-                            title="Đã hủy"
-                            // description="01 mục"
-                            backgroundColor="#EBFFFB"
-                            onPress={() =>
-                                navigation.navigate(ROUTES.ConnectInstructors, {
-                                    initTab: 2
-                                })
-                            }
-                        />
-                    </View>
-                </View>
+                {/* {renderMentorConnect} */}
                 {/* <View
                     style={{
                         backgroundColor: '#fff',
@@ -452,7 +466,7 @@ const Menu = ({ route }) => {
                         />
                     </View>
                 </View> */}
-                <View
+                {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -500,8 +514,8 @@ const Menu = ({ route }) => {
                             // badge={5}
                             onPress={() => setVisibleComingSoon(true)}
                         />
-                    </View>
-                </View>
+                    </View> 
+                        </View>*/}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {

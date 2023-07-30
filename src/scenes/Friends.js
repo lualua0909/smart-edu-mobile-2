@@ -1,7 +1,7 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { ListSkeleton, NotFoundAnimation } from 'app/atoms'
-import FriendItem from 'app/components/Friendtem'
+import FriendItem from 'app/components/FriendItem'
 import React, { useEffect, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'

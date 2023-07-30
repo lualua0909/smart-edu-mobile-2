@@ -6,6 +6,7 @@ import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { Image, StatusBar, StyleSheet, View } from 'react-native'
+import { Link, Package, User } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -45,10 +46,11 @@ const TeacherInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             axios
-                .get(`users/get-mentor-info/${id}`)
+                .get(`public-courses/get-mentor-info/${id}`)
                 .then(res => {
                     if (res.data.status === 200) {
                         setData(res.data)
+                        console.log('Data =====', res.data)
                     }
                 })
                 .catch(err => console.error(err.message))
@@ -123,7 +125,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     style={[
                         focused ? styles.activeTabText : styles.tabText,
                         {
-                            textTransform: 'uppercase',
+                            // textTransform: 'uppercase',
                             whiteSpace: 'nowrap',
                             wordWrap: 'break-word'
                         }
@@ -197,9 +199,10 @@ const TeacherInfo = ({ navigation, route }) => {
                 <Text
                     style={{
                         fontSize: scale(18),
-                        color: '#000',
+                        color: '#0E564D',
                         marginTop: scale(10),
-                        lineHeight: scale(20)
+                        lineHeight: scale(20),
+                        fontWeight: 'bold'
                     }}>
                     {fullName}
                 </Text>
@@ -216,8 +219,10 @@ const TeacherInfo = ({ navigation, route }) => {
                         fontSize: scale(16),
                         color: '#6C746E',
                         marginTop: scale(8),
-                        lineHeight: scale(20)
+                        lineHeight: scale(20),
+                        paddingHorizontal: 5
                     }}>
+                    <Link color="#0E564D" width={16} />{' '}
                     {data?.mentor?.department}
                 </Text>
                 <Text
@@ -225,8 +230,10 @@ const TeacherInfo = ({ navigation, route }) => {
                         fontSize: scale(16),
                         color: '#6C746E',
                         marginTop: scale(8),
-                        lineHeight: scale(20)
+                        lineHeight: scale(20),
+                        paddingHorizontal: 5
                     }}>
+                    <Package color="#0E564D" width={16} />{' '}
                     {data?.mentor?.position}
                 </Text>
             </View>
@@ -340,7 +347,8 @@ const TabContent = ({ content }) => {
 
 const styles = StyleSheet.create({
     activeTabText: {
-        color: '#fff'
+        color: '#fff',
+        fontWeight: 'bold'
     },
     tabText: {
         color: '#ccc'

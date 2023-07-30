@@ -1,4 +1,5 @@
 import { useGlobalState } from 'app/Store'
+import { NoData } from 'app/atoms'
 import ComingExam from 'app/components/ComingExamCard'
 import CourseItem from 'app/components/CourseItem'
 import CourseOverviewChart from 'app/components/CourseOverviewChart'
@@ -201,7 +202,7 @@ const Overview = ({ navigation }) => {
                         </Text>
                     </View>
                 </View>
-                <View
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
@@ -235,111 +236,139 @@ const Overview = ({ navigation }) => {
                             />
                         </Pressable>
                     </View>
-                    {dashboardInfo?.schedule_ofline?.map((item, index) => {
-                        return (
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    marginTop: scale(16)
-                                }}>
+                    {dashboardInfo?.schedule_ofline?.length ? (
+                        dashboardInfo?.schedule_ofline?.map((item, index) => {
+                            return (
                                 <View
                                     style={{
-                                        backgroundColor:
-                                            'rgba(1, 167, 2, 0.16)',
-                                        borderRadius: scale(5),
-                                        justifyContent: 'center',
+                                        flexDirection: 'row',
                                         alignItems: 'center',
-                                        paddingHorizontal: scale(4),
-                                        paddingVertical: scale(22)
+                                        marginTop: scale(16)
                                     }}>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(19),
-                                            color: '#007739'
-                                        }}>
-                                        02
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(12),
-                                            color: '#007739',
-                                            marginTop: scale(7)
-                                        }}>
-                                        Tháng 12
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(12),
-                                            color: '#007739',
-                                            marginTop: scale(7)
-                                        }}>
-                                        2021
-                                    </Text>
                                     <View
                                         style={{
-                                            width: '100%',
-                                            height: 1,
-                                            backgroundColor: '#AEE4B0',
-                                            marginVertical: scale(7)
-                                        }}
-                                    />
-                                    <Text
-                                        style={{
-                                            fontSize: scale(12),
-                                            color: '#007739'
+                                            backgroundColor:
+                                                'rgba(1, 167, 2, 0.16)',
+                                            borderRadius: scale(5),
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            paddingHorizontal: scale(4),
+                                            paddingVertical: scale(22)
                                         }}>
-                                        Lúc 9:30
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{ flex: 1, marginLeft: scale(16) }}>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(16),
-                                            color: '#1F1F1F'
-                                        }}>
-                                        Khóa học SD1
-                                    </Text>
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                            marginTop: scale(8)
-                                        }}>
-                                        <SvgXml
-                                            xml={svgBlackHome}
-                                            width={scale(20)}
-                                            height={scale(20)}
+                                        <Text
+                                            style={{
+                                                fontSize: scale(19),
+                                                color: '#007739'
+                                            }}>
+                                            02
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(12),
+                                                color: '#007739',
+                                                marginTop: scale(7)
+                                            }}>
+                                            Tháng 12
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(12),
+                                                color: '#007739',
+                                                marginTop: scale(7)
+                                            }}>
+                                            2021
+                                        </Text>
+                                        <View
+                                            style={{
+                                                width: '100%',
+                                                height: 1,
+                                                backgroundColor: '#AEE4B0',
+                                                marginVertical: scale(7)
+                                            }}
                                         />
                                         <Text
-                                            numberOfLines={2}
                                             style={{
-                                                flex: 1,
-                                                marginLeft: scale(10),
-
-                                                fontSize: scale(14),
-                                                color: '#1F1F1F'
+                                                fontSize: scale(12),
+                                                color: '#007739'
                                             }}>
-                                            307A Nguyễn Trọng Tuyển, P.10, Quận
-                                            Phú Nhuận, TP.HCM,. chiều cao cứng
+                                            Lúc 9:30
                                         </Text>
                                     </View>
-                                    {/* <View
+                                    <View
                                         style={{
-                                            flexDirection: 'row',
-                                            marginTop: scale(8),
-                                        }}
-                                    >
-                                        {new Array(6)
-                                            .fill(0)
-                                            .map((_, index) => {
-                                                if (index < 5) {
+                                            flex: 1,
+                                            marginLeft: scale(16)
+                                        }}>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(16),
+                                                color: '#1F1F1F'
+                                            }}>
+                                            Khóa học SD1
+                                        </Text>
+                                        <View
+                                            style={{
+                                                flexDirection: 'row',
+                                                marginTop: scale(8)
+                                            }}>
+                                            <SvgXml
+                                                xml={svgBlackHome}
+                                                width={scale(20)}
+                                                height={scale(20)}
+                                            />
+                                            <Text
+                                                numberOfLines={2}
+                                                style={{
+                                                    flex: 1,
+                                                    marginLeft: scale(10),
+
+                                                    fontSize: scale(14),
+                                                    color: '#1F1F1F'
+                                                }}>
+                                                307A Nguyễn Trọng Tuyển, P.10,
+                                                Quận Phú Nhuận, TP.HCM,. chiều
+                                                cao cứng
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                flexDirection: 'row',
+                                                marginTop: scale(8)
+                                            }}>
+                                            {new Array(6)
+                                                .fill(0)
+                                                .map((_, index) => {
+                                                    if (index < 5) {
+                                                        return (
+                                                            <Image
+                                                                key={index}
+                                                                source={{
+                                                                    uri: 'https://ca.hellomagazine.com/imagenes//healthandbeauty/mother-and-baby/20211114126287/david-beckham-dog-sage-kiss/0-608-981/david-beckham-t.jpg'
+                                                                }}
+                                                                style={{
+                                                                    width: scale(
+                                                                        48
+                                                                    ),
+                                                                    height: scale(
+                                                                        48
+                                                                    ),
+                                                                    left: `-${
+                                                                        50 *
+                                                                        index
+                                                                    }%`,
+                                                                    borderRadius:
+                                                                        scale(
+                                                                            48
+                                                                        ),
+                                                                    borderWidth: 1,
+                                                                    borderColor:
+                                                                        '#c2c2c2'
+                                                                }}
+                                                            />
+                                                        )
+                                                    }
                                                     return (
-                                                        <Image
-                                                            key={index}
-                                                            source={{
-                                                                uri: 'https://ca.hellomagazine.com/imagenes//healthandbeauty/mother-and-baby/20211114126287/david-beckham-dog-sage-kiss/0-608-981/david-beckham-t.jpg',
-                                                            }}
+                                                        <View
                                                             style={{
                                                                 width: scale(
                                                                     48
@@ -352,49 +381,35 @@ const Overview = ({ navigation }) => {
                                                                 }%`,
                                                                 borderRadius:
                                                                     scale(48),
-                                                                borderWidth: 1,
-                                                                borderColor:
-                                                                    '#c2c2c2',
-                                                            }}
-                                                        />
+                                                                justifyContent:
+                                                                    'center',
+                                                                alignItems:
+                                                                    'center',
+                                                                backgroundColor:
+                                                                    '#EBF6FA'
+                                                            }}>
+                                                            <Text
+                                                                style={{
+                                                                    fontSize:
+                                                                        scale(
+                                                                            12
+                                                                        )
+                                                                }}>
+                                                                +86
+                                                            </Text>
+                                                        </View>
                                                     )
-                                                }
-                                                return (
-                                                    <View
-                                                        style={{
-                                                            width: scale(48),
-                                                            height: scale(48),
-                                                            left: `-${
-                                                                50 * index
-                                                            }%`,
-                                                            borderRadius:
-                                                                scale(48),
-                                                            justifyContent:
-                                                                'center',
-                                                            alignItems:
-                                                                'center',
-                                                            backgroundColor:
-                                                                '#EBF6FA',
-                                                        }}
-                                                    >
-                                                        <Text
-                                                            style={{
-                                                                fontSize:
-                                                                    scale(12),
-                                                            }}
-                                                        >
-                                                            +86
-                                                        </Text>
-                                                    </View>
-                                                )
-                                            })}
-                                    </View> */}
+                                                })}
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        )
-                    })}
-                </View>
-                <View
+                            )
+                        })
+                    ) : (
+                        <NoData />
+                    )}
+                </View> */}
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
@@ -427,11 +442,15 @@ const Overview = ({ navigation }) => {
                         </Pressable>
                     </View>
                     <View>
-                        {dashboardInfo?.examinations?.map((item, index) => {
-                            return <ComingExam />
-                        })}
+                        {dashboardInfo?.examinations?.length ? (
+                            dashboardInfo?.examinations?.map((item, index) => {
+                                return <ComingExam />
+                            })
+                        ) : (
+                            <NoData />
+                        )}
                     </View>
-                </View>
+                </View> */}
                 <View
                     style={{
                         borderTopWidth: scale(12),
@@ -491,7 +510,7 @@ const Overview = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                <View
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
@@ -531,8 +550,8 @@ const Overview = ({ navigation }) => {
                             <TeacherItem key={index} />
                         ))}
                     </View>
-                </View>
-                <View
+                </View> */}
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
@@ -574,8 +593,8 @@ const Overview = ({ navigation }) => {
                             <FriendItem index={index} item={item} />
                         ))}
                     </View>
-                </View>
-                <View
+                </View> */}
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#f4f4f4',
@@ -628,7 +647,7 @@ const Overview = ({ navigation }) => {
                             )}
                         />
                     </View>
-                </View>
+                </View> */}
             </ScrollView>
         </View>
     )

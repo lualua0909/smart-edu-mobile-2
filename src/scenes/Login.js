@@ -9,12 +9,22 @@ import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
 import LottieView from 'lottie-react-native'
-import { Image, Pressable, ScrollView, View } from 'react-native'
-import { ArrowUpCircle, ChevronRight, Key, Shield } from 'react-native-feather'
+import { Dimensions, Image, Pressable, ScrollView, View } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
+import {
+    ArrowUpCircle,
+    ChevronRight,
+    Key,
+    Lock,
+    Shield
+} from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
 import { Button, Center, Stack, Text } from 'native-base'
+
+const { height, width } = Dimensions.get('screen')
+const aspectRatio = height / width
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -180,7 +190,7 @@ const Login = ({ navigation }) => {
                             <Input
                                 allowClear
                                 InputLeftElement={
-                                    <Key
+                                    <Lock
                                         width={18}
                                         height={18}
                                         color="#555"
@@ -260,16 +270,18 @@ const Login = ({ navigation }) => {
                     }}
                     edges={['bottom']}>
                     <Center>
-                        <LottieView
-                            source={animationImg}
-                            autoPlay
-                            loop
-                            style={{
-                                width: 100,
-                                height: 100,
-                                marginBottom: 10
-                            }}
-                        />
+                        {DeviceInfo.isTablet() ||
+                        DeviceInfo.isTabletMode() ? null : (
+                            <LottieView
+                                source={animationImg}
+                                autoPlay
+                                loop
+                                style={{
+                                    width: 100,
+                                    height: 'auto'
+                                }}
+                            />
+                        )}
                         <Text
                             style={{
                                 color: '#111',

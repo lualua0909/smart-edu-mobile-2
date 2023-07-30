@@ -62,7 +62,7 @@ const CourseItem = ({
 
         return null
     }
-
+    console.log('item = ', item)
     return (
         <Pressable
             key={index}
@@ -201,7 +201,7 @@ const CourseItem = ({
                             </Text>
                         </Pressable> */}
                 </View>
-                {isMine && (
+                {isMine ? (
                     <View
                         style={{
                             flexDirection: 'row',
@@ -215,22 +215,23 @@ const CourseItem = ({
                         />
                         <Text
                             style={{
-                                fontSize: scale(14),
-                                color: '#1F1F1F'
+                                fontSize: scale(12),
+                                color: '#777'
                             }}>
-                            100%
+                            {item?.process}%
                         </Text>
                     </View>
+                ) : (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginTop: scale(10)
+                        }}>
+                        {renderPrice()}
+                    </View>
                 )}
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginTop: scale(10)
-                    }}>
-                    {renderPrice()}
-                </View>
             </View>
         </Pressable>
     )
