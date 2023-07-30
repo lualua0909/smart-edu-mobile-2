@@ -252,7 +252,7 @@ const ProfileInfo = ({}) => {
                         </View>
                     </View>
                     <Center style={{ marginTop: 20 }}>
-                        <VStack width="90%" mx="3" maxW="400px" space="3">
+                        <VStack width="90%" mx="3" space="3">
                             <Input
                                 label="Họ"
                                 w={'100%'}

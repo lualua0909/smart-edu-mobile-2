@@ -34,6 +34,7 @@ import {
 } from 'react-native'
 import {
     Book,
+    ChevronRight,
     CreditCard,
     DollarSign,
     Edit,
@@ -371,7 +372,7 @@ const Menu = ({ route }) => {
                             <Text style={styles.formViewMoreText}>
                                 Xem quá trình học tập
                             </Text>
-                            <ChevronRightIcon size={scale(12)} />
+                            <ChevronRight width={scale(18)} color="#A3A3A3" />
                         </Pressable>
                     </View>
                     <View

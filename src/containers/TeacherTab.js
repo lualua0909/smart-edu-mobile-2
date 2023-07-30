@@ -73,8 +73,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     }}>
                     <Briefcase
                         stroke="#1f1f1f"
-                        width={scale(22)}
-                        height={scale(22)}
+                        width={scale(16)}
+                        height={scale(16)}
                     />
                     <Text
                         style={{
@@ -93,8 +93,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     }}>
                     <Bookmark
                         stroke="#1f1f1f"
-                        width={scale(22)}
-                        height={scale(22)}
+                        width={scale(16)}
+                        height={scale(16)}
                     />
                     <Text
                         style={{
@@ -113,8 +113,8 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     }}>
                     <BookOpen
                         stroke="#1f1f1f"
-                        width={scale(22)}
-                        height={scale(22)}
+                        width={scale(16)}
+                        height={scale(16)}
                     />
                     <Text
                         style={{

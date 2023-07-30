@@ -5,6 +5,7 @@ import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { View } from 'react-native'
+import { Check } from 'react-native-feather'
 
 import { CheckIcon, Text } from 'native-base'
 
@@ -35,7 +36,7 @@ const Benefit = ({ courseId }) => {
                 flexDirection: 'row',
                 marginTop: scale(8)
             }}>
-            <CheckIcon
+            <Check
                 size={scale(16)}
                 style={{
                     marginHorizontal: 10,
