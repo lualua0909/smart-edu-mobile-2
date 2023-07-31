@@ -1079,7 +1079,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNScreens (3.23.0):
+  - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
   - RNSVG (12.5.0):
@@ -1346,11 +1346,11 @@ SPEC CHECKSUMS:
   RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
   RNIap: c397f49db45af3b10dca64b2325f21bb8078ad21
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
-  RNScreens: 6a8a3c6b808aa48dca1780df7b73ea524f602c63
+  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNSVG: 6adc5c52d2488a476248413064b7f2832e639057
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: eca980a5771bf114c41a754098cd85e6e0d90ed7
 
 PODFILE CHECKSUM: 93fdef2b5104d68978a989424ade41d30a94313f
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.12.1
