@@ -5,7 +5,8 @@ import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl, ScrollView } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 const MyCourseList = ({ userId }) => {
     const [data, setData] = useState([])

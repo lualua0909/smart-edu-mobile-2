@@ -3,7 +3,8 @@ import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Dimensions, Image, ScrollView, View } from 'react-native'
+import { Dimensions, Image, View } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Button, Text } from 'native-base'
 

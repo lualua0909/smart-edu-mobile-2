@@ -4,8 +4,9 @@ import { toCurrency } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Image, Pressable, ScrollView, Switch, View } from 'react-native'
+import { Image, Pressable, Switch, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Text } from 'native-base'
 import { ChevronRightIcon } from 'native-base'
@@ -39,6 +40,7 @@ const Payment = () => {
                                 height: scale(215),
                                 margin: scale(10)
                             }}
+                            alt="image"
                         />
                         <View
                             style={{

@@ -54,6 +54,7 @@
         "react-native-tab-view": "^3.1.1",
         "react-native-version-check": "^3.4.7",
         "react-native-video": "5.2.1",
+        "react-native-virtualized-view": "^1.0.0",
         "react-native-webview": "^11.18.1"
     },
     "devDependencies": {

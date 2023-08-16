@@ -32,6 +32,7 @@ const CourseItem = ({ data, index }) => {
                     height: 164,
                     backgroundColor: '#f5f5f5'
                 }}
+                alt="image"
             />
             <View
                 style={{

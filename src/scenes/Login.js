@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
 import LottieView from 'lottie-react-native'
-import { Image, Platform, Pressable, ScrollView, View } from 'react-native'
+import { Image, Platform, Pressable, View } from 'react-native'
 import {
     ArrowUpCircle,
     ChevronRight,
@@ -18,6 +18,7 @@ import {
     Shield
 } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import animationImg from 'assets/animations/english-reading.json'
 import { Button, Center, Stack, Text } from 'native-base'
@@ -128,6 +129,7 @@ const Login = ({ navigation }) => {
                         top: 0,
                         left: 0
                     }}
+                    alt="image"
                     resizeMode="cover"
                 />
                 <View

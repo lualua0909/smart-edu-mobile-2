@@ -130,6 +130,7 @@ const CourseItem = ({
                     borderTopRightRadius: scale(10)
                 }}
                 fallbackSource={require('assets/images/fallback.jpg')}
+                alt="image"
             />
             <View
                 style={{

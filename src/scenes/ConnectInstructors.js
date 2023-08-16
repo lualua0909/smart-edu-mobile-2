@@ -16,7 +16,6 @@ import {
     Linking,
     Pressable,
     RefreshControl,
-    ScrollView,
     StatusBar,
     View
 } from 'react-native'
@@ -24,6 +23,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabView } from 'react-native-tab-view'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Box, HStack, Heading, Stack, Text } from 'native-base'
 

@@ -10,10 +10,11 @@ import { Link, Package, User } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderBack from 'app/components/header-back'
 import { Text } from 'native-base'
-import { CheckIcon, ScrollView } from 'native-base'
+import { CheckIcon } from 'native-base'
 
 const routes = [
     {
@@ -157,6 +158,7 @@ const TeacherInfo = ({ navigation, route }) => {
                         position: 'absolute'
                     }}
                     resizeMode="stretch"
+                    alt="image"
                 />
                 <SafeAreaView
                     style={{

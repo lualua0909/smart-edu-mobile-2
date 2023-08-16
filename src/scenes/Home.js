@@ -15,11 +15,12 @@ import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, Pressable, ScrollView, View } from 'react-native'
+import { FlatList, Pressable, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import {
     Badge,
@@ -252,6 +253,7 @@ const Home = ({ navigation }) => {
                                                             width: scale(89),
                                                             height: scale(89)
                                                         }}
+                                                        alt="image"
                                                     />
                                                 </View>
                                             </View>
@@ -415,6 +417,7 @@ const Home = ({ navigation }) => {
                                                         width: scale(60),
                                                         height: scale(89)
                                                     }}
+                                                    alt="image"
                                                 />
                                             </View>
                                         </View>

@@ -12,9 +12,10 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import { Camera, UserX } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import {
     AlertDialog,
@@ -213,6 +214,7 @@ const ProfileInfo = ({}) => {
                                     source={{
                                         uri: avtUploaded
                                     }}
+                                    alt="image"
                                 />
                             ) : (
                                 <Avatar

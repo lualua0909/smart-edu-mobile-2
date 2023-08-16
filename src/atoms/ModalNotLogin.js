@@ -29,6 +29,7 @@ const ModalNotLogin = ({ visible, setVisible }) => (
                     marginTop: -scale(80)
                 }}
                 resizeMode="contain"
+                alt="image"
             />
             <Pressable
                 onPress={() => setVisible(false)}

@@ -6,12 +6,12 @@ import LottieView from 'lottie-react-native'
 import {
     Linking,
     PermissionsAndroid,
-    ScrollView,
     ToastAndroid,
     TouchableHighlight,
     View
 } from 'react-native'
 import { Mic } from 'react-native-feather'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import SpeakingAnimate from 'app/components/speaking-animate'
 import animationImg from 'assets/animations/english-reading.json'

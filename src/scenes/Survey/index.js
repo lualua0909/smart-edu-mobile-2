@@ -7,7 +7,8 @@ import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Alert, ScrollView } from 'react-native'
+import { Alert } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderTitle from 'app/components/header-title'
 import { Box, Button, Center, HStack, Text, VStack, View } from 'native-base'

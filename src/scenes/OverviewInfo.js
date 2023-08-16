@@ -12,8 +12,9 @@ import { svgBlackHome, svgBlueViewMore, svgFourSquares } from 'assets/svg'
 import React, { useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Center, Text } from 'native-base'
 
