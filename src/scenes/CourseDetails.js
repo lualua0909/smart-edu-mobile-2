@@ -38,9 +38,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
-import { ScrollView } from 'react-native-virtualized-view'
 
-import { Button, Image, Text, VStack, useToast } from 'native-base'
+import { Button, Image, ScrollView, Text, VStack, useToast } from 'native-base'
 
 const routes = [
     {

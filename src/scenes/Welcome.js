@@ -4,9 +4,8 @@ import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Dimensions, Image, View } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
 
-import { Button, Text } from 'native-base'
+import { Button, ScrollView, Text } from 'native-base'
 
 const { height, width } = Dimensions.get('window')
 
@@ -41,7 +40,7 @@ const Wireframe = ({ navigation }) => {
 
     const onGoToPage = page => {
         if (page < DATA.length) {
-            scrollRef.current.scrollTo({
+            scrollRef?.current?.scrollTo({
                 x: width * page,
                 y: 0,
                 animated: true

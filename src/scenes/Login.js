@@ -18,10 +18,9 @@ import {
     Shield
 } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import animationImg from 'assets/animations/english-reading.json'
-import { Button, Center, Stack, Text } from 'native-base'
+import { Button, Center, ScrollView, Stack, Text } from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
