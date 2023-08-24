@@ -92,6 +92,7 @@ const FlatListCredits = ({ data, userId }) => {
                                     width: '100%',
                                     height: imageHeight
                                 }}
+                                alt="image"
                             />
                             <Text
                                 style={{

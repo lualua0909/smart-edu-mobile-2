@@ -29,6 +29,7 @@ const VoucherItem = ({ value, index }) => {
                             width: '100%',
                             height: scale(100)
                         }}
+                        alt="image"
                     />
                 </View>
                 <View style={{ flex: 1, marginLeft: scale(12) }}>

@@ -12,12 +12,12 @@ import {
     KeyboardAvoidingView,
     Platform,
     Pressable,
-    ScrollView,
     TextInput,
     View
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { SvgXml } from 'react-native-svg'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderChat from 'app/components/header-chat'
 import { Text } from 'native-base'

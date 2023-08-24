@@ -17,15 +17,7 @@ import { clearDataAfterLogout, errorLog, isAndroid } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useRef, useState } from 'react'
 
-import {
-    Alert,
-    Linking,
-    Platform,
-    Pressable,
-    ScrollView,
-    Share,
-    View
-} from 'react-native'
+import { Alert, Linking, Platform, Pressable, Share, View } from 'react-native'
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
 import {
     PurchaseError,
@@ -46,6 +38,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Button, Image, Text, VStack, useToast } from 'native-base'
 

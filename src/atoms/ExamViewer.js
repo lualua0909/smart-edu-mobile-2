@@ -5,10 +5,10 @@ import {
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
-    ScrollView,
     StyleSheet
 } from 'react-native'
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Text } from 'native-base'
 

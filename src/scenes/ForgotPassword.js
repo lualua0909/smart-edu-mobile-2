@@ -63,6 +63,7 @@ const ForgotPassword = ({ navigation }) => {
                         left: 0
                     }}
                     resizeMode="cover"
+                    alt="image"
                 />
                 <View
                     style={{

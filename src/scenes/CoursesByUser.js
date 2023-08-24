@@ -1,7 +1,8 @@
 import MyCourseList from 'app/components/MyCourseList'
 import React from 'react'
 
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 const CoursesByUser = ({ route }) => {
     const { userId } = route.params

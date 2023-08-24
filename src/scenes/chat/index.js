@@ -5,7 +5,8 @@ import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
-import { Image, Pressable, ScrollView, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderChat from 'app/components/header-chat'
 import { Text } from 'native-base'

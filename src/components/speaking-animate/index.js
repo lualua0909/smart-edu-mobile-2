@@ -126,6 +126,7 @@ const SpeakingAnimate = ({}) => {
             <Image
                 source={require('assets/images/speaking-animate/background.jpg')}
                 style={{ width: 256, height: 180, zIndex: -1 }}
+                alt="image"
             />
             <Animated.View
                 style={{

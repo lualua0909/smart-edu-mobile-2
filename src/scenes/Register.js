@@ -11,9 +11,10 @@ import {
 } from 'assets/svg'
 import React, { useState } from 'react'
 
-import { Image, Linking, Pressable, ScrollView, View } from 'react-native'
+import { Image, Linking, Pressable, View } from 'react-native'
 import { AtSign, Key, Phone, Shield, User } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import { Text } from 'native-base'
 import { Button, Center, Icon, Stack, useToast } from 'native-base'
@@ -101,6 +102,7 @@ const Register = ({ navigation }) => {
                         left: 0
                     }}
                     resizeMode="cover"
+                    alt="image"
                 />
                 <View style={{ paddingHorizontal: scale(30), zIndex: 1 }}>
                     <View

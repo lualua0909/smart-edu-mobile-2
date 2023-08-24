@@ -26,6 +26,7 @@ const Advise = ({ data }) => {
                     position: 'absolute',
                     borderRadius: scale(10)
                 }}
+                alt="image"
             />
             <View
                 style={{

@@ -4,7 +4,8 @@ import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
+import { FlatList, RefreshControl, View } from 'react-native'
+import { ScrollView } from 'react-native-virtualized-view'
 
 const MentorList = ({}) => {
     const [data, setData] = useState()

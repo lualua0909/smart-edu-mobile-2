@@ -123,6 +123,7 @@ const CartItem = ({ course, index }) => {
                                 height: scale(60)
                             }}
                             defaultSource={require('assets/images/menu-banner.jpg')}
+                            alt="image"
                         />
                     </View>
                     <View style={{ flex: 1, marginLeft: scale(12) }}>

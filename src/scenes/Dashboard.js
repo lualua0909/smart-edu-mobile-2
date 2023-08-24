@@ -27,7 +27,6 @@ import {
     ImageBackground,
     Linking,
     Pressable,
-    ScrollView,
     StatusBar,
     StyleSheet,
     View
@@ -48,6 +47,7 @@ import {
 } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
+import { ScrollView } from 'react-native-virtualized-view'
 
 import MenuAction from 'app/components/menu-action'
 import { ChevronRightIcon, Text } from 'native-base'
@@ -153,6 +153,7 @@ const Menu = ({ route }) => {
                         marginTop: -scale(80)
                     }}
                     resizeMode="contain"
+                    alt="image"
                 />
                 <Pressable
                     onPress={() => setVisibleComingSoon(false)}
@@ -529,6 +530,7 @@ const Menu = ({ route }) => {
                             width: '100%',
                             height: scale(170)
                         }}
+                        alt="image"
                     />
                 </Pressable>
                 <View style={{ backgroundColor: '#fff' }}>
@@ -594,6 +596,7 @@ const Menu = ({ route }) => {
                             marginTop: -scale(80)
                         }}
                         resizeMode="contain"
+                        alt="image"
                     />
                     <Pressable
                         onPress={closeModal}
