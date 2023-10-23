@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
 
         fontSize: scale(12),
-        color: '#1F1F1F'
+        color: '#6C746E'
     }
 })
 

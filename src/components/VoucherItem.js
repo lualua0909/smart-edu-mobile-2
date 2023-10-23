@@ -37,7 +37,7 @@ const VoucherItem = ({ value, index }) => {
                         numberOfLines={3}
                         style={{
                             fontSize: scale(16),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Áp dụng cho đơn hàng đầu tiên chi, max 2 d...
                     </Text>

@@ -29,7 +29,7 @@ const Support = () => {
                     style={{
                         fontSize: scale(20),
                         lineHeight: scale(20),
-                        color: '#1F1F1F'
+                        color: '#6C746E'
                     }}>
                     Liên hệ với chúng tôi qua
                 </Text>
@@ -47,7 +47,7 @@ const Support = () => {
                         style={{
                             fontSize: scale(16),
                             lineHeight: scale(20),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Trụ sở chính:{' '}
                     </Text>
@@ -63,7 +63,7 @@ const Support = () => {
                             style={{
                                 fontSize: scale(16),
                                 lineHeight: scale(20),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             60 Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM
                         </Text>
@@ -74,7 +74,7 @@ const Support = () => {
                         style={{
                             fontSize: scale(16),
                             lineHeight: scale(20),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Trung tâm đào tạo:{' '}
                     </Text>
@@ -90,7 +90,7 @@ const Support = () => {
                             style={{
                                 fontSize: scale(16),
                                 lineHeight: scale(20),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             5B Phổ Quang, phường 2, quận Tân Bình, TP.HCM
                         </Text>
@@ -106,7 +106,7 @@ const Support = () => {
                         style={{
                             fontSize: scale(16),
                             lineHeight: scale(20),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Email:{' '}
                     </Text>
@@ -120,7 +120,7 @@ const Support = () => {
                             style={{
                                 fontSize: scale(16),
                                 lineHeight: scale(20),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             training@ifa.edu.vn
                         </Text>
@@ -136,7 +136,7 @@ const Support = () => {
                         style={{
                             fontSize: scale(16),
                             lineHeight: scale(20),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Hotline:{' '}
                     </Text>
@@ -146,7 +146,7 @@ const Support = () => {
                             style={{
                                 fontSize: scale(16),
                                 lineHeight: scale(20),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             0942993979
                         </Text>
@@ -162,7 +162,7 @@ const Support = () => {
                         style={{
                             fontSize: scale(16),
                             lineHeight: scale(20),
-                            color: '#1F1F1F'
+                            color: '#6C746E'
                         }}>
                         Điện thoại:{' '}
                     </Text>
@@ -172,7 +172,7 @@ const Support = () => {
                             style={{
                                 fontSize: scale(16),
                                 lineHeight: scale(20),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             02866814320
                         </Text>

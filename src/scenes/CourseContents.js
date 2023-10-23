@@ -563,7 +563,7 @@ const CourseDetail = ({ route, navigation }) => {
                                     style={[
                                         {
                                             fontSize: 13,
-                                            color: '#1F1F1F',
+                                            color: '#6C746E',
                                             textAlign: 'center'
                                         },
                                         focused && {

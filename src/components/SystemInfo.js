@@ -19,7 +19,7 @@ const SystemInfo = ({ data }) => {
                 }}>
                 <Text
                     style={{
-                        color: '#1F1F1F',
+                        color: '#6C746E',
                         fontSize: scale(18),
 
                         paddingHorizontal: scale(10),
@@ -49,7 +49,7 @@ const SystemInfo = ({ data }) => {
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}
                             value="thupt"
                             editable={false}
@@ -87,7 +87,7 @@ const SystemInfo = ({ data }) => {
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F',
+                                color: '#6C746E',
                                 alignItems: 'flex-start'
                             }}
                             value="Hoc Vien"
@@ -126,7 +126,7 @@ const SystemInfo = ({ data }) => {
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}
                             value="*******"
                             editable={false}
@@ -164,7 +164,7 @@ const SystemInfo = ({ data }) => {
                         <TextInput
                             style={{
                                 fontSize: scale(16),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}
                             value="Sinh viên"
                             editable={false}

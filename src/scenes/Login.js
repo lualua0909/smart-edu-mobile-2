@@ -143,8 +143,8 @@ const Login = ({ navigation }) => {
                             {
                                 width: '100%',
                                 borderRadius: scale(10),
-                                paddingVertical: scale(42),
-                                paddingHorizontal: scale(28)
+                                paddingVertical: 20,
+                                paddingHorizontal: 20
                             }
                         ]}>
                         <Text
@@ -158,12 +158,11 @@ const Login = ({ navigation }) => {
                         </Text>
                         <Text
                             style={{
-                                marginTop: scale(8),
                                 fontSize: scale(15),
                                 textAlign: 'center',
                                 color: '#6C746E'
                             }}>
-                            Chào mừng bạn đến với SmartEdu !
+                            Chào mừng bạn đến với SmartEdu
                         </Text>
                         <Stack
                             space={4}
@@ -207,13 +206,13 @@ const Login = ({ navigation }) => {
                             }
                             hitSlop={20}
                             style={{
-                                marginTop: scale(24),
+                                marginTop: 10,
                                 alignSelf: 'flex-end'
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(14),
-                                    color: '#0075FF',
+                                    fontSize: 14,
+                                    color: '#23B55D',
                                     textDecorationLine: 'underline'
                                 }}>
                                 Quên mật khẩu?
@@ -240,15 +239,15 @@ const Login = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(14),
-                                    color: '#1D1D1D',
+                                    fontSize: 14,
+                                    color: '#6C746E',
                                     textAlign: 'center'
                                 }}>
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
                                     style={{
-                                        fontSize: scale(14),
-                                        color: '#0075FF',
+                                        fontSize: 14,
+                                        color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>
                                     Đăng ký ngay
@@ -264,6 +263,7 @@ const Login = ({ navigation }) => {
                         alignSelf: 'center',
                         marginBottom: scale(30),
                         width: '100%'
+                        // zIndex: 2
                     }}
                     edges={['bottom']}>
                     <Center>
@@ -280,8 +280,8 @@ const Login = ({ navigation }) => {
                         )}
                         <Text
                             style={{
-                                color: '#111',
-                                fontSize: scale(15)
+                                color: '#6C746E',
+                                fontSize: 14
                             }}>
                             Trải nghiệm không cần tài khoản?
                         </Text>
@@ -291,16 +291,10 @@ const Login = ({ navigation }) => {
                             onPress={toTrialPage}>
                             <Text
                                 style={{
-                                    fontFamily: 'Mulish-SemiBold',
                                     color: '#23B55D',
-                                    fontSize: scale(15)
+                                    fontSize: 18
                                 }}>
-                                Khám phá ngay{' '}
-                                <ChevronRight
-                                    stroke="#23B55D"
-                                    width={18}
-                                    height={32}
-                                />
+                                Khám phá ngay
                             </Text>
                         </Pressable>
                     </Center>

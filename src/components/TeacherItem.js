@@ -88,7 +88,7 @@ const TeacherItem = ({ item, index }) => {
                     numberOfLines={1}
                     style={{
                         fontSize: scale(16),
-                        color: '#1F1F1F',
+                        color: '#6C746E',
                         paddingTop: scale(5)
                     }}>
                     {fullName}

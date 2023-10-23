@@ -17,7 +17,9 @@ const firebaseConfig = {
     // Your project's configuration object goes here.
 }
 firebase.initializeApp(firebaseConfig)
-
+const linking = {
+    prefixes: ['ifa_smart_training://']
+}
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
@@ -83,6 +85,7 @@ const App = () => {
             <StatusBar hidden />
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <NavigationContainer
+                    linking={linking}
                     onStateChange={navigationState => {
                         const { name } = getFocusRoute(
                             navigationState.routes[navigationState.index]

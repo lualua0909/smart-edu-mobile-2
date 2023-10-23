@@ -3,13 +3,7 @@ import { similarityString } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import {
-    Linking,
-    PermissionsAndroid,
-    ToastAndroid,
-    TouchableHighlight,
-    View
-} from 'react-native'
+import { Linking, TouchableHighlight, View } from 'react-native'
 import { Mic } from 'react-native-feather'
 import { ScrollView } from 'react-native-virtualized-view'
 
@@ -19,7 +13,6 @@ import {
     Alert,
     Box,
     Button,
-    Center,
     FlatList,
     HStack,
     Heading,
@@ -272,7 +265,7 @@ const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {
                         <Text
                             style={{
                                 fontSize: scale(22),
-                                color: '#1F1F1F',
+                                color: '#6C746E',
                                 marginTop: scale(10)
                             }}>
                             Luyện phát âm thôi

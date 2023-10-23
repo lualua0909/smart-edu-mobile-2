@@ -142,7 +142,7 @@ const Overview = ({ navigation }) => {
                                 style={{
                                     
                                     fontSize: scale(13),
-                                    color: '#1F1F1F',
+                                    color:'#6C746E',
                                 }}
                             >
                                 01/11/2021
@@ -156,7 +156,7 @@ const Overview = ({ navigation }) => {
                                 style={{
                                     
                                     fontSize: scale(13),
-                                    color: '#1F1F1F',
+                                    color:'#6C746E',
                                 }}
                             >
                                 01/11/2021
@@ -303,7 +303,7 @@ const Overview = ({ navigation }) => {
                                         <Text
                                             style={{
                                                 fontSize: scale(16),
-                                                color: '#1F1F1F'
+                                                color:'#6C746E'
                                             }}>
                                             Khóa học SD1
                                         </Text>
@@ -324,7 +324,7 @@ const Overview = ({ navigation }) => {
                                                     marginLeft: scale(10),
 
                                                     fontSize: scale(14),
-                                                    color: '#1F1F1F'
+                                                    color:'#6C746E'
                                                 }}>
                                                 307A Nguyễn Trọng Tuyển, P.10,
                                                 Quận Phú Nhuận, TP.HCM,. chiều
@@ -658,7 +658,7 @@ const styles = StyleSheet.create({
     formTitle: {
         fontWeight: 'bold',
         fontSize: scale(18),
-        color: '#1F1F1F',
+        color: '#6C746E',
         lineHeight: scale(20)
     }
 })
@@ -758,7 +758,7 @@ const Notifications = ({ title, data }) => {
                                             numberOfLines={2}
                                             style={{
                                                 fontSize: scale(14),
-                                                color: '#1F1F1F',
+                                                color: '#6C746E',
                                                 marginTop: scale(4)
                                             }}>
                                             {item?.content}

@@ -7,6 +7,12 @@ import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
+import {
+    Check,
+    CreditCard,
+    DollarSign,
+    ShoppingCart
+} from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
 import { Button, Image, Modal, Pressable, Text, useToast } from 'native-base'
@@ -14,8 +20,7 @@ import { Button, Image, Modal, Pressable, Text, useToast } from 'native-base'
 const CartItem = ({ course, index }) => {
     const toast = useToast()
     const navigation = useNavigation()
-    const [showModal, setShowModal] = useState(false)
-
+    console.log('course =========', course)
     const removeFromCart = async () => {
         const carts = (await getData('@cart')) || []
         storeData(
@@ -67,7 +72,7 @@ const CartItem = ({ course, index }) => {
     )
 
     const renderPrice =
-        !course?.old_price > 0 && course?.new_price > 0 ? (
+        course?.old_price > 0 && course?.new_price > 0 ? (
             <>
                 <Text
                     style={{
@@ -80,7 +85,8 @@ const CartItem = ({ course, index }) => {
                 <Text
                     style={{
                         color: '#1DA736',
-                        fontSize: scale(16)
+                        fontSize: scale(16),
+                        fontWeight: '700'
                     }}>
                     {toCurrency(course?.new_price)} đ
                 </Text>
@@ -90,9 +96,10 @@ const CartItem = ({ course, index }) => {
                 <Text
                     style={{
                         color: '#1DA736',
+                        fontWeight: '700',
                         fontSize: scale(16)
                     }}>
-                    {toCurrency(course?.new_price)} đ
+                    {toCurrency(course?.old_price)} đ
                 </Text>
             </>
         )
@@ -131,7 +138,7 @@ const CartItem = ({ course, index }) => {
                             numberOfLines={3}
                             style={{
                                 fontSize: scale(14),
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             {course?.title}
                         </Text>
@@ -143,35 +150,23 @@ const CartItem = ({ course, index }) => {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                    {/* {renderPrice} */}
-                    <View></View>
+                    {renderPrice}
                     <Button
-                        // onPress={() => navigation.navigate(ROUTES.Payment)}
-                        onPress={() => setShowModal(true)}>
+                        size="sm"
+                        onPress={() =>
+                            navigation.navigate('PackagePayment', {
+                                id: course?.id,
+                                title: course?.title,
+                                price: course?.old_price
+                            })
+                        }
+                        leftIcon={<CreditCard stroke="#fff" />}>
                         Thanh toán
                     </Button>
                 </View>
-                <UpdateAlert
-                    isOpen={showModal}
-                    onClose={() => setShowModal(false)}
-                />
             </Pressable>
         </Swipeout>
     )
 }
 
 export default CartItem
-
-const UpdateAlert = ({ isOpen, onClose }) => (
-    <Modal isOpen={isOpen} onClose={onClose}>
-        <Modal.Content maxWidth="400px">
-            <Modal.CloseButton />
-            <Modal.Header>Thông báo</Modal.Header>
-            <Modal.Body>
-                <Text>
-                    Chức năng này đang được phát triển, vui lòng quay lại sau
-                </Text>
-            </Modal.Body>
-        </Modal.Content>
-    </Modal>
-)

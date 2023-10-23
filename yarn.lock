@@ -7740,11 +7740,6 @@ react-native-modal@^13.0.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
-react-native-orientation@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.npmjs.org/react-native-orientation/-/react-native-orientation-3.1.3.tgz"
-  integrity sha512-A0h0E+2f95X4avmhaBG1ZT8WDxBACA/q//JN2eF1E7kq8AJVxt5XDiavv+aSBkBlqFsfF3bIS+T/DB5mXmnxuA==
-
 react-native-pager-view@^5.4.9:
   version "5.4.25"
   resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.25.tgz"
@@ -9061,6 +9056,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+uri-scheme@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/uri-scheme/-/uri-scheme-1.1.0.tgz#505e8ff199207b4c195009564158f939932f3c14"
+  integrity sha512-Psup0SqWmpf2TDohyMVa9UwhmHGXCvn1/+5jkSKy9BwUq3grRmBCmhpClViiWSkqjyNfJmcbZH68RFYqE2hmbQ==
 
 urix@^0.1.0:
   version "0.1.0"

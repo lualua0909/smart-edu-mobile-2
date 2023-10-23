@@ -72,13 +72,18 @@ const Home = ({ navigation }) => {
                         paddingHorizontal: scale(16)
                     }}>
                     {userInfo?.id !== 'trial' ? (
-                        <Avatar userId={userInfo?.id} />
+                        <Avatar
+                            userId={userInfo?.id}
+                            name={
+                                userInfo?.first_name + ' ' + userInfo?.last_name
+                            }
+                        />
                     ) : null}
                     <View style={{ marginLeft: scale(16), flex: 1 }}>
                         <Text
                             style={{
                                 fontSize: 16,
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             Xin chào,{' '}
                             <Text
@@ -103,7 +108,7 @@ const Home = ({ navigation }) => {
                             <Text
                                 style={{
                                     fontSize: 16,
-                                    color: '#1F1F1F',
+                                    color: '#6C746E',
                                     marginTop: scale(4)
                                 }}>
                                 Đến{' '}
@@ -209,7 +214,7 @@ const Home = ({ navigation }) => {
                                                             style={{
                                                                 fontSize:
                                                                     scale(12),
-                                                                color: '#1F1F1F',
+                                                                color: '#6C746E',
                                                                 width: 200
                                                             }}>
                                                             {item?.title}
@@ -405,7 +410,7 @@ const Home = ({ navigation }) => {
                                                         style={{
                                                             fontWeight: 'bold',
                                                             fontSize: scale(12),
-                                                            color: '#1F1F1F',
+                                                            color: '#6C746E',
                                                             width: 200
                                                         }}>
                                                         {item?.name}
@@ -658,7 +663,7 @@ const Home = ({ navigation }) => {
                                                 <Text
                                                     style={{
                                                         fontSize: scale(12),
-                                                        color: '#1F1F1F'
+                                                        color:'#6C746E'
                                                     }}>
                                                     {item.title}
                                                 </Text>
@@ -667,7 +672,7 @@ const Home = ({ navigation }) => {
                                                     style={{
                                                         marginTop: scale(8),
                                                         fontSize: scale(12),
-                                                        color: '#1F1F1F'
+                                                        color:'#6C746E'
                                                     }}>
                                                     {dayjs(
                                                         item.created_at

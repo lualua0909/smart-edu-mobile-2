@@ -54,7 +54,7 @@ const PopupRate = ({ isVisible, onBackPress, message }) => {
                                 textAlign: 'center',
                                 fontSize: scale(20),
 
-                                color: '#1F1F1F'
+                                color: '#6C746E'
                             }}>
                             {message}
                         </Text>

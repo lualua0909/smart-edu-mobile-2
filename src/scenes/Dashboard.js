@@ -17,7 +17,8 @@ import {
     svgMyMeeting,
     svgVoucher,
     svgWaitingConfirm,
-    svgWallet
+    svgWallet,
+    svgWhiteCart
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -31,6 +32,7 @@ import {
     StyleSheet,
     View
 } from 'react-native'
+import { Platform } from 'react-native'
 import {
     Book,
     ChevronRight,
@@ -277,7 +279,15 @@ const Menu = ({ route }) => {
                                 flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                            <Avatar userId={userInfo?.id} size={scale(60)} />
+                            <Avatar
+                                userId={userInfo?.id}
+                                size={scale(60)}
+                                name={
+                                    userInfo?.first_name +
+                                    ' ' +
+                                    userInfo?.last_name
+                                }
+                            />
                             <View
                                 style={{
                                     marginLeft: scale(10)
@@ -307,47 +317,49 @@ const Menu = ({ route }) => {
                             </View>
                         </View>
                     </View>
-                    {/* <Pressable
-                        style={{
-                            position: 'absolute',
-                            bottom: scale(16),
-                            right: scale(16),
-                            backgroundColor: COLORS.green,
-                            width: scale(44),
-                            height: scale(44),
-                            borderRadius: scale(44),
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderWidth: 1,
-                            borderColor: '#fff'
-                        }}
-                        onPress={() => navigation.navigate(ROUTES.Carts)}>
-                        <SvgXml
-                            xml={svgWhiteCart}
-                            width={scale(26)}
-                            height={scale(26)}
-                        />
-                        <View
+                    {Platform.OS === 'android' && (
+                        <Pressable
                             style={{
                                 position: 'absolute',
-                                width: scale(18),
-                                height: scale(18),
-                                borderRadius: scale(18),
-                                backgroundColor: '#F13642',
-                                top: -scale(3),
-                                right: -scale(3),
+                                bottom: scale(16),
+                                right: scale(16),
+                                backgroundColor: COLORS.green,
+                                width: scale(44),
+                                height: scale(44),
+                                borderRadius: scale(44),
                                 justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                            <Text
+                                alignItems: 'center',
+                                borderWidth: 1,
+                                borderColor: '#fff'
+                            }}
+                            onPress={() => navigation.navigate(ROUTES.Carts)}>
+                            <SvgXml
+                                xml={svgWhiteCart}
+                                width={scale(26)}
+                                height={scale(26)}
+                            />
+                            <View
                                 style={{
-                                    fontSize: scale(10),
-                                    color: '#fff'
+                                    position: 'absolute',
+                                    width: scale(18),
+                                    height: scale(18),
+                                    borderRadius: scale(18),
+                                    backgroundColor: '#F13642',
+                                    top: -scale(3),
+                                    right: -scale(3),
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
                                 }}>
-                                {carts?.length || 0}
-                            </Text>
-                        </View>
-                    </Pressable> */}
+                                <Text
+                                    style={{
+                                        fontSize: scale(10),
+                                        color: '#fff'
+                                    }}>
+                                    {carts?.length || 0}
+                                </Text>
+                            </View>
+                        </Pressable>
+                    )}
                 </ImageBackground>
                 <View
                     style={{

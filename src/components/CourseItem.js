@@ -19,7 +19,6 @@ const CourseItem = ({
     fullWidth = false
 }) => {
     const navigation = useNavigation()
-    console.log('item = ', item)
     const renderPrice = () => {
         if (item?.old_price > 0 && item?.new_price > 0) {
             return (

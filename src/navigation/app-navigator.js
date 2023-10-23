@@ -7,6 +7,7 @@ import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseDetails from 'app/scenes/CourseDetails'
+import CourseDetailsNoIAP from 'app/scenes/CourseDetailsNoIAP'
 import CoursesByUser from 'app/scenes/CoursesByUser'
 import MyCoursesScreen from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
@@ -17,6 +18,7 @@ import LearningHistory from 'app/scenes/LearningHistory'
 import MyOfflineScheduleScreen from 'app/scenes/MyOfflineSchedule'
 import NotificationDetail from 'app/scenes/NotificationDetail'
 import OverviewInfo from 'app/scenes/OverviewInfo'
+import PackagePaymentScreen from 'app/scenes/PackagePayment'
 import Payment from 'app/scenes/Payment'
 import Policy from 'app/scenes/Policy'
 import ProfileInfo from 'app/scenes/ProfileInfo'
@@ -35,7 +37,7 @@ import {
     TransitionPresets,
     createStackNavigator
 } from '@react-navigation/stack'
-import { Pressable } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { withIAPContext } from 'react-native-iap'
 import { SvgXml } from 'react-native-svg'
 
@@ -67,7 +69,11 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
-                component={withIAPContext(CourseDetails)}
+                component={
+                    Platform.OS === 'android'
+                        ? CourseDetailsNoIAP
+                        : withIAPContext(CourseDetails)
+                }
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
@@ -260,6 +266,13 @@ const AppNavigator = () => {
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Thanh toán'} />,
                     headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name="PackagePayment"
+                component={PackagePaymentScreen}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Thanh toán'} />
                 })}
             />
             <Stack.Screen

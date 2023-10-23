@@ -36,7 +36,6 @@ const Carts = ({ navigation }) => {
                         style={{
                             width: '60%'
                         }}>
-                        <NoData />
                         <Text
                             style={{
                                 textAlign: 'center',

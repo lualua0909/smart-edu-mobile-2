@@ -169,14 +169,14 @@ const ComingExam = ({}) => {
                 <Text
                     style={{
                         fontSize: scale(16),
-                        color: '#1F1F1F'
+                        color: '#6C746E'
                     }}>
                     Thi tin học đầu vào
                 </Text>
                 <Text
                     style={{
                         fontSize: scale(14),
-                        color: '#1F1F1F'
+                        color: '#6C746E'
                     }}>
                     Thời gian: 45 phút
                 </Text>
@@ -184,7 +184,7 @@ const ComingExam = ({}) => {
                     numberOfLines={1}
                     style={{
                         fontSize: scale(14),
-                        color: '#1F1F1F'
+                        color: '#6C746E'
                     }}>
                     Bắt đầu lúc 09:00 - 20.12.2021
                 </Text>
