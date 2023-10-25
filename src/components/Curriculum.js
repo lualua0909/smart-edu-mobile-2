@@ -6,13 +6,12 @@ import React, { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { CheckCircle } from 'react-native-feather'
 
-import { ChevronDownIcon, ChevronUpIcon, Text } from 'native-base'
+import { Badge, ChevronDownIcon, ChevronUpIcon, Text } from 'native-base'
 
 const Curriculum = ({ data, navigateToLesson }) => {
     const [isExpand, setIsExpand] = useState(false)
     const [finishedLectures, setFinishedLectures] =
         useGlobalState('finishedLectures')
-
     const onSwitchExpand = () => {
         animateNextTransition()
         setIsExpand(!isExpand)
@@ -75,7 +74,14 @@ const Curriculum = ({ data, navigateToLesson }) => {
                                             height={14}
                                         />
                                     ) : null}{' '}
-                                    {item?.name}
+                                    {item?.name}{' '}
+                                    {item?.trial ? (
+                                        <Badge
+                                            colorScheme="success"
+                                            variant="outline">
+                                            Học thử
+                                        </Badge>
+                                    ) : null}
                                 </Text>
                             </Pressable>
                             <View

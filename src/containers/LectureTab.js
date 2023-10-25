@@ -14,6 +14,7 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [totalLectures, setTotalLectures] = useState(0)
     const [_, setFinishedLectures] = useGlobalState('finishedLectures')
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
+    const [isTrial, setIsTrial] = useGlobalState('isTrial')
 
     useEffect(() => {
         if (courseId) {
@@ -28,15 +29,23 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                 })
                 .then(data => {
                     const chapters = data?.data
-                    console.log('chapters', chapters)
                     setFinishedLectures(data?.finished_lectures)
                     setData(chapters)
+
+                    const c = chapters.map(i => {
+                        const countTrial = i?.lectures.some(
+                            lecture => lecture?.trial === 1
+                        )
+                        console.log('countTrial', countTrial)
+
+                        return i.lectures
+                    })
+
+                    setIsTrial(c.flat()?.some(a => a?.trial === 1))
                     if (setChapters) {
-                        const c = chapters.map(i => {
-                            return i.lectures
-                        })
                         setChapters(c.flat())
                     }
+
                     const sum = chapters.map(i => {
                         const sumWithInitial = i?.lectures.reduce(
                             (previousValue, _) => previousValue + 1,

@@ -609,7 +609,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     fontSize: scale(16),
                                     color: '#6C746E'
                                 }}>
-                                Cấp <Text>chứng chỉ hoàn thành</Text>
+                                Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
                             </Text>
                         </View>
                         {data?.is_offline ? (

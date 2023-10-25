@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Check } from 'react-native-feather'
 
-import { CheckIcon, Text } from 'native-base'
+import { Text } from 'native-base'
 
 const Benefit = ({ courseId }) => {
     const [data, setData] = useState()

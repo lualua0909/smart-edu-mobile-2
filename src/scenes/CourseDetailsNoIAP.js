@@ -1,5 +1,6 @@
 import Axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
+import { getGlobalState } from 'app/Store'
 import { Avatar, CourseDetailSkeleton, NoData } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
@@ -35,6 +36,8 @@ const h = Dimensions.get('window').height
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
+    const userInfo = getGlobalState('userInfo')
+    console.log('userInfo', userInfo)
     const toast = useToast()
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
@@ -51,6 +54,7 @@ const CourseInfo = ({ navigation, route }) => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const [carts, setCarts] = useGlobalState('carts')
+    const [isTrial, setIsTrial] = useGlobalState('isTrial')
     const routes = data?.is_combo
         ? [
               {
@@ -93,7 +97,13 @@ const CourseInfo = ({ navigation, route }) => {
     useEffect(() => {
         if (id) {
             setLoading(true)
-            Axios.get(`auth-get-course-info/${id}`)
+            Axios.get(
+                `${
+                    userInfo?.id === 'trial'
+                        ? 'get-course-info'
+                        : 'auth-get-course-info'
+                }/${id}`
+            )
                 .then(res => {
                     if (res.data && res.data.status === 200) {
                         return res.data
@@ -115,6 +125,7 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [id])
 
+    const longDes = data?.l_des.split('</p>')
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'tab-1':
@@ -126,7 +137,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 tab1: e.nativeEvent.layout.height
                             })
                         }>
-                        <VStack space={4}>
+                        <VStack>
                             <BenefitTab courseId={data?.id} />
                             <Text
                                 style={{
@@ -138,16 +149,18 @@ const CourseInfo = ({ navigation, route }) => {
                                 }}>
                                 Mô tả chi tiết
                             </Text>
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    paddingHorizontal: 15,
-                                    paddingTop: scale(2),
-                                    lineHeight: scale(20),
-                                    color: '#6C746E'
-                                }}>
-                                {data?.l_des?.replace(/<[^>]*>?/gm, '')}
-                            </Text>
+                            {longDes?.map(text => (
+                                <Text
+                                    style={{
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        paddingHorizontal: 15,
+                                        color: '#000',
+                                        lineHeight: scale(20)
+                                    }}>
+                                    {text.replace(/<[^>]*>?/gm, '')}
+                                </Text>
+                            ))}
                         </VStack>
                     </View>
                 )
@@ -308,6 +321,74 @@ const CourseInfo = ({ navigation, route }) => {
             .finally(() => setLoadingVerify(false))
     }
 
+    const renderButton = () => {
+        console.log('data = ', data?.relational)
+        //Đã mua và không phải khóa combo
+        if (data?.relational && !data?.is_combo) {
+            return (
+                <Button
+                    size="sm"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={gotoCourse}
+                    isLoading={loadingVerify}
+                    leftIcon={<BookOpen stroke="#fff" size={12} />}>
+                    Học ngay
+                </Button>
+            )
+        }
+
+        if (!data?.relational && inCart) {
+            return (
+                <Button
+                    size="sm"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={() => navigation.navigate(ROUTES.Carts)}
+                    isLoading={loadingVerify}
+                    leftIcon={<ShoppingCart stroke="#fff" size={12} />}>
+                    Đến giỏ hàng
+                </Button>
+            )
+        }
+
+        if (data?.relational && data?.is_combo) {
+            return (
+                <Button
+                    size="sm"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={() =>
+                        navigation.navigate('MyCourses', {
+                            userId: userInfo?.id
+                        })
+                    }
+                    isLoading={loadingVerify}>
+                    Khóa học của tôi
+                </Button>
+            )
+        }
+
+        return (
+            <Button
+                size="sm"
+                style={{
+                    backgroundColor: '#52B553',
+                    borderRadius: 8
+                }}
+                onPress={addToCart}
+                isLoading={loadingVerify}
+                leftIcon={<ShoppingCart stroke="#fff" size={12} />}>
+                Mua ngay
+            </Button>
+        )
+    }
     return (
         <View style={{ flex: 1 }}>
             <ScrollView
@@ -447,7 +528,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     fontSize: scale(16),
                                     color: '#6C746E'
                                 }}>
-                                Cấp <Text>chứng chỉ hoàn thành</Text>
+                                Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
                             </Text>
                         </View>
                         {data?.is_offline ? (
@@ -599,6 +680,21 @@ const CourseInfo = ({ navigation, route }) => {
                         </View>
                     </View>
                 ) : null}
+                {isTrial && userInfo?.id === 'trial' && !data?.is_combo ? (
+                    <Button
+                        size="sm"
+                        style={{
+                            width: 100
+                        }}
+                        // onPress={() =>
+                        //     navigation.navigate('MyCourses', {
+                        //         userId: userInfo?.id
+                        //     })
+                        // }
+                        isLoading={loadingVerify}>
+                        Học thử
+                    </Button>
+                ) : null}
                 <View
                     style={{
                         flexDirection: 'row',
@@ -657,51 +753,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
-                            {inCart ? (
-                                <Button
-                                    size="sm"
-                                    style={{
-                                        backgroundColor: '#52B553',
-                                        borderRadius: 8
-                                    }}
-                                    onPress={() =>
-                                        navigation.navigate(ROUTES.Carts)
-                                    }
-                                    isLoading={loadingVerify}
-                                    leftIcon={
-                                        <ShoppingCart stroke="#fff" size={12} />
-                                    }>
-                                    Đến giỏ hàng
-                                </Button>
-                            ) : data?.is_combo ? null : (
-                                <Button
-                                    size="sm"
-                                    style={{
-                                        backgroundColor: '#52B553',
-                                        borderRadius: 8
-                                    }}
-                                    isDisabled={!data?.relational}
-                                    onPress={() => {
-                                        if (data?.relational) {
-                                            gotoCourse()
-                                        } else {
-                                            addToCart()
-                                        }
-                                    }}
-                                    isLoading={loadingVerify}
-                                    leftIcon={
-                                        data?.relational ? (
-                                            <BookOpen stroke="#fff" size={12} />
-                                        ) : (
-                                            <ShoppingCart
-                                                stroke="#fff"
-                                                size={12}
-                                            />
-                                        )
-                                    }>
-                                    {data?.relational ? 'Học ngay' : 'Mua ngay'}
-                                </Button>
-                            )}
+                            {renderButton()}
                         </View>
                     )}
                 </View>

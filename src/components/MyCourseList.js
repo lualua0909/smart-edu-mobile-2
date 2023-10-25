@@ -77,6 +77,7 @@ const MyCourseList = ({ userId }) => {
                         paddingRight: 16,
                         paddingBottom: scale(50)
                     }}
+                    style={{ margin: 16 }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}
                     initialNumToRender={10}

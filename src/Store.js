@@ -10,7 +10,8 @@ const initialState = {
     finishedLectures: [],
     carts: [],
     currentCourseId: null,
-    visibleNotLogin: false
+    visibleNotLogin: false,
+    isTrial: false
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =
