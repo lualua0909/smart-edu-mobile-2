@@ -2,11 +2,11 @@ import { scale } from 'app/helpers/responsive'
 import { svgIconFB, svgIconYoutube } from 'assets/svg'
 import React from 'react'
 
-import { Linking, Platform, View } from 'react-native'
+import { Linking, Platform } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const Support = () => {
     const openMap = (latitude, longitude, label = '') => {

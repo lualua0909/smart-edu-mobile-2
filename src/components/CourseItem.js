@@ -6,10 +6,9 @@ import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Image, Progress, Text } from 'native-base'
+import { Image, Pressable, Progress, Text, View } from 'native-base'
 
 const CourseItem = ({
     item,
@@ -32,10 +31,10 @@ const CourseItem = ({
                         {toCurrency(item?.old_price)} đ
                     </Text>
                     <Text
+                        bold
                         style={{
                             fontSize: scale(18),
-                            color: '#1DA736',
-                            fontWeight: 'bold'
+                            color: '#1DA736'
                         }}>
                         {toCurrency(item?.new_price)} đ
                     </Text>
@@ -48,10 +47,10 @@ const CourseItem = ({
                 <>
                     <Text />
                     <Text
+                        bold
                         style={{
                             fontSize: scale(18),
-                            color: '#1DA736',
-                            fontWeight: 'bold'
+                            color: '#1DA736'
                         }}>
                         {toCurrency(item?.old_price)} đ
                     </Text>
@@ -61,7 +60,7 @@ const CourseItem = ({
 
         return null
     }
-    console.log('item = ', item)
+
     return (
         <Pressable
             key={index}
@@ -137,11 +136,11 @@ const CourseItem = ({
                     paddingVertical: scale(24)
                 }}>
                 <Text
+                    bold
                     numberOfLines={3}
                     style={{
                         fontSize: scale(15),
                         color: '#333',
-                        fontWeight: 'bold',
                         paddingTop: scale(5)
                     }}>
                     {item?.title}

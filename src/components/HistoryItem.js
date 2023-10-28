@@ -5,12 +5,10 @@ import dayjs from 'dayjs'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
 import { Book } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Box, HStack, Progress } from 'native-base'
-import { Text } from 'native-base'
+import { Box, HStack, Pressable, Progress, Text, View } from 'native-base'
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)

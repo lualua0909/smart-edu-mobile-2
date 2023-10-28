@@ -2,10 +2,9 @@ import { scale } from 'app/helpers/responsive'
 import { svgCircleTick } from 'assets/svg'
 import React from 'react'
 
-import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 export default ({ isChecked, text, onPress }) => (
     <Pressable style={{ paddingTop: scale(12) }} onPress={onPress}>

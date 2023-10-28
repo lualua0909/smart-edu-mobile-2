@@ -2,11 +2,10 @@ import { scale } from 'app/helpers/responsive'
 import { svgClose, svgDelete } from 'assets/svg'
 import React from 'react'
 
-import { Pressable, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const PopupDelete = ({ isVisible, onBackPress, message, headers }) => {
     return (

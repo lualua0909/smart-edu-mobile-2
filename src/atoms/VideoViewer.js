@@ -1,9 +1,11 @@
 import { API_URL } from 'app/constants'
 import React, { useState } from 'react'
 
-import { Dimensions, Text } from 'react-native'
+import { Dimensions } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
+
+import { Text } from 'native-base'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height

@@ -5,10 +5,10 @@ import COLORS from 'app/constants/colors'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { Pressable, StatusBar, View } from 'react-native'
+import { StatusBar } from 'react-native'
 import { TabView } from 'react-native-tab-view'
 
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const Wishlist = ({ navigation }) => {
     const [tabIndex, setTabIndex] = useState(0)

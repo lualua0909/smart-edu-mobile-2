@@ -1,17 +1,16 @@
 import axios from 'app/Axios'
-import { ROUTES, STYLES } from 'app/constants'
+import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { svgLoginMail } from 'assets/svg'
 import React, { useState } from 'react'
 
-import { Image, Pressable, ScrollView, View } from 'react-native'
+import { Image, ScrollView } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Button, Center, Icon, Input, Text, useToast } from 'native-base'
+import { Button, Center, Icon, Input, Text, View } from 'native-base'
 
 const ForgotPassword = ({ navigation }) => {
-    const toast = useToast()
     const email = useFormInput('')
     const [loading, setLoading] = useState(false)
 
@@ -23,12 +22,12 @@ const ForgotPassword = ({ navigation }) => {
                 .then(res => {
                     console.log(res)
                     if (res.data.status === 200) {
-                        toast.show({
+                        showToast({
                             title: 'Đã cấp lại mật khẩu mới cho bạn, vui lòng kiểm tra email',
                             status: 'success'
                         })
                     } else {
-                        toast.show({
+                        showToast({
                             title: res?.data?.message,
                             status: 'error'
                         })
@@ -36,11 +35,11 @@ const ForgotPassword = ({ navigation }) => {
                 })
                 .catch(err => {
                     console.error(err)
-                    toast.show({ title: err.message, status: 'error' })
+                    showToast({ title: err.message, status: 'error' })
                 })
                 .finally(() => setLoading(false))
         } else {
-            toast.show({ title: 'Vui lòng nhập email', status: 'error' })
+            showToast({ title: 'Vui lòng nhập email', status: 'error' })
         }
     }
 
@@ -82,8 +81,8 @@ const ForgotPassword = ({ navigation }) => {
                         ]}>
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
+                                bold
                                 style={{
-                                    fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
                                     textAlign: 'center'

@@ -2,11 +2,10 @@ import { useGlobalState } from 'app/Store'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { Pressable, View } from 'react-native'
 import { Lock } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const TabbarButton = ({
     focused,

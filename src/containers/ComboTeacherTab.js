@@ -4,7 +4,6 @@ import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { View } from 'react-native'
 import { BookOpen, Bookmark, Briefcase } from 'react-native-feather'
 
 import {
@@ -13,7 +12,8 @@ import {
     ChevronUpIcon,
     Pressable,
     Text,
-    VStack
+    VStack,
+    View
 } from 'native-base'
 
 const ComboTeacherTab = ({ list }) => {
@@ -39,12 +39,12 @@ const ComboTeacherTab = ({ list }) => {
                                 alignSelf: 'center'
                             }}>
                             <Text
+                                bold
                                 style={{
                                     fontSize: scale(24),
                                     color: '#0E564D',
                                     alignSelf: 'center',
-                                    paddingVertical: scale(10),
-                                    fontWeight: 'bold'
+                                    paddingVertical: scale(10)
                                 }}>
                                 {`${data?.first_name} ${data?.last_name}`}
                             </Text>

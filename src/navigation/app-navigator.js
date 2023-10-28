@@ -6,6 +6,7 @@ import MyCertificatesScreen from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
+import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
 import CourseDetailsNoIAP from 'app/scenes/CourseDetailsNoIAP'
 import CoursesByUser from 'app/scenes/CoursesByUser'
@@ -106,6 +107,13 @@ const AppNavigator = () => {
                             />
                         </Pressable>
                     )
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.CourseDetailTrial}
+                component={CourseContentsTrial}
+                options={({ route, navigation }) => ({
+                    headerLeft: () => <HeaderBack whiteBg={true} />
                 })}
             />
             <Stack.Screen

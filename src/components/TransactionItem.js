@@ -5,12 +5,10 @@ import dayjs from 'dayjs'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
 import { CreditCard, DollarSign } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Badge, Box } from 'native-base'
-import { Text } from 'native-base'
+import { Badge, Box, Pressable, Text, View } from 'native-base'
 
 const TransactionItem = ({ data }) => {
     const navigation = useNavigation()

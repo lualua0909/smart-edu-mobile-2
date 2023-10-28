@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
 import LottieView from 'lottie-react-native'
-import { Image, Platform, Pressable, View } from 'react-native'
+import { Image, Platform } from 'react-native'
 import {
     ArrowUpCircle,
     ChevronRight,
@@ -20,7 +20,15 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
-import { Button, Center, ScrollView, Stack, Text } from 'native-base'
+import {
+    Button,
+    Center,
+    Pressable,
+    ScrollView,
+    Stack,
+    Text,
+    View
+} from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -148,8 +156,8 @@ const Login = ({ navigation }) => {
                             }
                         ]}>
                         <Text
+                            bold
                             style={{
-                                fontWeight: '900',
                                 color: '#0E564D',
                                 fontSize: scale(16),
                                 textAlign: 'center'
@@ -210,8 +218,9 @@ const Login = ({ navigation }) => {
                                 alignSelf: 'flex-end'
                             }}>
                             <Text
+                                bold
                                 style={{
-                                    fontSize: 14,
+                                    fontSize: scale(14),
                                     color: '#23B55D',
                                     textDecorationLine: 'underline'
                                 }}>
@@ -245,8 +254,9 @@ const Login = ({ navigation }) => {
                                 }}>
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
+                                    bold
                                     style={{
-                                        fontSize: 14,
+                                        fontSize: scale(14),
                                         color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>
@@ -290,6 +300,7 @@ const Login = ({ navigation }) => {
                             style={{ marginTop: 6 }}
                             onPress={toTrialPage}>
                             <Text
+                                bold
                                 style={{
                                     color: '#23B55D',
                                     fontSize: 18

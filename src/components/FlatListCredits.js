@@ -5,8 +5,7 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, Pressable, View } from 'react-native'
 
-import { ChevronRightIcon } from 'native-base'
-import { Text } from 'native-base'
+import { ChevronRightIcon, Text } from 'native-base'
 
 const FlatListCredits = ({ data, userId }) => {
     const navigation = useNavigation()

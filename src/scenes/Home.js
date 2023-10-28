@@ -15,7 +15,7 @@ import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, Pressable, View } from 'react-native'
+import { FlatList } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -29,8 +29,10 @@ import {
     Center,
     Image,
     Modal,
+    Pressable,
     Progress,
-    Text
+    Text,
+    View
 } from 'native-base'
 
 const Home = ({ navigation }) => {
@@ -87,9 +89,9 @@ const Home = ({ navigation }) => {
                             }}>
                             Xin chào,{' '}
                             <Text
+                                bold
                                 style={{
-                                    color: '#0EBF46',
-                                    fontWeight: 'bold'
+                                    color: '#0EBF46'
                                 }}>
                                 {userInfo?.id === 'trial'
                                     ? 'mừng bạn đến với Smart Training'
@@ -138,10 +140,10 @@ const Home = ({ navigation }) => {
                                     }}>
                                     <SvgXml xml={svgStudy} width={scale(24)} />
                                     <Text
+                                        bold
                                         style={{
                                             fontSize: scale(16),
                                             color: '#0E564D',
-                                            fontWeight: 'bold',
                                             marginLeft: scale(8),
                                             paddingTop: scale(5)
                                         }}>
@@ -347,10 +349,10 @@ const Home = ({ navigation }) => {
                             }}>
                             <SvgXml xml={svgList} width={scale(20)} />
                             <Text
+                                bold
                                 style={{
                                     letterSpacing: 0.5,
                                     marginLeft: scale(8),
-                                    fontWeight: 'bold',
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     paddingTop: scale(5)
@@ -406,9 +408,9 @@ const Home = ({ navigation }) => {
                                                         paddingBottom: scale(7)
                                                     }}>
                                                     <Text
+                                                        bold
                                                         numberOfLines={3}
                                                         style={{
-                                                            fontWeight: 'bold',
                                                             fontSize: scale(12),
                                                             color: '#6C746E',
                                                             width: 200
@@ -446,10 +448,10 @@ const Home = ({ navigation }) => {
                             }}>
                             <Flag stroke="#0E564D" width={18} height={18} />
                             <Text
+                                bold
                                 style={{
                                     letterSpacing: 0.5,
                                     fontSize: scale(16),
-                                    fontWeight: 'bold',
                                     color: '#0E564D',
                                     marginLeft: scale(8),
                                     paddingTop: scale(5)
@@ -492,10 +494,10 @@ const Home = ({ navigation }) => {
                             }}>
                             <Rss stroke="#0E564D" width={18} height={18} />
                             <Text
+                                bold
                                 style={{
                                     fontSize: scale(16),
                                     color: '#0E564D',
-                                    fontWeight: 'bold',
                                     letterSpacing: 0.5,
                                     marginLeft: scale(8),
                                     paddingTop: scale(5)

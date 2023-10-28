@@ -3,9 +3,9 @@ import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Dimensions, Image, View } from 'react-native'
+import { Dimensions, Image } from 'react-native'
 
-import { Button, ScrollView, Text } from 'native-base'
+import { Button, ScrollView, Text, View } from 'native-base'
 
 const { height, width } = Dimensions.get('window')
 
@@ -120,9 +120,9 @@ const Wireframe = ({ navigation }) => {
                                         paddingHorizontal: 20
                                     }}>
                                     <Text
+                                        bold
                                         style={{
                                             fontSize: scale(20),
-                                            fontWeight: 'bold',
                                             color: '#095F2B',
                                             textAlign: 'center',
                                             paddingVertical: 20

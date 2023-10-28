@@ -6,11 +6,10 @@ import { svgRedDelete, svgWhiteBook } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import { Avatar, Box } from 'native-base'
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const NotiItem = ({ data, index, removeNotify }) => {
     const navigation = useNavigation()
@@ -72,10 +71,10 @@ const NotiItem = ({ data, index, removeNotify }) => {
                                     justifyContent: 'space-between'
                                 }}>
                                 <Text
+                                    bold
                                     style={{
                                         fontSize: scale(14),
                                         color: '#6C746E',
-                                        fontWeight: 'bold',
                                         flex: 1
                                     }}>
                                     {data?.title}

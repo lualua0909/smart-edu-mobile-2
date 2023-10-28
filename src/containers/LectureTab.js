@@ -5,9 +5,7 @@ import Curriculum from 'app/components/Curriculum'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { View } from 'react-native'
-
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [data, setData] = useState()
@@ -33,17 +31,13 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     setData(chapters)
 
                     const c = chapters.map(i => {
-                        const countTrial = i?.lectures.some(
-                            lecture => lecture?.trial === 1
-                        )
-                        console.log('countTrial', countTrial)
-
                         return i.lectures
                     })
 
-                    setIsTrial(c.flat()?.some(a => a?.trial === 1))
+                    const cFlat = c.flat()
+                    setIsTrial(cFlat?.some(a => a?.trial === 1))
                     if (setChapters) {
-                        setChapters(c.flat())
+                        setChapters(cFlat)
                     }
 
                     const sum = chapters.map(i => {

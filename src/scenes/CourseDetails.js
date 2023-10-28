@@ -17,7 +17,7 @@ import { clearDataAfterLogout, errorLog, isAndroid } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Alert, Linking, Platform, Pressable, Share, View } from 'react-native'
+import { Alert, Linking, Platform, Share } from 'react-native'
 import { BookOpen, Heart, Share2 } from 'react-native-feather'
 import {
     PurchaseError,
@@ -39,7 +39,7 @@ import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
 
-import { Button, Image, ScrollView, Text, VStack, useToast } from 'native-base'
+import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
 
 const routes = [
     {
@@ -62,7 +62,6 @@ const routes = [
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
-    const toast = useToast()
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -326,28 +325,10 @@ const CourseInfo = ({ navigation, route }) => {
                                 tab1: e.nativeEvent.layout.height
                             })
                         }>
-                        <VStack space={4}>
-                            <BenefitTab courseId={data?.id} />
-                            <Text
-                                style={{
-                                    marginTop: scale(8),
-                                    lineHeight: scale(20),
-                                    fontSize: scale(16),
-                                    color: '#52B553',
-                                    marginLeft: 16
-                                }}>
-                                Mô tả chi tiết
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: scale(16),
-                                    paddingHorizontal: 15,
-                                    paddingTop: scale(2),
-                                    lineHeight: scale(20)
-                                }}>
-                                {data?.l_des?.replace(/<[^>]*>?/gm, '')}
-                            </Text>
-                        </VStack>
+                        <BenefitTab
+                            courseId={data?.id}
+                            longDes={data?.l_des.split('</p>')}
+                        />
                     </View>
                 )
             case 'tab-2':
@@ -413,7 +394,7 @@ const CourseInfo = ({ navigation, route }) => {
             .get('courses/add-wishlist/' + data?.id)
             .then(res => {
                 if (res.data.status === 200) {
-                    toast.show({
+                    showToast({
                         title: 'Đã thêm khóa học vào danh sách yêu thích',
                         status: 'success',
                         placement: 'top'
@@ -427,7 +408,7 @@ const CourseInfo = ({ navigation, route }) => {
     const removeToWishList = () => {
         axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
             if (res.data.status === 200) {
-                toast.show({
+                showToast({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
                     status: 'success',
                     placement: 'top'
@@ -517,9 +498,9 @@ const CourseInfo = ({ navigation, route }) => {
                         borderBottomColor: '#F0F1F6'
                     }}>
                     <Text
+                        bold
                         style={{
                             fontSize: scale(16),
-                            fontWeight: 'bold',
                             color: '#6C746E',
                             paddingTop: scale(5)
                         }}>
@@ -535,22 +516,17 @@ const CourseInfo = ({ navigation, route }) => {
                             <Avatar userId={data?.mentor_id} />
                             <View style={{ marginLeft: scale(8) }}>
                                 <Text
+                                    bold
                                     style={{
                                         fontSize: scale(18),
                                         color: '#6C746E',
-                                        paddingTop: scale(2),
-                                        fontWeight: 'bold'
+                                        paddingTop: scale(2)
                                     }}>
                                     {teacherName || 'Giảng viên'}
                                 </Text>
                                 <View
                                     style={{
-                                        paddingVertical: scale(3.5),
-                                        paddingHorizontal: scale(8),
-                                        marginTop: scale(6),
-                                        alignSelf: 'flex-start',
-                                        flexDirection: 'row',
-                                        alignItems: 'center'
+                                        marginTop: scale(6)
                                     }}>
                                     <Rate rate={data?.rate || 5} size="18" />
                                 </View>

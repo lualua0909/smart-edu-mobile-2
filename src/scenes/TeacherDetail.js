@@ -5,7 +5,7 @@ import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Image, StatusBar, StyleSheet, View } from 'react-native'
+import { Image, StatusBar, StyleSheet } from 'react-native'
 import { Link, Package, User } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -13,8 +13,7 @@ import { TabBar, TabView } from 'react-native-tab-view'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderBack from 'app/components/header-back'
-import { Text } from 'native-base'
-import { CheckIcon } from 'native-base'
+import { CheckIcon, Text, View } from 'native-base'
 
 const routes = [
     {
@@ -199,12 +198,12 @@ const TeacherInfo = ({ navigation, route }) => {
                     userId={data?.mentor?.id}
                 />
                 <Text
+                    bold
                     style={{
                         fontSize: scale(18),
                         color: '#0E564D',
                         marginTop: scale(10),
-                        lineHeight: scale(20),
-                        fontWeight: 'bold'
+                        lineHeight: scale(20)
                     }}>
                     {fullName}
                 </Text>
@@ -349,8 +348,7 @@ const TabContent = ({ content }) => {
 
 const styles = StyleSheet.create({
     activeTabText: {
-        color: '#fff',
-        fontWeight: 'bold'
+        color: '#fff'
     },
     tabText: {
         color: '#ccc'

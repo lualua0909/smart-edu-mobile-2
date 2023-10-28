@@ -1,7 +1,7 @@
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { Text, View } from 'react-native'
+import { Text, View } from 'native-base'
 
 const CreditBouns = ({ data }) => {
     return (
@@ -22,9 +22,9 @@ const CreditBouns = ({ data }) => {
                         alignItems: 'center'
                     }}>
                     <Text
+                        bold
                         style={{
                             fontSize: 16,
-                            fontWeight: 'bold',
                             color: '#0E564D',
                             marginLeft: scale(8),
                             textTransform: 'uppercase'

@@ -4,7 +4,6 @@ import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { View } from 'react-native'
 import { BookOpen, Bookmark, Briefcase } from 'react-native-feather'
 
 import {
@@ -13,7 +12,8 @@ import {
     ChevronUpIcon,
     Pressable,
     Text,
-    VStack
+    VStack,
+    View
 } from 'native-base'
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
@@ -54,12 +54,12 @@ const TeacherTab = ({ mentorId, setTeacherName }) => {
                     alignSelf: 'center'
                 }}>
                 <Text
+                    bold
                     style={{
                         fontSize: scale(24),
                         color: '#0E564D',
                         alignSelf: 'center',
-                        paddingVertical: scale(10),
-                        fontWeight: 'bold'
+                        paddingVertical: scale(10)
                     }}>
                     {`${data?.mentor?.first_name} ${data?.mentor?.last_name}`}
                 </Text>

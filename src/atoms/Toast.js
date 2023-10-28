@@ -37,7 +37,7 @@ const ToastAlert = ({
                         <Alert.Icon />
                         <Text
                             fontSize="sm"
-                            fontWeight="bold"
+                            bold
                             color={
                                 variant === 'solid'
                                     ? 'lightText'
@@ -84,9 +84,9 @@ export default ({
                 <ToastAlert
                     {...{
                         status,
-                        title,
-                        variant: 'left-accent',
-                        description
+                        title: description !== '' ? title : 'Thông báo',
+                        variant: 'top-accent',
+                        description: description || title
                     }}
                 />
             )

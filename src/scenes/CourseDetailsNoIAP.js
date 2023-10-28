@@ -1,7 +1,12 @@
 import Axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
-import { getGlobalState } from 'app/Store'
-import { Avatar, CourseDetailSkeleton, NoData } from 'app/atoms'
+import { getGlobalState, useGlobalState } from 'app/Store'
+import {
+    Avatar,
+    CourseDetailSkeleton,
+    NoData,
+    Rate,
+    showToast
+} from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
@@ -14,22 +19,22 @@ import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import {
-    Dimensions,
-    Linking,
-    Pressable,
-    ScrollView,
-    Share,
-    Text,
-    View
-} from 'react-native'
+import { Dimensions, Linking, Share } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
 
-import { Button, Image, VStack, useToast } from 'native-base'
+import {
+    Button,
+    Image,
+    Pressable,
+    ScrollView,
+    Text,
+    VStack,
+    View
+} from 'native-base'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -37,8 +42,6 @@ const h = Dimensions.get('window').height
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
     const userInfo = getGlobalState('userInfo')
-    console.log('userInfo', userInfo)
-    const toast = useToast()
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingVerify, setLoadingVerify] = useState(false)
@@ -108,10 +111,9 @@ const CourseInfo = ({ navigation, route }) => {
                     if (res.data && res.data.status === 200) {
                         return res.data
                     } else {
-                        toast.show({
+                        showToast({
                             title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
-                            status: 'error',
-                            placement: 'top'
+                            status: 'error'
                         })
                         navigation.goBack()
                     }
@@ -125,7 +127,6 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [id])
 
-    const longDes = data?.l_des.split('</p>')
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'tab-1':
@@ -138,29 +139,10 @@ const CourseInfo = ({ navigation, route }) => {
                             })
                         }>
                         <VStack>
-                            <BenefitTab courseId={data?.id} />
-                            <Text
-                                style={{
-                                    marginTop: scale(8),
-                                    lineHeight: scale(20),
-                                    fontSize: scale(16),
-                                    color: '#52B553',
-                                    marginLeft: 16
-                                }}>
-                                Mô tả chi tiết
-                            </Text>
-                            {longDes?.map(text => (
-                                <Text
-                                    style={{
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        paddingHorizontal: 15,
-                                        color: '#000',
-                                        lineHeight: scale(20)
-                                    }}>
-                                    {text.replace(/<[^>]*>?/gm, '')}
-                                </Text>
-                            ))}
+                            <BenefitTab
+                                courseId={data?.id}
+                                longDes={data?.l_des.split('</p>')}
+                            />
                         </VStack>
                     </View>
                 )
@@ -244,10 +226,9 @@ const CourseInfo = ({ navigation, route }) => {
         Axios.get('courses/add-wishlist/' + data?.id)
             .then(res => {
                 if (res.data.status === 200) {
-                    toast.show({
+                    showToast({
                         title: 'Đã thêm khóa học vào danh sách yêu thích',
-                        status: 'success',
-                        placement: 'top'
+                        status: 'success'
                     })
                     setIsLiked(true)
                 }
@@ -258,10 +239,9 @@ const CourseInfo = ({ navigation, route }) => {
     const removeToWishList = () => {
         Axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
             if (res.data.status === 200) {
-                toast.show({
+                showToast({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
-                    status: 'success',
-                    placement: 'top'
+                    status: 'success'
                 })
                 setIsLiked(false)
             }
@@ -281,10 +261,9 @@ const CourseInfo = ({ navigation, route }) => {
         const newCarts = Array.isArray(carts) ? [course, ...carts] : [course]
         storeData('@cart', newCarts)
         setCarts(newCarts)
-        toast.show({
+        showToast({
             title: 'Đã thêm khóa học vào giỏ hàng',
-            status: 'success',
-            placement: 'top'
+            status: 'success'
         })
     }
 
@@ -294,12 +273,11 @@ const CourseInfo = ({ navigation, route }) => {
             .then(res => {
                 if (res.data.status === 200) {
                     if (res?.data?.survey) {
-                        toast.show({
+                        showToast({
                             title: 'Thông báo từ hệ thống',
                             description:
                                 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học',
-                            status: 'success',
-                            placement: 'top'
+                            status: 'success'
                         })
                         setTimeout(() => {
                             Linking.openURL(
@@ -322,7 +300,6 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const renderButton = () => {
-        console.log('data = ', data?.relational)
         //Đã mua và không phải khóa combo
         if (data?.relational && !data?.is_combo) {
             return (
@@ -359,18 +336,19 @@ const CourseInfo = ({ navigation, route }) => {
         if (data?.relational && data?.is_combo) {
             return (
                 <Button
-                    size="sm"
+                    size="md"
                     style={{
                         backgroundColor: '#52B553',
                         borderRadius: 8
                     }}
                     onPress={() =>
-                        navigation.navigate('MyCourses', {
-                            userId: userInfo?.id
+                        showToast({
+                            title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
+                            status: 'error'
                         })
                     }
                     isLoading={loadingVerify}>
-                    Khóa học của tôi
+                    Học ngay
                 </Button>
             )
         }
@@ -425,10 +403,11 @@ const CourseInfo = ({ navigation, route }) => {
                         borderBottomColor: '#F0F1F6'
                     }}>
                     <Text
+                        bold
                         style={{
                             fontSize: scale(18),
-                            fontWeight: '700',
-                            color: '#6C746E'
+                            color: '#000',
+                            lineHeight: scale(23)
                         }}>
                         {data?.title}
                     </Text>
@@ -442,36 +421,18 @@ const CourseInfo = ({ navigation, route }) => {
                             <Avatar userId={data?.mentor_id} />
                             <View style={{ marginLeft: scale(8) }}>
                                 <Text
+                                    bold
                                     style={{
-                                        fontSize: scale(16),
+                                        fontSize: scale(18),
                                         color: '#6C746E'
                                     }}>
-                                    {teacherName}
+                                    {teacherName || 'Giảng viên'}
                                 </Text>
                                 <View
                                     style={{
-                                        paddingVertical: scale(3.5),
-                                        paddingHorizontal: scale(8),
-                                        borderRadius: scale(5),
-                                        backgroundColor: '#FFF1DB',
-                                        marginTop: scale(6),
-                                        alignSelf: 'flex-start',
-                                        flexDirection: 'row',
-                                        alignItems: 'center'
+                                        marginTop: scale(6)
                                     }}>
-                                    <SvgXml
-                                        xml={svgOrangeStar}
-                                        width={scale(15)}
-                                        height={scale(15)}
-                                    />
-                                    <Text
-                                        style={{
-                                            fontSize: scale(16),
-                                            color: '#FF9A02',
-                                            marginLeft: scale(4)
-                                        }}>
-                                        4.5
-                                    </Text>
+                                    <Rate rate={data?.rate || 5} size="18" />
                                 </View>
                             </View>
                         </View>
@@ -480,7 +441,7 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             marginTop: scale(16),
                             fontSize: scale(16),
-                            color: '#6C746E'
+                            color: '#000'
                         }}>
                         {data?.s_des}
                     </Text>
@@ -564,6 +525,7 @@ const CourseInfo = ({ navigation, route }) => {
                             {...props}
                             renderLabel={({ route, focused, color }) => (
                                 <Text
+                                    bold
                                     style={[
                                         {
                                             fontSize: scale(15),
@@ -634,10 +596,10 @@ const CourseInfo = ({ navigation, route }) => {
                                     borderColor: '#FC0000'
                                 }}>
                                 <Text
+                                    bold
                                     style={{
                                         fontSize: scale(14),
-                                        color: '#FF0000',
-                                        fontWeight: '600'
+                                        color: '#FF0000'
                                     }}>
                                     giảm{' '}
                                     {((data?.old_price - data?.new_price) /
@@ -653,22 +615,22 @@ const CourseInfo = ({ navigation, route }) => {
                                 flexDirection: 'row'
                             }}>
                             <Text
+                                bold
                                 style={{
                                     fontSize: scale(16),
                                     color: '#656565',
-                                    textDecorationLine: 'line-through',
-                                    fontWeight: '600'
+                                    textDecorationLine: 'line-through'
                                 }}>
                                 {data?.old_price && data?.new_price
                                     ? toCurrency(data?.old_price)
                                     : 1212}
                             </Text>
                             <Text
+                                bold
                                 style={{
                                     marginLeft: scale(24),
                                     fontSize: scale(18),
-                                    color: '#095F2B',
-                                    fontWeight: '600'
+                                    color: '#095F2B'
                                 }}>
                                 {data?.old_price && data?.new_price
                                     ? toCurrency(data?.new_price)
@@ -686,11 +648,13 @@ const CourseInfo = ({ navigation, route }) => {
                         style={{
                             width: 100
                         }}
-                        // onPress={() =>
-                        //     navigation.navigate('MyCourses', {
-                        //         userId: userInfo?.id
-                        //     })
-                        // }
+                        leftIcon={<BookOpen stroke="#fff" size={12} />}
+                        onPress={() =>
+                            navigation.navigate(ROUTES.CourseDetailTrial, {
+                                courseId: data?.id,
+                                currentLecture: data?.first_lecture_id
+                            })
+                        }
                         isLoading={loadingVerify}>
                         Học thử
                     </Button>
@@ -703,7 +667,7 @@ const CourseInfo = ({ navigation, route }) => {
                     }}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {data && (
+                        {data && userInfo?.id !== 'trial' ? (
                             <Pressable
                                 style={{
                                     justifyContent: 'center',
@@ -728,7 +692,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     {isLiked ? 'Đã thích' : 'Yêu thích'}
                                 </Text>
                             </Pressable>
-                        )}
+                        ) : null}
                         <Pressable
                             style={{
                                 justifyContent: 'center',

@@ -12,11 +12,11 @@ import { svgBlackHome, svgBlueViewMore, svgFourSquares } from 'assets/svg'
 import React, { useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
-import { Center, Text } from 'native-base'
+import { Center, Pressable, Text, View } from 'native-base'
 
 const Overview = ({ navigation }) => {
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
@@ -56,7 +56,6 @@ const Overview = ({ navigation }) => {
                         }}>
                         <Text
                             style={{
-                                fontWeight: 'bold',
                                 fontSize: scale(16),
                                 color: '#193769',
                                 lineHeight: scale(20)
@@ -66,7 +65,6 @@ const Overview = ({ navigation }) => {
                         <Text
                             style={{
                                 marginTop: scale(4),
-                                fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#F3C72B',
                                 textAlign: 'center',
@@ -86,8 +84,8 @@ const Overview = ({ navigation }) => {
                             alignItems: 'center'
                         }}>
                         <Text
+                            bold
                             style={{
-                                fontWeight: 'bold',
                                 fontSize: scale(16),
                                 color: '#193769',
                                 lineHeight: scale(20)
@@ -95,10 +93,10 @@ const Overview = ({ navigation }) => {
                             Số khóa học
                         </Text>
                         <Text
+                            bold
                             style={{
                                 marginTop: scale(4),
                                 lineHeight: scale(20),
-                                fontWeight: 'bold',
                                 fontSize: scale(20),
                                 color: '#16671E',
                                 textAlign: 'center'
@@ -194,8 +192,8 @@ const Overview = ({ navigation }) => {
                             }}>
                             Tiến độ hoàn thành:{' '}
                             <Text
+                                bold
                                 style={{
-                                    fontWeight: 'bold',
                                     color: '#000'
                                 }}>
                                 {selectedCourse?.process}%
@@ -656,7 +654,6 @@ const Overview = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     formTitle: {
-        fontWeight: 'bold',
         fontSize: scale(18),
         color: '#6C746E',
         lineHeight: scale(20)
@@ -681,7 +678,9 @@ const Notifications = ({ title, data }) => {
                             alignItems: 'center',
                             justifyContent: 'space-between'
                         }}>
-                        <Text style={styles.formTitle}>{title}</Text>
+                        <Text bold style={styles.formTitle}>
+                            {title}
+                        </Text>
                         <Pressable
                             hitSlop={20}
                             style={{
@@ -747,8 +746,8 @@ const Notifications = ({ title, data }) => {
                                             marginLeft: scale(4)
                                         }}>
                                         <Text
+                                            bold
                                             style={{
-                                                fontWeight: 'bold',
                                                 fontSize: scale(14),
                                                 color: '#4063E0'
                                             }}>

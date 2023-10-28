@@ -6,9 +6,9 @@ const DetailInformation = ({ data, fullName }) => {
     return (
         <Box w="90%" py="8">
             <Text
+                bold
                 style={{
                     fontSize: 16,
-                    fontWeight: 'bold',
                     color: '#0E564D'
                 }}>
                 Giới thiệu về {fullName}

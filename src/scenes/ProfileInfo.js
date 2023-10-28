@@ -12,7 +12,6 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { View } from 'react-native'
 import { Camera, UserX } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
 import { ScrollView } from 'react-native-virtualized-view'
@@ -27,11 +26,10 @@ import {
     Pressable,
     Radio,
     VStack,
-    useToast
+    View
 } from 'native-base'
 
 const ProfileInfo = ({}) => {
-    const toast = useToast()
     const [userInfo, _] = useGlobalState('userInfo')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
@@ -109,13 +107,13 @@ const ProfileInfo = ({}) => {
                 })
                 .then(res => {
                     if (res.data.status === 200) {
-                        toast.show({
+                        showToast({
                             description: 'Cập nhật thành công'
                         })
                     }
                 })
                 .catch(err => {
-                    toast.show({
+                    showToast({
                         description: err?.message
                     })
                 })

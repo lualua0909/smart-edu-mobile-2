@@ -3,10 +3,9 @@ import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
-import { Pressable, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
-import { Box, HStack, Spacer, Text, VStack } from 'native-base'
+import { Box, HStack, Pressable, Spacer, Text, VStack, View } from 'native-base'
 
 const CommentCard = ({ data, isReply, isTeacher }) => {
     const [readMore, setReadMore] = useState(false)

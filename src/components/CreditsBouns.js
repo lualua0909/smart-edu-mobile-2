@@ -2,8 +2,9 @@ import { scale } from 'app/helpers/responsive'
 import { svgAchievement } from 'assets/svg'
 import React from 'react'
 
-import { Text, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
+
+import { Text, View } from 'native-base'
 
 const CreditBouns = ({ data }) => {
     return (

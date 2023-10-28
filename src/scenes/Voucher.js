@@ -2,10 +2,10 @@ import VoucherItem from 'app/components/VoucherItem'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { FlatList, StatusBar, TextInput, View } from 'react-native'
+import { FlatList, StatusBar, TextInput } from 'react-native'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const Voucher = () => {
     return (

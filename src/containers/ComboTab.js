@@ -3,9 +3,7 @@ import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { View } from 'react-native'
-
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const ComboTab = ({ data }) => {
     if (!data) {

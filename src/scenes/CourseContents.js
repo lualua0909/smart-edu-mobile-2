@@ -9,7 +9,8 @@ import {
     Loading,
     NoDataAnimation,
     ScormViewer,
-    VideoViewer
+    VideoViewer,
+    showToast
 } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
@@ -19,7 +20,7 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Linking, Pressable, View } from 'react-native'
+import { Dimensions, Linking } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
@@ -32,9 +33,10 @@ import {
     FlatList,
     FormControl,
     Modal,
+    Pressable,
     Text,
     TextArea,
-    useToast
+    View
 } from 'native-base'
 
 const w = Dimensions.get('screen').width
@@ -60,7 +62,6 @@ const routes = [
 ]
 
 const CourseDetail = ({ route, navigation }) => {
-    const toast = useToast()
     const { courseId, currentLecture } = route.params
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
@@ -205,10 +206,9 @@ const CourseDetail = ({ route, navigation }) => {
                         alignItems: 'center'
                     }}
                     onPress={() =>
-                        toast.show({
+                        showToast({
                             title: 'Vui lòng đợi hết thời gian chờ qua bài',
-                            status: 'info',
-                            placement: 'top'
+                            status: 'info'
                         })
                     }>
                     <Text
@@ -560,6 +560,7 @@ const CourseDetail = ({ route, navigation }) => {
                             {...props}
                             renderLabel={({ route, focused, color }) => (
                                 <Text
+                                    bold
                                     style={[
                                         {
                                             fontSize: 13,
@@ -567,8 +568,7 @@ const CourseDetail = ({ route, navigation }) => {
                                             textAlign: 'center'
                                         },
                                         focused && {
-                                            color: '#0E564D',
-                                            fontWeight: 'bold'
+                                            color: '#0E564D'
                                         }
                                     ]}>
                                     {route.title}
@@ -593,7 +593,7 @@ const CourseDetail = ({ route, navigation }) => {
                                 viewHeight.tab1,
                                 viewHeight.tab2,
                                 viewHeight.tab3
-                            ) + scale(100)
+                            ) + scale(60)
                     }}
                 />
             </KeyboardAwareScrollView>

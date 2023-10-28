@@ -27,12 +27,10 @@ import {
     Image,
     ImageBackground,
     Linking,
-    Pressable,
+    Platform,
     StatusBar,
-    StyleSheet,
-    View
+    StyleSheet
 } from 'react-native'
-import { Platform } from 'react-native'
 import {
     Book,
     ChevronRight,
@@ -52,7 +50,7 @@ import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import MenuAction from 'app/components/menu-action'
-import { ChevronRightIcon, Text } from 'native-base'
+import { ChevronRightIcon, Pressable, Text, View } from 'native-base'
 
 const Menu = ({ route }) => {
     const navigation = useNavigation()
@@ -197,7 +195,9 @@ const Menu = ({ route }) => {
                     justifyContent: 'space-between',
                     paddingLeft: scale(16)
                 }}>
-                <Text style={styles.formTitleText}>KẾT NỐI GIẢNG VIÊN</Text>
+                <Text bold style={styles.formTitleText}>
+                    KẾT NỐI GIẢNG VIÊN
+                </Text>
                 {/* <Pressable
             style={{
                 flexDirection: 'row',
@@ -648,7 +648,6 @@ const styles = StyleSheet.create({
     formTitleText: {
         fontSize: scale(16),
         color: '#0E564D',
-        fontWeight: 'bold',
         letterSpacing: 0.7,
         paddingTop: scale(5)
     },

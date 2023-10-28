@@ -8,7 +8,7 @@ import momoLogo from 'assets/images/MoMo_Logo.png'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Linking, Pressable, View } from 'react-native'
+import { Linking } from 'react-native'
 
 import creditCard from 'assets/images/credit-card.png'
 import {
@@ -19,7 +19,8 @@ import {
     Heading,
     Image,
     Text,
-    VStack
+    VStack,
+    View
 } from 'native-base'
 
 // import AddVoucher from './AddVoucher'
@@ -80,9 +81,9 @@ const PackagePayment = ({ navigation, route }) => {
                     style={{ width: 300, marginTop: 20 }}
                 />
                 <Heading
+                    bold
                     color="primary.50"
                     style={{
-                        fontWeight: 'bold',
                         fontSize: 24
                     }}>
                     Thanh toán thành công
@@ -121,13 +122,13 @@ const PackagePayment = ({ navigation, route }) => {
                         fallbackSource={require('assets/images/fallback.jpg')}
                         alt="image"
                     />
-                    <Text fontWeight="medium">{title}</Text>
-                    <HStack alignItems="center" justifyContent="space-between">
-                        <Text fontWeight="medium">Giá tiền</Text>
-                        <Text color="blueGray.400">
+                    <Text bold>{title}</Text>
+                    {/* <HStack alignItems="center" justifyContent="space-between">
+                        <Text bold>Giá tiền</Text>
+                        <Text bold color="blueGray.400">
                             {toCurrency(parseInt(price))} VNĐ
                         </Text>
-                    </HStack>
+                    </HStack> */}
                     {/* {selected && (
                         <HStack
                             alignItems="center"
@@ -139,8 +140,10 @@ const PackagePayment = ({ navigation, route }) => {
                         </HStack>
                     )} */}
                     <HStack alignItems="center" justifyContent="space-between">
-                        <Text fontWeight="medium">Tổng thanh toán</Text>
-                        <Text color="green.500">
+                        <Text bold style={{ fontSize: 16 }}>
+                            Tổng thanh toán
+                        </Text>
+                        <Text bold color="green.500" style={{ fontSize: 16 }}>
                             {toCurrency(parseInt(price))} VNĐ
                         </Text>
                     </HStack>
@@ -156,12 +159,14 @@ const PackagePayment = ({ navigation, route }) => {
                         }
                     /> */}
                     <VStack space={2} mt="2">
-                        <Text bold>Phương thức thanh toán</Text>
+                        <Text bold style={{ fontSize: 16 }}>
+                            Phương thức thanh toán
+                        </Text>
                         <Button.Group isAttached variant="unstyled">
                             <Button>
                                 <Image
                                     size={'xs'}
-                                    resizeMode="cover"
+                                    resizeMode="contain"
                                     source={momoLogo}
                                     alt={'Alternate Text '}
                                 />
@@ -181,7 +186,7 @@ const PackagePayment = ({ navigation, route }) => {
                             <Button>
                                 <Image
                                     size={'xs'}
-                                    resizeMode="cover"
+                                    resizeMode="contain"
                                     source={creditCard}
                                     alt={'Alternate Text '}
                                 />

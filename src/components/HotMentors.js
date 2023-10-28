@@ -1,13 +1,8 @@
-import Advise from 'app/components/Advise'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { svgList } from 'assets/svg'
 import React from 'react'
 
-import { FlatList, View } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-
-import { Text } from 'native-base'
+import { View } from 'react-native'
 
 const HotMentors = ({ data }) => {
     return (

@@ -5,12 +5,12 @@ import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { FlatList, Pressable, RefreshControl, View } from 'react-native'
+import { FlatList, Pressable, RefreshControl } from 'react-native'
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Input, ScrollView, Text } from 'native-base'
+import { Input, ScrollView, Text, View } from 'native-base'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -147,10 +147,10 @@ const CourseList = ({ route }) => {
                                 setVisibleFilter(false)
                             }}>
                             <Text
+                                bold
                                 style={{
                                     fontSize: scale(16),
-                                    color: '#555',
-                                    fontWeight: 'bold'
+                                    color: '#555'
                                 }}>
                                 Đóng
                             </Text>
@@ -172,10 +172,10 @@ const CourseList = ({ route }) => {
                                 setVisibleFilter(false)
                             }}>
                             <Text
+                                bold
                                 style={{
                                     fontSize: scale(16),
-                                    color: '#fff',
-                                    fontWeight: 'bold'
+                                    color: '#fff'
                                 }}>
                                 Tìm kiếm
                             </Text>

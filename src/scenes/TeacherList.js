@@ -7,7 +7,7 @@ import { svgGreenTeacher } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, Pressable, RefreshControl, View } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native'
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -15,8 +15,7 @@ import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import animationBanner from 'assets/animations/online-learning.json'
-import { Text } from 'native-base'
-import { Center, Input } from 'native-base'
+import { Center, Input, Pressable, Text, View } from 'native-base'
 
 const Teacher = ({}) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -355,9 +354,9 @@ const Teacher = ({}) => {
                             }}>
                             <SvgXml xml={svgGreenTeacher} width={scale(24)} />
                             <Text
+                                bold
                                 style={{
                                     marginLeft: scale(8),
-                                    fontWeight: 'bold',
                                     fontSize: scale(16),
                                     color: '#0E564D',
                                     paddingTop: scale(5)

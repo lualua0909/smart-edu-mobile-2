@@ -1,11 +1,10 @@
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { View } from 'react-native'
 import Config from 'react-native-config'
 import DeviceInfo from 'react-native-device-info'
 
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const Language = () => {
     const { result: deviceName } = DeviceInfo.useDeviceName()

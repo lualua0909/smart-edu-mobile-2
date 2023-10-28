@@ -1,3 +1,4 @@
+import { showToast } from 'app/atoms'
 import Swipeout from 'app/components/SwipeOut'
 import { COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -6,7 +7,6 @@ import { svgRedDelete } from 'assets/svg'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { View } from 'react-native'
 import {
     Check,
     CreditCard,
@@ -15,12 +15,10 @@ import {
 } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Button, Image, Modal, Pressable, Text, useToast } from 'native-base'
+import { Button, Image, Modal, Pressable, Text, View } from 'native-base'
 
 const CartItem = ({ course, index }) => {
-    const toast = useToast()
     const navigation = useNavigation()
-    console.log('course =========', course)
     const removeFromCart = async () => {
         const carts = (await getData('@cart')) || []
         storeData(
@@ -28,7 +26,7 @@ const CartItem = ({ course, index }) => {
             Array.isArray(carts) ? carts?.filter(i => i.id !== course?.id) : []
         )
 
-        toast.show({
+        showToast({
             title: 'Đã xóa khóa học khỏi giỏ hàng',
             status: 'error',
             placement: 'top'
@@ -83,10 +81,10 @@ const CartItem = ({ course, index }) => {
                     {toCurrency(course?.old_price)} đ
                 </Text>
                 <Text
+                    bold
                     style={{
                         color: '#1DA736',
-                        fontSize: scale(16),
-                        fontWeight: '700'
+                        fontSize: scale(16)
                     }}>
                     {toCurrency(course?.new_price)} đ
                 </Text>
@@ -94,9 +92,9 @@ const CartItem = ({ course, index }) => {
         ) : (
             <>
                 <Text
+                    bold
                     style={{
                         color: '#1DA736',
-                        fontWeight: '700',
                         fontSize: scale(16)
                     }}>
                     {toCurrency(course?.old_price)} đ
@@ -135,6 +133,7 @@ const CartItem = ({ course, index }) => {
                     </View>
                     <View style={{ flex: 1, marginLeft: scale(12) }}>
                         <Text
+                            fontWeight={600}
                             numberOfLines={3}
                             style={{
                                 fontSize: scale(14),

@@ -13,7 +13,7 @@ const typeName = new Map([
 const Title = ({ index, title, isInvalid }) => (
     <>
         <FormControl w="3/4" maxW="300" isInvalid={isInvalid}>
-            <Text fontWeight="bold">Câu {parseInt(index) + 1}</Text>
+            <Text bold>Câu {parseInt(index) + 1}</Text>
             <FormControl.ErrorMessage
                 leftIcon={<WarningOutlineIcon size="xs" />}>
                 Please make a selection!

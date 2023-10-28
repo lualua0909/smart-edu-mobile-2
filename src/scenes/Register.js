@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { Input } from 'app/atoms'
+import { Input, showToast } from 'app/atoms'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -11,16 +11,14 @@ import {
 } from 'assets/svg'
 import React, { useState } from 'react'
 
-import { Image, Linking, Pressable, View } from 'react-native'
+import { Image, Linking } from 'react-native'
 import { AtSign, Key, Phone, Shield, User } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
-import { Text } from 'native-base'
-import { Button, Center, Icon, Stack, useToast } from 'native-base'
+import { Button, Center, Pressable, Stack, Text, View } from 'native-base'
 
 const Register = ({ navigation }) => {
-    const toast = useToast()
     const firstName = useFormInput('')
     const lastName = useFormInput('')
     const phone = useFormInput('')
@@ -31,19 +29,19 @@ const Register = ({ navigation }) => {
 
     const verify = () => {
         if (firstName.value == '') {
-            toast.show({ title: 'First name is required', status: 'error' })
+            showToast({ title: 'First name is required', status: 'error' })
             return false
         } else if (lastName.value == '') {
-            toast.show({ title: 'Last name is required', status: 'error' })
+            showToast({ title: 'Last name is required', status: 'error' })
             return false
         } else if (email.value == '') {
-            toast.show({ title: 'Email is required', status: 'error' })
+            showToast({ title: 'Email is required', status: 'error' })
             return false
         } else if (username.value == '') {
-            toast.show({ title: 'Username is required', status: 'error' })
+            showToast({ title: 'Username is required', status: 'error' })
             return false
         } else if (password.value == '') {
-            toast.show({ title: 'Password is required', status: 'error' })
+            showToast({ title: 'Password is required', status: 'error' })
             return false
         }
         return true
@@ -63,17 +61,16 @@ const Register = ({ navigation }) => {
                 })
                 .then(res => {
                     if (res.data.status === 200) {
-                        toast.show({
+                        showToast({
                             title: 'Đăng ký tài khoản thành công !',
                             status: 'success'
                         })
 
                         navigation.navigate(ROUTES.Login)
                     } else {
-                        toast.show({
+                        showToast({
                             title: res?.data?.message,
-                            status: 'error',
-                            placement: 'top'
+                            status: 'error'
                         })
                     }
                 })
@@ -87,16 +84,12 @@ const Register = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             <ScrollView
                 scrollEnabled={false}
-                keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{
-                    flexGrow: 1,
-                    justifyContent: 'center'
-                }}>
+                keyboardShouldPersistTaps="handled">
                 <Image
                     source={require('assets/images/login-bg.png')}
                     style={{
                         width: '100%',
-                        height: '70%',
+                        height: '100%',
                         position: 'absolute',
                         top: 0,
                         left: 0
@@ -104,7 +97,12 @@ const Register = ({ navigation }) => {
                     resizeMode="cover"
                     alt="image"
                 />
-                <View style={{ paddingHorizontal: scale(30), zIndex: 1 }}>
+                <View
+                    style={{
+                        marginTop: 20,
+                        paddingHorizontal: scale(30),
+                        zIndex: 1
+                    }}>
                     <View
                         style={[
                             STYLES.boxShadow,
@@ -116,8 +114,8 @@ const Register = ({ navigation }) => {
                         ]}>
                         <View style={{ paddingHorizontal: scale(28) }}>
                             <Text
+                                bold
                                 style={{
-                                    fontWeight: '900',
                                     color: '#0E564D',
                                     fontSize: scale(16),
                                     textAlign: 'center'
@@ -240,9 +238,10 @@ const Register = ({ navigation }) => {
                                     )
                                 }}>
                                 <Text
+                                    bold
                                     style={{
                                         fontSize: scale(14),
-                                        color: '#0075FF',
+                                        color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>
                                     Chính sách và điều khoản
@@ -271,15 +270,16 @@ const Register = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(14),
+                                    fontSize: scale(16),
                                     color: '#1D1D1D',
                                     textAlign: 'center'
                                 }}>
                                 Bạn đã có tài khoản?{' '}
                                 <Text
+                                    bold
                                     style={{
-                                        fontSize: scale(14),
-                                        color: '#0075FF',
+                                        fontSize: scale(16),
+                                        color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>
                                     Đăng nhập
@@ -305,9 +305,8 @@ const Register = ({ navigation }) => {
                             alignSelf: 'center',
                         }}
                     >
-                        <Text
+                        <Text  bold
                             style={{
-                                fontWeight: 'bold',
                                 color: '#23B55D',
                                 fontSize: scale(16),
                             }}

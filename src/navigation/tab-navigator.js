@@ -84,9 +84,9 @@ const TabNavigator = ({}) => {
                     headerShown: true,
                     headerTitle: () => (
                         <Text
+                            bold
                             style={{
-                                fontSize: 18,
-                                fontWeight: 'bold'
+                                fontSize: 18
                             }}>
                             Danh sách thông báo
                         </Text>

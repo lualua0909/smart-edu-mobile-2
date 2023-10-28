@@ -2,9 +2,8 @@ import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { View } from 'react-native'
 
-import { FlatList, Image, Pressable, Text } from 'native-base'
+import { FlatList, Image, Pressable, Text, View } from 'native-base'
 
 const FlatListCredits = ({ data, userId }) => {
     const navigation = useNavigation()
@@ -33,9 +32,9 @@ const FlatListCredits = ({ data, userId }) => {
                             alignItems: 'center'
                         }}>
                         <Text
+                            bold
                             style={{
                                 fontSize: 16,
-                                fontWeight: 'bold',
                                 color: '#0E564D',
                                 marginLeft: scale(8),
                                 textTransform: 'uppercase'

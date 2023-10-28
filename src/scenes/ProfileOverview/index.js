@@ -5,7 +5,6 @@ import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { View } from 'react-native'
 import {
     MessageCircle,
     Upload,
@@ -22,7 +21,8 @@ import {
     Image,
     Pressable,
     Text,
-    TextArea
+    TextArea,
+    View
 } from 'native-base'
 
 import Achievement from './Achievement'

@@ -2,10 +2,9 @@ import { scale } from 'app/helpers/responsive'
 import { svgBestSaler } from 'assets/svg'
 import React from 'react'
 
-import { View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
+import { Text, View } from 'native-base'
 
 const Achievement = ({ data }) => {
     return (

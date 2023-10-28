@@ -21,7 +21,6 @@ axios.interceptors.response.use(
     error => {
         const status = error.response.status
         if (status === 401) {
-            console.log('URL = ', error.response)
             const msg =
                 'Phiên làm việc của bạn đã hết hạn, vui lòng đăng nhập lại !'
             if (Platform.OS === 'android') {

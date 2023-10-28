@@ -122,11 +122,16 @@ const theme = extendTheme({
                 italic: 'Mulish-Italic'
             },
             500: {
-                normal: 'Mulish-Medium'
-            },
-            600: {
                 normal: 'Mulish-Medium',
                 italic: 'Mulish-MediumItalic'
+            },
+            600: {
+                normal: 'Mulish-SemiBold',
+                italic: 'Mulish-SemiBoldItalic'
+            },
+            700: {
+                normal: 'Mulish-Bold',
+                italic: 'Mulish-BoldItalic'
             }
         }
     },
@@ -146,9 +151,9 @@ const theme = extendTheme({
     },
     // Make sure values below matches any of the keys in `fontConfig`
     fonts: {
-        heading: 'Mulish-Regular',
-        body: 'Mulish-Regular',
-        mono: 'Mulish-Regular'
+        heading: 'Roboto',
+        body: 'Roboto',
+        mono: 'Roboto'
     },
     components: {
         Button: {

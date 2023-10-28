@@ -7,20 +7,13 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
 import { useHeaderHeight } from '@react-navigation/elements'
-import {
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    TextInput,
-    View
-} from 'react-native'
+import { Image, KeyboardAvoidingView, Platform, TextInput } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderChat from 'app/components/header-chat'
-import { Text } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const ChatDetail = ({ navigation }) => {
     const headerHeight = useHeaderHeight()
@@ -91,9 +84,9 @@ const ChatDetail = ({ navigation }) => {
                             alignItems: 'center'
                         }}>
                         <Text
+                            bold
                             style={{
                                 fontSize: 14,
-                                fontWeight: 'bold',
                                 color: '#091230'
                             }}>
                             {data?.name}

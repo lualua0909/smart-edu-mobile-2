@@ -4,9 +4,7 @@ import CommentCard from 'app/components/CommentCard'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { Pressable, View } from 'react-native'
-
-import { Center, HStack, Heading, Spinner, Text } from 'native-base'
+import { HStack, Heading, Pressable, Spinner, Text, View } from 'native-base'
 
 const RPP = 4
 

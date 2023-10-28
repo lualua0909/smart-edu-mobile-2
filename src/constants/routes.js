@@ -6,6 +6,7 @@ export default ROUTES = {
     Course: 'Course',
     CourseInfo: 'CourseInfo',
     CourseDetail: 'CourseDetail',
+    CourseDetailTrial: 'CourseDetailTrial',
     Chat: 'Chat',
     ChatDetail: 'ChatDetail',
     TeacherInfo: 'TeacherInfo',

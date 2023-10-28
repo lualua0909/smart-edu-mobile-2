@@ -5,11 +5,10 @@ import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
-import { Image, Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderChat from 'app/components/header-chat'
-import { Text } from 'native-base'
+import { Image, Pressable, Text, View } from 'native-base'
 
 const Chat = ({ navigation }) => {
     const [data, setData] = useState([])
@@ -253,10 +252,10 @@ const Chat = ({ navigation }) => {
                                 name={item?.name}
                             />
                             <Text
+                                bold
                                 style={{
                                     marginLeft: scale(8),
                                     fontSize: 16,
-                                    fontWeight: 'bold',
                                     color: '#091230'
                                 }}>
                                 {item?.name}

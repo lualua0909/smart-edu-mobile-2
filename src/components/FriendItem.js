@@ -4,10 +4,9 @@ import { svgCompany, svgJob } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text, View } from 'native-base'
+import { Pressable, Text, View } from 'native-base'
 
 const FriendItem = ({ data }) => {
     const navigation = useNavigation()
@@ -52,11 +51,11 @@ const FriendItem = ({ data }) => {
                             </View>
                             <View style={{ flex: 1, marginLeft: scale(9) }}>
                                 <Text
+                                    bold
                                     numberOfLines={1}
                                     style={{
                                         fontSize: scale(16),
-                                        color: '#0E564D',
-                                        fontWeight: 'bold'
+                                        color: '#0E564D'
                                     }}>
                                     {fullName}
                                 </Text>
