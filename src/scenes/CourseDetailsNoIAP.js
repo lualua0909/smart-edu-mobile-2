@@ -314,7 +314,8 @@ const CourseInfo = ({ navigation, route }) => {
                     }}
                     onPress={gotoCourse}
                     isLoading={loadingVerify}
-                    leftIcon={<BookOpen stroke="#fff" size={12} />}>
+                    leftIcon={<BookOpen stroke="#fff" size={12} />}
+                    isLoadingText="Đang vào">
                     Học ngay
                 </Button>
             )
@@ -354,6 +355,7 @@ const CourseInfo = ({ navigation, route }) => {
                             status: 'error'
                         })
                     }
+                    isLoadingText="Đang vào"
                     isLoading={loadingVerify}>
                     Học ngay
                 </Button>

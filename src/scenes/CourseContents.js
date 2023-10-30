@@ -86,7 +86,7 @@ const CourseDetail = ({ route, navigation }) => {
         useGlobalState('currentCourseId')
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
-
+    const [scormLoading, setScormLoading] = useState(false)
     const onCloseViewDoc = () => setOpenViewDoc(false)
 
     useEffect(() => {
@@ -509,6 +509,9 @@ const CourseDetail = ({ route, navigation }) => {
                     ) : data?.type === 3 ? (
                         <ScormViewer
                             src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                            toggleScormLoading={() =>
+                                setScormLoading(!scormLoading)
+                            }
                         />
                     ) : data?.type === 4 ? (
                         <ExamViewer data={data} />

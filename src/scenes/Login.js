@@ -13,6 +13,8 @@ import { Image, Platform } from 'react-native'
 import {
     ArrowUpCircle,
     ChevronRight,
+    Eye,
+    EyeOff,
     Key,
     Lock,
     Shield
@@ -23,6 +25,7 @@ import animationImg from 'assets/animations/english-reading.json'
 import {
     Button,
     Center,
+    Icon,
     Pressable,
     ScrollView,
     Stack,
@@ -37,7 +40,7 @@ const Login = ({ navigation }) => {
     const [fcmToken, setFcmToken] = useState()
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
-
+    const [show, setShow] = useState(false)
     const getNewToken = async () => {
         try {
             const authorizationStatus = await messaging().requestPermission({
@@ -201,11 +204,30 @@ const Login = ({ navigation }) => {
                                         style={{ marginLeft: 10 }}
                                     />
                                 }
-                                type="password"
+                                type={show ? 'text' : 'password'}
                                 placeholder="Mật khẩu"
                                 {...password}
                                 blurOnSubmit={true}
                                 onSubmitEditing={doLogin}
+                                InputRightElement={
+                                    <Pressable onPress={() => setShow(!show)}>
+                                        {show ? (
+                                            <Eye
+                                                width={18}
+                                                height={18}
+                                                color="#555"
+                                                style={{ marginRight: 10 }}
+                                            />
+                                        ) : (
+                                            <EyeOff
+                                                width={18}
+                                                height={18}
+                                                color="#555"
+                                                style={{ marginRight: 10 }}
+                                            />
+                                        )}
+                                    </Pressable>
+                                }
                             />
                         </Stack>
                         <Pressable

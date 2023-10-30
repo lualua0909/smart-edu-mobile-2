@@ -173,9 +173,13 @@ const ChatDetail = ({ navigation }) => {
                 keyboardVerticalOffset={headerHeight}>
                 <ScrollView
                     ref={scrollViewRef}
-                    onContentSizeChange={() =>
-                        scrollViewRef.current.scrollToEnd({ animated: true })
-                    }
+                    onContentSizeChange={() => {
+                        if (scrollViewRef?.current) {
+                            scrollViewRef?.current?.scrollToEnd({
+                                animated: true
+                            })
+                        }
+                    }}
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{
                         paddingHorizontal: scale(15),

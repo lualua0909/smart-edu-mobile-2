@@ -46,7 +46,7 @@ const TeacherInfo = ({ navigation, route }) => {
         if (id) {
             setLoading(true)
             axios
-                .get(`public-courses/get-mentor-info/${id}`)
+                .get(`users/get-mentor-info/${id}`)
                 .then(res => {
                     if (res.data.status === 200) {
                         setData(res.data)
