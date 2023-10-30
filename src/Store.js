@@ -11,7 +11,8 @@ const initialState = {
     carts: [],
     currentCourseId: null,
     visibleNotLogin: false,
-    isTrial: false
+    isTrial: false,
+    firstTrialId: null
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =

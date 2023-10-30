@@ -58,6 +58,9 @@ const CourseInfo = ({ navigation, route }) => {
     const [isLiked, setIsLiked] = useState(false)
     const [carts, setCarts] = useGlobalState('carts')
     const [isTrial, setIsTrial] = useGlobalState('isTrial')
+    const [firstTrialId, setFirstTrialId] = useGlobalState('firstTrialId')
+
+    console.log('firstTrialId ==== ', firstTrialId)
     const routes = data?.is_combo
         ? [
               {
@@ -317,7 +320,11 @@ const CourseInfo = ({ navigation, route }) => {
             )
         }
 
-        if (!data?.relational && inCart) {
+        if (
+            !data?.relational &&
+            inCart &&
+            (data?.old_price > 0 || data?.new_price > 0)
+        ) {
             return (
                 <Button
                     size="sm"
@@ -353,19 +360,22 @@ const CourseInfo = ({ navigation, route }) => {
             )
         }
 
-        return (
-            <Button
-                size="sm"
-                style={{
-                    backgroundColor: '#52B553',
-                    borderRadius: 8
-                }}
-                onPress={addToCart}
-                isLoading={loadingVerify}
-                leftIcon={<ShoppingCart stroke="#fff" size={12} />}>
-                Mua ngay
-            </Button>
-        )
+        if (!data?.relational && (data?.old_price > 0 || data?.new_price > 0)) {
+            return (
+                <Button
+                    size="sm"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={addToCart}
+                    isLoading={loadingVerify}
+                    leftIcon={<ShoppingCart stroke="#fff" size={12} />}>
+                    Mua ngay
+                </Button>
+            )
+        }
+        return null
     }
     return (
         <View style={{ flex: 1 }}>

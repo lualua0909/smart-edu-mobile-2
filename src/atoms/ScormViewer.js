@@ -12,7 +12,7 @@ function isPortrait() {
     return dim.height >= dim.width
 }
 
-export default ({ src }) => {
+export default ({ src, toggleScormLoading }) => {
     useEffect(() => {
         showToast({
             title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
@@ -37,10 +37,12 @@ export default ({ src }) => {
             onLoadStart={syntheticEvent => {
                 const { nativeEvent } = syntheticEvent
                 console.log('onLoadStart', nativeEvent.loading)
+                toggleScormLoading()
             }}
             onLoadEnd={syntheticEvent => {
                 const { nativeEvent } = syntheticEvent
                 console.log('onLoadEnd', nativeEvent.loading)
+                toggleScormLoading()
             }}
         />
     )

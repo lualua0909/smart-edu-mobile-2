@@ -13,6 +13,7 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [_, setFinishedLectures] = useGlobalState('finishedLectures')
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
     const [isTrial, setIsTrial] = useGlobalState('isTrial')
+    const [firstTrialId, setFirstTrialId] = useGlobalState('firstTrialId')
 
     useEffect(() => {
         if (courseId) {
@@ -35,6 +36,7 @@ const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
                     })
 
                     const cFlat = c.flat()
+                    setFirstTrialId(cFlat?.find(i => i?.trial)?.id)
                     setIsTrial(cFlat?.some(a => a?.trial === 1))
                     if (setChapters) {
                         setChapters(cFlat)

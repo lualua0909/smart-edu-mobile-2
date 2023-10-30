@@ -7,13 +7,15 @@ import {
     FinishCourse,
     Loading,
     ScormViewer,
-    VideoViewer
+    VideoViewer,
+    showToast
 } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
+import { ToastAndroid } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -37,15 +39,15 @@ const CourseDetail = ({ route, navigation }) => {
     const [currentId, setCurrentId] = useState()
     const [data, setData] = useState()
     const [chapters, setChapters] = useState()
+    const [trialChapters, setTrialChapters] = useState()
     const [userInfo, _setUserState] = useGlobalState('userInfo')
     const [hideHeaderTitle, setHideHeaderTitle] = useState(false)
-
+    const [scormLoading, setScormLoading] = useState(false)
     const [_currentCourseId, setCurrentCourseId] =
         useGlobalState('currentCourseId')
 
     useEffect(() => {
         const t = setTimeout(() => setHideHeaderTitle(true), 5000)
-
         return () => {
             clearTimeout(t)
         }
@@ -102,6 +104,13 @@ const CourseDetail = ({ route, navigation }) => {
     })
 
     useEffect(() => {
+        if (chapters?.length) {
+            const c = chapters.filter(i => i?.trial)
+            setTrialChapters(c)
+        }
+    }, [chapters])
+
+    useEffect(() => {
         if (currentLecture) {
             setCurrentId(currentLecture)
         }
@@ -136,18 +145,37 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }, [courseId, currentId])
 
+    const showFinishToast = () => {
+        showToast({
+            title: 'Bạn đã học hết nội dung học thử. Vui lòng mua khóa học để tiếp tục',
+            status: 'success',
+            description: (
+                <>
+                    <Button onPress={() => navigation.goBack()}>
+                        Đến trang khóa học
+                    </Button>
+                </>
+            )
+        })
+    }
     const nextLesson = () => {
-        const current = chapters.findIndex(i => i.id === currentId)
-        const next = chapters[current + 1]
-        setCurrentId(next?.id)
+        const current = trialChapters.findIndex(i => i.id === currentId)
+        const next = trialChapters[current + 1]
+
+        if (next?.id) {
+            setCurrentId(next?.id)
+        } else {
+            showFinishToast()
+        }
     }
 
     const prevLesson = () => {
-        const current = chapters?.findIndex(i => i?.id === currentId)
+        const current = trialChapters?.findIndex(i => i?.id === currentId)
         if (current > 0) {
-            const prev = chapters[current - 1]
-            addLessonToFinishedList()
+            const prev = trialChapters[current - 1]
             setCurrentId(prev?.id)
+        } else {
+            showFinishToast()
         }
     }
 
@@ -194,6 +222,7 @@ const CourseDetail = ({ route, navigation }) => {
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
+                    <Text>{scormLoading ? 'Loading' : ''}</Text>
                     {data?.type === 1 ? (
                         <VideoViewer
                             videoUrl={data?.file_path || data?.video_url}
@@ -206,6 +235,9 @@ const CourseDetail = ({ route, navigation }) => {
                     ) : data?.type === 3 ? (
                         <ScormViewer
                             src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                            toggleScormLoading={() =>
+                                setScormLoading(!scormLoading)
+                            }
                         />
                     ) : data?.type === 4 ? (
                         <ExamViewer data={data} />
