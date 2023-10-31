@@ -153,7 +153,7 @@ const ProfileInfo = ({}) => {
                         paddingBottom: 30
                     }}>
                     <Image
-                        alt="menu-banner.jpg'"
+                        alt="profile info"
                         source={{
                             uri:
                                 bannerUploaded ||

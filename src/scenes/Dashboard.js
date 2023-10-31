@@ -24,7 +24,6 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import {
-    Image,
     ImageBackground,
     Linking,
     Platform,
@@ -50,7 +49,7 @@ import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import MenuAction from 'app/components/menu-action'
-import { ChevronRightIcon, Pressable, Text, View } from 'native-base'
+import { ChevronRightIcon, Image, Pressable, Text, View } from 'native-base'
 
 const Menu = ({ route }) => {
     const navigation = useNavigation()

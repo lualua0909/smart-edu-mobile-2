@@ -106,7 +106,7 @@ const ProfileOverview = ({ navigation, route }) => {
                     alignItems: 'center'
                 }}>
                 <Image
-                    alt="menu-banner.jpg'"
+                    alt="profile overview"
                     source={{
                         uri: `${API_URL}public/user-avatars/${userId}-cover.webp?rand=${random}`
                     }}
