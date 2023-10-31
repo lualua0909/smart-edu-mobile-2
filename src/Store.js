@@ -12,7 +12,8 @@ const initialState = {
     currentCourseId: null,
     visibleNotLogin: false,
     isTrial: false,
-    firstTrialId: null
+    firstTrialId: null,
+    isShow: false
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =

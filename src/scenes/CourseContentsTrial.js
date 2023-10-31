@@ -47,7 +47,7 @@ const CourseDetail = ({ route, navigation }) => {
         useGlobalState('currentCourseId')
 
     useEffect(() => {
-        const t = setTimeout(() => setHideHeaderTitle(true), 5000)
+        const t = setTimeout(() => setHideHeaderTitle(true), 3000)
         return () => {
             clearTimeout(t)
         }
@@ -147,14 +147,14 @@ const CourseDetail = ({ route, navigation }) => {
 
     const showFinishToast = () => {
         showToast({
-            title: 'Bạn đã học hết nội dung học thử. Vui lòng mua khóa học để tiếp tục',
+            title: `Bạn đã học hết nội dung học thử. Vui lòng ${
+                userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
+            } mua khóa học để tiếp tục`,
             status: 'success',
             description: (
-                <>
-                    <Button onPress={() => navigation.goBack()}>
-                        Đến trang khóa học
-                    </Button>
-                </>
+                <Button onPress={() => navigation.goBack()}>
+                    Đến trang khóa học
+                </Button>
             )
         })
     }

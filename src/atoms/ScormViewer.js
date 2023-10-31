@@ -16,7 +16,7 @@ export default ({ src, toggleScormLoading }) => {
     useEffect(() => {
         showToast({
             title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
-            status: 'info'
+            placement: 'bottom'
         })
     }, [])
 

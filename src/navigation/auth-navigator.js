@@ -1,3 +1,4 @@
+import { getGlobalState } from 'app/Store'
 import { ROUTES } from 'app/constants'
 import ForgotPassword from 'app/scenes/ForgotPassword'
 import Login from 'app/scenes/Login'
@@ -14,10 +15,12 @@ import { StatusBar, View } from 'react-native'
 const Stack = createStackNavigator()
 
 const AuthNavigator = () => {
+    const isShow = getGlobalState('isShow')
     return (
         <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" />
             <Stack.Navigator
+                initialRouteName={isShow ? ROUTES.Login : ROUTES.Wireframe}
                 screenOptions={{
                     headerStyle: { elevation: 0 },
                     cardStyle: { backgroundColor: '#fff' },

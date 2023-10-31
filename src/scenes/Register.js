@@ -270,15 +270,15 @@ const Register = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: scale(16),
-                                    color: '#1D1D1D',
+                                    fontSize: 14,
+                                    color: '#6C746E',
                                     textAlign: 'center'
                                 }}>
                                 Bạn đã có tài khoản?{' '}
                                 <Text
                                     bold
                                     style={{
-                                        fontSize: scale(16),
+                                        fontSize: scale(14),
                                         color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>

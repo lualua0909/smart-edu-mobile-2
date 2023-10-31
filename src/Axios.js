@@ -21,8 +21,7 @@ axios.interceptors.response.use(
     error => {
         const status = error.response.status
         if (status === 401) {
-            const msg =
-                'Phiên làm việc của bạn đã hết hạn, vui lòng đăng nhập lại !'
+            const msg = 'Vui lòng đăng nhập lại !'
             if (Platform.OS === 'android') {
                 ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.TOP)
             } else {

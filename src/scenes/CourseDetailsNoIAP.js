@@ -16,16 +16,19 @@ import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
 import { getData, storeData, toCurrency } from 'app/helpers/utils'
-import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
+import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { Dimensions, Linking, Share } from 'react-native'
+import { BackHandler } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
 
+import HeaderBack from 'app/components/header-back'
+import HeaderBackParent from 'app/components/header-back/backToParent'
 import {
     Button,
     Image,
@@ -56,11 +59,10 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
-    const [carts, setCarts] = useGlobalState('carts')
+    const [_carts, setCarts] = useGlobalState('carts')
     const [isTrial, setIsTrial] = useGlobalState('isTrial')
-    const [firstTrialId, setFirstTrialId] = useGlobalState('firstTrialId')
+    const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
-    console.log('firstTrialId ==== ', firstTrialId)
     const routes = data?.is_combo
         ? [
               {
@@ -94,6 +96,7 @@ const CourseInfo = ({ navigation, route }) => {
                   title: 'Đánh giá'
               }
           ]
+
     useEffect(() => {
         if (data) {
             setIsLiked(data?.isLiked)
@@ -101,6 +104,13 @@ const CourseInfo = ({ navigation, route }) => {
     }, [])
 
     useEffect(() => {
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            function () {
+                return true
+            }
+        )
+
         if (id) {
             setLoading(true)
             Axios.get(
@@ -123,11 +133,26 @@ const CourseInfo = ({ navigation, route }) => {
                 })
                 .then(data => {
                     setData(data?.data)
-                    console.log('auth-get-course-info', data.data)
+                    const parentId = data?.data?.parent?.id
+
+                    if (parentId) {
+                        navigation.setOptions({
+                            headerLeft: () => (
+                                <HeaderBackParent parentId={parentId} />
+                            )
+                        })
+                    } else {
+                        navigation.setOptions({
+                            headerLeft: () => <HeaderBack />
+                        })
+
+                        backHandler.remove()
+                    }
                 })
-                .catch(err => console.error(err))
                 .finally(() => setLoading(false))
         }
+
+        return () => backHandler.remove()
     }, [id])
 
     const renderScene = ({ route }) => {
@@ -252,22 +277,27 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const addToCart = async () => {
-        setInCart(true)
-        const carts = (await getData('@cart')) || []
-        const course = {
-            id: data?.id,
-            title: data?.title,
-            new_price: data?.new_price,
-            old_price: data?.old_price
+        if (userInfo?.id === 'trial') {
+            setVisible(true)
+        } else {
+            setInCart(true)
+            let carts = (await getData('@cart')) || []
+            const course = {
+                id: data?.id,
+                title: data?.title,
+                new_price: data?.new_price,
+                old_price: data?.old_price
+            }
+            const newCarts = Array.isArray(carts)
+                ? [course, ...carts]
+                : [course]
+            storeData('@cart', newCarts)
+            setCarts(newCarts)
+            showToast({
+                title: 'Đã thêm khóa học vào giỏ hàng',
+                status: 'success'
+            })
         }
-
-        const newCarts = Array.isArray(carts) ? [course, ...carts] : [course]
-        storeData('@cart', newCarts)
-        setCarts(newCarts)
-        showToast({
-            title: 'Đã thêm khóa học vào giỏ hàng',
-            status: 'success'
-        })
     }
 
     const gotoCourse = () => {

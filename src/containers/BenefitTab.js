@@ -37,7 +37,7 @@ const Benefit = ({ courseId, longDes }) => {
                             flex: 1,
                             fontSize: scale(16)
                         }}>
-                        {text.replace(/<[^>]*>?/gm, '')}
+                        {text?.replace(/<[^>]*>?/gm, '')}
                     </Text>
                 </View>
             ))}

@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { setGlobalState, useGlobalState } from 'app/Store'
 import { Input, showToast } from 'app/atoms'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -41,6 +41,7 @@ const Login = ({ navigation }) => {
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
     const [show, setShow] = useState(false)
+
     const getNewToken = async () => {
         try {
             const authorizationStatus = await messaging().requestPermission({
@@ -63,6 +64,7 @@ const Login = ({ navigation }) => {
     }
     useEffect(() => {
         getNewToken()
+        setGlobalState('isShow', true)
     }, [])
 
     const doLogin = () => {
