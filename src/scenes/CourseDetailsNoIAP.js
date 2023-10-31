@@ -1,5 +1,5 @@
 import Axios from 'app/Axios'
-import { getGlobalState, useGlobalState } from 'app/Store'
+import { getGlobalState, setGlobalState, useGlobalState } from 'app/Store'
 import {
     Avatar,
     CourseDetailSkeleton,
@@ -59,9 +59,7 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
-    const [_carts, setCarts] = useGlobalState('carts')
-    const [isTrial, setIsTrial] = useGlobalState('isTrial')
-    const [visible, setVisible] = useGlobalState('visibleNotLogin')
+    const isTrial = getGlobalState('isTrial')
 
     const routes = data?.is_combo
         ? [
@@ -278,7 +276,7 @@ const CourseInfo = ({ navigation, route }) => {
 
     const addToCart = async () => {
         if (userInfo?.id === 'trial') {
-            setVisible(true)
+            setGlobalState('visibleNotLogin', true)
         } else {
             setInCart(true)
             let carts = (await getData('@cart')) || []
@@ -292,7 +290,7 @@ const CourseInfo = ({ navigation, route }) => {
                 ? [course, ...carts]
                 : [course]
             storeData('@cart', newCarts)
-            setCarts(newCarts)
+            setGlobalState('carts', newCarts)
             showToast({
                 title: 'Đã thêm khóa học vào giỏ hàng',
                 status: 'success'
@@ -304,27 +302,41 @@ const CourseInfo = ({ navigation, route }) => {
         setLoadingVerify(true)
         Axios.get('courses/verify/' + data?.slug)
             .then(res => {
-                if (res.data.status === 200) {
+                if (res.status === 200) {
+                    const { data: resData } = res?.data
                     if (res?.data?.survey) {
                         showToast({
                             title: 'Thông báo từ hệ thống',
                             description:
                                 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học',
-                            status: 'success'
+                            status: 'warning'
                         })
                         setTimeout(() => {
                             Linking.openURL(
                                 `${APP_URL}take-survey/${res?.data?.survey}`
                             )
                         }, 500)
-                    } else {
-                        navigation.navigate(ROUTES.CourseDetail, {
-                            courseId: data?.relational?.course_id,
-                            currentLecture:
-                                data?.relational?.current_lecture ||
-                                data?.first_lecture_id
-                        })
+
+                        return
                     }
+                    if (
+                        resData?.required?.id &&
+                        resData?.percentOfRequired < 90
+                    ) {
+                        showToast({
+                            title: `Bạn chưa hoàn thành khóa học ${resData?.required?.title}`,
+                            status: 'warning'
+                        })
+
+                        return
+                    }
+
+                    navigation.navigate(ROUTES.CourseDetail, {
+                        courseId: data?.relational?.course_id,
+                        currentLecture:
+                            data?.relational?.current_lecture ||
+                            data?.first_lecture_id
+                    })
                 } else {
                     console.log('Error')
                 }
