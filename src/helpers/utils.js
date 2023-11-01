@@ -1,4 +1,5 @@
 import { setGlobalState } from 'app/Store'
+import { ROUTES } from 'app/constants'
 import storage from 'app/localStorage'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -53,7 +54,12 @@ export const toRelativeTime = (date, noSuffix = false) => {
         : dayjs(date).locale('vi').fromNow(false)
 }
 
-export const clearDataAfterLogout = () => {
+export const clearDataAfterLogout = (route = null) => {
+    if (route) {
+        setGlobalState('defaultRoute', route)
+    } else {
+        setGlobalState('defaultRoute', ROUTES.Login)
+    }
     setGlobalState('userInfo', null)
     setGlobalState('dashboardInfo', null)
     storage.delete('@userInfo')

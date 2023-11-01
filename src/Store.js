@@ -1,3 +1,5 @@
+import { ROUTES } from 'app/constants'
+
 import { createGlobalState } from 'react-hooks-global-state'
 
 const initialState = {
@@ -13,7 +15,8 @@ const initialState = {
     visibleNotLogin: false,
     isTrial: false,
     firstTrialId: null,
-    isShow: false
+    isShow: false,
+    defaultRoute: ROUTES.Login
 }
 
 export const { useGlobalState, getGlobalState, setGlobalState } =

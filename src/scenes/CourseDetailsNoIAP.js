@@ -677,7 +677,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 }}>
                                 {data?.old_price && data?.new_price
                                     ? toCurrency(data?.old_price)
-                                    : 1212}
+                                    : null}
                             </Text>
                             <Text
                                 bold
@@ -696,7 +696,7 @@ const CourseInfo = ({ navigation, route }) => {
                         </View>
                     </View>
                 ) : null}
-                {isTrial && userInfo?.id === 'trial' && !data?.is_combo ? (
+                {isTrial && !data?.is_combo ? (
                     <Button
                         size="sm"
                         style={{

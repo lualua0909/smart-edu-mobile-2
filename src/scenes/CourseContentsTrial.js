@@ -13,9 +13,9 @@ import {
 import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
+import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { ToastAndroid } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -151,11 +151,19 @@ const CourseDetail = ({ route, navigation }) => {
                 userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
             } mua khóa học để tiếp tục`,
             status: 'success',
-            description: (
-                <Button onPress={() => navigation.goBack()}>
-                    Đến trang khóa học
-                </Button>
-            )
+            description:
+                userInfo?.id === 'trial' ? (
+                    <Button
+                        onPress={() => {
+                            clearDataAfterLogout(ROUTES.Register)
+                        }}>
+                        Tạo tài khoản
+                    </Button>
+                ) : (
+                    <Button onPress={() => navigation.goBack()}>
+                        Đến trang khóa học
+                    </Button>
+                )
         })
     }
     const nextLesson = () => {

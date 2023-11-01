@@ -16,11 +16,12 @@ const Stack = createStackNavigator()
 
 const AuthNavigator = () => {
     const isShow = getGlobalState('isShow')
+    const defaultRoute = getGlobalState('defaultRoute')
     return (
         <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" />
             <Stack.Navigator
-                initialRouteName={isShow ? ROUTES.Login : ROUTES.Wireframe}
+                initialRouteName={isShow ? defaultRoute : ROUTES.Wireframe}
                 screenOptions={{
                     headerStyle: { elevation: 0 },
                     cardStyle: { backgroundColor: '#fff' },
