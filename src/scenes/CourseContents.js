@@ -87,6 +87,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
     const [scormLoading, setScormLoading] = useState(false)
+    const [countDown, setCountDown] = useState()
     const onCloseViewDoc = () => setOpenViewDoc(false)
 
     useEffect(() => {
@@ -99,7 +100,7 @@ const CourseDetail = ({ route, navigation }) => {
 
     const countdown = (
         <Countdown
-            date={Date.now() + data?.time_to_skip * 1000}
+            date={countDown}
             renderer={({
                 total,
                 days,
@@ -238,6 +239,7 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .then(data => {
                 setData(data)
+                setCountDown(Date.now() + data?.time_to_skip * 1000)
             })
             .finally(() => setLoading(false))
     }

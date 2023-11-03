@@ -696,7 +696,7 @@ const CourseInfo = ({ navigation, route }) => {
                         </View>
                     </View>
                 ) : null}
-                {isTrial && !data?.is_combo ? (
+                {isTrial && !data?.is_combo && !data?.relational ? (
                     <Button
                         size="sm"
                         style={{
