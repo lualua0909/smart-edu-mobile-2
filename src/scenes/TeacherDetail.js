@@ -6,7 +6,7 @@ import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { Image, StatusBar, StyleSheet } from 'react-native'
-import { Link, Package, User } from 'react-native-feather'
+import { Link, Package } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -34,7 +34,7 @@ const routes = [
     }
 ]
 
-const TeacherInfo = ({ navigation, route }) => {
+const TeacherInfo = ({ route }) => {
     const { id } = route.params
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
@@ -140,7 +140,7 @@ const TeacherInfo = ({ navigation, route }) => {
         <TabBar
             {...props}
             indicatorStyle={{ backgroundColor: 'white' }}
-            style={{ backgroundColor: COLORS.green }}
+            style={{ backgroundColor: '#007739' }}
             renderLabel={renderLabel}
         />
     )
@@ -193,7 +193,7 @@ const TeacherInfo = ({ navigation, route }) => {
                     paddingBottom: scale(11)
                 }}>
                 <Avatar
-                    size={scale(180)}
+                    size={scale(120)}
                     name={fullName}
                     userId={data?.mentor?.id}
                 />

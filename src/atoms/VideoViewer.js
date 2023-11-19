@@ -1,11 +1,10 @@
+import { Loading } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import React, { useState } from 'react'
 
 import { Dimensions } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
-
-import { Text } from 'native-base'
 
 const w = Dimensions.get('window').width
 const h = Dimensions.get('window').height
@@ -25,7 +24,7 @@ const frameStyle = {
 }
 
 export default ({ videoUrl }) => {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const isBunnyVideo = videoUrl?.includes('iframe.mediadelivery.net')
     const isYoutube = videoUrl?.includes('youtube.com')
@@ -36,9 +35,13 @@ export default ({ videoUrl }) => {
         ? videoUrl
         : API_URL + '/public/' + videoUrl
 
+    if (loading) {
+        return <Loading title="Đang tải video" />
+    }
+
     return (
         <>
-            {loading && <Text>Loading</Text>}
+            {/* {loading && <Loading title="Đang tải video" />} */}
             {isYoutube ? (
                 <WebView
                     originWhitelist={['*']}
@@ -46,6 +49,9 @@ export default ({ videoUrl }) => {
                         uri: embedLink
                     }}
                     style={frameStyle}
+                    onLoadStart={syntheticEvent => {
+                        setLoading(true)
+                    }}
                     onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}
@@ -57,6 +63,9 @@ export default ({ videoUrl }) => {
                         html: embedLink
                     }}
                     style={frameStyle}
+                    onLoadStart={syntheticEvent => {
+                        setLoading(true)
+                    }}
                     onLoadEnd={syntheticEvent => {
                         setLoading(false)
                     }}
@@ -68,6 +77,16 @@ export default ({ videoUrl }) => {
                         uri: embedLink
                     }} // Can be a URL or a local file.
                     style={{ height: 200, width: '100%' }}
+                    onLoadStart={() => setLoading(true)}
+                    onLoad={() => {
+                        setLoading(false)
+                    }}
+                    onEnd={() => {
+                        setLoading(false)
+                    }}
+                    onReadyForDisplay={() => {
+                        setLoading(false)
+                    }}
                 />
             )}
         </>

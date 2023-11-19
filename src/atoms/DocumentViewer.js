@@ -14,7 +14,7 @@ function isPortrait() {
 
 export default ({ content, uri }) => {
     useEffect(() => {
-        if (uri) {
+        if (uri && isPortrait()) {
             showToast({
                 title: 'Xoay ngang màn hình thiết bị để hiển thị PDF toàn màn hình',
                 status: 'info'

@@ -39,7 +39,6 @@ import {
     View
 } from 'native-base'
 
-const w = Dimensions.get('screen').width
 const h = Dimensions.get('screen').height
 
 const routes = [

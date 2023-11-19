@@ -14,10 +14,12 @@ function isPortrait() {
 
 export default ({ src, toggleScormLoading }) => {
     useEffect(() => {
-        showToast({
-            title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
-            placement: 'bottom'
-        })
+        if (isPortrait()) {
+            showToast({
+                title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
+                placement: 'bottom'
+            })
+        }
     }, [])
 
     return (

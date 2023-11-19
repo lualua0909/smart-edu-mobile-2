@@ -696,19 +696,26 @@ const CourseInfo = ({ navigation, route }) => {
                         </View>
                     </View>
                 ) : null}
-                {isTrial && !data?.is_combo && !data?.relational ? (
+                {isTrial && !data?.relational ? (
                     <Button
                         size="sm"
                         style={{
                             width: 100
                         }}
                         leftIcon={<BookOpen stroke="#fff" size={12} />}
-                        onPress={() =>
-                            navigation.navigate(ROUTES.CourseDetailTrial, {
-                                courseId: data?.id,
-                                currentLecture: data?.first_lecture_id
-                            })
-                        }
+                        onPress={() => {
+                            if (data?.is_combo) {
+                                showToast({
+                                    title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
+                                    status: 'warning'
+                                })
+                            } else {
+                                navigation.navigate(ROUTES.CourseDetailTrial, {
+                                    courseId: data?.id,
+                                    currentLecture: data?.first_lecture_id
+                                })
+                            }
+                        }}
                         isLoading={loadingVerify}>
                         Học thử
                     </Button>

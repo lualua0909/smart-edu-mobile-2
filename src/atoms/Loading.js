@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native'
 
 import { Center, Heading, VStack } from 'native-base'
 
-export default () => (
+export default ({ title = 'Đang tải thông tin bài học' }) => (
     <Center flex={1} px="3">
         <VStack space={2} justifyContent="center">
             <LottieView
@@ -19,7 +19,7 @@ export default () => (
             />
             <Center>
                 <Heading fontSize="md" style={{ color: 'green' }}>
-                    Đang tải thông tin bài học
+                    {title}
                 </Heading>
             </Center>
         </VStack>
