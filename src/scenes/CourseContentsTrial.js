@@ -43,6 +43,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [userInfo, _setUserState] = useGlobalState('userInfo')
     const [hideHeaderTitle, setHideHeaderTitle] = useState(false)
     const [scormLoading, setScormLoading] = useState(false)
+    const [courseData, setCourseData] = useState()
     const [_currentCourseId, setCurrentCourseId] =
         useGlobalState('currentCourseId')
 
@@ -140,10 +141,10 @@ const CourseDetail = ({ route, navigation }) => {
     }, [courseId])
 
     useEffect(() => {
-        if (courseId && currentId) {
+        if (currentId) {
             getData()
         }
-    }, [courseId, currentId])
+    }, [currentId])
 
     const showFinishToast = () => {
         showToast({
@@ -160,7 +161,12 @@ const CourseDetail = ({ route, navigation }) => {
                         Tạo tài khoản
                     </Button>
                 ) : (
-                    <Button onPress={() => navigation.goBack()}>
+                    <Button
+                        onPress={() =>
+                            navigation.navigate(ROUTES.CourseInfo, {
+                                id: courseData?.id
+                            })
+                        }>
                         Đến trang khóa học
                     </Button>
                 )
@@ -173,7 +179,21 @@ const CourseDetail = ({ route, navigation }) => {
         if (next?.id) {
             setCurrentId(next?.id)
         } else {
-            showFinishToast()
+            axios
+                .get(`get-course-info/${courseId}`)
+                .then(res => {
+                    if (res.data.status === 200) {
+                        setCourseData(
+                            res?.data?.data?.parent || res?.data?.data
+                        )
+
+                        console.log(
+                            'DAAAAAAAAAAAAAAAAA = ',
+                            res?.data?.data?.parent || res?.data?.data
+                        )
+                    }
+                })
+                .finally(() => showFinishToast())
         }
     }
 

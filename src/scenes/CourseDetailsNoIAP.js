@@ -31,6 +31,7 @@ import HeaderBack from 'app/components/header-back'
 import HeaderBackParent from 'app/components/header-back/backToParent'
 import {
     Button,
+    HStack,
     Image,
     Pressable,
     ScrollView,
@@ -632,77 +633,73 @@ const CourseInfo = ({ navigation, route }) => {
                     },
                     STYLES.boxShadow
                 ]}>
-                {data?.new_price || data?.old_price ? (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingVertical: 5
-                        }}>
-                        {data?.new_price && data?.old_price ? (
+                <HStack space={3}>
+                    {data?.new_price || data?.old_price ? (
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingVertical: 5
+                            }}>
+                            {data?.new_price && data?.old_price ? (
+                                <View
+                                    style={{
+                                        paddingVertical: scale(5),
+                                        paddingHorizontal: scale(10),
+                                        borderRadius: scale(5),
+                                        borderWidth: 1,
+                                        borderColor: '#FC0000'
+                                    }}>
+                                    <Text
+                                        bold
+                                        style={{
+                                            fontSize: scale(14),
+                                            color: '#FF0000'
+                                        }}>
+                                        giảm{' '}
+                                        {((data?.old_price - data?.new_price) /
+                                            data?.old_price) *
+                                            100}
+                                        %
+                                    </Text>
+                                </View>
+                            ) : null}
                             <View
                                 style={{
-                                    paddingVertical: scale(5),
-                                    paddingHorizontal: scale(10),
-                                    borderRadius: scale(5),
-                                    borderWidth: 1,
-                                    borderColor: '#FC0000'
+                                    display: 'flex',
+                                    flexDirection: 'row'
                                 }}>
                                 <Text
                                     bold
                                     style={{
-                                        fontSize: scale(14),
-                                        color: '#FF0000'
+                                        fontSize: scale(16),
+                                        color: '#656565',
+                                        textDecorationLine: 'line-through'
                                     }}>
-                                    giảm{' '}
-                                    {((data?.old_price - data?.new_price) /
-                                        data?.old_price) *
-                                        100}
-                                    %
+                                    {data?.old_price && data?.new_price
+                                        ? toCurrency(data?.old_price)
+                                        : null}
+                                </Text>
+                                <Text
+                                    bold
+                                    style={{
+                                        marginLeft: scale(24),
+                                        fontSize: scale(18),
+                                        color: '#095F2B'
+                                    }}>
+                                    {data?.old_price && data?.new_price
+                                        ? toCurrency(data?.new_price)
+                                        : data?.old_price && !data?.new_price
+                                        ? toCurrency(data?.old_price)
+                                        : null}
+                                    đ
                                 </Text>
                             </View>
-                        ) : null}
-                        <View
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row'
-                            }}>
-                            <Text
-                                bold
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#656565',
-                                    textDecorationLine: 'line-through'
-                                }}>
-                                {data?.old_price && data?.new_price
-                                    ? toCurrency(data?.old_price)
-                                    : null}
-                            </Text>
-                            <Text
-                                bold
-                                style={{
-                                    marginLeft: scale(24),
-                                    fontSize: scale(18),
-                                    color: '#095F2B'
-                                }}>
-                                {data?.old_price && data?.new_price
-                                    ? toCurrency(data?.new_price)
-                                    : data?.old_price && !data?.new_price
-                                    ? toCurrency(data?.old_price)
-                                    : null}
-                                đ
-                            </Text>
                         </View>
-                    </View>
-                ) : null}
-                {isTrial && !data?.relational ? (
+                    ) : null}
                     <Button
                         size="sm"
-                        style={{
-                            width: 100
-                        }}
-                        leftIcon={<BookOpen stroke="#fff" size={12} />}
                         onPress={() => {
                             if (data?.is_combo) {
                                 showToast({
@@ -719,7 +716,7 @@ const CourseInfo = ({ navigation, route }) => {
                         isLoading={loadingVerify}>
                         Học thử
                     </Button>
-                ) : null}
+                </HStack>
                 <View
                     style={{
                         flexDirection: 'row',
