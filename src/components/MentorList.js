@@ -4,8 +4,7 @@ import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl, View } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
+import { FlatList, View } from 'react-native'
 
 const MentorList = ({}) => {
     const [data, setData] = useState()
@@ -36,8 +35,6 @@ const MentorList = ({}) => {
             })
     }
 
-    const refetch = React.useCallback(() => getData(true), [refreshing])
-
     useEffect(() => {
         getData(false)
     }, [page])
@@ -48,34 +45,26 @@ const MentorList = ({}) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={refetch}
-                    />
-                }>
-                {data?.length ? (
-                    <FlatList
-                        data={data || []}
-                        keyExtractor={(_, index) => index.toString()}
-                        renderItem={({ item, index }) => (
-                            <TeacherItem index={index} item={item} />
-                        )}
-                        contentContainerStyle={{
-                            paddingLeft: 16,
-                            paddingRight: 16,
-                            paddingBottom: scale(50)
-                        }}
-                        onEndReached={handleLoadMore}
-                        onEndReachedThreshold={1}
-                        showsVerticalScrollIndicator={false}
-                    />
-                ) : !loading ? (
-                    <NoDataAnimation />
-                ) : null}
-                {loading && <LoadingAnimation />}
-            </ScrollView>
+            {data?.length ? (
+                <FlatList
+                    data={data || []}
+                    keyExtractor={(_, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                        <TeacherItem index={index} item={item} />
+                    )}
+                    contentContainerStyle={{
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        paddingBottom: scale(50)
+                    }}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={1}
+                    showsVerticalScrollIndicator={false}
+                />
+            ) : !loading ? (
+                <NoDataAnimation />
+            ) : null}
+            {loading && <LoadingAnimation />}
         </View>
     )
 }

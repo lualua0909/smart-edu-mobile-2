@@ -5,8 +5,7 @@ import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
+import { FlatList } from 'react-native'
 
 const MyCourseList = ({ userId }) => {
     const [data, setData] = useState([])
@@ -45,8 +44,6 @@ const MyCourseList = ({ userId }) => {
             })
     }
 
-    const refetch = React.useCallback(() => getData(true), [refreshing])
-
     useEffect(() => {
         getData(false)
     }, [page])
@@ -56,10 +53,7 @@ const MyCourseList = ({ userId }) => {
     }
 
     return (
-        <ScrollView
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={refetch} />
-            }>
+        <>
             {data?.length ? (
                 <FlatList
                     data={data || []}
@@ -87,7 +81,7 @@ const MyCourseList = ({ userId }) => {
                 <NoDataAnimation />
             ) : null}
             {loading && <LoadingAnimation />}
-        </ScrollView>
+        </>
     )
 }
 
