@@ -1,5 +1,5 @@
-import Axios from 'app/Axios'
-import { getGlobalState, setGlobalState, useGlobalState } from 'app/Store'
+import axios from 'app/Axios'
+import { getGlobalState, setGlobalState } from 'app/Store'
 import {
     Avatar,
     CourseDetailSkeleton,
@@ -19,8 +19,7 @@ import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Dimensions, Linking, Share } from 'react-native'
-import { BackHandler } from 'react-native'
+import { BackHandler, Dimensions, Linking, Share } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -60,7 +59,6 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
-    const isTrial = getGlobalState('isTrial')
 
     const routes = data?.is_combo
         ? [
@@ -112,13 +110,14 @@ const CourseInfo = ({ navigation, route }) => {
 
         if (id) {
             setLoading(true)
-            Axios.get(
-                `${
-                    userInfo?.id === 'trial'
-                        ? 'get-course-info'
-                        : 'auth-get-course-info'
-                }/${id}`
-            )
+            axios
+                .get(
+                    `${
+                        userInfo?.id === 'trial'
+                            ? 'get-course-info'
+                            : 'auth-get-course-info'
+                    }/${id}`
+                )
                 .then(res => {
                     if (res.data && res.data.status === 200) {
                         return res.data
@@ -250,7 +249,8 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const addToWishList = () => {
-        Axios.get('courses/add-wishlist/' + data?.id)
+        axios
+            .get('courses/add-wishlist/' + data?.id)
             .then(res => {
                 if (res.data.status === 200) {
                     showToast({
@@ -264,7 +264,7 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const removeToWishList = () => {
-        Axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
+        axios.get('courses/remove-from-wishlist/' + data?.id).then(res => {
             if (res.data.status === 200) {
                 showToast({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
@@ -301,7 +301,8 @@ const CourseInfo = ({ navigation, route }) => {
 
     const gotoCourse = () => {
         setLoadingVerify(true)
-        Axios.get('courses/verify/' + data?.slug)
+        axios
+            .get('courses/verify/' + data?.slug)
             .then(res => {
                 if (res.status === 200) {
                     const { data: resData } = res?.data

@@ -1,11 +1,10 @@
 import axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import NotiItem from 'app/components/NotifyItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { FlatList, RefreshControl, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-virtualized-view'
 
 const Notification = ({}) => {
@@ -71,23 +70,27 @@ const Notification = ({}) => {
                         onRefresh={refetch}
                     />
                 }>
-                <FlatList
-                    data={data || []}
-                    keyExtractor={(_, index) => index.toString()}
-                    renderItem={({ item, index }) => (
-                        <NotiItem
-                            index={index}
-                            data={item}
-                            removeNotify={removeNotify}
-                        />
-                    )}
-                    contentContainerStyle={{
-                        paddingBottom: scale(20)
-                    }}
-                    onEndReached={handleLoadMore}
-                    onEndReachedThreshold={0.5}
-                    showsVerticalScrollIndicator={false}
-                />
+                {data?.length ? (
+                    <FlatList
+                        data={data}
+                        keyExtractor={(_, index) => index.toString()}
+                        renderItem={({ item, index }) => (
+                            <NotiItem
+                                index={index}
+                                data={item}
+                                removeNotify={removeNotify}
+                            />
+                        )}
+                        contentContainerStyle={{
+                            paddingBottom: scale(20)
+                        }}
+                        onEndReached={handleLoadMore}
+                        onEndReachedThreshold={0.5}
+                        showsVerticalScrollIndicator={false}
+                    />
+                ) : (
+                    <NoDataAnimation />
+                )}
                 {loading && <LoadingAnimation />}
             </ScrollView>
         </View>

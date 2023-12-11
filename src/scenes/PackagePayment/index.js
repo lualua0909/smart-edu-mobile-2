@@ -1,4 +1,4 @@
-import Axios from 'app/Axios'
+import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { AbsoluteSpinner, Input, showToast } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
@@ -60,7 +60,8 @@ const PackagePayment = ({ navigation, route }) => {
             carts: [{ product_id: id, price, description: title }]
         }
 
-        Axios.post('payment/momo/create-order', params)
+        axios
+            .post('payment/momo/create-order', params)
             .then(res => {
                 if (res?.data?.status === 200) {
                     Linking.openURL(res?.data?.data?.payUrl)

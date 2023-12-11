@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import HistoryItem from 'app/components/HistoryItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -26,18 +26,22 @@ const LearningHistory = ({}) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            <FlatList
-                data={data}
-                renderItem={({ item, index }) => (
-                    <HistoryItem key={index} data={item} />
-                )}
-                keyExtractor={item => item.id}
-                style={{
-                    paddingHorizontal: scale(16),
-                    zIndex: 1,
-                    paddingTop: scale(10)
-                }}
-            />
+            {data?.length ? (
+                <FlatList
+                    data={data}
+                    renderItem={({ item, index }) => (
+                        <HistoryItem key={index} data={item} />
+                    )}
+                    keyExtractor={item => item.id}
+                    style={{
+                        paddingHorizontal: scale(16),
+                        zIndex: 1,
+                        paddingTop: scale(10)
+                    }}
+                />
+            ) : (
+                <NoDataAnimation />
+            )}
         </View>
     )
 }

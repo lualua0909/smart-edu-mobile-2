@@ -9,19 +9,24 @@ import {
 } from 'app/atoms'
 import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
+import ComboTab from 'app/containers/ComboTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { clearDataAfterLogout, errorLog, isAndroid } from 'app/helpers/utils'
-import { svgCertificate, svgNote, svgOnline, svgOrangeStar } from 'assets/svg'
-import React, { useEffect, useRef, useState } from 'react'
+import {
+    clearDataAfterLogout,
+    errorLog,
+    isAndroid,
+    toCurrency
+} from 'app/helpers/utils'
+import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
+import React, { useEffect, useState } from 'react'
 
-import { Alert, Linking, Platform, Share } from 'react-native'
-import { BookOpen, Heart, Share2 } from 'react-native-feather'
+import { Alert, Share } from 'react-native'
+import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import {
     PurchaseError,
-    Sku,
     currentPurchase,
     endConnection,
     finishTransaction,
@@ -31,34 +36,22 @@ import {
     isIosStorekit2,
     purchaseErrorListener,
     purchaseUpdatedListener,
-    requestPurchase,
-    useIAP
+    requestPurchase
 } from 'react-native-iap'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Video from 'react-native-video'
 
-import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
-
-const routes = [
-    {
-        key: 'tab-1',
-        title: 'Giới thiệu'
-    },
-    {
-        key: 'tab-2',
-        title: 'Nội dung'
-    },
-    {
-        key: 'tab-3',
-        title: 'Giảng viên'
-    },
-    {
-        key: 'tab-4',
-        title: 'Đánh giá'
-    }
-]
+import {
+    Button,
+    HStack,
+    Image,
+    Pressable,
+    ScrollView,
+    Text,
+    View
+} from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -76,14 +69,44 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
-    const [course, setCourse] = useState([])
     const course_id_ipa = `course_id_${id}`
-    const [allowLearning, setAllowLearning] = useState(false)
-    const { getPurchaseHistory, purchaseHistory } = useIAP()
 
     const [success, setSuccess] = useState(false)
     const [products, setProducts] = useState()
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
+    const routes = data?.is_combo
+        ? [
+              {
+                  key: 'tab-1',
+                  title: 'Giới thiệu'
+              },
+              {
+                  key: 'tab-2',
+                  title: 'Khóa học'
+              },
+              {
+                  key: 'tab-3',
+                  title: 'Giảng viên'
+              }
+          ]
+        : [
+              {
+                  key: 'tab-1',
+                  title: 'Giới thiệu'
+              },
+              {
+                  key: 'tab-2',
+                  title: 'Nội dung'
+              },
+              {
+                  key: 'tab-3',
+                  title: 'Giảng viên'
+              },
+              {
+                  key: 'tab-4',
+                  title: 'Đánh giá'
+              }
+          ]
 
     useEffect(() => {
         let purchaseUpdateSubscription
@@ -340,10 +363,14 @@ const CourseInfo = ({ navigation, route }) => {
                                 tab2: e.nativeEvent.layout.height
                             })
                         }>
-                        <LectureTab
-                            courseId={data?.id}
-                            totalLectures={data?.total_lectures}
-                        />
+                        {data?.is_combo ? (
+                            <ComboTab data={data} />
+                        ) : (
+                            <LectureTab
+                                courseId={data?.id}
+                                totalLectures={data?.total_lectures}
+                            />
+                        )}
                     </View>
                 )
             case 'tab-3':
@@ -450,6 +477,49 @@ const CourseInfo = ({ navigation, route }) => {
 
     if (loading) {
         return <CourseDetailSkeleton />
+    }
+
+    const renderButton = () => {
+        //Đã mua và không phải khóa combo
+        if (data?.relational && !data?.is_combo) {
+            return (
+                <Button
+                    size="sm"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={gotoCourse}
+                    isLoading={loadingVerify}
+                    leftIcon={<BookOpen stroke="#fff" size={12} />}
+                    isLoadingText="Đang vào">
+                    Học ngay
+                </Button>
+            )
+        }
+
+        if (data?.relational && data?.is_combo) {
+            return (
+                <Button
+                    size="md"
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={() =>
+                        showToast({
+                            title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
+                            status: 'error'
+                        })
+                    }
+                    isLoadingText="Đang vào"
+                    isLoading={loadingVerify}>
+                    Học ngay
+                </Button>
+            )
+        }
+
+        return null
     }
 
     return (
@@ -673,6 +743,90 @@ const CourseInfo = ({ navigation, route }) => {
                     },
                     STYLES.boxShadow
                 ]}>
+                <HStack space={3}>
+                    {data?.new_price || data?.old_price ? (
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingVertical: 5
+                            }}>
+                            {data?.new_price && data?.old_price ? (
+                                <View
+                                    style={{
+                                        paddingVertical: scale(5),
+                                        paddingHorizontal: scale(10),
+                                        borderRadius: scale(5),
+                                        borderWidth: 1,
+                                        borderColor: '#FC0000'
+                                    }}>
+                                    <Text
+                                        bold
+                                        style={{
+                                            fontSize: scale(14),
+                                            color: '#FF0000'
+                                        }}>
+                                        giảm{' '}
+                                        {((data?.old_price - data?.new_price) /
+                                            data?.old_price) *
+                                            100}
+                                        %
+                                    </Text>
+                                </View>
+                            ) : null}
+                            <View
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row'
+                                }}>
+                                <Text
+                                    bold
+                                    style={{
+                                        fontSize: scale(16),
+                                        color: '#656565',
+                                        textDecorationLine: 'line-through'
+                                    }}>
+                                    {data?.old_price && data?.new_price
+                                        ? toCurrency(data?.old_price)
+                                        : null}
+                                </Text>
+                                <Text
+                                    bold
+                                    style={{
+                                        marginLeft: scale(24),
+                                        fontSize: scale(18),
+                                        color: '#095F2B'
+                                    }}>
+                                    {data?.old_price && data?.new_price
+                                        ? toCurrency(data?.new_price)
+                                        : data?.old_price && !data?.new_price
+                                        ? toCurrency(data?.old_price)
+                                        : null}
+                                    đ
+                                </Text>
+                            </View>
+                        </View>
+                    ) : null}
+                    <Button
+                        size="sm"
+                        onPress={() => {
+                            if (data?.is_combo) {
+                                showToast({
+                                    title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
+                                    status: 'warning'
+                                })
+                            } else {
+                                navigation.navigate(ROUTES.CourseDetailTrial, {
+                                    courseId: data?.id,
+                                    currentLecture: data?.first_lecture_id
+                                })
+                            }
+                        }}
+                        isLoading={loadingVerify}>
+                        Học thử
+                    </Button>
+                </HStack>
                 <View
                     style={{
                         flexDirection: 'row',
@@ -725,82 +879,79 @@ const CourseInfo = ({ navigation, route }) => {
                             </Text>
                         </Pressable>
                     </View>
-
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center'
-                        }}>
-                        {userInfo?.id === 'trial' ? (
-                            <Button
-                                pt={2}
-                                pb={2}
-                                pr={5}
-                                pl={5}
-                                style={{
-                                    backgroundColor: '#52B553',
-                                    borderRadius: 8
-                                }}
-                                onPress={clearDataAfterLogout}>
-                                Đến trang đăng nhập
-                            </Button>
-                        ) : (
-                            <>
-                                {!data?.relational && data?.old_price ? (
-                                    <Button
-                                        pt={2}
-                                        pb={2}
-                                        pr={5}
-                                        pl={5}
-                                        style={{
-                                            backgroundColor: '#52B553',
-                                            borderRadius: 8
-                                        }}
-                                        onPress={() => {
-                                            handlePurchase()
-                                        }}
-                                        isLoading={loadingVerify}
-                                        isLoadingText="Đang vào"
-                                        leftIcon={
-                                            <>
-                                                <BookOpen
-                                                    stroke="#fff"
-                                                    size={10}
-                                                />
-                                            </>
-                                        }>
-                                        Mua ngay
-                                    </Button>
-                                ) : null}
-                                {!!data?.relational ? (
-                                    <Button
-                                        pt={2}
-                                        pb={2}
-                                        pr={5}
-                                        pl={5}
-                                        style={{
-                                            backgroundColor: '#52B553',
-                                            borderRadius: 8
-                                        }}
-                                        onPress={() => {
-                                            gotoCourse()
-                                        }}
-                                        isLoading={loadingVerify}
-                                        isLoadingText="Đang vào"
-                                        leftIcon={
-                                            <>
-                                                <BookOpen
-                                                    stroke="#fff"
-                                                    size={10}
-                                                />
-                                            </>
-                                        }>
-                                        Học ngay
-                                    </Button>
-                                ) : null}
-                            </>
-                        )}
-                    </View>
+                    {data && (
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                            {userInfo?.id === 'trial' ? (
+                                <Button
+                                    pt={2}
+                                    pb={2}
+                                    pr={5}
+                                    pl={5}
+                                    style={{
+                                        backgroundColor: '#52B553',
+                                        borderRadius: 8
+                                    }}
+                                    onPress={clearDataAfterLogout}>
+                                    Đến trang đăng nhập
+                                </Button>
+                            ) : (
+                                <>
+                                    {!data?.relational && data?.old_price ? (
+                                        <Button
+                                            pt={2}
+                                            pb={2}
+                                            pr={5}
+                                            pl={5}
+                                            style={{
+                                                backgroundColor: '#52B553',
+                                                borderRadius: 8
+                                            }}
+                                            onPress={handlePurchase}
+                                            isLoading={loadingVerify}
+                                            isLoadingText="Đang xử lý"
+                                            leftIcon={
+                                                <>
+                                                    <ShoppingCart
+                                                        stroke="#fff"
+                                                        size={10}
+                                                    />
+                                                </>
+                                            }>
+                                            Mua ngay
+                                        </Button>
+                                    ) : null}
+                                    {!!data?.relational ? (
+                                        <Button
+                                            pt={2}
+                                            pb={2}
+                                            pr={5}
+                                            pl={5}
+                                            style={{
+                                                backgroundColor: '#52B553',
+                                                borderRadius: 8
+                                            }}
+                                            onPress={gotoCourse}
+                                            isLoading={loadingVerify}
+                                            isLoadingText="Đang vào"
+                                            leftIcon={
+                                                <>
+                                                    <BookOpen
+                                                        stroke="#fff"
+                                                        size={10}
+                                                    />
+                                                </>
+                                            }>
+                                            Học ngay
+                                        </Button>
+                                    ) : null}
+                                </>
+                            )}
+                        </View>
+                    )}
                 </View>
             </SafeAreaView>
             {loadingSpinner && (
