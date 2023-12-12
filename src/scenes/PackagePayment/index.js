@@ -1,14 +1,13 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
-import { AbsoluteSpinner, Input, showToast } from 'app/atoms'
-import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
+import { AbsoluteSpinner, showToast } from 'app/atoms'
+import { COURSE_IMG_PATH } from 'app/constants'
 import { toCurrency } from 'app/helpers/utils'
 import animationImg from 'assets/animations/success.json'
 import momoLogo from 'assets/images/MoMo_Logo.png'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
 
 import creditCard from 'assets/images/credit-card.png'
 import {
@@ -55,7 +54,11 @@ const PackagePayment = ({ navigation, route }) => {
     const makePayment = ({ requestType }) => {
         setLoading(true)
         const params = {
-            redirect: `ifa_smart_training://PackagePayment?price=${price}&&title=${title}`,
+            redirect: `${
+                Platform.OS === 'ios'
+                    ? 'IfaSmartTraining'
+                    : 'ifa_smart_training'
+            }://PackagePayment?price=${price}&&title=${title}`,
             requestType,
             carts: [{ product_id: id, price, description: title }]
         }

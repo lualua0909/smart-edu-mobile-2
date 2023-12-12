@@ -9,7 +9,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
-
+import { Platform } from 'react-native'
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider, extendTheme } from 'native-base'
 
@@ -18,7 +18,10 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 const linking = {
-    prefixes: ['ifa_smart_training://']
+    prefixes:
+        Platform.OS === 'ios'
+            ? ['IfaSmartTraining://']
+            : ['ifa_smart_training://']
 }
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
