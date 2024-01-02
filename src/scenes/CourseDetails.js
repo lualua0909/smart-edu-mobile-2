@@ -70,7 +70,7 @@ const CourseInfo = ({ navigation, route }) => {
     })
     const [isLiked, setIsLiked] = useState(false)
     const course_id_ipa = `course_id_${id}`
-
+    const [currentId, setCurrentId] = useState()
     const [success, setSuccess] = useState(false)
     const [products, setProducts] = useState()
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
@@ -369,6 +369,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <LectureTab
                                 courseId={data?.id}
                                 totalLectures={data?.total_lectures}
+                                navigateToLesson={setCurrentId}
                             />
                         )}
                     </View>

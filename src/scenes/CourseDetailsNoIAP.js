@@ -59,6 +59,7 @@ const CourseInfo = ({ navigation, route }) => {
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
+    const [currentId, setCurrentId] = useState()
 
     const routes = data?.is_combo
         ? [
@@ -187,6 +188,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <LectureTab
                                 courseId={data?.id}
                                 totalLectures={data?.total_lectures}
+                                navigateToLesson={setCurrentId}
                             />
                         )}
                     </View>

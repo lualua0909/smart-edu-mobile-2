@@ -1,15 +1,15 @@
 import { useGlobalState } from 'app/Store'
-import { NoData } from 'app/atoms'
-import ComingExam from 'app/components/ComingExamCard'
+// import { NoData } from 'app/atoms'
+// import ComingExam from 'app/components/ComingExamCard'
 import CourseItem from 'app/components/CourseItem'
-import CourseOverviewChart from 'app/components/CourseOverviewChart'
-import FriendItem from 'app/components/FriendItem'
-import TeacherItem from 'app/components/TeacherItem'
+// import CourseOverviewChart from 'app/components/CourseOverviewChart'
+// import FriendItem from 'app/components/FriendItem'
+// import TeacherItem from 'app/components/TeacherItem'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import animationImg from 'assets/animations/dashboard.json'
-import { svgBlackHome, svgBlueViewMore, svgFourSquares } from 'assets/svg'
-import React, { useState } from 'react'
+import { svgBlueViewMore, svgFourSquares } from 'assets/svg'
+import React from 'react'
 
 import LottieView from 'lottie-react-native'
 import { FlatList, StyleSheet } from 'react-native'
@@ -19,8 +19,8 @@ import { ScrollView } from 'react-native-virtualized-view'
 import { Center, Pressable, Text, View } from 'native-base'
 
 const Overview = ({ navigation }) => {
-    const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
-    const [selectedCourse, setSelectedCourse] = useState()
+    const [dashboardInfo, _setDashboardInfo] = useGlobalState('dashboardInfo')
+    // const [selectedCourse, setSelectedCourse] = useState()
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -113,16 +113,16 @@ const Overview = ({ navigation }) => {
                     title="Bảng tin hệ thống"
                     data={dashboardInfo?.newest_sys_notifs}
                 />
-                <View
+                {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={styles.formTitle}>Thống kê</Text>
-                        {/* <Pressable
+                        <Pressable
                             style={{
                                 flex: 1,
                                 marginLeft: scale(14),
@@ -133,16 +133,13 @@ const Overview = ({ navigation }) => {
                                 paddingHorizontal: scale(12),
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
+                                justifyContent: 'center'
+                            }}>
                             <Text
                                 style={{
-                                    
                                     fontSize: scale(13),
-                                    color:'#6C746E',
-                                }}
-                            >
+                                    color: '#6C746E'
+                                }}>
                                 01/11/2021
                             </Text>
                             <SvgXml
@@ -152,11 +149,9 @@ const Overview = ({ navigation }) => {
                             />
                             <Text
                                 style={{
-                                    
                                     fontSize: scale(13),
-                                    color:'#6C746E',
-                                }}
-                            >
+                                    color: '#6C746E'
+                                }}>
                                 01/11/2021
                             </Text>
                             <SvgXml
@@ -165,7 +160,7 @@ const Overview = ({ navigation }) => {
                                 height={scale(16)}
                                 style={{ marginLeft: scale(3) }}
                             />
-                        </Pressable> */}
+                        </Pressable>
                     </View>
                     <View>
                         <CourseOverviewChart
@@ -200,11 +195,11 @@ const Overview = ({ navigation }) => {
                             </Text>
                         </Text>
                     </View>
-                </View>
+                </View> */}
                 {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
@@ -411,7 +406,7 @@ const Overview = ({ navigation }) => {
                 {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
@@ -453,7 +448,7 @@ const Overview = ({ navigation }) => {
                 <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16),
                         paddingBottom: 0
                     }}>
@@ -512,7 +507,7 @@ const Overview = ({ navigation }) => {
                 {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16),
                         paddingBottom: 0
                     }}>
@@ -553,7 +548,7 @@ const Overview = ({ navigation }) => {
                 {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
@@ -596,7 +591,7 @@ const Overview = ({ navigation }) => {
                 {/* <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
@@ -669,7 +664,7 @@ const Notifications = ({ title, data }) => {
                 <View
                     style={{
                         borderTopWidth: scale(12),
-                        borderTopColor: '#f4f4f4',
+                        borderTopColor: '#fff',
                         padding: scale(16)
                     }}>
                     <View
