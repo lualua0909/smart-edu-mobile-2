@@ -53,9 +53,7 @@ const AppNavigator = () => {
         <Stack.Navigator
             screenOptions={{
                 headerStyle: {
-                    elevation: 0,
-                    borderBottomWidth: 1,
-                    borderBottomColor: '#f0f0f0'
+                    elevation: 0
                 },
                 cardStyle: { backgroundColor: '#fff' },
                 ...TransitionPresets.SlideFromRightIOS,

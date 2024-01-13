@@ -5,9 +5,10 @@ import {
     CourseDetailSkeleton,
     NoData,
     Rate,
+    VideoViewer,
     showToast
 } from 'app/atoms'
-import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
+import { APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
 import ComboTeacherTab from 'app/containers/ComboTeacherTab'
@@ -19,12 +20,11 @@ import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { BackHandler, Dimensions, Linking, Share } from 'react-native'
+import { BackHandler, Linking, Share } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-import { WebView } from 'react-native-webview'
 
 import HeaderBack from 'app/components/header-back'
 import HeaderBackParent from 'app/components/header-back/backToParent'
@@ -38,9 +38,6 @@ import {
     VStack,
     View
 } from 'native-base'
-
-const w = Dimensions.get('window').width
-const h = Dimensions.get('window').height
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -432,12 +429,9 @@ const CourseInfo = ({ navigation, route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
-                    <WebView
-                        originWhitelist={['*']}
-                        source={{
-                            uri: `${API_URL}public/${data?.video_path}`
-                        }}
-                        style={{ height: 200, width: Math.min(w, h) }}
+                    <VideoViewer
+                        videoUrl={data?.video_path}
+                        poster={`${COURSE_IMG_PATH}${data?.id}.webp`}
                     />
                 ) : (
                     <Image
@@ -447,10 +441,10 @@ const CourseInfo = ({ navigation, route }) => {
                         }}
                         style={{
                             width: '100%',
-                            height: scale(200),
-                            borderTopLeftRadius: scale(10),
-                            borderTopRightRadius: scale(10)
+                            height: scale(200)
                         }}
+                        alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
+                        fallbackSource={require('assets/images/fallback.jpg')}
                     />
                 )}
                 <View

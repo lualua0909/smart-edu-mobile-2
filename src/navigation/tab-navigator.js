@@ -1,4 +1,4 @@
-import { useGlobalState } from 'app/Store'
+import { getGlobalState } from 'app/Store'
 import CourseList from 'app/scenes/CourseList'
 import Dashboard from 'app/scenes/Dashboard'
 import Home from 'app/scenes/Home'
@@ -15,13 +15,13 @@ import React from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import HeaderTitle from '../components/header-title'
 import BottomTabButton from 'app/components/tabbar-button'
-import { Text } from 'native-base'
 
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = ({}) => {
-    const [userInfo, setUserInfo] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -48,7 +48,7 @@ const TabNavigator = ({}) => {
                 }}
             />
             <Tab.Screen
-                name={'CourseList'}
+                name="CourseList"
                 component={CourseList}
                 options={({ route, navigation }) => ({
                     tabBarButton: props => (
@@ -83,13 +83,7 @@ const TabNavigator = ({}) => {
                 options={({ route, navigation }) => ({
                     headerShown: true,
                     headerTitle: () => (
-                        <Text
-                            bold
-                            style={{
-                                fontSize: 18
-                            }}>
-                            Danh sách thông báo
-                        </Text>
+                        <HeaderTitle title="Danh sách thông báo" />
                     ),
                     tabBarButton: props => (
                         <BottomTabButton

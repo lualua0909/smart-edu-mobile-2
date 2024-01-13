@@ -1,11 +1,11 @@
-import { useGlobalState } from 'app/Store'
+import { getGlobalState } from 'app/Store'
 import React from 'react'
 
 import AppNavigator from './app-navigator'
 import AuthNavigator from './auth-navigator'
 
 const SwitchNavigator = () => {
-    const [userInfo, setUserInfo] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
     return userInfo?.token ? <AppNavigator /> : <AuthNavigator />
 }
 

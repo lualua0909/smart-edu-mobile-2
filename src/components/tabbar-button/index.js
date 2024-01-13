@@ -1,4 +1,4 @@
-import { useGlobalState } from 'app/Store'
+import { setGlobalState } from 'app/Store'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
@@ -16,7 +16,7 @@ const TabbarButton = ({
     disabled = false
 }) => {
     const iconSize = focused ? scale(20) : scale(18)
-    const [visible, setVisible] = useGlobalState('visibleNotLogin')
+    const setVisible = setGlobalState('visibleNotLogin')
 
     return (
         <Pressable

@@ -30,9 +30,6 @@ const TeacherItem = ({ item, index }) => {
             style={{
                 flexDirection: 'row',
                 marginBottom: scale(8),
-                borderColor: '#eee',
-                borderWidth: 1,
-                borderRadius: scale(16),
                 padding: scale(8)
             }}>
             <View style={{ width: scale(114), height: scale(114) }}>

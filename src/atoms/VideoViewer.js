@@ -1,6 +1,6 @@
 import { Loading } from 'app/atoms'
 import { API_URL } from 'app/constants'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Dimensions } from 'react-native'
 import Video from 'react-native-video'
@@ -23,72 +23,68 @@ const frameStyle = {
     border: 'none'
 }
 
-export default ({ videoUrl }) => {
+export default ({ videoUrl, poster }) => {
     const [loading, setLoading] = useState(false)
-
+    const videoRef = useRef(null)
     const isBunnyVideo = videoUrl?.includes('iframe.mediadelivery.net')
     const isYoutube = videoUrl?.includes('youtube.com')
 
-    const embedLink = isYoutube
-        ? videoUrl?.replace('/watch?v=', '/embed/') + '?autoplay=1'
-        : isBunnyVideo
-        ? videoUrl
-        : API_URL + '/public/' + videoUrl
-
     if (loading) {
-        return <Loading title="Đang tải video" />
+        return <Loading title={'Đang tải video'} />
     }
 
+    useEffect(() => {
+        return () => {
+            videoRef.current.seek(0)
+        }
+    }, [])
+
+    if (isYoutube)
+        return (
+            <WebView
+                originWhitelist={['*']}
+                source={{
+                    uri:
+                        videoUrl?.replace('/watch?v=', '/embed/') +
+                        '?autoplay=1'
+                }}
+                style={frameStyle}
+                onLoadStart={syntheticEvent => {
+                    setLoading(true)
+                }}
+                onLoadEnd={syntheticEvent => {
+                    setLoading(false)
+                }}
+            />
+        )
+
+    if (isBunnyVideo)
+        return (
+            <WebView
+                originWhitelist={['*']}
+                source={{
+                    html: videoUrl
+                }}
+                style={frameStyle}
+                onLoadStart={syntheticEvent => {
+                    setLoading(true)
+                }}
+                onLoadEnd={syntheticEvent => {
+                    setLoading(false)
+                }}
+            />
+        )
+
     return (
-        <>
-            {/* {loading && <Loading title="Đang tải video" />} */}
-            {isYoutube ? (
-                <WebView
-                    originWhitelist={['*']}
-                    source={{
-                        uri: embedLink
-                    }}
-                    style={frameStyle}
-                    onLoadStart={syntheticEvent => {
-                        setLoading(true)
-                    }}
-                    onLoadEnd={syntheticEvent => {
-                        setLoading(false)
-                    }}
-                />
-            ) : isBunnyVideo ? (
-                <WebView
-                    originWhitelist={['*']}
-                    source={{
-                        html: embedLink
-                    }}
-                    style={frameStyle}
-                    onLoadStart={syntheticEvent => {
-                        setLoading(true)
-                    }}
-                    onLoadEnd={syntheticEvent => {
-                        setLoading(false)
-                    }}
-                />
-            ) : (
-                <Video
-                    controls
-                    source={{
-                        uri: embedLink
-                    }} // Can be a URL or a local file.
-                    style={{ height: 200, width: '100%' }}
-                    onLoadStart={() => setLoading(true)}
-                    onLoad={() => {
-                        setLoading(false)
-                    }}
-                    onEnd={() => {
-                        setLoading(false)
-                    }}
-                    onReadyForDisplay={() => {
-                        setLoading(false)
-                    }}
-                />
-            )}
-        </>
+        <Video
+            ref={videoRef}
+            poster={poster}
+            controls
+            ignoreSilentSwitch="ignore"
+            source={{
+                uri: `${API_URL}/public/${videoUrl}`
+            }} // Can be a URL or a local file.
+            style={{ height: 200, width: '100%' }}
+        />
     )
 }

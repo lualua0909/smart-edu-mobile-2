@@ -5,9 +5,10 @@ import {
     Avatar,
     CourseDetailSkeleton,
     Rate,
+    VideoViewer,
     showToast
 } from 'app/atoms'
-import { API_URL, APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
+import { APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
 import CommentTab from 'app/containers/CommentTab'
@@ -41,7 +42,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-import Video from 'react-native-video'
 
 import {
     Button,
@@ -530,36 +530,23 @@ const CourseInfo = ({ navigation, route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}>
                 {data?.video_path ? (
-                    <>
-                        <Video
-                            paused
-                            controls
-                            source={{
-                                uri: `${API_URL}public/${data?.video_path}`.replace(
-                                    /\s/g,
-                                    '%20'
-                                )
-                            }} // Can be a URL or a local file.
-                            onBuffer={() => {}} // Callback when remote video is buffering
-                            onError={() => {}} // Callback when video cannot be loaded
-                            style={{ height: 200, width: '100%' }}
-                        />
-                    </>
+                    <VideoViewer
+                        videoUrl={data?.video_path}
+                        poster={`${COURSE_IMG_PATH}${data?.id}.webp`}
+                    />
                 ) : (
-                    <>
-                        <Image
-                            resizeMode="contain"
-                            source={{
-                                uri: `${COURSE_IMG_PATH}${data?.id}.webp`
-                            }}
-                            style={{
-                                width: '100%',
-                                height: scale(200)
-                            }}
-                            alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
-                            fallbackSource={require('assets/images/fallback.jpg')}
-                        />
-                    </>
+                    <Image
+                        resizeMode="contain"
+                        source={{
+                            uri: `${COURSE_IMG_PATH}${data?.id}.webp`
+                        }}
+                        style={{
+                            width: '100%',
+                            height: scale(200)
+                        }}
+                        alt={`${COURSE_IMG_PATH}${data?.id}.webp`}
+                        fallbackSource={require('assets/images/fallback.jpg')}
+                    />
                 )}
                 <View
                     style={{

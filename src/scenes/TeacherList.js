@@ -199,8 +199,7 @@ const Teacher = ({}) => {
                             autoPlay
                             loop
                             style={{
-                                width: 500,
-                                height: 200
+                                height: 150
                             }}
                         />
                     </Center>
