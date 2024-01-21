@@ -9,6 +9,9 @@ import { LayoutAnimation, Platform } from 'react-native'
 require('dayjs/locale/vi')
 dayjs.extend(relativeTime)
 
+export const isAndroid = Platform.OS === 'android'
+export const isIOS = Platform.OS === 'ios'
+
 export const debounce = (func, wait, immediate) => {
     var timeout
     return function () {
@@ -45,7 +48,8 @@ export const animateNextTransition = debounce(
 )
 
 export const toCurrency = value => {
-    return String(value || 0).replace(/(.)(?=(\d{3})+$)/g, '$1,')
+    const newPrice = isIOS ? value * 1.3 : value
+    return String(newPrice || 0).replace(/(.)(?=(\d{3})+$)/g, '$1,')
 }
 
 export const toRelativeTime = (date, noSuffix = false) => {
@@ -139,5 +143,3 @@ export const errorLog = ({
 }) => {
     console.error('An error happened', message, error)
 }
-
-export const isAndroid = Platform.OS === 'android'
