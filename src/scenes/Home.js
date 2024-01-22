@@ -40,7 +40,6 @@ const Home = ({ navigation }) => {
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
     const [showModal, setShowModal] = useState(false)
-    const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
     useEffect(() => {
         if (userInfo?.id !== 'trial') {
@@ -305,7 +304,7 @@ const Home = ({ navigation }) => {
                                             }
                                         )
                                     } else {
-                                        setVisible(true)
+                                        useGlobalState('visibleNotLogin', true)
                                     }
                                 }}
                                 style={{

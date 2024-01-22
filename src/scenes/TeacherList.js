@@ -1,6 +1,5 @@
 import axios from 'app/Axios'
-import { Radio } from 'app/atoms'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation, Radio } from 'app/atoms'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import { svgGreenTeacher } from 'assets/svg'
@@ -17,13 +16,13 @@ import { ScrollView } from 'react-native-virtualized-view'
 import animationBanner from 'assets/animations/online-learning.json'
 import { Center, Input, Pressable, Text, View } from 'native-base'
 
-const Teacher = ({}) => {
+const Teacher = () => {
     const [visibleFilter, setVisibleFilter] = useState(false)
     const [orderBy, setOrderBy] = useState('asc')
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
-    const [refreshing, setRefreshing] = useState(false)
+    const [refreshing] = useState(false)
     const [page, setPage] = useState(0)
 
     const getData = () => {
@@ -36,9 +35,10 @@ const Teacher = ({}) => {
             .then(res => {
                 if (res.data.status === 200) {
                     const list = res?.data?.data
-                    setData(Array.isArray(data) ? [...data, ...list] : list)
+                    if (Array.isArray(list)) {
+                        setData(Array.isArray(data) ? [...data, ...list] : list)
+                    }
                 }
-                console.log('res', res)
             })
             .catch(err => {
                 console.log(err)
@@ -59,10 +59,6 @@ const Teacher = ({}) => {
     useEffect(() => {
         setData([])
     }, [orderBy, search])
-
-    // const handleLoadMore = () => {
-    //     setPage(page + 1)
-    // }
 
     const filterModal = (
         <Modal
@@ -367,11 +363,10 @@ const Teacher = ({}) => {
                             style={{
                                 marginTop: scale(16)
                             }}>
-                            {loading ? (
-                                <LoadingAnimation />
-                            ) : data?.length ? (
+                            {loading && <LoadingAnimation />}
+                            {data?.length > 0 ? (
                                 <FlatList
-                                    data={data || []}
+                                    data={data}
                                     keyExtractor={(_, index) =>
                                         index.toString()
                                     }
@@ -382,20 +377,16 @@ const Teacher = ({}) => {
                                         paddingRight: 16,
                                         paddingBottom: scale(20)
                                     }}
-                                    renderItem={({ item, index }) => (
-                                        <TeacherItem
-                                            index={index}
-                                            item={item}
-                                        />
-                                    )}
+                                    renderItem={({ item }) => {
+                                        return <TeacherItem item={item} />
+                                    }}
                                     // onEndReached={handleLoadMore}
                                 />
                             ) : (
                                 <NoDataAnimation
                                     style={{
                                         marginTop: 20,
-                                        width: 800,
-                                        height: 300
+                                        height: 200
                                     }}
                                 />
                             )}

@@ -2,7 +2,6 @@ import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import Carts from 'app/scenes/Carts'
 import CertificateList from 'app/scenes/CertificateList'
-import MyCertificatesScreen from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
@@ -10,9 +9,7 @@ import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
 import CourseDetailsNoIAP from 'app/scenes/CourseDetailsNoIAP'
 import CoursesByUser from 'app/scenes/CoursesByUser'
-import MyCoursesScreen from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
-import FriendListScreen from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
 import Language from 'app/scenes/Language'
 import LearningHistory from 'app/scenes/LearningHistory'
@@ -172,7 +169,7 @@ const AppNavigator = () => {
                 />
                 <Stack.Screen
                     name="MyCourses"
-                    component={MyCoursesScreen}
+                    component={CoursesByUser}
                     options={({ route, navigation }) => ({
                         headerTitle: () => (
                             <HeaderTitle title={'Khóa học của tôi'} />
@@ -182,7 +179,7 @@ const AppNavigator = () => {
                 />
                 <Stack.Screen
                     name="MyCertificates"
-                    component={MyCertificatesScreen}
+                    component={CertificateList}
                     options={({ route, navigation }) => ({
                         headerTitle: () => (
                             <HeaderTitle title={'Danh sách chứng chỉ'} />
@@ -201,7 +198,7 @@ const AppNavigator = () => {
                 />
                 <Stack.Screen
                     name="FriendList"
-                    component={FriendListScreen}
+                    component={Friends}
                     options={({ route, navigation }) => ({
                         headerTitle: () => (
                             <HeaderTitle title={'Danh sách bạn bè'} />

@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@jeremybarbet/apple-api-types": "^1.4.0",
-        "@react-native-community/datetimepicker": "^6.6.0",
+        "@react-native-community/datetimepicker": "^7.6.2",
         "@react-native-firebase/app": "^14.9.1",
         "@react-native-firebase/firestore": "^14.9.1",
         "@react-native-firebase/messaging": "^14.9.1",

@@ -23,20 +23,25 @@ const Register = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
 
     const verify = () => {
-        if (firstName.value == '') {
-            showToast({ title: 'First name is required', status: 'error' })
+        // if (firstName.value == '') {
+        //     showToast({ title: 'First name is required', status: 'error' })
+        //     return false
+        // } else if (lastName.value == '') {
+        //     showToast({ title: 'Last name is required', status: 'error' })
+        //     return false
+        // } else
+        if (email.value == '') {
+            showToast({ title: 'Vui lòng nhập email', status: 'error' })
             return false
-        } else if (lastName.value == '') {
-            showToast({ title: 'Last name is required', status: 'error' })
-            return false
-        } else if (email.value == '') {
-            showToast({ title: 'Email is required', status: 'error' })
-            return false
-        } else if (username.value == '') {
-            showToast({ title: 'Username is required', status: 'error' })
-            return false
-        } else if (password.value == '') {
-            showToast({ title: 'Password is required', status: 'error' })
+        }
+
+        // else if (username.value == '') {
+        //     showToast({ title: 'Username is required', status: 'error' })
+        //     return false
+        // } else
+
+        if (password.value == '') {
+            showToast({ title: 'Vui lòng nhập mật khẩu', status: 'error' })
             return false
         }
         return true
@@ -47,11 +52,11 @@ const Register = ({ navigation }) => {
             setLoading(true)
             axios
                 .post('register', {
-                    first_name: firstName.value,
-                    last_name: lastName.value,
-                    phone: phone.value,
+                    first_name: email.value,
+                    last_name: '',
+                    phone: '',
                     email: email.value,
-                    username: username.value,
+                    username: email.value,
                     password: password.value
                 })
                 .then(res => {
@@ -119,7 +124,7 @@ const Register = ({ navigation }) => {
                             w="100%"
                             alignItems="center"
                             style={{ marginTop: scale(16) }}>
-                            <Input
+                            {/* <Input
                                 allowClear
                                 InputLeftElement={
                                     <User
@@ -158,7 +163,7 @@ const Register = ({ navigation }) => {
                                 keyboardType="phone-pad"
                                 placeholder="Số điện thoại"
                                 {...phone}
-                            />
+                            /> */}
                             <Input
                                 allowClear
                                 InputLeftElement={
@@ -173,7 +178,7 @@ const Register = ({ navigation }) => {
                                 keyboardType="email-address"
                                 {...email}
                             />
-                            <Input
+                            {/* <Input
                                 allowClear
                                 InputLeftElement={
                                     <Shield
@@ -185,7 +190,7 @@ const Register = ({ navigation }) => {
                                 }
                                 placeholder="Tên đăng nhập"
                                 {...username}
-                            />
+                            /> */}
                             <Input
                                 allowClear
                                 InputLeftElement={

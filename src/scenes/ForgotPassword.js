@@ -1,4 +1,5 @@
 import axios from 'app/Axios'
+import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
@@ -8,9 +9,10 @@ import React, { useState } from 'react'
 import { Image, ScrollView } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
+import HeaderBack from '../components/header-back'
 import { Button, Center, Icon, Input, Text, View } from 'native-base'
 
-const ForgotPassword = ({ navigation }) => {
+const ForgotPassword = () => {
     const email = useFormInput('')
     const [loading, setLoading] = useState(false)
 
@@ -63,6 +65,14 @@ const ForgotPassword = ({ navigation }) => {
                     }}
                     resizeMode="cover"
                     alt="image"
+                />
+                <HeaderBack
+                    white
+                    style={{
+                        position: 'absolute',
+                        top: 50,
+                        left: 0
+                    }}
                 />
                 <View
                     style={{
@@ -127,31 +137,9 @@ const ForgotPassword = ({ navigation }) => {
                                 Quên mật khẩu
                             </Button>
                         </Center>
-                        {/* <Pressable
-                            onPress={() => navigation.navigate(ROUTES.Register)}
-                            style={{
-                                alignSelf: 'center',
-                                marginTop: scale(39)
-                            }}>
-                            <Text
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#1D1D1D',
-                                    textAlign: 'center'
-                                }}>
-                                Bạn chưa có tài khoản?{' '}
-                                <Text
-                                    style={{
-                                        fontSize: scale(14),
-                                        color: '#0075FF',
-                                        textDecorationLine: 'underline'
-                                    }}>
-                                    Đăng ký ngay
-                                </Text>
-                            </Text>
-                        </Pressable> */}
                     </View>
                 </View>
+                <Trial />
             </ScrollView>
         </View>
     )

@@ -6,7 +6,7 @@ import { Dimensions, Pressable } from 'react-native'
 
 import { ChevronLeftIcon } from 'native-base'
 
-const HeaderBack = ({ white = false, whiteBg = false }) => {
+const HeaderBack = ({ white = false, style }) => {
     const navigation = useNavigation()
 
     return (
@@ -16,7 +16,8 @@ const HeaderBack = ({ white = false, whiteBg = false }) => {
             style={{
                 marginLeft: scale(15),
                 backgroundColor: 'transparent',
-                borderRadius: Dimensions.get('window').width * 0.5
+                borderRadius: Dimensions.get('window').width * 0.5,
+                ...style
             }}>
             <ChevronLeftIcon size={22} color={white ? 'white' : '#0E564D'} />
         </Pressable>

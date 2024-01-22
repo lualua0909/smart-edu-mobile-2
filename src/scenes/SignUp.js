@@ -2,7 +2,7 @@ import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
 import { Input, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
-import { ROUTES, STYLES } from 'app/constants'
+import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { storeData } from 'app/helpers/utils'
@@ -12,6 +12,7 @@ import messaging from '@react-native-firebase/messaging'
 import { Image } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
 
+import HeaderBack from 'app/components/header-back'
 import {
     Button,
     Center,
@@ -22,9 +23,10 @@ import {
     View
 } from 'native-base'
 
-const Login = ({ navigation }) => {
+const SignUp = () => {
     const username = useFormInput('')
     const password = useFormInput('')
+    const email = useFormInput('')
     const [loading, setLoading] = useState(false)
     const [fcmToken, setFcmToken] = useState()
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
@@ -87,7 +89,7 @@ const Login = ({ navigation }) => {
                 .finally(() => setLoading(false))
         } else {
             showToast({
-                title: 'Vui lòng nhập đầy đủ thông tin',
+                title: 'Vui lòng nhập tài khoản và mật khẩu',
                 status: 'error'
             })
         }
@@ -114,6 +116,14 @@ const Login = ({ navigation }) => {
                     alt="image"
                     resizeMode="cover"
                 />
+                <HeaderBack
+                    white
+                    style={{
+                        position: 'absolute',
+                        top: 50,
+                        left: 0
+                    }}
+                />
                 <View
                     style={{
                         paddingHorizontal: scale(30),
@@ -137,15 +147,7 @@ const Login = ({ navigation }) => {
                                 fontSize: scale(16),
                                 textAlign: 'center'
                             }}>
-                            ĐĂNG NHẬP
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: scale(15),
-                                textAlign: 'center',
-                                color: '#6C746E'
-                            }}>
-                            Chào mừng bạn đến với SmartEdu
+                            ĐĂNG KÝ TÀI KHOẢN
                         </Text>
                         <Stack
                             space={4}
@@ -162,8 +164,8 @@ const Login = ({ navigation }) => {
                                         style={{ marginLeft: 10 }}
                                     />
                                 }
-                                placeholder="Tài khoản"
-                                {...username}
+                                placeholder="Email"
+                                {...email}
                                 blurOnSubmit={true}
                             />
                             <Input
@@ -202,62 +204,18 @@ const Login = ({ navigation }) => {
                                 }
                             />
                         </Stack>
-                        <Pressable
-                            onPress={() =>
-                                navigation.navigate(ROUTES.ForgotPassword)
-                            }
-                            hitSlop={20}
-                            style={{
-                                marginTop: 10,
-                                alignSelf: 'flex-end'
-                            }}>
-                            <Text
-                                bold
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#23B55D',
-                                    textDecorationLine: 'underline'
-                                }}>
-                                Quên mật khẩu?
-                            </Text>
-                        </Pressable>
                         <Center>
                             <Button
                                 size="md"
                                 isLoading={loading}
-                                isLoadingText="Đang đăng nhập"
+                                isLoadingText="Đang xử lý"
                                 style={{
                                     marginTop: scale(16)
                                 }}
                                 onPress={doLogin}>
-                                Đăng nhập
+                                Đăng ký
                             </Button>
                         </Center>
-
-                        <Pressable
-                            onPress={() => navigation.navigate(ROUTES.Register)}
-                            style={{
-                                alignSelf: 'center',
-                                marginTop: scale(16)
-                            }}>
-                            <Text
-                                style={{
-                                    fontSize: 14,
-                                    color: '#6C746E',
-                                    textAlign: 'center'
-                                }}>
-                                Bạn chưa có tài khoản?{' '}
-                                <Text
-                                    bold
-                                    style={{
-                                        fontSize: scale(14),
-                                        color: '#23B55D',
-                                        textDecorationLine: 'underline'
-                                    }}>
-                                    Đăng ký ngay
-                                </Text>
-                            </Text>
-                        </Pressable>
                     </View>
                 </View>
                 <Trial />
@@ -266,4 +224,4 @@ const Login = ({ navigation }) => {
     )
 }
 
-export default Login
+export default SignUp

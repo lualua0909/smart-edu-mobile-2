@@ -16,7 +16,6 @@ const TabbarButton = ({
     disabled = false
 }) => {
     const iconSize = focused ? scale(20) : scale(18)
-    const setVisible = setGlobalState('visibleNotLogin')
 
     return (
         <Pressable
@@ -27,7 +26,7 @@ const TabbarButton = ({
                 justifyContent: 'flex-end'
             }}
             onPress={() => {
-                if (disabled) setVisible(true)
+                if (disabled) setGlobalState('visibleNotLogin', true)
                 else props.onPress()
             }}>
             {focused ? (
