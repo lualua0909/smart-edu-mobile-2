@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { getGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
@@ -14,29 +14,28 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { Camera, UserX } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import {
     AlertDialog,
     Button,
     Center,
     HStack,
-    Icon,
     Image,
     Pressable,
     Radio,
+    ScrollView,
     VStack,
     View
 } from 'native-base'
 
 const ProfileInfo = ({}) => {
-    const [userInfo, _] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
     const [avtUploaded, setAvtUploaded] = useState()
     const [bannerUploaded, setBannerUploaded] = useState()
     const [errors, setErrors] = useState({})
-    const [random, setRandom] = useGlobalState('random')
+    const random = getGlobalState('random')
     const [isOpen, setIsOpen] = useState(false)
 
     const onClose = () => {
@@ -145,7 +144,7 @@ const ProfileInfo = ({}) => {
 
     return (
         <>
-            <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <AbsoluteSpinner loading={loading} />
                 <View
                     style={{
@@ -281,10 +280,9 @@ const ProfileInfo = ({}) => {
                             />
                             <Input
                                 label="Email"
-                                isDisabled
                                 w={'100%'}
-                                value={data?.email}
-                                error={errors?.email}
+                                value={data.email}
+                                isDisabled
                             />
                             <Radio.Group
                                 value={data?.gender}

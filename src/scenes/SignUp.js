@@ -1,78 +1,41 @@
 import axios from 'app/Axios'
-import { setGlobalState, useGlobalState } from 'app/Store'
 import { Input, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
-import { storeData } from 'app/helpers/utils'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import messaging from '@react-native-firebase/messaging'
 import { Image } from 'react-native'
-import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
+import { Shield } from 'react-native-feather'
 
 import HeaderBack from 'app/components/header-back'
-import {
-    Button,
-    Center,
-    Pressable,
-    ScrollView,
-    Stack,
-    Text,
-    View
-} from 'native-base'
+import { Button, Center, ScrollView, Stack, Text, View } from 'native-base'
 
 const SignUp = () => {
-    const username = useFormInput('')
-    const password = useFormInput('')
-    const email = useFormInput('')
+    const mailInput = useFormInput('')
     const [loading, setLoading] = useState(false)
-    const [fcmToken, setFcmToken] = useState()
-    const [userInfo, setUserInfo] = useGlobalState('userInfo')
-    const [random, setRandom] = useGlobalState('random')
-    const [show, setShow] = useState(false)
-
-    const getNewToken = async () => {
-        try {
-            const authorizationStatus = await messaging().requestPermission({
-                sound: false,
-                announcement: true,
-                provisional: true
-            })
-
-            if (authorizationStatus) {
-                console.log('Permission status:', authorizationStatus)
-            }
-            const token = await messaging().getToken()
-            if (token) {
-                console.log('token = ', token)
-                setFcmToken(token)
-            }
-        } catch (error) {
-            console.log('error = ', error)
-        }
-    }
-    useEffect(() => {
-        getNewToken()
-        setGlobalState('isShow', true)
-    }, [])
 
     const doLogin = () => {
-        if (username.value.length > 0 && password.value.length > 0) {
+        const email = mailInput.value.toLowerCase()
+        const emailRegex = /\S+@\S+\.\S+/
+        if (!emailRegex.test(email)) {
+            showToast({
+                title: 'Lỗi',
+                description: 'Email không hợp lệ',
+                status: 'error'
+            })
+            return
+        }
+
+        if (email) {
             setLoading(true)
             axios
-                .post('login', {
-                    username: username.value.toLowerCase(),
-                    password: password.value,
-                    mobile_fcm_token: fcmToken,
-                    is_mobile: true
+                .post('register-mobile', {
+                    email
                 })
                 .then(res => {
                     if (res.data.status === 200) {
-                        setUserInfo(res?.data)
-                        setRandom(Math.random())
-                        storeData('@userInfo', res?.data)
                     } else {
                         showToast({
                             title: res.data.message,
@@ -89,7 +52,8 @@ const SignUp = () => {
                 .finally(() => setLoading(false))
         } else {
             showToast({
-                title: 'Vui lòng nhập tài khoản và mật khẩu',
+                title: 'Lỗi',
+                description: 'Vui lòng nhập dày đủ thông tin',
                 status: 'error'
             })
         }
@@ -127,8 +91,7 @@ const SignUp = () => {
                 <View
                     style={{
                         paddingHorizontal: scale(30),
-                        zIndex: 1,
-                        marginTop: scale(90)
+                        zIndex: 1
                     }}>
                     <View
                         style={[
@@ -165,43 +128,8 @@ const SignUp = () => {
                                     />
                                 }
                                 placeholder="Email"
-                                {...email}
+                                {...mailInput}
                                 blurOnSubmit={true}
-                            />
-                            <Input
-                                allowClear
-                                InputLeftElement={
-                                    <Lock
-                                        width={18}
-                                        height={18}
-                                        color="#555"
-                                        style={{ marginLeft: 10 }}
-                                    />
-                                }
-                                type={show ? 'text' : 'password'}
-                                placeholder="Mật khẩu"
-                                {...password}
-                                blurOnSubmit={true}
-                                onSubmitEditing={doLogin}
-                                InputRightElement={
-                                    <Pressable onPress={() => setShow(!show)}>
-                                        {show ? (
-                                            <Eye
-                                                width={18}
-                                                height={18}
-                                                color="#555"
-                                                style={{ marginRight: 10 }}
-                                            />
-                                        ) : (
-                                            <EyeOff
-                                                width={18}
-                                                height={18}
-                                                color="#555"
-                                                style={{ marginRight: 10 }}
-                                            />
-                                        )}
-                                    </Pressable>
-                                }
                             />
                         </Stack>
                         <Center>

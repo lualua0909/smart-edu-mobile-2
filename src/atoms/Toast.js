@@ -63,9 +63,9 @@ export default ({
                     {...{
                         id,
                         status,
-                        title: description !== '' ? title : 'Thông báo',
+                        title: title || 'Thông báo',
                         variant: 'top-accent',
-                        description: description || title
+                        description
                     }}
                 />
             )
