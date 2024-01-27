@@ -621,7 +621,9 @@ const CourseInfo = ({ navigation, route }) => {
                                 }}>
                                 Khóa học gồm{' '}
                                 <Text>
-                                    {data?.total_lectures || 0} bài giảng
+                                    {data?.is_combo
+                                        ? `${data?.combo?.length} khóa học con`
+                                        : `${data?.total_lectures} bài giảng`}
                                 </Text>
                             </Text>
                         </View>

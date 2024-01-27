@@ -498,31 +498,31 @@ const CourseInfo = ({ navigation, route }) => {
                         {data?.s_des}
                     </Text>
                     <View style={{ marginTop: scale(16) }}>
-                        {!data?.is_combo && (
-                            <View
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                            <SvgXml
+                                xml={svgNote}
+                                width={scale(24)}
+                                height={scale(24)}
+                            />
+                            <Text
                                 style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center'
-                                }}>
-                                <SvgXml
-                                    xml={svgNote}
-                                    width={scale(24)}
-                                    height={scale(24)}
-                                />
-                                <Text
-                                    style={{
-                                        marginLeft: scale(9),
+                                    marginLeft: scale(9),
 
-                                        fontSize: scale(16),
-                                        color: '#6C746E'
-                                    }}>
-                                    Khóa học gồm{' '}
-                                    <Text>
-                                        {data?.total_lectures || 0} bài giảng
-                                    </Text>
+                                    fontSize: scale(16),
+                                    color: '#6C746E'
+                                }}>
+                                Khóa học gồm{' '}
+                                <Text>
+                                    {data?.is_combo
+                                        ? `${data?.combo?.length} khóa học con`
+                                        : `${data?.total_lectures} bài giảng`}
                                 </Text>
-                            </View>
-                        )}
+                            </Text>
+                        </View>
                         <View
                             style={{
                                 flexDirection: 'row',
