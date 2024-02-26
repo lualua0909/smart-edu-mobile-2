@@ -60,22 +60,7 @@ const FriendList = ({}) => {
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
             }>
             {data?.length ? (
-                <FlatList
-                    data={data || []}
-                    keyExtractor={(_, index) => index.toString()}
-                    renderItem={({ item, index }) => (
-                        <FriendItem index={index} item={item} />
-                    )}
-                    contentContainerStyle={{
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        paddingBottom: scale(50)
-                    }}
-                    onEndReached={handleLoadMore}
-                    onEndReachedThreshold={0.5}
-                    initialNumToRender={10}
-                    showsVerticalScrollIndicator={false}
-                />
+                <FriendItem index={index} data={data} />
             ) : !loading ? (
                 <NoDataAnimation />
             ) : null}

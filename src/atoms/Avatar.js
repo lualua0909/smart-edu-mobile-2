@@ -28,7 +28,7 @@ const AvatarImage = ({ name, userId, isSquare = false, size = 84 }) => {
         />
     ) : (
         <Avatar
-            shadow="5"
+            shadow="3"
             size={size}
             source={{
                 uri: `${API_URL}public/user-avatars/${

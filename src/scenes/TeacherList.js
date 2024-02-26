@@ -148,7 +148,7 @@ const Teacher = () => {
                             onRefresh={refetch}
                         />
                     }>
-                    <View
+                    {/* <View
                         style={{
                             padding: scale(16),
                             paddingBottom: 5
@@ -188,7 +188,7 @@ const Teacher = () => {
                                 borderColor: '#52B553'
                             }}
                         />
-                    </View>
+                    </View> */}
                     <Center>
                         <LottieView
                             source={animationBanner}

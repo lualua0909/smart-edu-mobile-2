@@ -1,5 +1,4 @@
 import { useGlobalState } from 'app/Store'
-import { NoData } from 'app/atoms'
 import CartItem from 'app/components/CartItem'
 import { scale } from 'app/helpers/responsive'
 import { getData } from 'app/helpers/utils'
@@ -27,19 +26,14 @@ const Carts = ({ navigation }) => {
                 <View
                     style={{
                         flex: 1,
-                        backgroundColor: '#E5E5E5',
                         alignContent: 'center',
                         flexDirection: 'row',
                         justifyContent: 'center'
                     }}>
-                    <View
-                        style={{
-                            width: '60%'
-                        }}>
+                    <View style={{ marginTop: scale(20), width: '60%' }}>
                         <Text
                             style={{
                                 textAlign: 'center',
-
                                 fontSize: scale(16),
                                 color: '#000000'
                             }}>
@@ -50,17 +44,16 @@ const Carts = ({ navigation }) => {
                             khóa học nào trong giỏ hàng
                         </Text>
                         <Button
-                            size="lg"
                             style={{
                                 marginTop: scale(10)
                             }}
                             onPress={() => navigation.navigate('CourseList')}>
-                            Xem khóa học
+                            Danh sách khóa học
                         </Button>
                     </View>
                 </View>
             ) : (
-                <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
+                <View style={{ flex: 1 }}>
                     <StatusBar barStyle="light-content" />
                     <FlatList
                         data={carts}

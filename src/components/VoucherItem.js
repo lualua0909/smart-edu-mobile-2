@@ -23,7 +23,7 @@ const VoucherItem = ({ value, index }) => {
                 <View style={{ width: scale(114) }}>
                     <Image
                         source={{
-                            uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/courses/91.webp?0.3996675997251453'
+                            uri: 'https://server.smartx.edu.vn/public/courses/91.webp?0.3996675997251453'
                         }}
                         style={{
                             width: '100%',

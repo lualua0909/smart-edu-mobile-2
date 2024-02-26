@@ -149,7 +149,7 @@ const ChatDetail = ({ navigation }) => {
                 </View>
                 {/* <Image
                     source={{
-                        uri: 'https://phplaravel-695396-2297336.cloudwaysapps.com/public/user-avatars/452.webp'
+                        uri: 'https://server.smartx.edu.vn/public/user-avatars/452.webp'
                     }}
                     style={{
                         width: scale(48),

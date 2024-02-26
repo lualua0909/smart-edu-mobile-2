@@ -6,18 +6,21 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SvgXml } from 'react-native-svg'
 
-import { Pressable, Text, View } from 'native-base'
+import { FlatList, Pressable, Text, View } from 'native-base'
 
-const FriendItem = ({ data }) => {
+const FriendItem = ({ data, horizontal = false }) => {
     const navigation = useNavigation()
 
     return (
-        <>
-            {data?.map((item, index) => {
+        <FlatList
+            style={{ flex: 1, paddingVertical: 10 }}
+            horizontal={horizontal}
+            data={data}
+            renderItem={({ item }) => {
                 const fullName = `${item?.first_name} ${item?.last_name}`
                 return (
                     <View
-                        shadow={4}
+                        shadow={2}
                         style={{
                             backgroundColor: '#fff',
                             marginLeft: scale(10),
@@ -26,7 +29,7 @@ const FriendItem = ({ data }) => {
                             borderRadius: scale(8),
                             borderColor: '#B8BEC8'
                         }}
-                        key={index}>
+                        key={item?.id}>
                         <Pressable
                             style={{
                                 flexDirection: 'row',
@@ -164,8 +167,8 @@ const FriendItem = ({ data }) => {
                         )}
                     </View>
                 )
-            })}
-        </>
+            }}
+        />
     )
 }
 

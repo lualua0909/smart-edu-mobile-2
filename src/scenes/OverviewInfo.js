@@ -1,9 +1,10 @@
 import { useGlobalState } from 'app/Store'
+import { NoDataAnimation } from 'app/atoms'
 // import { NoData } from 'app/atoms'
 // import ComingExam from 'app/components/ComingExamCard'
 import CourseItem from 'app/components/CourseItem'
 // import CourseOverviewChart from 'app/components/CourseOverviewChart'
-// import FriendItem from 'app/components/FriendItem'
+import FriendItem from 'app/components/FriendItem'
 // import TeacherItem from 'app/components/TeacherItem'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -458,7 +459,9 @@ const Overview = ({ navigation }) => {
                             alignItems: 'center',
                             justifyContent: 'space-between'
                         }}>
-                        <Text style={styles.formTitle}>Khóa học của tôi</Text>
+                        <Text bold style={styles.formTitle}>
+                            Khóa học của tôi
+                        </Text>
                         <Pressable
                             hitSlop={20}
                             style={{
@@ -484,24 +487,28 @@ const Overview = ({ navigation }) => {
                         </Pressable>
                     </View>
                     <View style={{ marginTop: scale(24) }}>
-                        <FlatList
-                            data={dashboardInfo?.continue_courses}
-                            keyExtractor={(_, index) => index.toString()}
-                            horizontal
-                            contentContainerStyle={{
-                                marginTop: scale(16),
-                                paddingLeft: scale(16)
-                            }}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item, index }) => (
-                                <CourseItem
-                                    isMine
-                                    isHorizontal
-                                    item={item}
-                                    index={index}
-                                />
-                            )}
-                        />
+                        {dashboardInfo?.continue_courses?.length ? (
+                            <FlatList
+                                data={dashboardInfo?.continue_courses}
+                                keyExtractor={(_, index) => index.toString()}
+                                horizontal
+                                contentContainerStyle={{
+                                    marginTop: scale(16),
+                                    paddingLeft: scale(16)
+                                }}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({ item, index }) => (
+                                    <CourseItem
+                                        isMine
+                                        isHorizontal
+                                        item={item}
+                                        index={index}
+                                    />
+                                )}
+                            />
+                        ) : (
+                            <NoDataAnimation />
+                        )}
                     </View>
                 </View>
                 {/* <View
@@ -545,7 +552,7 @@ const Overview = ({ navigation }) => {
                         ))}
                     </View>
                 </View> */}
-                {/* <View
+                <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#fff',
@@ -557,7 +564,9 @@ const Overview = ({ navigation }) => {
                             alignItems: 'center',
                             justifyContent: 'space-between'
                         }}>
-                        <Text style={styles.formTitle}>Bạn bè của bạn</Text>
+                        <Text bold style={styles.formTitle}>
+                            Bạn bè
+                        </Text>
                         <Pressable
                             hitSlop={20}
                             style={{
@@ -583,12 +592,17 @@ const Overview = ({ navigation }) => {
                         </Pressable>
                     </View>
                     <View>
-                        {dashboardInfo?.latest5Friends?.map((item, index) => (
-                            <FriendItem index={index} item={item} />
-                        ))}
+                        {dashboardInfo?.latest5Friends?.length ? (
+                            <FriendItem
+                                data={dashboardInfo?.latest5Friends}
+                                horizontal
+                            />
+                        ) : (
+                            <NoDataAnimation />
+                        )}
                     </View>
-                </View> */}
-                {/* <View
+                </View>
+                <View
                     style={{
                         borderTopWidth: scale(12),
                         borderTopColor: '#fff',
@@ -600,7 +614,7 @@ const Overview = ({ navigation }) => {
                             alignItems: 'center',
                             justifyContent: 'space-between'
                         }}>
-                        <Text style={styles.formTitle}>
+                        <Text bold style={styles.formTitle}>
                             Có thể bạn quan tâm
                         </Text>
                         <Pressable
@@ -623,26 +637,51 @@ const Overview = ({ navigation }) => {
                         </Pressable>
                     </View>
                     <View style={{ marginTop: scale(14) }}>
-                        <FlatList
-                            data={dashboardInfo?.wishlist}
-                            keyExtractor={(_, index) => index.toString()}
-                            horizontal
-                            contentContainerStyle={{
-                                marginTop: scale(16),
-                                paddingLeft: scale(16)
-                            }}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item, index }) => (
-                                <CourseItem
-                                    isHorizontal
-                                    item={item}
-                                    index={index}
-                                />
-                            )}
-                        />
+                        {dashboardInfo?.wishlist?.length ? (
+                            <FlatList
+                                data={dashboardInfo?.wishlist}
+                                keyExtractor={(_, index) => index.toString()}
+                                horizontal
+                                contentContainerStyle={{
+                                    marginTop: scale(16),
+                                    paddingLeft: scale(16)
+                                }}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({ item, index }) => (
+                                    <CourseItem
+                                        isHorizontal
+                                        item={item}
+                                        index={index}
+                                    />
+                                )}
+                            />
+                        ) : (
+                            <NoDataAnimation />
+                        )}
                     </View>
-                </View> */}
+                </View>
             </ScrollView>
+            <Pressable
+                onPress={() => {
+                    console.log('View all')
+                }}
+                style={[
+                    {
+                        position: 'absolute',
+                        top: '50%',
+                        right: 0,
+                        padding: scale(13),
+                        borderTopLeftRadius: scale(24),
+                        borderBottomLeftRadius: scale(24)
+                    },
+                    STYLES.boxShadow
+                ]}>
+                <SvgXml
+                    xml={svgFourSquares}
+                    width={scale(24)}
+                    height={scale(24)}
+                />
+            </Pressable>
         </View>
     )
 }
@@ -659,72 +698,71 @@ export default Overview
 
 const Notifications = ({ title, data }) => {
     return (
-        <>
-            {data?.length > 0 && (
-                <View
+        <View
+            style={{
+                borderTopWidth: scale(12),
+                borderTopColor: '#fff',
+                padding: scale(16)
+            }}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}>
+                <Text bold style={styles.formTitle}>
+                    {title}
+                </Text>
+                <Pressable
+                    hitSlop={20}
                     style={{
-                        borderTopWidth: scale(12),
-                        borderTopColor: '#fff',
-                        padding: scale(16)
+                        flexDirection: 'row',
+                        alignItems: 'center'
                     }}>
-                    <View
+                    <Text
                         style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
+                            fontSize: scale(14),
+                            color: '#0075FF'
                         }}>
-                        <Text bold style={styles.formTitle}>
-                            {title}
-                        </Text>
-                        <Pressable
-                            hitSlop={20}
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <Text
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#0075FF'
-                                }}>
-                                Tất cả
-                            </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{
-                                    width: scale(16),
-                                    height: scale(16)
-                                }}
-                            />
-                        </Pressable>
-                    </View>
+                        Tất cả
+                    </Text>
+                    <SvgXml
+                        xml={svgBlueViewMore}
+                        style={{
+                            width: scale(16),
+                            height: scale(16)
+                        }}
+                    />
+                </Pressable>
+            </View>
 
-                    <View style={{ marginTop: scale(12) }}>
-                        {data?.map((item, index) => {
-                            return (
-                                <View
-                                    key={index}
-                                    style={{
-                                        flexDirection: 'row',
-                                        marginBottom: scale(8)
-                                    }}>
-                                    <View style={{ alignItems: 'center' }}>
+            <View style={{ marginTop: scale(12) }}>
+                {data?.length ? (
+                    data?.map((item, index) => {
+                        return (
+                            <View
+                                key={index}
+                                style={{
+                                    flexDirection: 'row',
+                                    marginBottom: scale(8)
+                                }}>
+                                <View style={{ alignItems: 'center' }}>
+                                    <View
+                                        style={{
+                                            backgroundColor: '#E1E5F1',
+                                            borderRadius: 100,
+                                            padding: scale(4)
+                                        }}>
                                         <View
                                             style={{
-                                                backgroundColor: '#E1E5F1',
-                                                borderRadius: 100,
-                                                padding: scale(4)
-                                            }}>
-                                            <View
-                                                style={{
-                                                    width: scale(10),
-                                                    height: scale(10),
-                                                    borderRadius: scale(10),
-                                                    backgroundColor: '#4063E0'
-                                                }}
-                                            />
-                                        </View>
-                                        {/* <Dash
+                                                width: scale(10),
+                                                height: scale(10),
+                                                borderRadius: scale(10),
+                                                backgroundColor: '#4063E0'
+                                            }}
+                                        />
+                                    </View>
+                                    {/* <Dash
                                             style={{
                                                 width: 1,
                                                 height: '100%',
@@ -734,55 +772,37 @@ const Notifications = ({ title, data }) => {
                                             }}
                                             dashColor="#4063E0"
                                         /> */}
-                                    </View>
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            marginLeft: scale(4)
-                                        }}>
-                                        <Text
-                                            bold
-                                            style={{
-                                                fontSize: scale(14),
-                                                color: '#4063E0'
-                                            }}>
-                                            {item?.title}
-                                        </Text>
-                                        <Text
-                                            numberOfLines={2}
-                                            style={{
-                                                fontSize: scale(14),
-                                                color: '#6C746E',
-                                                marginTop: scale(4)
-                                            }}>
-                                            {item?.content}
-                                        </Text>
-                                    </View>
                                 </View>
-                            )
-                        })}
-                    </View>
-
-                    <Pressable
-                        style={[
-                            {
-                                position: 'absolute',
-                                bottom: scale(3),
-                                right: 0,
-                                padding: scale(13),
-                                borderTopLeftRadius: scale(24),
-                                borderBottomLeftRadius: scale(24)
-                            },
-                            STYLES.boxShadow
-                        ]}>
-                        <SvgXml
-                            xml={svgFourSquares}
-                            width={scale(24)}
-                            height={scale(24)}
-                        />
-                    </Pressable>
-                </View>
-            )}
-        </>
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        marginLeft: scale(4)
+                                    }}>
+                                    <Text
+                                        bold
+                                        style={{
+                                            fontSize: scale(14),
+                                            color: '#4063E0'
+                                        }}>
+                                        {item?.title}
+                                    </Text>
+                                    <Text
+                                        numberOfLines={2}
+                                        style={{
+                                            fontSize: scale(14),
+                                            color: '#6C746E',
+                                            marginTop: scale(4)
+                                        }}>
+                                        {item?.content}
+                                    </Text>
+                                </View>
+                            </View>
+                        )
+                    })
+                ) : (
+                    <NoDataAnimation />
+                )}
+            </View>
+        </View>
     )
 }

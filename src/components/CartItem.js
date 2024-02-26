@@ -159,7 +159,11 @@ const CartItem = ({ course, index }) => {
                                 price: course?.old_price
                             })
                         }
-                        leftIcon={<CreditCard stroke="#fff" />}>
+                        leftIcon={
+                            <>
+                                <CreditCard stroke="#fff" />
+                            </>
+                        }>
                         Thanh toán
                     </Button>
                 </View>
