@@ -66,7 +66,7 @@ const AppNavigator = () => {
             <Stack.Screen
                 name={ROUTES.CourseInfo}
                 component={
-                    Platform.OS !== 'android'
+                    Platform.OS === 'android'
                         ? CourseDetailsNoIAP
                         : withIAPContext(CourseDetails)
                 }
