@@ -41,7 +41,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This permission is used for save and upload files from your device</string>
+	<string>Vui lòng cấp quyền truy cập kho ảnh để tải lên ảnh đại diện, ảnh cover cá nhân</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mulish-Black.ttf</string>
