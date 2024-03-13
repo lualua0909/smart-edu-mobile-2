@@ -7,38 +7,21 @@ import { svgTick } from 'assets/svg'
 import React, { useState } from 'react'
 
 import { Image, Linking } from 'react-native'
-import { AtSign, Key, Phone, Shield, User } from 'react-native-feather'
+import { AtSign, Key } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import { Button, Center, Pressable, Stack, Text, View } from 'native-base'
 
 const Register = ({ navigation }) => {
-    const firstName = useFormInput('')
-    const lastName = useFormInput('')
-    const phone = useFormInput('')
     const email = useFormInput('')
-    const username = useFormInput('')
     const password = useFormInput('')
     const [loading, setLoading] = useState(false)
 
     const verify = () => {
-        // if (firstName.value == '') {
-        //     showToast({ title: 'First name is required', status: 'error' })
-        //     return false
-        // } else if (lastName.value == '') {
-        //     showToast({ title: 'Last name is required', status: 'error' })
-        //     return false
-        // } else
         if (email.value == '') {
             showToast({ title: 'Vui lòng nhập email', status: 'error' })
             return false
         }
-
-        // else if (username.value == '') {
-        //     showToast({ title: 'Username is required', status: 'error' })
-        //     return false
-        // } else
 
         if (password.value == '') {
             showToast({ title: 'Vui lòng nhập mật khẩu', status: 'error' })
@@ -60,6 +43,7 @@ const Register = ({ navigation }) => {
                     password: password.value
                 })
                 .then(res => {
+                    console.log('res.data = ', res.data)
                     if (res.data.status === 200) {
                         showToast({
                             title: 'Đăng ký tài khoản thành công !',
@@ -68,10 +52,10 @@ const Register = ({ navigation }) => {
 
                         navigation.navigate(ROUTES.Login)
                     } else {
-                        showToast({
-                            title: res?.data?.message,
-                            status: 'error'
-                        })
+                        // showToast({
+                        //     title: res?.data?.message,
+                        //     status: 'error'
+                        // })
                     }
                 })
                 .finally(() => {

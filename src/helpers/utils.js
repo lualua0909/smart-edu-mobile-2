@@ -48,8 +48,7 @@ export const animateNextTransition = debounce(
 )
 
 export const toCurrency = value => {
-    const newPrice = isIOS ? value * 1.3 : value
-    return String(newPrice || 0).replace(/(.)(?=(\d{3})+$)/g, '$1,')
+    return String(value || 0).replace(/(.)(?=(\d{3})+$)/g, '$1,')
 }
 
 export const toRelativeTime = (date, noSuffix = false) => {

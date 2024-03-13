@@ -1,4 +1,5 @@
 import { setGlobalState } from 'app/Store'
+import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
@@ -15,16 +16,18 @@ const TabbarButton = ({
     props,
     disabled = false
 }) => {
-    const iconSize = focused ? scale(20) : scale(18)
+    const iconSize = focused ? scale(22) : scale(18)
 
     return (
         <Pressable
             {...props}
-            style={{
-                width: '20%',
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-            }}
+            style={[
+                {
+                    width: '20%',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end'
+                }
+            ]}
             onPress={() => {
                 if (disabled) setGlobalState('visibleNotLogin', true)
                 else props.onPress()
@@ -32,17 +35,17 @@ const TabbarButton = ({
             {focused ? (
                 <View
                     style={[
+                        STYLES.boxShadow,
                         {
-                            width: scale(60),
-                            height: scale(60),
-                            borderRadius: scale(60),
+                            width: scale(50),
+                            height: scale(50),
+                            borderRadius: scale(50),
                             justifyContent: 'center',
                             alignItems: 'center',
-                            borderWidth: scale(5),
                             borderColor: '#fff',
                             backgroundColor: '#52B553',
                             position: 'absolute',
-                            top: -scale(26)
+                            top: -scale(20)
                         }
                     ]}>
                     <SvgXml
@@ -58,14 +61,6 @@ const TabbarButton = ({
                         width={scale(16)}
                         height={scale(16)}
                     />
-                    <Text
-                        style={{
-                            fontSize: scale(12),
-                            color: '#A3A3A3',
-                            textAlign: 'center'
-                        }}>
-                        {label}
-                    </Text>
                 </>
             ) : (
                 <>
@@ -74,16 +69,16 @@ const TabbarButton = ({
                         width={iconSize}
                         height={iconSize}
                     />
-                    <Text
-                        style={{
-                            fontSize: scale(12),
-                            color: '#A3A3A3',
-                            textAlign: 'center'
-                        }}>
-                        {label}
-                    </Text>
                 </>
             )}
+            <Text
+                bold
+                style={{
+                    fontSize: scale(12),
+                    color: '#A3A3A3'
+                }}>
+                {label}
+            </Text>
         </Pressable>
     )
 }

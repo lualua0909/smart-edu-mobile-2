@@ -1,5 +1,5 @@
 import { Rate } from 'app/atoms'
-import { COLORS, COURSE_IMG_PATH, ROUTES } from 'app/constants'
+import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import { svgTriangle } from 'assets/svg'
@@ -67,25 +67,22 @@ const CourseItem = ({
             onPress={() =>
                 navigation.navigate(ROUTES.CourseInfo, { id: item?.id })
             }
-            style={
+            style={[
                 isHorizontal
                     ? {
                           width: fullWidth ? '100%' : scale(286),
                           marginRight: scale(12),
-                          borderWidth: 1,
-                          borderColor: '#d9d9d9',
                           borderRadius: scale(10),
                           borderBottomWidth: scale(6),
                           borderBottomColor: COLORS.green,
                           marginBottom: 10
                       }
                     : {
-                          borderWidth: 1,
                           borderRadius: scale(10),
-                          borderColor: '#DEDEDE',
                           marginBottom: scale(12)
-                      }
-            }>
+                      },
+                STYLES.boxShadow
+            ]}>
             {item?.is_offline ? (
                 <View
                     style={{

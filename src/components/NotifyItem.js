@@ -1,5 +1,5 @@
 import Swipeout from 'app/components/SwipeOut'
-import { ROUTES } from 'app/constants'
+import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import { svgRedDelete, svgWhiteBook } from 'assets/svg'
@@ -47,14 +47,18 @@ const NotiItem = ({ data, index, removeNotify }) => {
                         paddingHorizontal: scale(8)
                     }}>
                     <Box
-                        style={{
-                            padding: scale(8),
-                            borderColor: '#eee',
-                            borderRadius: 12,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            backgroundColor: '#f6f6f6'
-                        }}>
+                        style={[
+                            STYLES.boxShadow,
+                            { marginBottom: scale(10) },
+                            {
+                                padding: scale(8),
+                                borderColor: '#eee',
+                                borderRadius: 12,
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                                // backgroundColor: '#f6f6f6'
+                            }
+                        ]}>
                         <Avatar bg="amber.400">
                             <SvgXml
                                 xml={svgWhiteBook}

@@ -199,8 +199,8 @@ const ExperienceItem = ({ title, data }) => {
                             <Text
                                 style={{
                                     fontSize: scale(16),
-                                    color: '#000',
-                                    lineHeight: scale(20)
+                                    lineHeight: scale(20),
+                                    color: '#6C746E'
                                 }}>
                                 {item.content}
                             </Text>

@@ -493,8 +493,7 @@ const Overview = ({ navigation }) => {
                                 keyExtractor={(_, index) => index.toString()}
                                 horizontal
                                 contentContainerStyle={{
-                                    marginTop: scale(16),
-                                    paddingLeft: scale(16)
+                                    paddingLeft: scale(5)
                                 }}
                                 showsHorizontalScrollIndicator={false}
                                 renderItem={({ item, index }) => (

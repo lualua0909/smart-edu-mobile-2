@@ -1,6 +1,6 @@
 import { getGlobalState, setGlobalState } from 'app/Store'
 import { Avatar } from 'app/atoms'
-import { ROUTES } from 'app/constants'
+import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
@@ -25,15 +25,24 @@ const TeacherItem = ({ item }) => {
                     })
                 }
             }}
-            style={{
-                flexDirection: 'row',
-                marginBottom: scale(8),
-                padding: scale(8)
-            }}>
+            style={[
+                {
+                    flexDirection: 'row',
+                    marginBottom: scale(10),
+                    marginLeft: scale(10),
+                    marginRight: scale(10),
+                    borderRadius: scale(10),
+                    padding: scale(8)
+                },
+                STYLES.boxShadow
+            ]}>
             <View style={{ width: scale(114), height: scale(114) }}>
-                <Center>
-                    <Avatar isSquare name={fullName} userId={item?.id} />
-                </Center>
+                <Avatar
+                    isSquare
+                    name={fullName}
+                    userId={item?.id}
+                    size="100%"
+                />
                 <View
                     style={{
                         paddingHorizontal: scale(11),
@@ -79,6 +88,7 @@ const TeacherItem = ({ item }) => {
             </View>
             <View style={{ flex: 1, marginLeft: scale(9) }}>
                 <Text
+                    bold
                     numberOfLines={1}
                     style={{
                         fontSize: scale(16),

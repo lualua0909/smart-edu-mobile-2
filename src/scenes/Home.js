@@ -139,7 +139,8 @@ const Home = ({ navigation }) => {
                                     }>
                                     <View
                                         style={{
-                                            paddingRight: scale(8)
+                                            paddingRight: scale(8),
+                                            marginBottom: scale(16)
                                         }}>
                                         <View
                                             style={[
@@ -149,8 +150,6 @@ const Home = ({ navigation }) => {
                                                     paddingBottom: scale(8),
                                                     paddingRight: scale(3),
                                                     paddingLeft: scale(6),
-                                                    borderWidth: 1,
-                                                    borderColor: '#E6E6E6',
                                                     borderRadius: scale(5)
                                                 },
                                                 STYLES.boxShadow
@@ -164,7 +163,7 @@ const Home = ({ navigation }) => {
                                                     paddingBottom: scale(7)
                                                 }}>
                                                 <Text
-                                                    numberOfLines={3}
+                                                    numberOfLines={2}
                                                     style={{
                                                         fontSize: scale(12),
                                                         color: '#6C746E',
@@ -226,18 +225,15 @@ const Home = ({ navigation }) => {
                                 <View
                                     key={index}
                                     style={{
-                                        paddingRight: scale(8)
+                                        paddingRight: scale(8),
+                                        marginBottom: scale(16)
                                     }}>
                                     <View
                                         style={[
                                             {
                                                 flexDirection: 'row',
                                                 paddingTop: scale(10),
-                                                paddingBottom: scale(8),
-                                                paddingRight: scale(3),
                                                 paddingLeft: scale(10),
-                                                borderWidth: 1,
-                                                borderColor: '#E6E6E6',
                                                 borderBottomWidth: scale(4),
                                                 borderRadius: scale(5),
                                                 borderBottomColor: COLORS.green
@@ -307,15 +303,17 @@ const Home = ({ navigation }) => {
                                         useGlobalState('visibleNotLogin', true)
                                     }
                                 }}
-                                style={{
-                                    width: scale(124),
-                                    borderWidth: 1,
-                                    borderColor: '#d9d9d9',
-                                    marginRight: scale(16),
-                                    borderRadius: scale(5),
-                                    borderBottomWidth: scale(6),
-                                    borderBottomColor: COLORS.green
-                                }}>
+                                style={[
+                                    {
+                                        width: scale(124),
+                                        borderColor: '#d9d9d9',
+                                        marginRight: scale(16),
+                                        borderRadius: scale(5),
+                                        borderBottomWidth: scale(6),
+                                        borderBottomColor: COLORS.green
+                                    },
+                                    STYLES.boxShadow
+                                ]}>
                                 <View>
                                     <Center>
                                         <Avatar

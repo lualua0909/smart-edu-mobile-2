@@ -35,7 +35,8 @@ const Benefit = ({ courseId, longDes }) => {
                     <Text
                         style={{
                             flex: 1,
-                            fontSize: scale(16)
+                            fontSize: scale(16),
+                            color: '#6C746E'
                         }}>
                         {text?.replace(/<[^>]*>?/gm, '')}
                     </Text>
@@ -62,7 +63,8 @@ const Benefit = ({ courseId, longDes }) => {
                                 flex: 1,
                                 fontSize: scale(16),
                                 paddingTop: scale(2),
-                                lineHeight: scale(20)
+                                lineHeight: scale(20),
+                                color: '#6C746E'
                             }}>
                             {item?.name}
                         </Text>

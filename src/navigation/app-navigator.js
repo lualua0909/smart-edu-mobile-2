@@ -7,7 +7,7 @@ import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
-import CourseDetailsNoIAP from 'app/scenes/CourseDetailsNoIAP'
+import CourseDetailsAndroid from 'app/scenes/CourseDetailsAndroid'
 import CoursesByUser from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
@@ -67,7 +67,7 @@ const AppNavigator = () => {
                 name={ROUTES.CourseInfo}
                 component={
                     Platform.OS === 'android'
-                        ? CourseDetailsNoIAP
+                        ? CourseDetailsAndroid
                         : withIAPContext(CourseDetails)
                 }
                 options={({ route, navigation }) => ({
