@@ -190,6 +190,44 @@ const CourseList = ({ route }) => {
         <SafeAreaView
             edges={['top']}
             style={{ backgroundColor: '#fff', flex: 1 }}>
+            <View
+                style={{
+                    padding: scale(16),
+                    paddingBottom: 5
+                }}>
+                <Input
+                    borderRadius="10"
+                    width="100%"
+                    fontSize="12"
+                    px="2"
+                    placeholder="Tìm kiếm theo tên khóa học"
+                    onChangeText={setSearch}
+                    onEndEditing={() => {
+                        setData([])
+                        setPage(0)
+                        getData()
+                    }}
+                    clearButtonMode="while-editing"
+                    InputLeftElement={
+                        <Search
+                            width={scale(18)}
+                            stroke="#0E564D"
+                            style={{ marginLeft: 12 }}
+                        />
+                    }
+                    InputRightElement={
+                        <Pressable
+                            onPress={() => setVisibleFilter(true)}
+                            hitSlop={15}
+                            style={{ marginRight: 10 }}>
+                            <Filter stroke="#0E564D" width={scale(18)} />
+                        </Pressable>
+                    }
+                    _focus={{
+                        borderColor: '#52B553'
+                    }}
+                />
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 refreshControl={
@@ -198,44 +236,6 @@ const CourseList = ({ route }) => {
                         onRefresh={refetch}
                     />
                 }>
-                <View
-                    style={{
-                        padding: scale(16),
-                        paddingBottom: 5
-                    }}>
-                    <Input
-                        borderRadius="10"
-                        width="100%"
-                        fontSize="12"
-                        px="2"
-                        placeholder="Tìm kiếm theo tên khóa học"
-                        onChangeText={setSearch}
-                        onEndEditing={() => {
-                            setData([])
-                            setPage(0)
-                            getData()
-                        }}
-                        clearButtonMode="while-editing"
-                        InputLeftElement={
-                            <Search
-                                width={scale(18)}
-                                stroke="#0E564D"
-                                style={{ marginLeft: 12 }}
-                            />
-                        }
-                        InputRightElement={
-                            <Pressable
-                                onPress={() => setVisibleFilter(true)}
-                                hitSlop={15}
-                                style={{ marginRight: 10 }}>
-                                <Filter stroke="#0E564D" width={scale(18)} />
-                            </Pressable>
-                        }
-                        _focus={{
-                            borderColor: '#52B553'
-                        }}
-                    />
-                </View>
                 {data?.length ? (
                     <FlatList
                         data={data || []}

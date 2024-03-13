@@ -23,7 +23,7 @@ const AvatarImage = ({ name, userId, isSquare = false, size = 84 }) => {
                     userId || userInfoState?.id
                 }.webp?rand=${random}`
             }}
-            alt="Alternate Text"
+            alt={name}
             size={size}
         />
     ) : (

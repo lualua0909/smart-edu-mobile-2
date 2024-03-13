@@ -56,9 +56,8 @@ const MenuAction = ({
             <Text
                 style={{
                     marginTop: scale(8),
-
-                    fontSize: scale(14),
-                    color: '#6C746E'
+                    fontSize: scale(16),
+                    color: '#0E564D'
                 }}>
                 {title}
             </Text>

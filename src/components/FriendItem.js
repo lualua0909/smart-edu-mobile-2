@@ -20,14 +20,13 @@ const FriendItem = ({ data, horizontal = false }) => {
                 const fullName = `${item?.first_name} ${item?.last_name}`
                 return (
                     <View
-                        shadow={2}
+                        shadow={3}
                         style={{
                             backgroundColor: '#fff',
                             marginLeft: scale(10),
                             marginRight: scale(10),
                             marginTop: scale(10),
-                            borderRadius: scale(8),
-                            borderColor: '#B8BEC8'
+                            borderRadius: scale(5)
                         }}
                         key={item?.id}>
                         <Pressable
@@ -40,18 +39,11 @@ const FriendItem = ({ data, horizontal = false }) => {
                                     userId: item?.id
                                 })
                             }>
-                            <View
-                                style={{
-                                    width: scale(50),
-                                    height: scale(50),
-                                    margin: scale(15)
-                                }}>
-                                <Avatar
-                                    userId={item?.id}
-                                    name={fullName}
-                                    size={scale(50)}
-                                />
-                            </View>
+                            <Avatar
+                                userId={item?.id}
+                                name={fullName}
+                                size={70}
+                            />
                             <View style={{ flex: 1, marginLeft: scale(9) }}>
                                 <Text
                                     bold

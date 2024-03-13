@@ -76,7 +76,6 @@ const Menu = ({ route }) => {
         {
             title: 'Thông tin cá nhân',
             icon: <Edit stroke="#52B553" width={18} height={18} />,
-            onPress: null,
             onPress: () => navigation.navigate(ROUTES.ProfileInfo)
         },
         {
@@ -262,156 +261,154 @@ const Menu = ({ route }) => {
     return (
         <View style={{ flex: 1, backgroundColor: '#F0F1F6' }}>
             <StatusBar barStyle="light-content" />
-            <ScrollView
-                contentContainerStyle={{ paddingBottom: scale(50) }}
-                showsVerticalScrollIndicator={false}>
-                <ImageBackground
-                    source={require('assets/images/menu-header.jpg')}
-                    style={{
-                        width: '100%',
-                        height: scale(161),
-                        justifyContent: 'center'
-                    }}>
-                    <View style={{ padding: scale(16) }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <Avatar
-                                userId={userInfo?.id}
-                                size={scale(60)}
-                                name={
-                                    userInfo?.first_name +
-                                    ' ' +
-                                    userInfo?.last_name
-                                }
-                            />
-                            <View
-                                style={{
-                                    marginLeft: scale(10)
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 20,
-                                        color: '#fff'
-                                    }}>
-                                    {userInfo?.first_name +
-                                        ' ' +
-                                        userInfo?.last_name}
-                                </Text>
-                                <Pressable
-                                    style={{ marginTop: scale(8) }}
-                                    onPress={() =>
-                                        navigation.navigate(ROUTES.Overview)
-                                    }>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(14),
-                                            color: '#E1E1E1'
-                                        }}>
-                                        Đến trang tổng quan của bạn
-                                    </Text>
-                                </Pressable>
-                            </View>
-                        </View>
-                    </View>
-                    {Platform.OS === 'android' && (
-                        <Pressable
-                            style={{
-                                position: 'absolute',
-                                bottom: scale(16),
-                                right: scale(16),
-                                backgroundColor: COLORS.green,
-                                width: scale(44),
-                                height: scale(44),
-                                borderRadius: scale(44),
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderWidth: 1,
-                                borderColor: '#fff'
-                            }}
-                            onPress={() => navigation.navigate(ROUTES.Carts)}>
-                            <SvgXml
-                                xml={svgWhiteCart}
-                                width={scale(26)}
-                                height={scale(26)}
-                            />
-                            <View
-                                style={{
-                                    position: 'absolute',
-                                    width: scale(18),
-                                    height: scale(18),
-                                    borderRadius: scale(18),
-                                    backgroundColor: '#F13642',
-                                    top: -scale(3),
-                                    right: -scale(3),
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: scale(10),
-                                        color: '#fff'
-                                    }}>
-                                    {carts?.length || 0}
-                                </Text>
-                            </View>
-                        </Pressable>
-                    )}
-                </ImageBackground>
-                <View
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingVertical: scale(16)
-                    }}>
+
+            <ImageBackground
+                source={require('assets/images/menu-header.jpg')}
+                style={{
+                    width: '100%',
+                    height: scale(161),
+                    justifyContent: 'center'
+                }}>
+                <View style={{ padding: scale(16) }}>
                     <View
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: scale(16)
+                            alignItems: 'center'
                         }}>
-                        <Text style={styles.formTitleText}>HỌC TẬP</Text>
-                        <Pressable
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.LearningHistory)
-                            }>
-                            <Text style={styles.formViewMoreText}>
-                                Xem quá trình học tập
-                            </Text>
-                            <ChevronRight width={scale(18)} color="#A3A3A3" />
-                        </Pressable>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: scale(12),
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }}>
-                        <MenuAction
-                            icon={svgMyCourse}
-                            title="KH của tôi"
-                            // description="03 khóa học"
-                            backgroundColor="#E5FEEC"
-                            onPress={() =>
-                                navigation.navigate(ROUTES.CoursesByUser, {
-                                    userId: null
-                                })
+                        <Avatar
+                            userId={userInfo?.id}
+                            size={scale(60)}
+                            name={
+                                userInfo?.first_name + ' ' + userInfo?.last_name
                             }
                         />
-                        <MenuAction
-                            icon={svgCalendarOffline}
-                            title="KH yêu thích"
-                            // description="02 Lịch học"
-                            backgroundColor="#E8F9FE"
-                            onPress={() => navigation.navigate(ROUTES.Wishlist)}
+                        <View
+                            style={{
+                                marginLeft: scale(10)
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    color: '#fff'
+                                }}>
+                                {userInfo?.first_name +
+                                    ' ' +
+                                    userInfo?.last_name}
+                            </Text>
+                            <Pressable
+                                style={{ marginTop: scale(8) }}
+                                onPress={() =>
+                                    navigation.navigate(ROUTES.Overview)
+                                }>
+                                <Text
+                                    style={{
+                                        fontSize: scale(14),
+                                        color: '#E1E1E1'
+                                    }}>
+                                    Đến trang tổng quan của bạn
+                                </Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+                {Platform.OS === 'android' && (
+                    <Pressable
+                        style={{
+                            position: 'absolute',
+                            bottom: scale(16),
+                            right: scale(16),
+                            backgroundColor: COLORS.green,
+                            width: scale(44),
+                            height: scale(44),
+                            borderRadius: scale(44),
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            borderColor: '#fff'
+                        }}
+                        onPress={() => navigation.navigate(ROUTES.Carts)}>
+                        <SvgXml
+                            xml={svgWhiteCart}
+                            width={scale(26)}
+                            height={scale(26)}
                         />
-                        {/* <MenuAction
+                        <View
+                            style={{
+                                position: 'absolute',
+                                width: scale(18),
+                                height: scale(18),
+                                borderRadius: scale(18),
+                                backgroundColor: '#F13642',
+                                top: -scale(3),
+                                right: -scale(3),
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: scale(10),
+                                    color: '#fff'
+                                }}>
+                                {carts?.length || 0}
+                            </Text>
+                        </View>
+                    </Pressable>
+                )}
+            </ImageBackground>
+            <View
+                style={{
+                    backgroundColor: '#fff',
+                    paddingVertical: scale(16)
+                }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingLeft: scale(16)
+                    }}>
+                    <Text bold style={styles.formTitleText}>
+                        HỌC TẬP
+                    </Text>
+                    <Pressable
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}
+                        onPress={() =>
+                            navigation.navigate(ROUTES.LearningHistory)
+                        }>
+                        <Text style={styles.formViewMoreText}>
+                            Xem quá trình học tập
+                        </Text>
+                        <ChevronRight width={scale(18)} color="#A3A3A3" />
+                    </Pressable>
+                </View>
+                <View
+                    style={{
+                        marginTop: scale(12),
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }}>
+                    <MenuAction
+                        icon={svgMyCourse}
+                        title="KH của tôi"
+                        description="xem khóa học"
+                        backgroundColor="#E5FEEC"
+                        onPress={() =>
+                            navigation.navigate(ROUTES.CoursesByUser, {
+                                userId: null
+                            })
+                        }
+                    />
+                    <MenuAction
+                        icon={svgCalendarOffline}
+                        title="KH yêu thích"
+                        // description="02 Lịch học"
+                        backgroundColor="#E8F9FE"
+                        onPress={() => navigation.navigate(ROUTES.Wishlist)}
+                    />
+                    {/* <MenuAction
                             icon={svgMyMeeting}
                             title="Bạn bè"
                             // description="02 lịch học"
@@ -423,18 +420,54 @@ const Menu = ({ route }) => {
                                 })
                             }
                         /> */}
-                        <MenuAction
-                            icon={svgAchievement}
-                            title="Chứng chỉ"
-                            backgroundColor="#FFF8E3"
-                            onPress={() =>
-                                navigation.navigate(ROUTES.CertificateList)
-                            }
-                        />
-                    </View>
+                    <MenuAction
+                        icon={svgAchievement}
+                        title="Chứng chỉ"
+                        backgroundColor="#FFF8E3"
+                        onPress={() =>
+                            navigation.navigate(ROUTES.CertificateList)
+                        }
+                    />
                 </View>
-                {/* {renderMentorConnect} */}
-                {/* <View
+            </View>
+            <View
+                style={{
+                    backgroundColor: '#fff',
+                    paddingVertical: scale(16)
+                }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingLeft: scale(16)
+                    }}>
+                    <Text bold style={styles.formTitleText}>
+                        KHÁC
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        marginTop: scale(12),
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }}>
+                    <MenuAction
+                        icon={svgMyMeeting}
+                        title="Bạn bè"
+                        description="xem bạn bè"
+                        backgroundColor="#FFF4F0"
+                        // badge={2}
+                        onPress={() =>
+                            navigation.navigate(ROUTES.Friends, {
+                                userId: null
+                            })
+                        }
+                    />
+                </View>
+            </View>
+            {/* {renderMentorConnect} */}
+            {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -479,7 +512,7 @@ const Menu = ({ route }) => {
                         />
                     </View>
                 </View> */}
-                {/* <View
+            {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -529,33 +562,34 @@ const Menu = ({ route }) => {
                         />
                     </View> 
                         </View>*/}
-                <Pressable
-                    onPress={() =>
-                        navigation.navigate(ROUTES.ProfileOverview, {
-                            userId: userInfo?.id
-                        })
-                    }>
-                    <Image
-                        source={require('assets/images/menu-banner.jpg')}
-                        style={{
-                            width: '100%',
-                            height: scale(170)
-                        }}
-                        alt="image"
-                    />
-                </Pressable>
+            <Pressable
+                onPress={() =>
+                    navigation.navigate(ROUTES.ProfileOverview, {
+                        userId: userInfo?.id
+                    })
+                }>
+                <Image
+                    source={require('assets/images/menu-banner.jpg')}
+                    style={{
+                        width: '100%',
+                        height: scale(170)
+                    }}
+                    alt="image"
+                />
+            </Pressable>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: scale(50) }}
+                showsVerticalScrollIndicator={false}>
                 <View style={{ backgroundColor: '#fff' }}>
-                    {menus?.map((item, index) => {
+                    {menus?.map(item => {
                         return (
                             <Pressable
-                                key={index}
+                                key={item?.title}
                                 style={{
-                                    padding: scale(16),
+                                    padding: scale(20),
                                     flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
                                     borderBottomWidth: 1,
-                                    borderBottomColor: '#d9d9d9'
+                                    borderBottomColor: '#eee'
                                 }}
                                 onPress={item.onPress}>
                                 <View
@@ -578,10 +612,10 @@ const Menu = ({ route }) => {
                                         {item.title}
                                     </Text>
                                 </View>
-                                <ChevronRightIcon
+                                {/* <ChevronRightIcon
                                     size={22}
                                     style={{ color: '#ccc' }}
-                                />
+                                /> */}
                             </Pressable>
                         )
                     })}
