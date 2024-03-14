@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, CourseDetailSkeleton, Input } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -50,9 +50,9 @@ const ProfileOverview = ({ navigation, route }) => {
         if (userId) {
             setLoading(true)
             axios
-                .get(`get-user-info/${userId}`)
+                .get(`get-user-info/${userId}/${userInfo?.id}`)
                 .then(res => {
-                    if (res.data.status === 200) {
+                    if (res.status === 200) {
                         const data = res.data.data
                         setData(data)
                         setFullName(`${data.first_name} ${data.last_name}`)
@@ -70,34 +70,20 @@ const ProfileOverview = ({ navigation, route }) => {
         return <CourseDetailSkeleton />
     }
 
-    const renderAddFriendBtn =
-        userInfo?.id !== userId ? (
-            !isFriend ? (
-                <>
-                    <Button
-                        style={{
-                            alignItems: 'center',
-                            width: '40%'
-                        }}
-                        leftIcon={<UserPlus color="white" width={16} />}
-                        onPress={() => setIsFriend(!isFriend)}>
-                        Thêm bạn
-                    </Button>
-                </>
-            ) : (
-                <>
-                    <Button
-                        style={{
-                            alignItems: 'center',
-                            width: '40%'
-                        }}
-                        leftIcon={<UserMinus color="white" width={16} />}
-                        onPress={() => setIsFriend(!isFriend)}>
-                        Huỷ kết bạn
-                    </Button>
-                </>
-            )
-        ) : null
+    const renderAddFriendBtn = (
+        <Button
+            size="sm"
+            leftIcon={
+                isFriend ? (
+                    <UserMinus color="white" width={16} />
+                ) : (
+                    <UserPlus color="white" width={16} />
+                )
+            }
+            onPress={() => setIsFriend(!isFriend)}>
+            <Text color={'white'}>{isFriend ? 'Huỷ kết bạn' : 'Thêm bạn'}</Text>
+        </Button>
+    )
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -197,7 +183,7 @@ const ProfileOverview = ({ navigation, route }) => {
                 </View>
 
                 <HStack space={5} justifyContent="space-around" mt="3">
-                    {renderAddFriendBtn}
+                    {userInfo?.id !== userId ? renderAddFriendBtn : null}
                     <MenuUser userId={userId} navigation={navigation} />
                 </HStack>
                 <DetailInformation fullName={name} data={data} />

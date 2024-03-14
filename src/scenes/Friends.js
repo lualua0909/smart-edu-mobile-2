@@ -17,9 +17,9 @@ const Friends = ({ route }) => {
         axios
             .get(`friends/friend_list/${userId || userInfo?.id}`)
             .then(res => {
-                if (res.data.status === 200) {
+                console.log('res = ', res.data)
+                if (res.status === 200) {
                     setData(res.data.data)
-                    console.log(res.data.data)
                 }
             })
             .finally(() => setLoading(false))
