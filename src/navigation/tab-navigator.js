@@ -20,14 +20,23 @@ import BottomTabButton from 'app/components/tabbar-button'
 
 const Tab = createBottomTabNavigator()
 
-const TabNavigator = ({}) => {
+const TabNavigator = () => {
     const userInfo = getGlobalState('userInfo')
     return (
         <Tab.Navigator
-            screenOptions={({ route }) => ({
+            screenOptions={() => ({
                 tabBarStyle: {
                     paddingBottom: 12,
-                    height: 60
+                    height: 60,
+                    backgroundColor: '#eee',
+                    shadowColor: '#000',
+                    shadowOffset: {
+                        width: 0,
+                        height: 2
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5
                 },
                 headerShown: false
             })}
@@ -38,7 +47,7 @@ const TabNavigator = ({}) => {
                 options={{
                     tabBarButton: props => (
                         <BottomTabButton
-                            focused={props.accessibilityState.selected}
+                            focused={props?.accessibilityState?.selected}
                             iconActive={svgTabHome('#fff')}
                             iconInactive={svgTabHome('#a3a3a3')}
                             label={'Trang chủ'}
@@ -50,7 +59,7 @@ const TabNavigator = ({}) => {
             <Tab.Screen
                 name="CourseList"
                 component={CourseList}
-                options={({ route, navigation }) => ({
+                options={() => ({
                     tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
@@ -65,7 +74,7 @@ const TabNavigator = ({}) => {
             <Tab.Screen
                 name="TeacherList"
                 component={TeacherList}
-                options={({ route, navigation }) => ({
+                options={() => ({
                     tabBarButton: props => (
                         <BottomTabButton
                             focused={props.accessibilityState.selected}
@@ -80,7 +89,7 @@ const TabNavigator = ({}) => {
             <Tab.Screen
                 name="Notification"
                 component={Notification}
-                options={({ route, navigation }) => ({
+                options={() => ({
                     headerShown: true,
                     headerTitle: () => (
                         <HeaderTitle title="Danh sách thông báo" />
@@ -100,7 +109,7 @@ const TabNavigator = ({}) => {
             <Tab.Screen
                 name="Dashboard"
                 component={Dashboard}
-                options={({ route, navigation }) => ({
+                options={() => ({
                     tabBarButton: props => (
                         <BottomTabButton
                             disabled={userInfo?.id === 'trial'}

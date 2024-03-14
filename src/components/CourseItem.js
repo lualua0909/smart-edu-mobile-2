@@ -1,7 +1,7 @@
 import { Rate } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { toCurrency } from 'app/helpers/utils'
+import { isIOS, toCurrency } from 'app/helpers/utils'
 import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
@@ -59,6 +59,22 @@ const CourseItem = ({
         }
 
         return null
+    }
+
+    const renderPriceIOS = () => {
+        return (
+            <>
+                <Text />
+                <Text
+                    bold
+                    style={{
+                        fontSize: scale(18),
+                        color: '#1DA736'
+                    }}>
+                    {toCurrency(item?.ios_price)} đ
+                </Text>
+            </>
+        )
     }
 
     return (
@@ -225,7 +241,7 @@ const CourseItem = ({
                             justifyContent: 'space-between',
                             marginTop: scale(10)
                         }}>
-                        {renderPrice()}
+                        {isIOS ? renderPriceIOS() : renderPrice()}
                     </View>
                 )}
             </View>

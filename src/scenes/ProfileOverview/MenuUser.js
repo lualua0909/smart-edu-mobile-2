@@ -1,14 +1,7 @@
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import {
-    Award,
-    BookOpen,
-    Calendar,
-    ChevronDown,
-    List,
-    Users
-} from 'react-native-feather'
+import { Award, BookOpen, ChevronDown } from 'react-native-feather'
 
 import { Button, Menu } from 'native-base'
 
@@ -65,7 +58,7 @@ const MenuUser = ({ userId }) => {
                 </Button>
             )}>
             {menus?.map((item, index) => (
-                <Menu.Item onPress={() => item?.onPress()} key={index}>
+                <Menu.Item onPress={() => item?.onPress()} key={item?.title}>
                     {item?.icon} {item?.title}
                 </Menu.Item>
             ))}

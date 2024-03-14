@@ -16,7 +16,7 @@ const TabbarButton = ({
     props,
     disabled = false
 }) => {
-    const iconSize = focused ? scale(22) : scale(18)
+    const iconSize = focused ? scale(32) : scale(18)
 
     return (
         <Pressable
@@ -34,21 +34,19 @@ const TabbarButton = ({
             }}>
             {focused ? (
                 <View
-                    style={[
-                        STYLES.boxShadow,
-                        {
-                            width: scale(50),
-                            height: scale(50),
-                            borderRadius: scale(50),
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderColor: '#fff',
-                            backgroundColor: '#52B553',
-                            position: 'absolute',
-                            top: -scale(20)
-                        }
-                    ]}>
+                    style={{
+                        width: scale(60),
+                        height: scale(60),
+                        borderRadius: scale(50),
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#eee',
+                        position: 'absolute',
+                        top: -scale(20)
+                    }}>
                     <SvgXml
+                        stroke="#A3A3A3"
+                        fill={'#52B553'}
                         xml={iconActive}
                         width={iconSize}
                         height={iconSize}

@@ -715,68 +715,7 @@ const CourseInfo = ({ navigation, route }) => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        marginBottom: 5
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center'
-                        }}>
-                        {data?.ios_price ? (
-                            <View style={{}}>
-                                {/* {data?.new_price && data?.old_price ? (
-                                        <View
-                                            style={{
-                                                paddingHorizontal: scale(10),
-                                                borderRadius: scale(5)
-                                            }}>
-                                            <Text
-                                                bold
-                                                style={{
-                                                    fontSize: scale(14),
-                                                    color: '#FF0000'
-                                                }}>
-                                                giảm{' '}
-                                                {((data?.old_price -
-                                                    data?.new_price) /
-                                                    data?.old_price) *
-                                                    100}
-                                                %
-                                            </Text>
-                                        </View>
-                                    ) : null} */}
-                                <View
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row'
-                                    }}>
-                                    <Text
-                                        bold
-                                        style={{
-                                            marginLeft: scale(24),
-                                            fontSize: scale(18),
-                                            color: '#095F2B'
-                                        }}>
-                                        1111
-                                        {/* {data?.old_price && data?.new_price
-                                                ? toCurrency(data?.new_price)
-                                                : data?.old_price &&
-                                                  !data?.new_price
-                                                ? toCurrency(data?.old_price)
-                                                : null} */}
-                                        đ
-                                    </Text>
-                                </View>
-                            </View>
-                        ) : null}
-                    </View>
-                </View>
-
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
+                        paddingTop: 5
                     }}>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}>
