@@ -48,7 +48,7 @@ const ProfileInfo = ({}) => {
         axios
             .get(`get-user-info/${userInfo?.id}`)
             .then(res => {
-                if (res.data.status === 200) {
+                if (res.status === 200) {
                     const data = res.data.data
                     setData(data)
                 }

@@ -261,7 +261,6 @@ const Menu = ({ route }) => {
     return (
         <View style={{ flex: 1, backgroundColor: '#F0F1F6' }}>
             <StatusBar barStyle="light-content" />
-
             <ImageBackground
                 source={require('assets/images/menu-header.jpg')}
                 style={{
@@ -562,24 +561,24 @@ const Menu = ({ route }) => {
                         />
                     </View> 
                         </View>*/}
-            <Pressable
-                onPress={() =>
-                    navigation.navigate(ROUTES.ProfileOverview, {
-                        userId: userInfo?.id
-                    })
-                }>
-                <Image
-                    source={require('assets/images/menu-banner.jpg')}
-                    style={{
-                        width: '100%',
-                        height: scale(170)
-                    }}
-                    alt="image"
-                />
-            </Pressable>
             <ScrollView
                 contentContainerStyle={{ paddingBottom: scale(50) }}
                 showsVerticalScrollIndicator={false}>
+                <Pressable
+                    onPress={() =>
+                        navigation.navigate(ROUTES.ProfileOverview, {
+                            userId: userInfo?.id
+                        })
+                    }>
+                    <Image
+                        source={require('assets/images/menu-banner.jpg')}
+                        style={{
+                            width: '100%',
+                            height: scale(170)
+                        }}
+                        alt="image"
+                    />
+                </Pressable>
                 <View style={{ backgroundColor: '#fff' }}>
                     {menus?.map(item => {
                         return (
@@ -621,7 +620,6 @@ const Menu = ({ route }) => {
                     })}
                 </View>
             </ScrollView>
-
             <Modal
                 isVisible={visibleWarning}
                 onBackButtonPress={closeModal}
@@ -671,7 +669,6 @@ const Menu = ({ route }) => {
                     </Text>
                 </View>
             </Modal>
-
             {modalComingSoon}
         </View>
     )
