@@ -3,8 +3,10 @@ import { useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
+    Button,
     CourseDetailSkeleton,
     Rate,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -26,7 +28,6 @@ import React, { useEffect, useState } from 'react'
 
 import { Alert, Share } from 'react-native'
 import {
-    BookOpen,
     DollarSign,
     Heart,
     Navigation,
@@ -50,7 +51,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
-import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
+import { Image, Pressable, ScrollView, View } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -792,9 +793,8 @@ const CourseInfo = ({ navigation, route }) => {
                                 height={24}
                             />
                             <Text
+                                outlined
                                 style={{
-                                    fontSize: scale(14),
-                                    color: '#52B553',
                                     marginTop: scale(4)
                                 }}>
                                 Học thử

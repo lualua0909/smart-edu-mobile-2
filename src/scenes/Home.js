@@ -1,15 +1,9 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, NoDataAnimation as NoData } from 'app/atoms'
+import { Avatar, Button, NoDataAnimation as NoData, Text } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import HotMentors from 'app/components/HotMentors'
-import {
-    COLORS,
-    COURSE_IMG_PATH,
-    NEWS_PATH,
-    ROUTES,
-    STYLES
-} from 'app/constants'
+import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
@@ -23,15 +17,12 @@ import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import {
-    Badge,
     Box,
-    Button,
     Center,
     Image,
     Modal,
     Pressable,
     Progress,
-    Text,
     View
 } from 'native-base'
 
@@ -93,7 +84,7 @@ const Home = ({ navigation }) => {
                                     color: '#0EBF46'
                                 }}>
                                 {userInfo?.id === 'trial'
-                                    ? 'mừng bạn đến với Smart Training'
+                                    ? 'bạn đến với Smart Training'
                                     : userInfo?.last_name}
                             </Text>
                         </Text>

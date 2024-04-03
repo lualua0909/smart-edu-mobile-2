@@ -1,13 +1,14 @@
 import { getGlobalState, setGlobalState } from 'app/Store'
-import { Avatar } from 'app/atoms'
+import { Avatar, Text } from 'app/atoms'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { Star } from 'react-native-feather'
 
-import { Badge, Center, HStack, Pressable, Text, View } from 'native-base'
+import { Badge, HStack } from 'native-base'
 
 const TeacherItem = ({ item }) => {
     const navigation = useNavigation()
@@ -37,12 +38,7 @@ const TeacherItem = ({ item }) => {
                 STYLES.boxShadow
             ]}>
             <View style={{ width: scale(114), height: scale(114) }}>
-                <Avatar
-                    isSquare
-                    name={fullName}
-                    userId={item?.id}
-                    size="100%"
-                />
+                <Avatar isSquare userId={item?.id} size="100%" />
                 <View
                     style={{
                         paddingHorizontal: scale(11),

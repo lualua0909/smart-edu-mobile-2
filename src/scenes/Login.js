@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
-import { Input, showToast } from 'app/atoms'
+import { Button, Input, Text, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -9,18 +9,10 @@ import { storeData } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
-import { Image } from 'react-native'
+import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
 
-import {
-    Button,
-    Center,
-    Pressable,
-    ScrollView,
-    Stack,
-    Text,
-    View
-} from 'native-base'
+import { Center, Stack } from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
