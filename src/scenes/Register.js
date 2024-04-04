@@ -1,16 +1,16 @@
 import axios from 'app/Axios'
-import { Input, showToast } from 'app/atoms'
+import { Button, Input, showToast } from 'app/atoms'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { svgTick } from 'assets/svg'
 import React, { useState } from 'react'
 
-import { Image, Linking } from 'react-native'
+import { Image, Linking, Pressable, View } from 'react-native'
 import { AtSign, Key } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Button, Center, Pressable, Stack, Text, View } from 'native-base'
+import { Center, Stack, Text } from 'native-base'
 
 const Register = ({ navigation }) => {
     const email = useFormInput('')
@@ -43,7 +43,6 @@ const Register = ({ navigation }) => {
                     password: password.value
                 })
                 .then(res => {
-                    console.log('res.data = ', res.data)
                     if (res.data.status === 200) {
                         showToast({
                             title: 'Đăng ký tài khoản thành công !',

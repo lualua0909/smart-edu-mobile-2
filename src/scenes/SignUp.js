@@ -1,16 +1,16 @@
 import axios from 'app/Axios'
-import { Input, showToast } from 'app/atoms'
+import { Button, Input, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import React, { useState } from 'react'
 
-import { Image } from 'react-native'
+import { Image, ScrollView, Text, View } from 'react-native'
 import { Shield } from 'react-native-feather'
 
 import HeaderBack from 'app/components/header-back'
-import { Button, Center, ScrollView, Stack, Text, View } from 'native-base'
+import { Center, Stack } from 'native-base'
 
 const SignUp = () => {
     const mailInput = useFormInput('')

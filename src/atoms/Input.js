@@ -1,10 +1,10 @@
 import { Text } from 'app/atoms'
-import React, { useRef } from 'react'
+import React from 'react'
 
-import { TextInput as Input, Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { XCircle } from 'react-native-feather'
 
-const CustomInput = ({
+const Input = ({
     icon,
     label,
     isRequired = false,
@@ -12,21 +12,30 @@ const CustomInput = ({
     allowClear,
     width = '100%',
     placeholder,
+    InputLeftElement,
     ...props
 }) => (
     <>
         {label && <Text style={styles.label}>{label}</Text>}
         <View style={styles.searchSection}>
-            <Input
+            <TextInput
                 {...props}
                 style={styles.input}
                 placeholder={placeholder}
                 placeholderTextColor="#eee"
                 underlineColorAndroid="transparent"
             />
+            {props.InputRightElement && (
+                <Pressable style={[styles.searchIcon]}>
+                    {props.InputRightElement}
+                </Pressable>
+            )}
             {allowClear && props.value && (
                 <Pressable
-                    style={styles.searchIcon}
+                    style={
+                        (styles.searchIcon,
+                        { right: props.InputRightElement ? 50 : 30 })
+                    }
                     onPress={() => props.onChangeText('')}>
                     <XCircle
                         width={16}
@@ -36,9 +45,6 @@ const CustomInput = ({
                     />
                 </Pressable>
             )}
-            <Pressable style={[styles.searchIcon, { paddingRight: 20 }]}>
-                {props.InputRightElement}
-            </Pressable>
             {error && (
                 <Text
                     style={{
@@ -54,7 +60,7 @@ const CustomInput = ({
     </>
 )
 
-export default React.memo(CustomInput)
+export default Input
 
 const styles = StyleSheet.create({
     searchSection: {
@@ -66,7 +72,7 @@ const styles = StyleSheet.create({
     },
     searchIcon: {
         position: 'absolute',
-        right: 10
+        right: 15
     },
     label: {
         marginBottom: 5,

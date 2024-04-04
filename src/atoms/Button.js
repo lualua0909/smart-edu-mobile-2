@@ -1,15 +1,37 @@
+import { HStack } from 'app/atoms'
 import React from 'react'
 
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native'
 
-export default function Button({ onPress, children, outlined, style }) {
+export default function Button({
+    onPress,
+    children,
+    outlined,
+    style,
+    isLoading,
+    isLoadingText
+}) {
     return (
         <Pressable
-            style={[outlined ? styles.outlined : styles.button, style]}
+            style={[
+                outlined ? styles.outlined : styles.button,
+                isLoading ? styles.disabled : null,
+                style
+            ]}
+            disabled={isLoading}
             onPress={onPress}>
-            <Text style={outlined ? styles.outlinedText : styles.text}>
-                {children}
-            </Text>
+            <HStack>
+                {isLoading && (
+                    <ActivityIndicator
+                        size="small"
+                        color="#fff"
+                        style={{ marginRight: 5 }}
+                    />
+                )}
+                <Text style={outlined ? styles.outlinedText : styles.text}>
+                    {isLoading ? isLoadingText : children}
+                </Text>
+            </HStack>
         </Pressable>
     )
 }
@@ -23,6 +45,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         elevation: 3,
         backgroundColor: '#52B553'
+    },
+    disabled: {
+        backgroundColor: '#52B55350'
     },
     outlined: {
         alignItems: 'center',

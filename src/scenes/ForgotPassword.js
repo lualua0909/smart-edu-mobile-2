@@ -1,4 +1,5 @@
 import axios from 'app/Axios'
+import { Button, Input } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -6,11 +7,11 @@ import useFormInput from 'app/helpers/useFormInput'
 import { svgLoginMail } from 'assets/svg'
 import React, { useState } from 'react'
 
-import { Image, ScrollView } from 'react-native'
+import { Image, ScrollView, Text, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import HeaderBack from '../components/header-back'
-import { Button, Center, Icon, Input, Text, View } from 'native-base'
+import { Center, Icon } from 'native-base'
 
 const ForgotPassword = () => {
     const email = useFormInput('')
@@ -110,7 +111,6 @@ const ForgotPassword = () => {
                                 Nhập email để tiến hành khôi phục mật khẩu.
                             </Text>
                             <Input
-                                size="md"
                                 InputLeftElement={
                                     <Icon
                                         as={<SvgXml xml={svgLoginMail} />}
@@ -126,7 +126,6 @@ const ForgotPassword = () => {
                         </View>
                         <Center>
                             <Button
-                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang xử lý"
                                 style={{

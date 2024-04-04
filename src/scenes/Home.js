@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { setGlobalState, useGlobalState } from 'app/Store'
 import { Avatar, Button, NoDataAnimation as NoData, Text } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import HotMentors from 'app/components/HotMentors'
@@ -291,7 +291,7 @@ const Home = ({ navigation }) => {
                                             }
                                         )
                                     } else {
-                                        useGlobalState('visibleNotLogin', true)
+                                        setGlobalState('visibleNotLogin', true)
                                     }
                                 }}
                                 style={[

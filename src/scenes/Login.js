@@ -168,10 +168,9 @@ const Login = ({ navigation }) => {
                                         style={{ marginLeft: 10 }}
                                     />
                                 }
-                                type={show ? 'text' : 'password'}
+                                secureTextEntry={!show}
                                 placeholder="Mật khẩu"
                                 {...password}
-                                blurOnSubmit={true}
                                 onSubmitEditing={doLogin}
                                 InputRightElement={
                                     <Pressable onPress={() => setShow(!show)}>
@@ -215,7 +214,6 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{

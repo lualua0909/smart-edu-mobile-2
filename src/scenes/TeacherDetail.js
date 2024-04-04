@@ -1,19 +1,18 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton, Rate, Text } from 'app/atoms'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Image, StatusBar, StyleSheet } from 'react-native'
+import { Image, ScrollView, StatusBar, StyleSheet, View } from 'react-native'
 import { Link, Package } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderBack from 'app/components/header-back'
-import { CheckIcon, Text, View } from 'native-base'
+import { CheckIcon } from 'native-base'
 
 const routes = [
     {
