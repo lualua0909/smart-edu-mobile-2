@@ -6,9 +6,9 @@ import tbImg from 'assets/images/trungbinh.png'
 import xuatsacImg from 'assets/images/xuatsac.png'
 import React from 'react'
 
-import { Dimensions } from 'react-native'
+import { Dimensions, Pressable } from 'react-native'
 
-import { Avatar, HStack, Pressable, Text, VStack, View } from 'native-base'
+import { Avatar, HStack, VStack } from 'native-base'
 
 import Title from './Title'
 

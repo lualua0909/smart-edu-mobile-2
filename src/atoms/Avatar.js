@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     avatar: {
         borderRadius: 100,
         borderWidth: 1,
-        borderColor: '#f0f0f0'
+        borderColor: '#E1E1E1'
     },
     default: {
         borderRadius: 5

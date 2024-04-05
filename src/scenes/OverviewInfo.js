@@ -1,5 +1,5 @@
 import { useGlobalState } from 'app/Store'
-import { NoDataAnimation } from 'app/atoms'
+import { Center, NoDataAnimation, Text } from 'app/atoms'
 // import { NoData } from 'app/atoms'
 // import ComingExam from 'app/components/ComingExamCard'
 import CourseItem from 'app/components/CourseItem'
@@ -9,15 +9,11 @@ import FriendItem from 'app/components/FriendItem'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import animationImg from 'assets/animations/dashboard.json'
-import { svgBlueViewMore, svgFourSquares } from 'assets/svg'
 import React from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, StyleSheet } from 'react-native'
-import { SvgXml } from 'react-native-svg'
-import { ScrollView } from 'react-native-virtualized-view'
-
-import { Center, Pressable, Text, View } from 'native-base'
+import { FlatList, Pressable, ScrollView, StyleSheet, View } from 'react-native'
+import { ChevronRight, Settings } from 'react-native-feather'
 
 const Overview = ({ navigation }) => {
     const [dashboardInfo, _setDashboardInfo] = useGlobalState('dashboardInfo')
@@ -225,9 +221,10 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+                           <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -430,9 +427,10 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+                            <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -480,9 +478,11 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+
+                            <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -539,9 +539,10 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+                           <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -584,9 +585,10 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+                            <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -629,9 +631,10 @@ const Overview = ({ navigation }) => {
                                 }}>
                                 Tất cả
                             </Text>
-                            <SvgXml
-                                xml={svgBlueViewMore}
-                                style={{ width: scale(16), height: scale(16) }}
+                            <ChevronRight
+                                stroke="#0075FF"
+                                width={20}
+                                height={20}
                             />
                         </Pressable>
                     </View>
@@ -675,11 +678,7 @@ const Overview = ({ navigation }) => {
                     },
                     STYLES.boxShadow
                 ]}>
-                <SvgXml
-                    xml={svgFourSquares}
-                    width={scale(24)}
-                    height={scale(24)}
-                />
+                <Settings stroke="#000" width={24} height={24} />
             </Pressable>
         </View>
     )
@@ -725,13 +724,7 @@ const Notifications = ({ title, data }) => {
                         }}>
                         Tất cả
                     </Text>
-                    <SvgXml
-                        xml={svgBlueViewMore}
-                        style={{
-                            width: scale(16),
-                            height: scale(16)
-                        }}
-                    />
+                    <ChevronRight stroke="#0075FF" width={20} height={20} />
                 </Pressable>
             </View>
 

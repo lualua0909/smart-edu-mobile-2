@@ -1,12 +1,11 @@
-import { Avatar } from 'app/atoms'
+import { Avatar, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgCompany, svgJob } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { FlatList, Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { FlatList, Pressable, Text, View } from 'native-base'
 
 const FriendItem = ({ data, horizontal = false }) => {
     const navigation = useNavigation()
@@ -39,11 +38,7 @@ const FriendItem = ({ data, horizontal = false }) => {
                                     userId: item?.id
                                 })
                             }>
-                            <Avatar
-                                userId={item?.id}
-                                name={fullName}
-                                size={70}
-                            />
+                            <Avatar userId={item?.id} size={70} />
                             <View style={{ flex: 1, marginLeft: scale(9) }}>
                                 <Text
                                     bold

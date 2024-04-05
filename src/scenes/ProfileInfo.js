@@ -3,6 +3,7 @@ import { getGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
+    Button,
     DetailSkeleton,
     Input,
     showToast
@@ -12,23 +13,13 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Camera, UserX } from 'react-native-feather'
+import { Image, Pressable, ScrollView, View } from 'react-native'
+import { Camera } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
 
-import {
-    AlertDialog,
-    Button,
-    Center,
-    HStack,
-    Image,
-    Pressable,
-    Radio,
-    ScrollView,
-    VStack,
-    View
-} from 'native-base'
+import { AlertDialog, Center, HStack, Radio, VStack } from 'native-base'
 
-const ProfileInfo = ({}) => {
+const ProfileInfo = () => {
     const userInfo = getGlobalState('userInfo')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
@@ -42,7 +33,6 @@ const ProfileInfo = ({}) => {
         setIsOpen(false)
     }
     const cancelRef = useRef(null)
-    const name = `${data?.first_name} ${data?.last_name}`
 
     useEffect(() => {
         axios
@@ -214,11 +204,7 @@ const ProfileInfo = ({}) => {
                                     alt="image"
                                 />
                             ) : (
-                                <Avatar
-                                    userId={data?.id}
-                                    size="120"
-                                    name={name}
-                                />
+                                <Avatar userId={data?.id} size={120} />
                             )}
                         </View>
                         <View
@@ -365,18 +351,7 @@ const ProfileInfo = ({}) => {
                                 error={errors?.username}
                             />
                             <Center>
-                                <Button
-                                    leftIcon={
-                                        <UserX
-                                            width={18}
-                                            height={18}
-                                            color="red"
-                                        />
-                                    }
-                                    w="70%"
-                                    colorScheme="red"
-                                    onPress={() => setIsOpen(!isOpen)}
-                                    variant="outline">
+                                <Button onPress={() => setIsOpen(!isOpen)}>
                                     Xóa tài khoản
                                 </Button>
                             </Center>

@@ -1,12 +1,10 @@
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
-import { Button } from 'atoms'
+import { Button, Text } from 'atoms'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Dimensions, Image } from 'react-native'
-
-import { ScrollView, Text, View } from 'native-base'
+import { Dimensions, Image, ScrollView, View } from 'react-native'
 
 const { height, width } = Dimensions.get('window')
 

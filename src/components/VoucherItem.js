@@ -1,9 +1,10 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { Image, Pressable, View } from 'react-native'
 
-import { Checkbox, Text } from 'native-base'
+import { Checkbox } from 'native-base'
 
 const VoucherItem = ({ value, index }) => {
     return (

@@ -15,11 +15,10 @@ function isPortrait() {
 }
 
 const frameStyle = {
-    height: Math.min(w, h),
+    height: 200,
     width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
     resizeMode: 'contain',
     flex: 1,
-    border: 'none',
     border: 'none'
 }
 
@@ -33,11 +32,11 @@ export default ({ videoUrl, poster }) => {
         return <Loading title={'Đang tải video'} />
     }
 
-    useEffect(() => {
-        return () => {
-            videoRef.current.seek(0)
-        }
-    }, [])
+    // useEffect(() => {
+    //     return () => {
+    //         videoRef?.current?.seek?.(0)
+    //     }
+    // }, [])
 
     if (isYoutube)
         return (
@@ -49,9 +48,6 @@ export default ({ videoUrl, poster }) => {
                         '?autoplay=1'
                 }}
                 style={frameStyle}
-                onLoadStart={syntheticEvent => {
-                    setLoading(true)
-                }}
                 onLoadEnd={syntheticEvent => {
                     setLoading(false)
                 }}
@@ -66,9 +62,6 @@ export default ({ videoUrl, poster }) => {
                     html: videoUrl
                 }}
                 style={frameStyle}
-                onLoadStart={syntheticEvent => {
-                    setLoading(true)
-                }}
                 onLoadEnd={syntheticEvent => {
                     setLoading(false)
                 }}

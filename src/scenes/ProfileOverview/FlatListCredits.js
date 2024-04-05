@@ -1,9 +1,9 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-
-import { FlatList, Image, Pressable, Text, View } from 'native-base'
+import { FlatList, Image, Pressable, View } from 'react-native'
 
 const FlatListCredits = ({ data, userId }) => {
     const navigation = useNavigation()

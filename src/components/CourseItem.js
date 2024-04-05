@@ -1,4 +1,4 @@
-import { Rate, Text } from 'app/atoms'
+import { Card, Rate, Text } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { isIOS, toCurrency } from 'app/helpers/utils'
@@ -6,10 +6,10 @@ import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Image, Pressable, Progress } from 'native-base'
+import { Progress } from 'native-base'
 
 const CourseItem = ({
     item,
@@ -79,8 +79,8 @@ const CourseItem = ({
     }
 
     return (
-        <Pressable
-            key={index}
+        <Card
+            shadow
             onPress={() =>
                 navigation.navigate(ROUTES.CourseInfo, { id: item?.id })
             }
@@ -98,7 +98,10 @@ const CourseItem = ({
                           borderRadius: scale(10),
                           marginBottom: scale(12)
                       },
-                STYLES.boxShadow
+                {
+                    borderWidth: 1,
+                    borderColor: '#E5E5E5'
+                }
             ]}>
             {item?.is_offline ? (
                 <View
@@ -244,7 +247,7 @@ const CourseItem = ({
                     </View>
                 )}
             </View>
-        </Pressable>
+        </Card>
     )
 }
 

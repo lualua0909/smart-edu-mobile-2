@@ -1,3 +1,4 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgClose, svgStarGold, svgStartBorderGold } from 'assets/svg'
 import React from 'react'
@@ -5,8 +6,6 @@ import React from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
-
-import { Text } from 'native-base'
 
 const PopupRate = ({ isVisible, onBackPress, message }) => {
     return (

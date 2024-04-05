@@ -3,10 +3,9 @@ import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { Dimensions, Pressable } from 'react-native'
+import { ChevronLeft } from 'react-native-feather'
 
-import { ChevronLeftIcon } from 'native-base'
-
-const HeaderBack = ({ white = false, parentId = null }) => {
+const HeaderBack = ({ parentId = null }) => {
     const navigation = useNavigation()
 
     return (
@@ -22,7 +21,7 @@ const HeaderBack = ({ white = false, parentId = null }) => {
                 backgroundColor: 'transparent',
                 borderRadius: Dimensions.get('window').width * 0.5
             }}>
-            <ChevronLeftIcon size={22} />
+            <ChevronLeft width={22} height={22} stroke={'green'} />
         </Pressable>
     )
 }

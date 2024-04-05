@@ -1,3 +1,4 @@
+import { Text } from 'app/atoms'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
@@ -9,8 +10,6 @@ import {
 } from 'react-native'
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
 import { ScrollView } from 'react-native-virtualized-view'
-
-import { Text } from 'native-base'
 
 const initHTML = ``
 

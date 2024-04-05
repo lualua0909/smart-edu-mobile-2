@@ -1,30 +1,27 @@
 import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
-import { Avatar, Button, NoDataAnimation as NoData, Text } from 'app/atoms'
+import {
+    Avatar,
+    Button,
+    Card,
+    NoDataAnimation as NoData,
+    Text
+} from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import HotMentors from 'app/components/HotMentors'
 import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList } from 'react-native'
+import { FlatList, Image, Pressable, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { Flag, Rss } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
-import {
-    Box,
-    Center,
-    Image,
-    Modal,
-    Pressable,
-    Progress,
-    View
-} from 'native-base'
+import { Box, Center, Modal, Progress } from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
@@ -121,113 +118,23 @@ const Home = ({ navigation }) => {
                             svgIcon={svgStudy}
                             list={dashboardInfo?.continue_courses}
                             renderItem={({ item, index }) => (
-                                <Pressable
+                                <Card
                                     key={index}
+                                    style={{ marginRight: 5 }}
                                     onPress={() =>
                                         navigation.navigate(ROUTES.CourseInfo, {
                                             id: item?.id
                                         })
                                     }>
                                     <View
-                                        style={{
-                                            paddingRight: scale(8),
-                                            marginBottom: scale(16)
-                                        }}>
-                                        <View
-                                            style={[
-                                                {
-                                                    flexDirection: 'row',
-                                                    paddingTop: scale(8),
-                                                    paddingBottom: scale(8),
-                                                    paddingRight: scale(3),
-                                                    paddingLeft: scale(6),
-                                                    borderRadius: scale(5)
-                                                },
-                                                STYLES.boxShadow
-                                            ]}>
-                                            <View
-                                                style={{
-                                                    flex: 1,
-                                                    marginRight: scale(4),
-                                                    justifyContent:
-                                                        'space-between',
-                                                    paddingBottom: scale(7)
-                                                }}>
-                                                <Text
-                                                    numberOfLines={2}
-                                                    style={{
-                                                        fontSize: scale(12),
-                                                        color: '#6C746E',
-                                                        width: 200
-                                                    }}>
-                                                    {item?.title}
-                                                </Text>
-                                                <View
-                                                    style={{
-                                                        marginTop: scale(15)
-                                                    }}>
-                                                    <Box w="80%" maxW="400">
-                                                        <Progress
-                                                            colorScheme="green"
-                                                            value={
-                                                                item?.process
-                                                            }
-                                                        />
-                                                        <Text
-                                                            style={{
-                                                                fontSize:
-                                                                    scale(12),
-                                                                color: '#000'
-                                                            }}>
-                                                            {item?.process}%
-                                                        </Text>
-                                                    </Box>
-                                                </View>
-                                            </View>
-                                            <Image
-                                                resizeMode="cover"
-                                                source={{
-                                                    uri: `${COURSE_IMG_PATH}${item?.id}.webp`
-                                                }}
-                                                style={{
-                                                    width: scale(89),
-                                                    height: scale(89)
-                                                }}
-                                                alt="image"
-                                            />
-                                        </View>
-                                    </View>
-                                </Pressable>
-                            )}
-                        />
-                    ) : null}
-
-                    <Section
-                        title="DANH SÁCH THỂ LOẠI"
-                        svgIcon={svgList}
-                        list={homeInfo?.course_groups}
-                        renderItem={({ item, index }) => (
-                            <Pressable
-                                onPress={() =>
-                                    navigation.navigate('CourseList', {
-                                        courseGroupSelected: item?.id
-                                    })
-                                }>
-                                <View
-                                    key={index}
-                                    style={{
-                                        paddingRight: scale(8),
-                                        marginBottom: scale(16)
-                                    }}>
-                                    <View
                                         style={[
                                             {
                                                 flexDirection: 'row',
-                                                paddingTop: scale(10),
-                                                paddingLeft: scale(10),
-                                                borderBottomWidth: scale(4),
-                                                borderRadius: scale(5),
-                                                borderBottomColor: COLORS.green
+                                                paddingTop: scale(8),
+                                                paddingBottom: scale(8),
+                                                paddingRight: scale(3),
+                                                paddingLeft: scale(6),
+                                                borderRadius: scale(5)
                                             },
                                             STYLES.boxShadow
                                         ]}>
@@ -239,27 +146,102 @@ const Home = ({ navigation }) => {
                                                 paddingBottom: scale(7)
                                             }}>
                                             <Text
-                                                bold
-                                                numberOfLines={3}
+                                                numberOfLines={2}
                                                 style={{
                                                     fontSize: scale(12),
                                                     color: '#6C746E',
                                                     width: 200
                                                 }}>
-                                                {item?.name}
+                                                {item?.title}
                                             </Text>
+                                            <View
+                                                style={{
+                                                    marginTop: scale(15)
+                                                }}>
+                                                <Box w="80%" maxW="400">
+                                                    <Progress
+                                                        colorScheme="green"
+                                                        value={item?.process}
+                                                    />
+                                                    <Text
+                                                        style={{
+                                                            fontSize: scale(12),
+                                                            color: '#000'
+                                                        }}>
+                                                        {item?.process}%
+                                                    </Text>
+                                                </Box>
+                                            </View>
                                         </View>
                                         <Image
-                                            source={require('assets/images/people.jpg')}
+                                            resizeMode="cover"
+                                            source={{
+                                                uri: `${COURSE_IMG_PATH}${item?.id}.webp`
+                                            }}
                                             style={{
-                                                width: scale(60),
+                                                width: scale(89),
                                                 height: scale(89)
                                             }}
                                             alt="image"
                                         />
                                     </View>
+                                </Card>
+                            )}
+                        />
+                    ) : null}
+
+                    <Section
+                        title="DANH SÁCH THỂ LOẠI"
+                        svgIcon={svgList}
+                        list={homeInfo?.course_groups}
+                        renderItem={({ item, index }) => (
+                            <Card
+                                style={{ marginRight: 5 }}
+                                onPress={() =>
+                                    navigation.navigate('CourseList', {
+                                        courseGroupSelected: item?.id
+                                    })
+                                }>
+                                <View
+                                    style={[
+                                        {
+                                            flexDirection: 'row',
+                                            paddingTop: scale(10),
+                                            paddingLeft: scale(10),
+                                            borderBottomWidth: scale(4),
+                                            borderRadius: scale(5),
+                                            borderBottomColor: COLORS.green
+                                        },
+                                        STYLES.boxShadow
+                                    ]}>
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                            marginRight: scale(4),
+                                            justifyContent: 'space-between',
+                                            paddingBottom: scale(7)
+                                        }}>
+                                        <Text
+                                            bold
+                                            numberOfLines={3}
+                                            style={{
+                                                fontSize: scale(12),
+                                                color: '#6C746E',
+                                                width: 200
+                                            }}>
+                                            {item?.name}
+                                        </Text>
+                                    </View>
+                                    <Image
+                                        source={require('assets/images/people.jpg')}
+                                        style={{
+                                            width: scale(60),
+                                            height: scale(89)
+                                        }}
+                                        alt="image"
+                                    />
                                 </View>
-                            </Pressable>
+                            </Card>
                         )}
                     />
 
@@ -281,7 +263,8 @@ const Home = ({ navigation }) => {
                         icon={<Rss stroke="#0E564D" width={scale(22)} />}
                         list={homeInfo?.pinned_mentors}
                         renderItem={({ item, index }) => (
-                            <Pressable
+                            <Card
+                                shadow
                                 onPress={() => {
                                     if (userInfo?.id !== 'trial') {
                                         navigation.navigate(
@@ -297,13 +280,10 @@ const Home = ({ navigation }) => {
                                 style={[
                                     {
                                         width: scale(124),
-                                        borderColor: '#d9d9d9',
-                                        marginRight: scale(16),
-                                        borderRadius: scale(5),
+                                        marginRight: 10,
                                         borderBottomWidth: scale(6),
                                         borderBottomColor: COLORS.green
-                                    },
-                                    STYLES.boxShadow
+                                    }
                                 ]}>
                                 <View>
                                     <Center>
@@ -375,11 +355,11 @@ const Home = ({ navigation }) => {
                                         {item?.department}
                                     </Text>
                                 </View>
-                            </Pressable>
+                            </Card>
                         )}
                     />
 
-                    <HotMentors data={homeInfo?.mentor_fields} />
+                    {/* <HotMentors data={homeInfo?.mentor_fields} /> */}
                 </ScrollView>
             </SafeAreaView>
             <UpdateAlert

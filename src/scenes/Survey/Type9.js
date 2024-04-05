@@ -1,10 +1,10 @@
-import { DateTimePicker } from 'app/atoms'
+import { DateTimePicker, Text } from 'app/atoms'
 import dayjs from 'dayjs'
 import React from 'react'
 
-import { Dimensions } from 'react-native'
+import { Dimensions, View } from 'react-native'
 
-import { Text, VStack, View } from 'native-base'
+import { VStack } from 'native-base'
 
 import Title from './Title'
 

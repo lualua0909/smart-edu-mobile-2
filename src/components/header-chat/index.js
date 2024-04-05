@@ -1,8 +1,10 @@
+import { Text } from 'app/atoms'
 import React from 'react'
 
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { Pressable } from 'react-native'
 
-import { Center, HStack, Pressable, Text } from 'native-base'
+import { Center, HStack } from 'native-base'
 
 const HeaderChat = ({}) => {
     const navigation = useNavigation()

@@ -1,10 +1,12 @@
 import axios from 'app/Axios'
-import { NoData } from 'app/atoms'
+import { NoData, Text } from 'app/atoms'
 import CommentCard from 'app/components/CommentCard'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { HStack, Heading, Pressable, Spinner, Text, View } from 'native-base'
+import { Pressable, View } from 'react-native'
+
+import { HStack, Heading, Spinner } from 'native-base'
 
 const RPP = 4
 

@@ -26,7 +26,7 @@ import {
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Alert, Share } from 'react-native'
+import { Alert, Image, Pressable, ScrollView, Share, View } from 'react-native'
 import {
     DollarSign,
     Heart,
@@ -50,8 +50,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-
-import { Image, Pressable, ScrollView, View } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params

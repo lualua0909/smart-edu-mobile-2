@@ -1,5 +1,5 @@
 import { useGlobalState } from 'app/Store'
-import { Avatar, Rate } from 'app/atoms'
+import { Avatar, Text } from 'app/atoms'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgSend } from 'assets/svg'
@@ -7,13 +7,17 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { Image, KeyboardAvoidingView, Platform, TextInput } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
+import {
+    KeyboardAvoidingView,
+    Platform,
+    Pressable,
+    ScrollView,
+    TextInput,
+    View
+} from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderChat from 'app/components/header-chat'
-import { Pressable, Text, View } from 'native-base'
 
 const ChatDetail = ({ navigation }) => {
     const headerHeight = useHeaderHeight()

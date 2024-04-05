@@ -1,29 +1,13 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, CourseDetailSkeleton } from 'app/atoms'
+import { Avatar, Button, CourseDetailSkeleton, HStack } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import {
-    MessageCircle,
-    Upload,
-    UserMinus,
-    UserPlus
-} from 'react-native-feather'
-import { ScrollView } from 'react-native-virtualized-view'
+import { Image, ScrollView, View } from 'react-native'
 
-import {
-    Button,
-    Center,
-    HStack,
-    Heading,
-    Image,
-    Pressable,
-    Text,
-    TextArea,
-    View
-} from 'native-base'
+import { Center, Heading, TextArea } from 'native-base'
 
 import Achievement from './Achievement'
 import CreditBouns from './CreditsBouns'
@@ -71,17 +55,8 @@ const ProfileOverview = ({ navigation, route }) => {
     }
 
     const renderAddFriendBtn = (
-        <Button
-            size="sm"
-            leftIcon={
-                isFriend ? (
-                    <UserMinus color="white" width={16} />
-                ) : (
-                    <UserPlus color="white" width={16} />
-                )
-            }
-            onPress={() => setIsFriend(!isFriend)}>
-            <Text color={'white'}>{isFriend ? 'Huỷ kết bạn' : 'Thêm bạn'}</Text>
+        <Button onPress={() => setIsFriend(!isFriend)}>
+            {isFriend ? 'Huỷ kết bạn' : 'Thêm bạn'}
         </Button>
     )
 
@@ -130,7 +105,7 @@ const ProfileOverview = ({ navigation, route }) => {
                             borderColor: '#fff',
                             marginTop: '35%'
                         }}>
-                        <Avatar userId={data?.id} size="110" name={name} />
+                        <Avatar userId={data?.id} size={110} />
                     </View>
                     <View
                         style={{
@@ -182,7 +157,10 @@ const ProfileOverview = ({ navigation, route }) => {
                     />
                 </View>
 
-                <HStack space={5} justifyContent="space-around" mt="3">
+                <HStack
+                    space={5}
+                    justifyContent="space-around"
+                    style={{ marginTop: 10 }}>
                     {userInfo?.id !== userId ? renderAddFriendBtn : null}
                     <MenuUser userId={userId} navigation={navigation} />
                 </HStack>

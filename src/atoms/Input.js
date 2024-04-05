@@ -5,14 +5,12 @@ import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { XCircle } from 'react-native-feather'
 
 const Input = ({
-    icon,
     label,
     isRequired = false,
     error,
     allowClear,
-    width = '100%',
     placeholder,
-    InputLeftElement,
+    InputRightElement,
     ...props
 }) => (
     <>
@@ -22,20 +20,12 @@ const Input = ({
                 {...props}
                 style={styles.input}
                 placeholder={placeholder}
-                placeholderTextColor="#eee"
+                placeholderTextColor="#6C746E"
                 underlineColorAndroid="transparent"
             />
-            {props.InputRightElement && (
-                <Pressable style={[styles.searchIcon]}>
-                    {props.InputRightElement}
-                </Pressable>
-            )}
-            {allowClear && props.value && (
+            {allowClear && props.value && !InputRightElement ? (
                 <Pressable
-                    style={
-                        (styles.searchIcon,
-                        { right: props.InputRightElement ? 50 : 30 })
-                    }
+                    style={styles.searchIcon}
                     onPress={() => props.onChangeText('')}>
                     <XCircle
                         width={16}
@@ -44,7 +34,12 @@ const Input = ({
                         color="#fff"
                     />
                 </Pressable>
-            )}
+            ) : null}
+
+            {InputRightElement ? (
+                <View style={styles.searchIcon}>{InputRightElement}</View>
+            ) : null}
+
             {error && (
                 <Text
                     style={{

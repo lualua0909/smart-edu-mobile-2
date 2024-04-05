@@ -1,17 +1,17 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { showToast } from 'app/atoms'
+import { Button, Text, showToast } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import storage from 'app/localStorage'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Alert } from 'react-native'
+import { Alert, View } from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderTitle from 'app/components/header-title'
-import { Box, Button, Center, HStack, Text, VStack, View } from 'native-base'
+import { Box, Center, VStack } from 'native-base'
 
 import Skeleton from './ExamSkeleton'
 import Type2 from './Type2'

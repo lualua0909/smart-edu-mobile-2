@@ -1,3 +1,4 @@
+import { Text } from 'app/atoms'
 import Swipeout from 'app/components/SwipeOut'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -6,10 +7,10 @@ import { svgRedDelete, svgWhiteBook } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import { Avatar, Box } from 'native-base'
-import { Pressable, Text, View } from 'native-base'
 
 const NotiItem = ({ data, index, removeNotify }) => {
     const navigation = useNavigation()

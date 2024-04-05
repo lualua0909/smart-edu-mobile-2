@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { HStack, Heading, Spinner } from 'native-base'
+import { HStack, Heading } from 'native-base'
 
 export default ({ loading = true, title = 'Loading' }) =>
     loading && (
         <View style={styles.loading}>
             <HStack space={2} justifyContent="center">
-                <Spinner size={'large'} accessibilityLabel="Loading posts" />
+                <ActivityIndicator size="large" color="#0000ff" />
                 <Heading color="primary.500" fontSize={'lg'}>
                     {title}
                 </Heading>

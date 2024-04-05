@@ -1,6 +1,7 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    Button,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
@@ -9,6 +10,7 @@ import {
     Loading,
     NoDataAnimation,
     ScormViewer,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -20,24 +22,14 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Linking } from 'react-native'
+import { Dimensions, FlatList, Linking, Pressable, View } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
 
-import {
-    Button,
-    Center,
-    FlatList,
-    FormControl,
-    Modal,
-    Pressable,
-    Text,
-    TextArea,
-    View
-} from 'native-base'
+import { Center, FormControl, Modal, TextArea } from 'native-base'
 
 const h = Dimensions.get('screen').height
 

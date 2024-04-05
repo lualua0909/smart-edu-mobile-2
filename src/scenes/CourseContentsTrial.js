@@ -1,12 +1,15 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    Button,
+    Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
     Loading,
     ScormViewer,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,11 +19,9 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
+import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TabBar, TabView } from 'react-native-tab-view'
-
-import { Button, Center, Text, View } from 'native-base'
 
 const routes = [
     {
@@ -54,55 +55,52 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }, [hideHeaderTitle])
 
-    navigation.setOptions({
-        headerTitle: () => (
-            <>
-                {hideHeaderTitle ? null : (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingVertical: 0
-                        }}>
-                        <Button
-                            size="sm"
-                            onPress={prevLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            variant="subtle"
-                            colorScheme="green"
-                            leftIcon={
-                                <>
-                                    <ChevronLeft
-                                        stroke="green"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                        <Button
-                            size="sm"
-                            onPress={nextLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            leftIcon={
-                                <>
-                                    <ChevronRight
-                                        stroke="#fff"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                    </View>
-                )}
-            </>
-        ),
-        headerTransparent: true
-    })
+    // navigation.setOptions({
+    //     headerTitle: () => (
+    //         <>
+    //             {hideHeaderTitle ? null : (
+    //                 <View
+    //                     style={{
+    //                         flexDirection: 'row',
+    //                         alignItems: 'center',
+    //                         justifyContent: 'center',
+    //                         paddingVertical: 0
+    //                     }}>
+    //                     <Button
+    //                         size="sm"
+    //                         onPress={prevLesson}
+    //                         style={{
+    //                             marginRight: scale(12),
+    //                             height: 30,
+    //                             color: 'white'
+    //                         }}>
+    //                         <ChevronLeft
+    //                             stroke="green"
+    //                             width={24}
+    //                             height={24}
+    //                         />
+    //                     </Button>
+    //                     <Button
+    //                         size="sm"
+    //                         onPress={nextLesson}
+    //                         style={{
+    //                             marginRight: scale(12)
+    //                         }}
+    //                         leftIcon={
+    //                             <>
+    //                                 <ChevronRight
+    //                                     stroke="#fff"
+    //                                     width={24}
+    //                                     height={24}
+    //                                 />
+    //                             </>
+    //                         }></Button>
+    //                 </View>
+    //             )}
+    //         </>
+    //     ),
+    //     headerTransparent: true
+    // })
 
     useEffect(() => {
         if (chapters?.length) {
@@ -184,11 +182,6 @@ const CourseDetail = ({ route, navigation }) => {
                 .then(res => {
                     if (res.data.status === 200) {
                         setCourseData(
-                            res?.data?.data?.parent || res?.data?.data
-                        )
-
-                        console.log(
-                            'DAAAAAAAAAAAAAAAAA = ',
                             res?.data?.data?.parent || res?.data?.data
                         )
                     }

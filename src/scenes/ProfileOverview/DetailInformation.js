@@ -1,6 +1,7 @@
+import { Input, Text } from 'app/atoms'
 import React from 'react'
 
-import { Box, Center, FormControl, Input, Text, VStack } from 'native-base'
+import { Box, FormControl, VStack } from 'native-base'
 
 const DetailInformation = ({ data, fullName }) => {
     return (

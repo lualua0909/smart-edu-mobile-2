@@ -1,8 +1,9 @@
+import { Text } from 'app/atoms'
 import React from 'react'
 
-import { Dimensions } from 'react-native'
+import { Dimensions, Pressable, View } from 'react-native'
 
-import { Pressable, Text, VStack, View } from 'native-base'
+import { VStack } from 'native-base'
 
 import Title from './Title'
 

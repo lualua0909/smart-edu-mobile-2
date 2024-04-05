@@ -1,9 +1,10 @@
+import { Button } from 'app/atoms'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { Award, BookOpen, ChevronDown } from 'react-native-feather'
 
-import { Button, Menu } from 'native-base'
+import { Menu } from 'native-base'
 
 const MenuUser = ({ userId }) => {
     const navigation = useNavigation()

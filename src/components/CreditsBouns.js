@@ -1,10 +1,10 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgAchievement } from 'assets/svg'
 import React from 'react'
 
+import { View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { Text, View } from 'native-base'
 
 const CreditBouns = ({ data }) => {
     return (
@@ -44,31 +44,29 @@ const CreditBouns = ({ data }) => {
                     paddingTop: scale(10)
                 }}>
                 {data?.map((value, index) => (
-                    <>
-                        <View
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            paddingHorizontal: scale(16),
+                            paddingBottom: scale(10)
+                        }}
+                        key={index}>
+                        <SvgXml
+                            xml={svgAchievement}
+                            width={scale(50)}
+                            style={{ color: '#000000' }}
+                        />
+                        <Text
                             style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                paddingHorizontal: scale(16),
-                                paddingBottom: scale(10)
-                            }}
-                            key={index}>
-                            <SvgXml
-                                xml={svgAchievement}
-                                width={scale(50)}
-                                style={{ color: '#000000' }}
-                            />
-                            <Text
-                                style={{
-                                    fontSize: scale(17),
-                                    marginLeft: scale(5),
-                                    flex: 1,
-                                    color: '#000'
-                                }}>
-                                {value}
-                            </Text>
-                        </View>
-                    </>
+                                fontSize: scale(17),
+                                marginLeft: scale(5),
+                                flex: 1,
+                                color: '#000'
+                            }}>
+                            {value}
+                        </Text>
+                    </View>
                 ))}
             </View>
         </View>

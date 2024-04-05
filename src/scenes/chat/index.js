@@ -1,14 +1,12 @@
 import { useGlobalState } from 'app/Store'
-import { Avatar, Rate } from 'app/atoms'
-import { ROUTES } from 'app/constants'
+import { Avatar, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
-import { ScrollView } from 'react-native-virtualized-view'
+import { Pressable, ScrollView, View } from 'react-native'
 
 import HeaderChat from 'app/components/header-chat'
-import { Image, Pressable, Text, View } from 'native-base'
 
 const Chat = ({ navigation }) => {
     const [data, setData] = useState([])

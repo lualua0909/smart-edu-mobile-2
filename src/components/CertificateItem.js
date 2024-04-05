@@ -1,10 +1,13 @@
+import { Text } from 'app/atoms'
 import { COLORS, EXCERTIFICATE_IMG_PATH } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React from 'react'
 
+import { View } from 'react-native'
+
 import chungchiSE from 'assets/images/chung-chi-SE.png'
-import { Image, Text, View } from 'native-base'
+import { Image } from 'native-base'
 
 const CourseItem = ({ data, index }) => {
     return (

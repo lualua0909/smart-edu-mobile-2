@@ -1,3 +1,4 @@
+import { Card, HStack, Text } from 'app/atoms'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
@@ -5,10 +6,11 @@ import dayjs from 'dayjs'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { Book } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Box, HStack, Pressable, Progress, Text, View } from 'native-base'
+import { Progress } from 'native-base'
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
@@ -92,13 +94,11 @@ const HistoryItem = ({ data }) => {
                     flex: 1,
                     padding: scale(10)
                 }}>
-                <Box
+                <Card
+                    shadow
                     style={{
-                        backgroundColor: '#FFFFFF'
-                    }}
-                    rounded="lg"
-                    p={3}
-                    shadow={5}>
+                        padding: 8
+                    }}>
                     <Text
                         numberOfLines={2}
                         style={{
@@ -114,9 +114,11 @@ const HistoryItem = ({ data }) => {
                                 bg:
                                     data?.process >= 100
                                         ? 'lime.300'
+                                        : data?.process === 0
+                                        ? 'gray.200'
                                         : 'orange.300'
                             }}
-                            value={data?.process}
+                            value={data?.process === 0 ? 100 : data?.process}
                             w="80%"
                             style={{ marginVertical: scale(10) }}
                         />
@@ -146,7 +148,7 @@ const HistoryItem = ({ data }) => {
                             {data?.total_lectures} bài học
                         </Text>
                     </View>
-                </Box>
+                </Card>
             </View>
         </Pressable>
     )

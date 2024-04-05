@@ -1,12 +1,12 @@
 import axios from 'app/Axios'
-import { DetailSkeleton } from 'app/atoms'
+import { DetailSkeleton, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { ScrollView } from 'react-native-virtualized-view'
+import { ScrollView, View } from 'react-native'
 
-import { Avatar, InfoOutlineIcon, Text, View } from 'native-base'
+import { Avatar, InfoOutlineIcon } from 'native-base'
 
 const NotificationDetail = ({ route }) => {
     const { notifyId } = route.params

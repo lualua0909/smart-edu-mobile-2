@@ -203,19 +203,6 @@ export const svgWhiteBack = `<svg width="10" height="16" viewBox="0 0 10 16" fil
 </svg>
 `
 
-export const svgBlueViewMore = `<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.43994 13.2788L10.7866 8.93208C11.2999 8.41875 11.2999 7.57875 10.7866 7.06542L6.43994 2.71875" stroke="#0075FF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-`
-
-export const svgFourSquares = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 3H3V10H10V3Z" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M21 3H14V10H21V3Z" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M21 14H14V21H21V14Z" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10 14H3V21H10V14Z" stroke="#545454" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-`
-
 export const svgCalendarArrow = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.6422 9.31563L11.0797 6.06563C11.033 6.00629 10.9734 5.95832 10.9055 5.92531C10.8375 5.89229 10.763 5.87509 10.6875 5.875H9.675C9.57031 5.875 9.5125 5.99531 9.57656 6.07812L11.8313 8.9375H2.375C2.30625 8.9375 2.25 8.99375 2.25 9.0625V10C2.25 10.0687 2.30625 10.125 2.375 10.125H13.2484C13.6672 10.125 13.9 9.64375 13.6422 9.31563Z" fill="black" fill-opacity="0.25"/>
 </svg>

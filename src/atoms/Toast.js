@@ -1,8 +1,9 @@
+import { Text } from 'app/atoms'
 import React from 'react'
 
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+import { Pressable } from 'react-native'
 
-import { Alert, Box, Center, HStack, Text, Toast, VStack } from 'native-base'
+import { Alert, Box, Center, HStack, Toast, VStack } from 'native-base'
 
 const ToastAlert = ({ id, status, variant, title, placement, description }) => (
     <Center>

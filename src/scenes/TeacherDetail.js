@@ -6,13 +6,12 @@ import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { Image, ScrollView, StatusBar, StyleSheet, View } from 'react-native'
-import { Link, Package } from 'react-native-feather'
+import { Check, Link, Package } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
 import HeaderBack from 'app/components/header-back'
-import { CheckIcon } from 'native-base'
 
 const routes = [
     {
@@ -65,12 +64,11 @@ const TeacherInfo = ({ route }) => {
                     flexDirection: 'row',
                     marginTop: scale(8)
                 }}>
-                <CheckIcon
+                <Check
                     size={scale(14)}
+                    color={COLORS.green}
                     style={{
-                        marginRight: scale(10),
-                        marginTop: 5,
-                        color: COLORS.green
+                        marginRight: scale(10)
                     }}
                 />
                 <Text

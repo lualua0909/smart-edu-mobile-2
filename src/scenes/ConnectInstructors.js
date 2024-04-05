@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { LoadingAnimation, NoDataAnimation, Text } from 'app/atoms'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupRate from 'app/components/PopupRate'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'
@@ -16,6 +16,7 @@ import {
     Linking,
     Pressable,
     RefreshControl,
+    ScrollView,
     StatusBar,
     View
 } from 'react-native'
@@ -23,9 +24,8 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabView } from 'react-native-tab-view'
-import { ScrollView } from 'react-native-virtualized-view'
 
-import { Box, HStack, Heading, Stack, Text } from 'native-base'
+import { Box, HStack, Heading, Stack } from 'native-base'
 
 const types = new Map([
     ['booking-list-approved', 'Đã xác nhận'],

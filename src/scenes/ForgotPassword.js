@@ -23,7 +23,6 @@ const ForgotPassword = () => {
             axios
                 .post('reset-password/' + email.value)
                 .then(res => {
-                    console.log(res)
                     if (res.data.status === 200) {
                         showToast({
                             title: 'Đã cấp lại mật khẩu mới cho bạn, vui lòng kiểm tra email',
@@ -37,7 +36,6 @@ const ForgotPassword = () => {
                     }
                 })
                 .catch(err => {
-                    console.error(err)
                     showToast({ title: err.message, status: 'error' })
                 })
                 .finally(() => setLoading(false))
