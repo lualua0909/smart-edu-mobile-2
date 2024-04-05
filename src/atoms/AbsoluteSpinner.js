@@ -1,17 +1,23 @@
+import { HStack, Text } from 'app/atoms'
 import React from 'react'
 
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { HStack, Heading } from 'native-base'
-
-export default ({ loading = true, title = 'Loading' }) =>
+export default ({ loading = true, title = 'Đang tải' }) =>
     loading && (
         <View style={styles.loading}>
-            <HStack space={2} justifyContent="center">
-                <ActivityIndicator size="large" color="#0000ff" />
-                <Heading color="primary.500" fontSize={'lg'}>
+            <HStack>
+                <ActivityIndicator size="large" color="green" />
+                <Text
+                    style={{
+                        marginTop: 5,
+                        marginLeft: 10,
+                        color: 'black',
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                    }}>
                     {title}
-                </Heading>
+                </Text>
             </HStack>
         </View>
     )
