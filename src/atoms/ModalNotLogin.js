@@ -1,7 +1,7 @@
+import { Button, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgClose } from 'assets/svg'
-import { Button, Text } from 'atoms'
 import React from 'react'
 
 import { Image, Pressable, View } from 'react-native'

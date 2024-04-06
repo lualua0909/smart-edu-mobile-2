@@ -1,7 +1,8 @@
 import { Loading } from 'app/atoms'
 import { API_URL } from 'app/constants'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
+import { useIsFocused } from '@react-navigation/native'
 import { Dimensions } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
@@ -27,16 +28,11 @@ export default ({ videoUrl, poster }) => {
     const videoRef = useRef(null)
     const isBunnyVideo = videoUrl?.includes('iframe.mediadelivery.net')
     const isYoutube = videoUrl?.includes('youtube.com')
+    const isFocused = useIsFocused()
 
     if (loading) {
         return <Loading title={'Đang tải video'} />
     }
-
-    // useEffect(() => {
-    //     return () => {
-    //         videoRef?.current?.seek?.(0)
-    //     }
-    // }, [])
 
     if (isYoutube)
         return (
@@ -73,10 +69,11 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
+            paused={!isFocused}
             ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
-            }} // Can be a URL or a local file.
+            }}
             style={{ height: 200, width: '100%' }}
         />
     )

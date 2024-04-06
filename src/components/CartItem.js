@@ -1,4 +1,4 @@
-import { showToast } from 'app/atoms'
+import { Button, Text, showToast } from 'app/atoms'
 import Swipeout from 'app/components/SwipeOut'
 import { COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -7,6 +7,7 @@ import { svgRedDelete } from 'assets/svg'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import {
     Check,
     CreditCard,
@@ -15,7 +16,7 @@ import {
 } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Button, Image, Modal, Pressable, Text, View } from 'native-base'
+import { Image, Modal } from 'native-base'
 
 const CartItem = ({ course, index }) => {
     const navigation = useNavigation()
@@ -151,18 +152,12 @@ const CartItem = ({ course, index }) => {
                     }}>
                     {renderPrice}
                     <Button
-                        size="sm"
                         onPress={() =>
                             navigation.navigate('PackagePayment', {
                                 id: course?.id,
                                 title: course?.title,
                                 price: course?.old_price
                             })
-                        }
-                        leftIcon={
-                            <>
-                                <CreditCard stroke="#fff" />
-                            </>
                         }>
                         Thanh toán
                     </Button>

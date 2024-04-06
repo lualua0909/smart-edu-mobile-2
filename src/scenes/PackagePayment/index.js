@@ -1,5 +1,12 @@
 import axios from 'app/Axios'
-import { AbsoluteSpinner, Button, Text, showToast } from 'app/atoms'
+import {
+    AbsoluteSpinner,
+    Button,
+    HStack,
+    Text,
+    VStack,
+    showToast
+} from 'app/atoms'
 import { COURSE_IMG_PATH } from 'app/constants'
 import { toCurrency } from 'app/helpers/utils'
 import animationImg from 'assets/animations/success.json'
@@ -10,7 +17,7 @@ import LottieView from 'lottie-react-native'
 import { Linking, Platform, View } from 'react-native'
 
 import creditCard from 'assets/images/credit-card.png'
-import { Box, Center, HStack, Heading, Image, VStack } from 'native-base'
+import { Box, Center, Heading, Image } from 'native-base'
 
 // import AddVoucher from './AddVoucher'
 
@@ -156,18 +163,15 @@ const PackagePayment = ({ navigation, route }) => {
                         <Text bold style={{ fontSize: 16 }}>
                             Phương thức thanh toán
                         </Text>
-                        <Button.Group isAttached variant="unstyled">
-                            <Button>
-                                <Image
-                                    size={'xs'}
-                                    resizeMode="contain"
-                                    source={momoLogo}
-                                    alt={'Alternate Text '}
-                                />
-                            </Button>
+                        <HStack>
+                            <Image
+                                size={'xs'}
+                                resizeMode="contain"
+                                source={momoLogo}
+                                alt={'Alternate Text '}
+                            />
                             <Button
-                                variant="ghost"
-                                colorScheme="gray"
+                                outlined
                                 onPress={() =>
                                     makePayment({
                                         requestType: 'captureWallet'
@@ -175,25 +179,22 @@ const PackagePayment = ({ navigation, route }) => {
                                 }>
                                 Thanh toán bằng MOMO
                             </Button>
-                        </Button.Group>
-                        <Button.Group isAttached variant="unstyled">
-                            <Button>
-                                <Image
-                                    size={'xs'}
-                                    resizeMode="contain"
-                                    source={creditCard}
-                                    alt={'Alternate Text '}
-                                />
-                            </Button>
+                        </HStack>
+                        <HStack>
+                            <Image
+                                size={'xs'}
+                                resizeMode="contain"
+                                source={creditCard}
+                                alt={'Alternate Text '}
+                            />
                             <Button
-                                variant="ghost"
-                                colorScheme="gray"
+                                outlined
                                 onPress={() =>
                                     makePayment({ requestType: 'payWithATM' })
                                 }>
                                 Thẻ ATM nội địa
                             </Button>
-                        </Button.Group>
+                        </HStack>
                     </VStack>
                 </VStack>
             </Box>

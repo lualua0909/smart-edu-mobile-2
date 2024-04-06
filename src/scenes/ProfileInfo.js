@@ -7,6 +7,7 @@ import {
     DetailSkeleton,
     HStack,
     Input,
+    Select,
     VStack,
     showToast
 } from 'app/atoms'
@@ -239,7 +240,7 @@ const ProfileInfo = () => {
                         </View>
                     </View>
                     <VStack
-                        gap={15}
+                        space={15}
                         style={{
                             width: '100%',
                             paddingHorizontal: 20

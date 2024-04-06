@@ -1,13 +1,15 @@
 import { useGlobalState } from 'app/Store'
-import { Avatar, Text } from 'app/atoms'
+import { Avatar, Card, Text } from 'app/atoms'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { toRelativeTime } from 'app/helpers/utils'
 import { svgSend } from 'assets/svg'
 import React, { useEffect, useRef, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
 import { useHeaderHeight } from '@react-navigation/elements'
 import {
+    Image,
     KeyboardAvoidingView,
     Platform,
     Pressable,
@@ -19,7 +21,7 @@ import { SvgXml } from 'react-native-svg'
 
 import HeaderChat from 'app/components/header-chat'
 
-const ChatDetail = ({ navigation }) => {
+const ConversationDetail = ({ navigation }) => {
     const headerHeight = useHeaderHeight()
     const [data, setData] = useState([])
     const [currentId, setCurrentId] = useGlobalState('currentCourseId')
@@ -71,49 +73,34 @@ const ChatDetail = ({ navigation }) => {
                     flexDirection: 'row',
                     marginBottom: scale(16)
                 }}>
-                <Avatar size={10} userId={data?.id} name={data?.name} />
-                <View
+                <Avatar size={50} userId={data?.id} />
+                <Card
+                    shadow
                     style={{
-                        flex: 1,
                         marginLeft: scale(8),
-                        backgroundColor: '#fff',
+                        backgroundColor: '#BFEA7C',
                         paddingHorizontal: scale(16),
-                        paddingVertical: scale(4),
-                        borderRadius: scale(16),
+                        paddingVertical: 10,
+                        borderRadius: 10,
                         borderTopLeftRadius: 0
                     }}>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            alignItems: 'center'
+                            flexDirection: 'column'
                         }}>
                         <Text
                             bold
                             style={{
-                                fontSize: 14,
-                                color: '#091230'
+                                fontSize: 16
                             }}>
-                            {data?.name}
+                            {data?.name}{' '}
                         </Text>
-                        {/* <LinearGradient
-                            colors={['#0F7DFF', '#00B3EC']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
+                        <Text
                             style={{
-                                paddingVertical: scale(2),
-                                paddingHorizontal: scale(4),
-                                borderTopLeftRadius: scale(10),
-                                borderBottomRightRadius: scale(10),
-                                marginLeft: scale(8)
+                                fontSize: 12
                             }}>
-                            <Text
-                                style={{
-                                    fontSize: scale(12),
-                                    color: '#F4F5F7'
-                                }}>
-                                Khách mời
-                            </Text>
-                        </LinearGradient> */}
+                            {toRelativeTime(data.createdAt.toDate())}
+                        </Text>
                     </View>
                     <Text
                         style={{
@@ -123,7 +110,7 @@ const ChatDetail = ({ navigation }) => {
                         }}>
                         {data?.message}
                     </Text>
-                </View>
+                </Card>
             </View>
         )
     }
@@ -132,38 +119,25 @@ const ChatDetail = ({ navigation }) => {
         return (
             <View
                 style={{
-                    flexDirection: 'row',
-                    alignSelf: 'flex-end',
-                    marginBottom: scale(16)
+                    alignSelf: 'flex-end'
                 }}>
-                <View
+                <Card
+                    shadow
                     style={{
-                        padding: scale(8),
-                        borderRadius: scale(8),
-                        backgroundColor: '#EEFCF6'
+                        padding: 10,
+                        backgroundColor: '#416D19',
+                        borderRadius: 10,
+                        borderTopRightRadius: 0
                     }}>
                     <Text
                         style={{
                             fontSize: 14,
-                            color: '#091230',
-                            marginTop: scale(8)
+                            color: '#fff'
                         }}>
                         {data?.message}
                     </Text>
-                </View>
-                {/* <Image
-                    source={{
-                        uri: 'https://server.smartx.edu.vn/public/user-avatars/452.webp'
-                    }}
-                    style={{
-                        width: scale(48),
-                        height: scale(48),
-                        borderRadius: scale(48),
-                        borderWidth: 1,
-                        borderColor: '#eee',
-                        marginLeft: scale(8)
-                    }}
-                /> */}
+                </Card>
+                {/* <Avatar userId={data?.id} size={50} /> */}
             </View>
         )
     }
@@ -212,7 +186,7 @@ const ChatDetail = ({ navigation }) => {
                             color: '#091230'
                         }}
                         placeholderTextColor={'#9C9C9C'}
-                        placeholder="Tin nhắn"
+                        placeholder="Nhập tin nhắn..."
                         value={message}
                         onChangeText={setMessage}
                     />
@@ -230,4 +204,4 @@ const ChatDetail = ({ navigation }) => {
     )
 }
 
-export default ChatDetail
+export default ConversationDetail

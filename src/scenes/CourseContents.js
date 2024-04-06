@@ -22,8 +22,14 @@ import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, FlatList, Linking, Pressable, View } from 'react-native'
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
+import {
+    Dimensions,
+    FlatList,
+    Linking,
+    Pressable,
+    SafeAreaView,
+    View
+} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
@@ -120,52 +126,14 @@ const CourseDetail = ({ route, navigation }) => {
     navigation.setOptions({
         headerTitle: () => (
             <>
-                {hideHeaderTitle ? null : (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingVertical: 0
-                        }}>
-                        <Button
-                            size="sm"
-                            onPress={prevLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            variant="subtle"
-                            colorScheme="green"
-                            leftIcon={
-                                <>
-                                    <ChevronLeft
-                                        stroke="green"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                        {data?.is_finish ? (
-                            <Button
-                                size="sm"
-                                onPress={nextLesson}
-                                style={{
-                                    marginRight: scale(12)
-                                }}
-                                leftIcon={
-                                    <>
-                                        <ChevronRight
-                                            stroke="#fff"
-                                            width={24}
-                                            height={24}
-                                        />
-                                    </>
-                                }></Button>
-                        ) : (
-                            countdown
-                        )}
-                    </View>
-                )}
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingVertical: 0,
+                        height: 100
+                    }}></View>
             </>
         ),
         headerTransparent: true
@@ -474,9 +442,9 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .finally(() => setQuestionLoading(false))
     }
-    console.log('data = ', data)
+
     return (
-        <View
+        <SafeAreaView
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
@@ -494,25 +462,25 @@ const CourseDetail = ({ route, navigation }) => {
                         <VideoViewer
                             videoUrl={data?.file_path || data?.video_url}
                         />
-                    ) : data?.type === 2 ? (
+                    ) : null}
+
+                    {data?.type === 2 ? (
                         <DocumentViewer
                             content={data?.text_document}
                             uri={`${API_URL}public/${data?.file_path}`}
                         />
-                    ) : data?.type === 3 ? (
+                    ) : null}
+                    {data?.type === 3 ? (
                         <ScormViewer
                             src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
                             toggleScormLoading={() =>
                                 setScormLoading(!scormLoading)
                             }
                         />
-                    ) : data?.type === 4 ? (
-                        <ExamViewer data={data} />
-                    ) : data?.type === 5 ? (
-                        <EnglishReading data={data} />
-                    ) : (
-                        <FinishCourse />
-                    )}
+                    ) : null}
+                    {data?.type === 4 ? <ExamViewer data={data} /> : null}
+                    {data?.type === 5 ? <EnglishReading data={data} /> : null}
+                    <FinishCourse />
                 </View>
                 <Center mt="3" mb="3">
                     <Text
@@ -631,7 +599,7 @@ const CourseDetail = ({ route, navigation }) => {
                 onClose={onCloseViewDoc}
                 url={selectedFile}
             />
-        </View>
+        </SafeAreaView>
     )
 }
 

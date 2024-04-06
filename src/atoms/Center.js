@@ -2,13 +2,14 @@ import React from 'react'
 
 import { View } from 'react-native'
 
-export default function Center({ children }) {
+export default function Center({ children, style }) {
     return (
         <View
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                ...style
             }}>
             {children}
         </View>

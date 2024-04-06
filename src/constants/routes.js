@@ -8,7 +8,7 @@ export default ROUTES = {
     CourseDetail: 'CourseDetail',
     CourseDetailTrial: 'CourseDetailTrial',
     Chat: 'Chat',
-    ChatDetail: 'ChatDetail',
+    ConversationDetail: 'ConversationDetail',
     TeacherInfo: 'TeacherInfo',
     Overview: 'Overview',
     NotificationDetail: 'NotificationDetail',
