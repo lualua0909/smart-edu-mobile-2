@@ -33,11 +33,12 @@ export default ({ videoUrl, poster }) => {
         return <Loading title={'Đang tải video'} />
     }
 
-    useEffect(() => {
-        return () => {
-            videoRef.current.seek(0)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!videoRef.current) return
+    //     return () => {
+    //         videoRef.current.seek(0)
+    //     }
+    // }, [videoRef])
 
     if (isYoutube)
         return (
@@ -66,12 +67,7 @@ export default ({ videoUrl, poster }) => {
                     html: videoUrl
                 }}
                 style={frameStyle}
-                onLoadStart={syntheticEvent => {
-                    setLoading(true)
-                }}
-                onLoadEnd={syntheticEvent => {
-                    setLoading(false)
-                }}
+                onRenderProcessGone={event => console.log(event)}
             />
         )
 
@@ -80,10 +76,14 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
+            seek={0}
             ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
             }} // Can be a URL or a local file.
+            // onVideoLoadStart={() => setLoading(true)}
+            onSeek={data => console.log(data)}
+            // onVideoEnd={() => setLoading(false)}
             style={{ height: 200, width: '100%' }}
         />
     )

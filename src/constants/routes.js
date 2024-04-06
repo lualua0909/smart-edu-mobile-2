@@ -5,6 +5,7 @@ export default ROUTES = {
     ForgotPassword: 'ForgotPassword',
     Course: 'Course',
     CourseInfo: 'CourseInfo',
+    CourseInfo2: 'CourseInfo2',
     CourseDetail: 'CourseDetail',
     CourseDetailTrial: 'CourseDetailTrial',
     Chat: 'Chat',
@@ -29,5 +30,12 @@ export default ROUTES = {
     LearningHistory: 'LearningHistory',
     CertificateList: 'CertificateList',
     TransactionList: 'TransactionList',
-    Survey: 'Survey'
+    Survey: 'Survey',
+    Course12Skill: 'Course12Skill',
+    EntranceTest: 'EntranceTest',
+    InputTestResult: 'InputTestResult',
+    LearningPath: 'LearningPath',
+    ChartTestResult: 'ChartTestResult',
+    StagesView: 'StagesView',
+    Leaderboard: 'Leaderboard'
 }

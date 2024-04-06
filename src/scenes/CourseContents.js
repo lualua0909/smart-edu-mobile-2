@@ -16,11 +16,12 @@ import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
+import { getData } from 'app/helpers/utils'
 import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { Dimensions, Linking } from 'react-native'
+import { AppState, BackHandler, Dimensions, Linking } from 'react-native'
 import { ChevronLeft, ChevronRight } from 'react-native-feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
@@ -96,6 +97,26 @@ const CourseDetail = ({ route, navigation }) => {
             clearTimeout(t)
         }
     }, [hideHeaderTitle])
+    const handleAppStateChange = nextAppState => {
+        console.log('next', nextAppState)
+        if (nextAppState === 'inactive') {
+            console.log('the app is closed')
+        }
+    }
+    // Bắt xự kiện người dùng thoát app
+    useEffect(() => {
+        AppState.addEventListener('change', handleAppStateChange)
+        // return () => {
+        //     AppState.removeEventListener('change', event =>
+        //         handleAppStateChange(event)
+        //     )
+        // }
+    }, [])
+
+    // useEffect(() => {
+    //     let userInfo2 = getData('@userInfo')
+    //     _setUserState(userInfo2)
+    // }, [])
 
     const countdown = (
         <Countdown

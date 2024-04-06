@@ -7,9 +7,10 @@ import firebase from '@react-native-firebase/app'
 import messaging from '@react-native-firebase/messaging'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
+import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
-import { Platform } from 'react-native'
+
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider, extendTheme } from 'native-base'
 

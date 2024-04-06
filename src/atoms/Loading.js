@@ -18,7 +18,9 @@ export default ({ title = 'Đang tải thông tin bài học' }) => (
                 }}
             />
             <Center>
-                <Heading fontSize="md" style={{ color: 'green' }}>
+                <Heading
+                    fontSize="md"
+                    style={{ color: 'green', textAlign: 'center' }}>
                     {title}
                 </Heading>
             </Center>

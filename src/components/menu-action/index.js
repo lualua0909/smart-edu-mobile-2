@@ -16,7 +16,11 @@ const MenuAction = ({
 }) => {
     return (
         <TouchableOpacity
-            style={{ alignItems: 'center', width: '30%' }}
+            style={{
+                alignItems: 'center',
+                width: '30%',
+                marginTop: scale(12)
+            }}
             onPress={onPress}>
             <View
                 style={[

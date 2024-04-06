@@ -12,6 +12,7 @@ import {
     svgCoin,
     svgConfirmed,
     svgExamination,
+    svgIconCharts,
     svgInternalNews,
     svgMyCourse,
     svgMyMeeting,
@@ -385,9 +386,10 @@ const Menu = ({ route }) => {
                 </View>
                 <View
                     style={{
-                        marginTop: scale(12),
+                        // marginTop: scale(12),
                         flexDirection: 'row',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap'
                     }}>
                     <MenuAction
                         icon={svgMyCourse}
@@ -400,6 +402,21 @@ const Menu = ({ route }) => {
                             })
                         }
                     />
+
+                    {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+
+                    <MenuAction
+                        icon={svgMyCourse}
+                        title="KH theo lộ trình"
+                        backgroundColor="#E5FEEC"
+                        onPress={() =>
+                            navigation.navigate(ROUTES.Course12Skill, {
+                                userId: null
+                            })
+                        }
+                    />
+
+                    {/*  */}
                     <MenuAction
                         icon={svgCalendarOffline}
                         title="KH yêu thích"
@@ -429,42 +446,7 @@ const Menu = ({ route }) => {
                     />
                 </View>
             </View>
-            <View
-                style={{
-                    backgroundColor: '#fff',
-                    paddingVertical: scale(16)
-                }}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingLeft: scale(16)
-                    }}>
-                    <Text bold style={styles.formTitleText}>
-                        KHÁC
-                    </Text>
-                </View>
-                <View
-                    style={{
-                        marginTop: scale(12),
-                        flexDirection: 'row',
-                        justifyContent: 'space-between'
-                    }}>
-                    <MenuAction
-                        icon={svgMyMeeting}
-                        title="Bạn bè"
-                        description="xem bạn bè"
-                        backgroundColor="#FFF4F0"
-                        // badge={2}
-                        onPress={() =>
-                            navigation.navigate(ROUTES.Friends, {
-                                userId: null
-                            })
-                        }
-                    />
-                </View>
-            </View>
+
             {/* {renderMentorConnect} */}
             {/* <View
                     style={{
@@ -564,6 +546,53 @@ const Menu = ({ route }) => {
             <ScrollView
                 contentContainerStyle={{ paddingBottom: scale(50) }}
                 showsVerticalScrollIndicator={false}>
+                <View
+                    style={{
+                        backgroundColor: '#fff',
+                        paddingVertical: scale(16)
+                    }}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            paddingLeft: scale(16)
+                        }}>
+                        <Text bold style={styles.formTitleText}>
+                            KHÁC
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            marginTop: scale(12),
+                            flexDirection: 'row'
+                            // justifyContent: 'start'
+                        }}>
+                        <MenuAction
+                            icon={svgMyMeeting}
+                            title="Bạn bè"
+                            description="xem bạn bè"
+                            backgroundColor="#FFF4F0"
+                            // badge={2}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Friends, {
+                                    userId: null
+                                })
+                            }
+                        />
+                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                        <MenuAction
+                            icon={svgIconCharts}
+                            title="Bảng xếp hạng"
+                            backgroundColor="#52B553"
+                            // badge={2}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Leaderboard)
+                            }
+                        />
+                        {/*  */}
+                    </View>
+                </View>
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {
