@@ -1,12 +1,11 @@
+import { Center } from 'app/atoms'
 import animationImg from 'assets/animations/loading.json'
 import React from 'react'
 
 import LottieView from 'lottie-react-native'
 
-import { Center } from 'native-base'
-
 export default () => (
-    <Center>
+    <Center style={{ height: 200 }}>
         <LottieView
             source={animationImg}
             autoPlay
