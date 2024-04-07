@@ -17,12 +17,7 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import {
-    clearDataAfterLogout,
-    errorLog,
-    isAndroid,
-    toCurrency
-} from 'app/helpers/utils'
+import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -39,7 +34,6 @@ import {
     currentPurchase,
     endConnection,
     finishTransaction,
-    flushFailedPurchasesCachedAsPendingAndroid,
     getProducts,
     initConnection,
     isIosStorekit2,
@@ -790,11 +784,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 width={24}
                                 height={24}
                             />
-                            <Text
-                                outlined
-                                style={{
-                                    marginTop: scale(4)
-                                }}>
+                            <Text outlined style={{ color: '#52B553' }}>
                                 Học thử
                             </Text>
                         </Pressable>
@@ -844,7 +834,7 @@ const CourseInfo = ({ navigation, route }) => {
                                             Mua ngay
                                         </Button>
                                     ) : null}
-                                    {!!data?.relational ? (
+                                    {!!data?.relational && !data.is_combo ? (
                                         <Button
                                             onPress={gotoCourse}
                                             isLoading={loadingVerify}

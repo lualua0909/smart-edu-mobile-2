@@ -1,4 +1,4 @@
-import { Button, Text } from 'app/atoms'
+import { Button, Center, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgClose } from 'assets/svg'
@@ -7,8 +7,6 @@ import React from 'react'
 import { Image, Pressable, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
-
-import { Center } from 'native-base'
 
 const ModalNotLogin = ({ visible, setVisible }) => {
     return (

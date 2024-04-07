@@ -1,10 +1,9 @@
-import { Avatar, NoDataAnimation, Text } from 'app/atoms'
+import { Avatar, Center, NoDataAnimation, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
+import { View } from 'react-native'
 import { Bookmark, Briefcase } from 'react-native-feather'
-
-import { Center, View } from 'native-base'
 
 const ComboTeacherTab = ({ list }) => {
     if (!list?.length) {

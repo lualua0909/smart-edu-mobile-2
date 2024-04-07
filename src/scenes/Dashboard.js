@@ -373,7 +373,7 @@ const Menu = ({ route }) => {
                         onPress={() =>
                             navigation.navigate(ROUTES.LearningHistory)
                         }>
-                        <Text style={styles.formViewMoreText}>
+                        <Text bold style={styles.formViewMoreText}>
                             Xem quá trình học tập
                         </Text>
                         <ChevronRight width={scale(18)} color="#A3A3A3" />
@@ -676,10 +676,6 @@ const styles = StyleSheet.create({
         color: '#0E564D',
         letterSpacing: 0.7,
         paddingTop: scale(5)
-    },
-    formViewMoreText: {
-        fontSize: scale(14),
-        color: '#A3A3A3'
     },
     actionText: {
         fontSize: scale(16),

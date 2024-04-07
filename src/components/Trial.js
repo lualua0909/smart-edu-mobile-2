@@ -1,5 +1,5 @@
 import { setGlobalState } from 'app/Store'
-import { Text } from 'app/atoms'
+import { Center, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { storeData } from 'app/helpers/utils'
 import React from 'react'
@@ -9,7 +9,6 @@ import { Platform, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
-import { Center } from 'native-base'
 
 const Trial = () => {
     const toTrialPage = () => {

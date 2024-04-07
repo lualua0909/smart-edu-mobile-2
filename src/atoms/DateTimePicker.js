@@ -3,8 +3,7 @@ import dayjs from 'dayjs'
 import React, { useState } from 'react'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
-
-import { Icon, Pressable } from 'native-base'
+import { Pressable } from 'react-native'
 
 const CustomDateTimePicker = ({
     date = new Date(),

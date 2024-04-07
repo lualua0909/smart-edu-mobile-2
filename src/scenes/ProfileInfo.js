@@ -4,10 +4,10 @@ import {
     AbsoluteSpinner,
     Avatar,
     Button,
+    Center,
     DetailSkeleton,
     HStack,
     Input,
-    Select,
     VStack,
     showToast
 } from 'app/atoms'
@@ -20,7 +20,7 @@ import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Camera } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
 
-import { AlertDialog, Center, Radio } from 'native-base'
+import { AlertDialog, Radio } from 'native-base'
 
 const ProfileInfo = () => {
     const userInfo = getGlobalState('userInfo')

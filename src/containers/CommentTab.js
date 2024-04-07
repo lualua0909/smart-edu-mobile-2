@@ -1,12 +1,10 @@
 import axios from 'app/Axios'
-import { NoData, Text } from 'app/atoms'
+import { AbsoluteSpinner, NoData, Text } from 'app/atoms'
 import CommentCard from 'app/components/CommentCard'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { Pressable, View } from 'react-native'
-
-import { HStack, Heading, Spinner } from 'native-base'
 
 const RPP = 4
 
@@ -48,12 +46,7 @@ const CommentTab = ({ courseId }) => {
                 ))}
             </View>
             {loading ? (
-                <HStack mt={3} space={5} justifyContent="center">
-                    <Spinner accessibilityLabel="Loading posts" />
-                    <Heading color="primary.500" fontSize="sm">
-                        Đang tải đánh giá
-                    </Heading>
-                </HStack>
+                <AbsoluteSpinner title="Đang tải đánh giá" />
             ) : (
                 <Pressable
                     style={{

@@ -9,7 +9,7 @@ import { Pressable, View } from 'react-native'
 import { CreditCard, DollarSign } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Badge, Box } from 'native-base'
+import { Badge } from 'native-base'
 
 const TransactionItem = ({ data }) => {
     const year =

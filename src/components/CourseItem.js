@@ -1,4 +1,4 @@
-import { Card, Rate, Text } from 'app/atoms'
+import { Card, HStack, Rate, Text } from 'app/atoms'
 import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { isIOS, toCurrency } from 'app/helpers/utils'
@@ -6,10 +6,9 @@ import { svgTriangle } from 'assets/svg'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Image, Pressable, View } from 'react-native'
+import { Image, View } from 'react-native'
+import * as Progress from 'react-native-progress'
 import { SvgXml } from 'react-native-svg'
-
-import { Progress } from 'native-base'
 
 const CourseItem = ({
     item,
@@ -216,25 +215,17 @@ const CourseItem = ({
                         </Pressable> */}
                 </View>
                 {isMine ? (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginTop: scale(10)
-                        }}>
-                        <Progress
-                            colorScheme="emerald"
-                            value={item?.process}
-                            style={{ width: '80%', marginTop: scale(5) }}
+                    <HStack space={10} style={{ width: '100%', marginTop: 10 }}>
+                        <Progress.Bar
+                            progress={item?.process / 100}
+                            width={200}
+                            height={scale(10)}
+                            color="green"
                         />
-                        <Text
-                            style={{
-                                fontSize: scale(12),
-                                color: '#777'
-                            }}>
+                        <Text bold style={{ marginTop: -3 }}>
                             {item?.process}%
                         </Text>
-                    </View>
+                    </HStack>
                 ) : (
                     <View
                         style={{

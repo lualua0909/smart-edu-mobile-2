@@ -1,6 +1,5 @@
+import { Text, VStack } from 'app/atoms'
 import React from 'react'
-
-import { FormControl, Text, WarningOutlineIcon } from 'native-base'
 
 const typeName = new Map([
     [0, 'Tự luận'],
@@ -11,16 +10,10 @@ const typeName = new Map([
 ])
 
 const Title = ({ index, title, isInvalid }) => (
-    <>
-        <FormControl w="3/4" maxW="300" isInvalid={isInvalid}>
-            <Text bold>Câu {parseInt(index) + 1}</Text>
-            <FormControl.ErrorMessage
-                leftIcon={<WarningOutlineIcon size="xs" />}>
-                Please make a selection!
-            </FormControl.ErrorMessage>
-        </FormControl>
+    <VStack space={5}>
+        <Text bold>Câu {parseInt(index) + 1}</Text>
         <Text>{title?.replace(/<[^>]*>?/gm, '')}</Text>
-    </>
+    </VStack>
 )
 
 export default Title

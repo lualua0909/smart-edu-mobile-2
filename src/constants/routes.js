@@ -1,7 +1,7 @@
 export default ROUTES = {
     Wireframe: 'Wireframe',
     Login: 'Login',
-    Register: 'Register',
+    SignUp: 'SignUp',
     ForgotPassword: 'ForgotPassword',
     Course: 'Course',
     CourseInfo: 'CourseInfo',

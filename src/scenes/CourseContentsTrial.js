@@ -1,13 +1,13 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
     Button,
     Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
-    Loading,
     ScormViewer,
     Text,
     VideoViewer,
@@ -154,7 +154,7 @@ const CourseDetail = ({ route, navigation }) => {
                 userInfo?.id === 'trial' ? (
                     <Button
                         onPress={() => {
-                            clearDataAfterLogout(ROUTES.Register)
+                            clearDataAfterLogout(ROUTES.SignUp)
                         }}>
                         Tạo tài khoản
                     </Button>
@@ -201,7 +201,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     if (loading) {
-        return <Loading />
+        return <AbsoluteSpinner />
     }
 
     const renderScene = ({ route }) => {

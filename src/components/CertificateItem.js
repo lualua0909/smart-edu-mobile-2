@@ -4,10 +4,9 @@ import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React from 'react'
 
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 
 import chungchiSE from 'assets/images/chung-chi-SE.png'
-import { Image } from 'native-base'
 
 const CourseItem = ({ data, index }) => {
     return (

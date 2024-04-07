@@ -1,17 +1,12 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Button, Text, showToast } from 'app/atoms'
-import { scale } from 'app/helpers/responsive'
-import storage from 'app/localStorage'
-import dayjs from 'dayjs'
+import { Button, Center, Text, VStack, showToast } from 'app/atoms'
 import React, { useEffect, useState } from 'react'
 
-import Countdown from 'react-countdown'
 import { Alert, View } from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderTitle from 'app/components/header-title'
-import { Box, Center, VStack } from 'native-base'
 
 import Skeleton from './ExamSkeleton'
 import Type2 from './Type2'
@@ -175,7 +170,7 @@ const ExamContent = ({ navigation, route }) => {
         <View mt="2" style={{ flex: 1, backgroundColor: '#fff' }}>
             <Center>
                 <ScrollView style={{ marginBottom: 20 }}>
-                    <Box
+                    <View
                         rounded="lg"
                         borderColor="coolGray.200"
                         borderWidth="1"
@@ -183,8 +178,8 @@ const ExamContent = ({ navigation, route }) => {
                         <Text fontSize="sm" style={{ padding: 10 }}>
                             {data?.description.replace(/<[^>]*>?/gm, '')}
                         </Text>
-                    </Box>
-                    <VStack space={5} alignItems="center" mt="10">
+                    </View>
+                    <VStack space={5}>
                         {data?.questions?.map((item, index) => {
                             const select = selected?.find(
                                 i => i?.id === item?.id

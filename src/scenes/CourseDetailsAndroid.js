@@ -7,6 +7,7 @@ import {
     NoData,
     Rate,
     Text,
+    VStack,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -28,6 +29,7 @@ import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import { BackHandler, Linking, Pressable, Share, View } from 'react-native'
+import { Image, ScrollView } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -35,7 +37,6 @@ import { TabBar, TabView } from 'react-native-tab-view'
 
 import HeaderBack from 'app/components/header-back'
 import HeaderBackParent from 'app/components/header-back/backToParent'
-import { Image, ScrollView, VStack } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params

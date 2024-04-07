@@ -6,8 +6,6 @@ import React, { useEffect, useState } from 'react'
 
 import { ScrollView, View } from 'react-native'
 
-import { Avatar, InfoOutlineIcon } from 'native-base'
-
 const NotificationDetail = ({ route }) => {
     const { notifyId } = route.params
     const [data, setData] = useState()
@@ -38,17 +36,13 @@ const NotificationDetail = ({ route }) => {
     return (
         <View style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ paddingTop: scale(40) }}>
-                <Avatar
+                {/* <Avatar
                     size="lg"
                     bg="green.700"
                     style={{
                         alignSelf: 'center'
-                    }}>
-                    <InfoOutlineIcon
-                        color="white"
-                        style={{ width: 38, height: 38 }}
-                    />
-                </Avatar>
+                    }}
+                /> */}
                 <View style={{ paddingHorizontal: scale(16) }}>
                     <Text
                         bold

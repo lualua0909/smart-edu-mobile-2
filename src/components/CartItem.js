@@ -4,19 +4,11 @@ import { COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgRedDelete } from 'assets/svg'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, View } from 'react-native'
-import {
-    Check,
-    CreditCard,
-    DollarSign,
-    ShoppingCart
-} from 'react-native-feather'
+import { Image, Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { Image, Modal } from 'native-base'
 
 const CartItem = ({ course, index }) => {
     const navigation = useNavigation()

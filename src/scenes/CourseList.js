@@ -1,6 +1,7 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    Input,
     LoadingAnimation,
     NoDataAnimation as NoData,
     Radio,
@@ -20,8 +21,6 @@ import {
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { Input } from 'native-base'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)

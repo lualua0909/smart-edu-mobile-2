@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
-import { Button, Input, Text, showToast } from 'app/atoms'
+import { Button, Center, Input, Text, VStack, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -11,8 +11,6 @@ import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
-
-import { Center, Stack } from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -139,11 +137,7 @@ const Login = ({ navigation }) => {
                             }}>
                             Chào mừng bạn đến với SmartEdu
                         </Text>
-                        <Stack
-                            space={4}
-                            w="100%"
-                            alignItems="center"
-                            style={{ marginTop: scale(16) }}>
+                        <VStack space={4} style={{ marginTop: scale(16) }}>
                             <Input
                                 allowClear
                                 InputLeftElement={
@@ -190,7 +184,7 @@ const Login = ({ navigation }) => {
                                     </Pressable>
                                 }
                             />
-                        </Stack>
+                        </VStack>
                         <Pressable
                             onPress={() =>
                                 navigation.navigate(ROUTES.ForgotPassword)
@@ -223,7 +217,7 @@ const Login = ({ navigation }) => {
                         </Center>
 
                         <Pressable
-                            onPress={() => navigation.navigate(ROUTES.Register)}
+                            onPress={() => navigation.navigate(ROUTES.SignUp)}
                             style={{
                                 alignSelf: 'center',
                                 marginTop: scale(16)

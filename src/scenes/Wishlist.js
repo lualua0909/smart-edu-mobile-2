@@ -6,9 +6,8 @@ import COLORS from 'app/constants/colors'
 import { scale } from 'app/helpers/responsive'
 import React, { useState } from 'react'
 
+import { Pressable, View } from 'react-native'
 import { TabView } from 'react-native-tab-view'
-
-import { Pressable, StatusBar, View } from 'native-base'
 
 const Wishlist = () => {
     const [tabIndex, setTabIndex] = useState(0)
@@ -43,7 +42,6 @@ const Wishlist = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            <StatusBar barStyle="light-content" />
             <View
                 style={{
                     paddingTop: scale(16),

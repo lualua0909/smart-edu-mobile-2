@@ -2,7 +2,7 @@ import { getGlobalState } from 'app/Store'
 import { ROUTES } from 'app/constants'
 import ForgotPassword from 'app/scenes/ForgotPassword'
 import Login from 'app/scenes/Login'
-import Register from 'app/scenes/SignUp'
+import SignUp from 'app/scenes/SignUp'
 import Wireframe from 'app/scenes/Welcome'
 import React from 'react'
 
@@ -42,8 +42,8 @@ const AuthNavigator = () => {
                     }}
                 />
                 <Stack.Screen
-                    name={ROUTES.Register}
-                    component={Register}
+                    name={ROUTES.SignUp}
+                    component={SignUp}
                     options={{
                         headerShown: false
                     }}

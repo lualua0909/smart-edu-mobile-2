@@ -8,9 +8,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, View } from 'react-native'
 import { Book } from 'react-native-feather'
+import * as Progress from 'react-native-progress'
 import { SvgXml } from 'react-native-svg'
-
-import { Progress } from 'native-base'
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
@@ -107,8 +106,8 @@ const HistoryItem = ({ data }) => {
                         }}>
                         {data?.title}
                     </Text>
-                    <HStack>
-                        <Progress
+                    <HStack space={10} style={{ marginTop: 10 }}>
+                        {/* <Progress
                             bg="coolGray.100"
                             _filledTrack={{
                                 bg:
@@ -121,12 +120,17 @@ const HistoryItem = ({ data }) => {
                             value={data?.process === 0 ? 100 : data?.process}
                             w="80%"
                             style={{ marginVertical: scale(10) }}
+                        /> */}
+                        <Progress.Bar
+                            progress={data?.process / 100}
+                            height={scale(10)}
+                            color="green"
                         />
                         <Text
-                            ml="2"
+                            bold
                             style={{
-                                fontSize: scale(10),
-                                color: '#6C746E'
+                                color: '#6C746E',
+                                marginTop: -3
                             }}>
                             {data?.process}%
                         </Text>

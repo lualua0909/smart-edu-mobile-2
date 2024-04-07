@@ -1,13 +1,14 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
     Button,
+    Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
     Input,
-    Loading,
     NoDataAnimation,
     ScormViewer,
     Text,
@@ -35,7 +36,7 @@ import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
 
-import { Center, FormControl, Modal, TextArea } from 'native-base'
+import { Modal, TextArea } from 'native-base'
 
 const h = Dimensions.get('screen').height
 
@@ -125,16 +126,15 @@ const CourseDetail = ({ route, navigation }) => {
 
     navigation.setOptions({
         headerTitle: () => (
-            <>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingVertical: 0,
-                        height: 100
-                    }}></View>
-            </>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 0,
+                    height: 100
+                }}
+            />
         ),
         headerTransparent: true
     })
@@ -259,7 +259,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     if (loading) {
-        return <Loading />
+        return <AbsoluteSpinner />
     }
 
     const renderScene = ({ route }) => {
@@ -480,7 +480,7 @@ const CourseDetail = ({ route, navigation }) => {
                     ) : null}
                     {data?.type === 4 ? <ExamViewer data={data} /> : null}
                     {data?.type === 5 ? <EnglishReading data={data} /> : null}
-                    <FinishCourse />
+                    {data?.type > 5 || data?.type < 1 ? <FinishCourse /> : null}
                 </View>
                 <Center mt="3" mb="3">
                     <Text
@@ -568,21 +568,21 @@ const CourseDetail = ({ route, navigation }) => {
                 <Modal.Content>
                     <Modal.Header>Gửi câu hỏi</Modal.Header>
                     <Modal.Body>
-                        <FormControl>
+                        <VStack space={10}>
                             <Input
+                                label="Tiêu đề"
                                 placeholder="Nhập tiêu đề câu hỏi"
                                 w="100%"
                                 {...questionTitle}
                             />
-                        </FormControl>
-                        <FormControl mt="3">
                             <TextArea
+                                label="Nội dung"
                                 h={20}
                                 placeholder="Nhập nội dung câu hỏi tại đây..."
                                 w="100%"
                                 {...questionContent}
                             />
-                        </FormControl>
+                        </VStack>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button

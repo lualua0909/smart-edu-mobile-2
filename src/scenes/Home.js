@@ -4,6 +4,8 @@ import {
     Avatar,
     Button,
     Card,
+    Center,
+    HStack,
     NoDataAnimation as NoData,
     Text
 } from 'app/atoms'
@@ -12,22 +14,19 @@ import { COLORS, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { FlatList, Image, Pressable, View } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
 import { Flag, Rss } from 'react-native-feather'
+import * as Progress from 'react-native-progress'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
-
-import { Box, Center, Modal, Progress } from 'native-base'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [dashboardInfo, setDashboardInfo] = useGlobalState('dashboardInfo')
     const [homeInfo, setHomeInfo] = useGlobalState('homeInfo')
-    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         if (userInfo?.id !== 'trial') {
@@ -154,24 +153,25 @@ const Home = ({ navigation }) => {
                                                 }}>
                                                 {item?.title}
                                             </Text>
-                                            <View
+                                            <HStack
+                                                space={5}
                                                 style={{
                                                     marginTop: scale(15)
                                                 }}>
-                                                <Box w="80%" maxW="400">
-                                                    <Progress
-                                                        colorScheme="green"
-                                                        value={item?.process}
-                                                    />
-                                                    <Text
-                                                        style={{
-                                                            fontSize: scale(12),
-                                                            color: '#000'
-                                                        }}>
-                                                        {item?.process}%
-                                                    </Text>
-                                                </Box>
-                                            </View>
+                                                <Progress.Bar
+                                                    progress={
+                                                        item?.process / 100
+                                                    }
+                                                    color="green"
+                                                />
+                                                <Text
+                                                    style={{
+                                                        marginTop: -5,
+                                                        color: '#000'
+                                                    }}>
+                                                    {item?.process}%
+                                                </Text>
+                                            </HStack>
                                         </View>
                                         <Image
                                             resizeMode="cover"
@@ -362,31 +362,11 @@ const Home = ({ navigation }) => {
                     {/* <HotMentors data={homeInfo?.mentor_fields} /> */}
                 </ScrollView>
             </SafeAreaView>
-            <UpdateAlert
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
-            />
         </View>
     )
 }
 
 export default Home
-
-const UpdateAlert = ({ isOpen, onClose }) => (
-    <Modal isOpen={isOpen} onClose={onClose}>
-        <Modal.Content maxWidth="400px">
-            <Modal.CloseButton />
-            <Modal.Header>Cập nhật phần mềm</Modal.Header>
-            <Modal.Body>
-                <Text>
-                    Bạn cần cập nhật phiên bản mới nhất của ứng dụng để sử dụng
-                    các tính năng mới nhất.
-                </Text>
-                <Text>Version hiện tại: {DeviceInfo.getReadableVersion()}</Text>
-            </Modal.Body>
-        </Modal.Content>
-    </Modal>
-)
 
 const Section = ({ title, list, icon, svgIcon, renderItem }) => {
     return (

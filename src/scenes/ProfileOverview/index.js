@@ -1,18 +1,21 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, Button, CourseDetailSkeleton, HStack } from 'app/atoms'
+import {
+    Avatar,
+    Button,
+    Center,
+    CourseDetailSkeleton,
+    HStack,
+    Input,
+    Text
+} from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { Image, ScrollView, View } from 'react-native'
 
-import { Center, Heading, TextArea } from 'native-base'
-
-import Achievement from './Achievement'
-import CreditBouns from './CreditsBouns'
 import DetailInformation from './DetailInformation'
-import FlatListCredits from './FlatListCredits'
 import MenuUser from './MenuUser'
 
 const ProfileOverview = ({ navigation, route }) => {
@@ -128,13 +131,15 @@ const ProfileOverview = ({ navigation, route }) => {
                     </View>
                 </View>
                 <Center style={{ marginTop: 60 }}>
-                    <Heading
-                        fontSize={20}
+                    <Text
                         bold
-                        color={'#0E564D'}
-                        style={{ lineHeight: scale(20) }}>
+                        style={{
+                            lineHeight: scale(20),
+                            color: '#0E564D',
+                            fontSize: 20
+                        }}>
                         {fullName}
-                    </Heading>
+                    </Text>
                 </Center>
 
                 <View
@@ -142,18 +147,10 @@ const ProfileOverview = ({ navigation, route }) => {
                         flexDirection: 'row',
                         paddingTop: scale(10)
                     }}>
-                    <TextArea
-                        fontSize={scale(14)}
+                    <Input
                         placeholder="Giới thiệu bản thân..."
-                        w="90%"
-                        h={16}
                         isDisabled
                         value={data?.description}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#999',
-                            borderRadius: 7
-                        }}
                     />
                 </View>
 

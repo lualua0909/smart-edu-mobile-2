@@ -1,4 +1,4 @@
-import { Loading } from 'app/atoms'
+import { AbsoluteSpinner } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import React, { useRef, useState } from 'react'
 
@@ -31,7 +31,7 @@ export default ({ videoUrl, poster }) => {
     const isFocused = useIsFocused()
 
     if (loading) {
-        return <Loading title={'Đang tải video'} />
+        return <AbsoluteSpinner title={'Đang tải video'} />
     }
 
     if (isYoutube)

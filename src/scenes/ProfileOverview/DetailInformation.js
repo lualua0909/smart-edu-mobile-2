@@ -1,70 +1,50 @@
-import { Input, Text } from 'app/atoms'
+import { Input, VStack } from 'app/atoms'
 import React from 'react'
 
-import { Box, FormControl, VStack } from 'native-base'
+import { View } from 'react-native'
 
-const DetailInformation = ({ data, fullName }) => {
+const DetailInformation = ({ data }) => {
     return (
-        <Box w="90%" py="8">
-            <Text
-                bold
-                style={{
-                    fontSize: 16,
-                    color: '#0E564D'
-                }}>
-                Giới thiệu về {fullName}
-            </Text>
-            <VStack space={3} mt="5">
-                <FormControl>
-                    <FormControl.Label>Ngày sinh</FormControl.Label>
-                    <Input
-                        value={data?.birthday}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label>Giới tính</FormControl.Label>
-                    <Input
-                        value={data?.gender === 2 ? 'Nữ' : 'Nam'}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label>Địa chỉ</FormControl.Label>
-                    <Input
-                        value={data?.address}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label>Chức vụ hiện tại</FormControl.Label>
-                    <Input
-                        value={data?.position}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label>Thuộc bộ phận</FormControl.Label>
-                    <Input
-                        value={data?.department}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormControl.Label>Công ty</FormControl.Label>
-                    <Input
-                        value={data?.partner}
-                        variant="underlined"
-                        isDisabled={true}
-                    />
-                </FormControl>
+        <View>
+            <VStack space={10} style={{ marginHorizontal: 15 }}>
+                <Input
+                    label="Ngày sinh"
+                    value={data?.birthday}
+                    variant="underlined"
+                    isDisabled={true}
+                />
+                <Input
+                    label="Giới tính"
+                    value={data?.gender === 2 ? 'Nữ' : 'Nam'}
+                    variant="underlined"
+                    isDisabled={true}
+                />
+                <Input
+                    label="Địa chỉ"
+                    value={data?.address}
+                    variant="underlined"
+                    isDisabled={true}
+                />
+                <Input
+                    label="Chức vụ hiện tại"
+                    value={data?.position}
+                    variant="underlined"
+                    isDisabled={true}
+                />
+                <Input
+                    label="Thuộc bộ phận"
+                    value={data?.department}
+                    variant="underlined"
+                    isDisabled={true}
+                />
+                <Input
+                    label="Công ty"
+                    value={data?.partner}
+                    variant="underlined"
+                    isDisabled={true}
+                />
             </VStack>
-        </Box>
+        </View>
     )
 }
 

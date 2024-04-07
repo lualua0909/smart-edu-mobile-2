@@ -1,17 +1,14 @@
 import axios from 'app/Axios'
-import { Button, Input } from 'app/atoms'
+import { Button, Center, Input } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
-import { svgLoginMail } from 'assets/svg'
 import React, { useState } from 'react'
 
 import { Image, ScrollView, Text, View } from 'react-native'
-import { SvgXml } from 'react-native-svg'
 
 import HeaderBack from '../components/header-back'
-import { Center, Icon } from 'native-base'
 
 const ForgotPassword = () => {
     const email = useFormInput('')
@@ -109,14 +106,6 @@ const ForgotPassword = () => {
                                 Nhập email để tiến hành khôi phục mật khẩu.
                             </Text>
                             <Input
-                                InputLeftElement={
-                                    <Icon
-                                        as={<SvgXml xml={svgLoginMail} />}
-                                        size={5}
-                                        ml="4"
-                                        color="muted.400"
-                                    />
-                                }
                                 placeholder="Email"
                                 keyboardType="email-address"
                                 {...email}

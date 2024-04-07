@@ -1,3 +1,4 @@
+import { Avatar, HStack, VStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import kemImg from 'assets/images/kem.png'
 import khaImg from 'assets/images/kha.png'
@@ -7,8 +8,6 @@ import xuatsacImg from 'assets/images/xuatsac.png'
 import React from 'react'
 
 import { Dimensions, Pressable } from 'react-native'
-
-import { Avatar, HStack, VStack } from 'native-base'
 
 import Title from './Title'
 

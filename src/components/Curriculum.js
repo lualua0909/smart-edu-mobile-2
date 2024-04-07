@@ -5,9 +5,9 @@ import { animateNextTransition } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
 import { Pressable, View } from 'react-native'
-import { CheckCircle } from 'react-native-feather'
+import { CheckCircle, ChevronDown, ChevronUp } from 'react-native-feather'
 
-import { Badge, ChevronDownIcon, ChevronUpIcon } from 'native-base'
+import { Badge } from 'native-base'
 
 const Curriculum = ({ data, navigateToLesson }) => {
     const [isExpand, setIsExpand] = useState(false)
@@ -38,9 +38,9 @@ const Curriculum = ({ data, navigateToLesson }) => {
                     {data?.name}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="3" />
+                    <ChevronUp stroke="gray" />
                 ) : (
-                    <ChevronDownIcon size="3" />
+                    <ChevronDown stroke="gray" />
                 )}
             </Pressable>
             {isExpand &&
