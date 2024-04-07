@@ -58,6 +58,7 @@ export default ({ videoUrl, poster }) => {
                     html: videoUrl
                 }}
                 style={frameStyle}
+                onRenderProcessGone={event => console.log(event)}
                 onLoadEnd={syntheticEvent => {
                     setLoading(false)
                 }}
@@ -69,11 +70,12 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
-            paused={!isFocused}
+            seek={0}
             ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
-            }}
+            }} // Can be a URL or a local file.
+            paused={!isFocused}
             style={{ height: 200, width: '100%' }}
         />
     )

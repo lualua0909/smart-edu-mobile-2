@@ -344,8 +344,20 @@ const CourseInfo = ({ navigation, route }) => {
             .finally(() => setLoadingVerify(false))
     }
 
+    // Khóa học lộ trình
+    const handleToLearningPath = () => {
+        const screenFromStore = getData('SCREEN')
+        if (screenFromStore) {
+            const data = JSON.parse(screenFromStore)
+            navigation.navigate(data.nameScreen, { data: data.params })
+            return
+        }
+        navigation.navigate(ROUTES.EntranceTest)
+    }
+
     const renderButton = () => {
         //Đã mua và không phải khóa combo
+
         if (data?.relational && !data?.is_combo) {
             return (
                 <Button
@@ -443,7 +455,29 @@ const CourseInfo = ({ navigation, route }) => {
                 </Button>
             )
         }
-        return null
+
+        // trường hợp là khóa học lộ trình và có bài thi đầu vào
+        return (
+            <Button
+                pt={2}
+                pb={2}
+                pr={5}
+                pl={5}
+                style={{
+                    backgroundColor: '#52B553',
+                    borderRadius: 8
+                }}
+                onPress={() => handleToLearningPath()}
+                // isLoading={loadingVerify}
+                leftIcon={
+                    <>
+                        <BookOpen stroke="#fff" size={12} />
+                    </>
+                }
+                isLoadingText="Đang vào">
+                Học ngay
+            </Button>
+        )
     }
     return (
         <View style={{ flex: 1 }}>
@@ -815,7 +849,10 @@ const CourseInfo = ({ navigation, route }) => {
                             </Text>
                         </Pressable>
                     </View>
-                    {data && (
+
+                    {renderButton()}
+
+                    {/* {data && (
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -838,7 +875,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 renderButton()
                             )}
                         </View>
-                    )}
+                    )} */}
                 </View>
             </SafeAreaView>
         </View>

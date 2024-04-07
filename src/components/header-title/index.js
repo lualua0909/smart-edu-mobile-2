@@ -2,14 +2,14 @@ import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-const HeaderTitle = ({ title }) => {
+const HeaderTitle = ({ title, color = '#0E564D' }) => {
     return (
         <Text
             bold
             numberOfLines={2}
             style={{
                 fontSize: 18,
-                color: '#0E564D',
+                color: color,
                 textAlign: 'center',
                 paddingTop: scale(2)
             }}>

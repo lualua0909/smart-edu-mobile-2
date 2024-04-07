@@ -133,12 +133,6 @@ export const hashing = s => {
     }, 0)
 }
 
-export const errorLog = ({
-    message,
-    error
-}: {
-    message: string,
-    error: unknown
-}) => {
+export const errorLog = ({ message, error }) => {
     console.error('An error happened', message, error)
 }

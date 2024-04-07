@@ -1,3 +1,9 @@
+import LeaderBoardComponent from 'app/components/Leaderboard/leaderBoard'
+import EntranceTest from 'app/components/source_12skill/EntranceTest'
+import LearningPath from 'app/components/source_12skill/LearningPath'
+import ChartsComponent from 'app/components/source_12skill/radarChart'
+import TestResult from 'app/components/source_12skill/result'
+import StagesView from 'app/components/source_12skill/stagesComponent/StagesView'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import Carts from 'app/scenes/Carts'
@@ -5,6 +11,7 @@ import CertificateList from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import ConversationDetail from 'app/scenes/ConversationDetail'
+import Course12SkillList from 'app/scenes/Course12SkillList'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
@@ -65,6 +72,20 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
+                component={
+                    Platform.OS === 'android'
+                        ? CourseDetailsAndroid
+                        : withIAPContext(CourseDetails)
+                }
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Giới thiệu khóa học'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.CourseInfo2}
                 component={
                     Platform.OS === 'android'
                         ? CourseDetailsAndroid
@@ -233,6 +254,76 @@ const AppNavigator = () => {
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Khóa học hiện có'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+
+            <Stack.Screen
+                name={ROUTES.Course12Skill}
+                component={Course12SkillList}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Khóa học theo lộ trình'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.EntranceTest}
+                component={EntranceTest}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Bài kiểm tra đầu vào'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.InputTestResult}
+                component={TestResult}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={route.params.title} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.ChartTestResult}
+                component={ChartsComponent}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Biểu đồ '} />,
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.Leaderboard}
+                component={LeaderBoardComponent}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle color={'#FFF'} title={'Bảng xếp hạng'} />
+                    ),
+                    headerLeft: () => <HeaderBack white={true} />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.StagesView}
+                component={StagesView}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={route.params.title} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+
+            <Stack.Screen
+                name={ROUTES.LearningPath}
+                component={LearningPath}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Lộ trình học tập'} />
                     ),
                     headerLeft: () => <HeaderBack />
                 })}

@@ -24,6 +24,7 @@ import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
 import {
+    AppState,
     Dimensions,
     FlatList,
     Linking,
@@ -95,6 +96,26 @@ const CourseDetail = ({ route, navigation }) => {
             clearTimeout(t)
         }
     }, [hideHeaderTitle])
+    const handleAppStateChange = nextAppState => {
+        console.log('next', nextAppState)
+        if (nextAppState === 'inactive') {
+            console.log('the app is closed')
+        }
+    }
+    // Bắt xự kiện người dùng thoát app
+    useEffect(() => {
+        AppState.addEventListener('change', handleAppStateChange)
+        // return () => {
+        //     AppState.removeEventListener('change', event =>
+        //         handleAppStateChange(event)
+        //     )
+        // }
+    }, [])
+
+    // useEffect(() => {
+    //     let userInfo2 = getData('@userInfo')
+    //     _setUserState(userInfo2)
+    // }, [])
 
     const countdown = (
         <Countdown
