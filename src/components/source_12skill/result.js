@@ -1,4 +1,4 @@
-import { Loading } from 'app/atoms'
+import { AbsoluteSpinner } from 'app/atoms'
 import { COLORS, DATA_FAKE_12_SKILL, ROUTES, STYLES } from 'app/constants'
 import { getData, storeData } from 'app/helpers/utils'
 import storage from 'app/localStorage'
@@ -70,7 +70,7 @@ const TestResult = ({
         getAllData()
     }, [])
 
-    if (isLoading) return <Loading title={'Đang tải kết quả'} />
+    if (isLoading) return <AbsoluteSpinner title={'Đang tải kết quả'} />
 
     const renderProcess = (text, process) => {
         return (

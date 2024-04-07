@@ -1,5 +1,4 @@
-import { showToast } from 'app/atoms'
-import { Loading } from 'app/atoms'
+import { AbsoluteSpinner, showToast } from 'app/atoms'
 import {
     COLORS,
     DATA_DEMO_QUESTION,
@@ -8,7 +7,6 @@ import {
     ROUTES
 } from 'app/constants'
 import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
 import { svgSuccessExam } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
@@ -17,7 +15,6 @@ import {
     Alert,
     AppState,
     Dimensions,
-    FlatList,
     Pressable,
     StyleSheet,
     Text,
@@ -242,7 +239,7 @@ const EntranceTest = ({ navigation, route }) => {
     React.useEffect(() => {
         setQuestion(dataQuestion[currentIndexQuestion])
     }, [currentIndexQuestion])
-    if (isLoading) return <Loading title={textStatusLading} />
+    if (isLoading) return <AbsoluteSpinner title={textStatusLading} />
     return (
         <View style={styles.container}>
             <StatusBar barStyle="light-content" />
