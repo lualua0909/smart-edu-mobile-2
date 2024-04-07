@@ -1,16 +1,15 @@
+import { Text } from 'app/atoms'
 import FriendList from 'app/components/FriendList'
 import MentorList from 'app/components/MentorList'
 import MyCourseList from 'app/components/MyCourseList'
 import COLORS from 'app/constants/colors'
 import { scale } from 'app/helpers/responsive'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import { StatusBar } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { TabView } from 'react-native-tab-view'
 
-import { Pressable, Text, View } from 'native-base'
-
-const Wishlist = ({ navigation }) => {
+const Wishlist = () => {
     const [tabIndex, setTabIndex] = useState(0)
 
     const routes = [
@@ -43,7 +42,6 @@ const Wishlist = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            <StatusBar barStyle="light-content" />
             <View
                 style={{
                     paddingTop: scale(16),

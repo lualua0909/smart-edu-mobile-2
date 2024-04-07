@@ -1,11 +1,11 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { NoDataAnimation } from 'app/atoms'
+import { NoDataAnimation, Text } from 'app/atoms'
 import Curriculum from 'app/components/Curriculum'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { Text, View } from 'native-base'
+import { View } from 'react-native'
 
 const LectureTab = ({ courseId, setChapters, navigateToLesson }) => {
     const [data, setData] = useState()

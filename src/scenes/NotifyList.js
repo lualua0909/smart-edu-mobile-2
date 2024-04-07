@@ -4,8 +4,7 @@ import NotiItem from 'app/components/NotifyItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl, View } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
+import { FlatList, RefreshControl, ScrollView, View } from 'react-native'
 
 const Notification = ({}) => {
     const [data, setData] = useState([])

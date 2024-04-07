@@ -1,23 +1,17 @@
 import { useGlobalState } from 'app/Store'
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
-import { CheckCircle } from 'react-native-feather'
+import { Pressable, View } from 'react-native'
+import { CheckCircle, ChevronDown, ChevronUp } from 'react-native-feather'
 
-import {
-    Badge,
-    ChevronDownIcon,
-    ChevronUpIcon,
-    Pressable,
-    Text,
-    View
-} from 'native-base'
+import { Badge } from 'native-base'
 
 const Curriculum = ({ data, navigateToLesson }) => {
     const [isExpand, setIsExpand] = useState(false)
-    const [finishedLectures, setFinishedLectures] =
-        useGlobalState('finishedLectures')
+    const [finishedLectures] = useGlobalState('finishedLectures')
     const onSwitchExpand = () => {
         animateNextTransition()
         setIsExpand(!isExpand)
@@ -44,9 +38,9 @@ const Curriculum = ({ data, navigateToLesson }) => {
                     {data?.name}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="3" />
+                    <ChevronUp stroke="gray" />
                 ) : (
-                    <ChevronDownIcon size="3" />
+                    <ChevronDown stroke="gray" />
                 )}
             </Pressable>
             {isExpand &&

@@ -1,5 +1,11 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import {
+    HStack,
+    LoadingAnimation,
+    NoDataAnimation,
+    Text,
+    VStack
+} from 'app/atoms'
 import PopupDelete from 'app/components/PopupDelete'
 import PopupRate from 'app/components/PopupRate'
 import PopupSurveyCall from 'app/components/PopupSurveyCall'
@@ -16,6 +22,7 @@ import {
     Linking,
     Pressable,
     RefreshControl,
+    ScrollView,
     StatusBar,
     View
 } from 'react-native'
@@ -23,9 +30,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabView } from 'react-native-tab-view'
-import { ScrollView } from 'react-native-virtualized-view'
-
-import { Box, HStack, Heading, Stack, Text } from 'native-base'
 
 const types = new Map([
     ['booking-list-approved', 'Đã xác nhận'],
@@ -474,8 +478,8 @@ const MentorCallItem = ({ data }) => {
     }
 
     return (
-        <Box alignItems="center" style={{ marginBottom: 10 }}>
-            <Box
+        <View alignItems="center" style={{ marginBottom: 10 }}>
+            <View
                 maxW="80"
                 rounded="lg"
                 overflow="hidden"
@@ -490,7 +494,7 @@ const MentorCallItem = ({ data }) => {
                 _light={{
                     backgroundColor: 'gray.50'
                 }}>
-                <Box>
+                <View>
                     <Countdown
                         date={dayjs('2021-07-06 14:53:00')}
                         renderer={({
@@ -513,12 +517,12 @@ const MentorCallItem = ({ data }) => {
                             })
                         }
                     />
-                </Box>
-                <Stack p="4" space={3}>
-                    <Stack space={2}>
-                        <Heading size="md" ml="-1">
+                </View>
+                <VStack p="4" space={3}>
+                    <VStack space={2}>
+                        <Text size="md" ml="-1">
                             {fullName}
-                        </Heading>
+                        </Text>
                         <Text
                             fontSize="xs"
                             _light={{
@@ -532,7 +536,7 @@ const MentorCallItem = ({ data }) => {
                             mt="-1">
                             {data?.title}
                         </Text>
-                    </Stack>
+                    </VStack>
                     <Text fontWeight="400">
                         Bạn có cuộc gọi với {data?.gender === 2 ? 'Cô' : 'Thầy'}{' '}
                         {fullName} vào lúc {data?.book_time}
@@ -552,8 +556,8 @@ const MentorCallItem = ({ data }) => {
                             </Text>
                         </HStack>
                     </HStack>
-                </Stack>
-            </Box>
-        </Box>
+                </VStack>
+            </View>
+        </View>
     )
 }

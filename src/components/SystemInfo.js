@@ -1,11 +1,10 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgBackPack, svgCompany, svgLock, svgUser } from 'assets/svg'
 import React from 'react'
 
 import { TextInput, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { Text } from 'native-base'
 
 const SystemInfo = ({ data }) => {
     return (

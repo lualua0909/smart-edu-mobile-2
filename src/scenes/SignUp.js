@@ -1,16 +1,14 @@
 import axios from 'app/Axios'
-import { Input, showToast } from 'app/atoms'
+import { Button, Center, Input, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import React, { useState } from 'react'
 
-import { Image } from 'react-native'
-import { Shield } from 'react-native-feather'
+import { Image, ScrollView, Text, View } from 'react-native'
 
 import HeaderBack from 'app/components/header-back'
-import { Button, Center, ScrollView, Stack, Text, View } from 'native-base'
 
 const SignUp = () => {
     const mailInput = useFormInput('')
@@ -108,30 +106,17 @@ const SignUp = () => {
                             style={{
                                 color: '#0E564D',
                                 fontSize: scale(16),
-                                textAlign: 'center'
+                                textAlign: 'center',
+                                marginBottom: 10
                             }}>
                             ĐĂNG KÝ TÀI KHOẢN
                         </Text>
-                        <Stack
-                            space={4}
-                            w="100%"
-                            alignItems="center"
-                            style={{ marginTop: scale(16) }}>
-                            <Input
-                                allowClear
-                                InputLeftElement={
-                                    <Shield
-                                        width={18}
-                                        height={18}
-                                        color="#555"
-                                        style={{ marginLeft: 10 }}
-                                    />
-                                }
-                                placeholder="Email"
-                                {...mailInput}
-                                blurOnSubmit={true}
-                            />
-                        </Stack>
+                        <Input
+                            allowClear
+                            placeholder="Email"
+                            {...mailInput}
+                            blurOnSubmit={true}
+                        />
                         <Center>
                             <Button
                                 size="md"

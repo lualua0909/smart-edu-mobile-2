@@ -2,9 +2,12 @@ import axios from 'app/Axios'
 import { getGlobalState, setGlobalState } from 'app/Store'
 import {
     Avatar,
+    Button,
     CourseDetailSkeleton,
     NoData,
     Rate,
+    Text,
+    VStack,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,11 +19,17 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { getData, storeData, toCurrency } from 'app/helpers/utils'
+import {
+    clearDataAfterLogout,
+    getData,
+    storeData,
+    toCurrency
+} from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { BackHandler, Linking, Share } from 'react-native'
+import { BackHandler, Linking, Pressable, Share, View } from 'react-native'
+import { Image, ScrollView } from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -28,15 +37,6 @@ import { TabBar, TabView } from 'react-native-tab-view'
 
 import HeaderBack from 'app/components/header-back'
 import HeaderBackParent from 'app/components/header-back/backToParent'
-import {
-    Button,
-    Image,
-    Pressable,
-    ScrollView,
-    Text,
-    VStack,
-    View
-} from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -700,14 +700,11 @@ const CourseInfo = ({ navigation, route }) => {
                             alignItems: 'center'
                         }}>
                         <Button
-                            variant="outline"
+                            outlined
                             pt={1}
                             pb={1}
                             pr={5}
                             pl={5}
-                            style={{
-                                borderRadius: 8
-                            }}
                             isLoadingText="Đang vào"
                             onPress={() => {
                                 if (data?.is_combo) {

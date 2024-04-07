@@ -1,11 +1,11 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import dayjs from 'dayjs'
 import React from 'react'
 
 import Countdown from 'react-countdown'
+import { View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-
-import { Text, View } from 'native-base'
 
 const ComingExam = ({}) => {
     const renderer = ({

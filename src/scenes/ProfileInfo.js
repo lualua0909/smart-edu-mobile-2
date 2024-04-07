@@ -3,8 +3,12 @@ import { getGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
+    Button,
+    Center,
     DetailSkeleton,
+    HStack,
     Input,
+    VStack,
     showToast
 } from 'app/atoms'
 import { API_URL } from 'app/constants'
@@ -12,23 +16,13 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Camera, UserX } from 'react-native-feather'
+import { Image, Pressable, ScrollView, View } from 'react-native'
+import { Camera } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
 
-import {
-    AlertDialog,
-    Button,
-    Center,
-    HStack,
-    Image,
-    Pressable,
-    Radio,
-    ScrollView,
-    VStack,
-    View
-} from 'native-base'
+import { AlertDialog, Radio } from 'native-base'
 
-const ProfileInfo = ({}) => {
+const ProfileInfo = () => {
     const userInfo = getGlobalState('userInfo')
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
@@ -42,7 +36,6 @@ const ProfileInfo = ({}) => {
         setIsOpen(false)
     }
     const cancelRef = useRef(null)
-    const name = `${data?.first_name} ${data?.last_name}`
 
     useEffect(() => {
         axios
@@ -214,11 +207,7 @@ const ProfileInfo = ({}) => {
                                     alt="image"
                                 />
                             ) : (
-                                <Avatar
-                                    userId={data?.id}
-                                    size="120"
-                                    name={name}
-                                />
+                                <Avatar userId={data?.id} size={120} />
                             )}
                         </View>
                         <View
@@ -250,138 +239,118 @@ const ProfileInfo = ({}) => {
                             </Pressable>
                         </View>
                     </View>
-                    <Center style={{ marginTop: 20 }}>
-                        <VStack width="90%" mx="3" space="3">
-                            <Input
-                                label="Họ"
-                                w={'100%'}
-                                allowClear
-                                value={data?.first_name}
-                                onChangeText={value =>
-                                    changeValue('first_name', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('first_name', e.nativeEvent.text)
-                                }
-                                error={errors?.first_name}
-                            />
-                            <Input
-                                label="Tên"
-                                w={'100%'}
-                                allowClear
-                                value={data?.last_name}
-                                onChangeText={value =>
-                                    changeValue('last_name', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('last_name', e.nativeEvent.text)
-                                }
-                                error={errors?.last_name}
-                            />
-                            <Input
-                                label="Email"
-                                w={'100%'}
-                                value={data.email}
-                                isDisabled
-                            />
-                            <Radio.Group
-                                value={data?.gender}
-                                onChange={selectedValue =>
-                                    changeValue('gender', selectedValue)
-                                }>
-                                <HStack space={10}>
-                                    <Radio
-                                        value={1}
-                                        size="sm"
-                                        onPress={e => onSubmit('gender', 1)}>
-                                        Nam
-                                    </Radio>
-                                    <Radio
-                                        value={2}
-                                        size="sm"
-                                        onPress={e => onSubmit('gender', 2)}>
-                                        Nữ
-                                    </Radio>
-                                </HStack>
-                            </Radio.Group>
-                            <Input
-                                label="Địa chỉ"
-                                w={'100%'}
-                                allowClear
-                                value={data?.address}
-                                onChangeText={value =>
-                                    changeValue('address', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('address', e.nativeEvent.text)
-                                }
-                                error={errors?.address}
-                            />
-                            <Input
-                                label="Công ty"
-                                w={'100%'}
-                                allowClear
-                                value={data?.partner}
-                                onChangeText={value =>
-                                    changeValue('partner', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('partner', e.nativeEvent.text)
-                                }
-                                error={errors?.partner}
-                            />
-                            <Input
-                                label="Chức vụ"
-                                w={'100%'}
-                                allowClear
-                                value={data?.position}
-                                onChangeText={value =>
-                                    changeValue('position', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('position', e.nativeEvent.text)
-                                }
-                                error={errors?.position}
-                            />
-                            <Input
-                                label="Bộ phận"
-                                w={'100%'}
-                                allowClear
-                                value={data?.department}
-                                onChangeText={value =>
-                                    changeValue('department', value)
-                                }
-                                onEndEditing={e =>
-                                    onSubmit('department', e.nativeEvent.text)
-                                }
-                                error={errors?.department}
-                            />
+                    <VStack
+                        space={15}
+                        style={{
+                            width: '100%',
+                            paddingHorizontal: 20
+                        }}>
+                        <Input
+                            label="Họ"
+                            allowClear
+                            value={data?.first_name}
+                            onChangeText={value =>
+                                changeValue('first_name', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('first_name', e.nativeEvent.text)
+                            }
+                            error={errors?.first_name}
+                        />
+                        <Input
+                            label="Tên"
+                            allowClear
+                            value={data?.last_name}
+                            onChangeText={value =>
+                                changeValue('last_name', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('last_name', e.nativeEvent.text)
+                            }
+                            error={errors?.last_name}
+                        />
+                        <Input label="Email" value={data.email} isDisabled />
+                        <Radio.Group
+                            value={data?.gender}
+                            onChange={selectedValue =>
+                                changeValue('gender', selectedValue)
+                            }>
+                            <HStack space={10}>
+                                <Radio
+                                    value={1}
+                                    size="sm"
+                                    onPress={e => onSubmit('gender', 1)}>
+                                    Nam
+                                </Radio>
+                                <Radio
+                                    value={2}
+                                    size="sm"
+                                    onPress={e => onSubmit('gender', 2)}>
+                                    Nữ
+                                </Radio>
+                            </HStack>
+                        </Radio.Group>
+                        <Input
+                            label="Địa chỉ"
+                            allowClear
+                            value={data?.address}
+                            onChangeText={value =>
+                                changeValue('address', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('address', e.nativeEvent.text)
+                            }
+                            error={errors?.address}
+                        />
+                        <Input
+                            label="Công ty"
+                            allowClear
+                            value={data?.partner}
+                            onChangeText={value =>
+                                changeValue('partner', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('partner', e.nativeEvent.text)
+                            }
+                            error={errors?.partner}
+                        />
+                        <Input
+                            label="Chức vụ"
+                            allowClear
+                            value={data?.position}
+                            onChangeText={value =>
+                                changeValue('position', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('position', e.nativeEvent.text)
+                            }
+                            error={errors?.position}
+                        />
+                        <Input
+                            label="Bộ phận"
+                            allowClear
+                            value={data?.department}
+                            onChangeText={value =>
+                                changeValue('department', value)
+                            }
+                            onEndEditing={e =>
+                                onSubmit('department', e.nativeEvent.text)
+                            }
+                            error={errors?.department}
+                        />
 
-                            <Input
-                                label="Tài khoản đăng nhập"
-                                isDisabled
-                                w={'100%'}
-                                value={data?.username}
-                                error={errors?.username}
-                            />
-                            <Center>
-                                <Button
-                                    leftIcon={
-                                        <UserX
-                                            width={18}
-                                            height={18}
-                                            color="red"
-                                        />
-                                    }
-                                    w="70%"
-                                    colorScheme="red"
-                                    onPress={() => setIsOpen(!isOpen)}
-                                    variant="outline">
-                                    Xóa tài khoản
-                                </Button>
-                            </Center>
-                        </VStack>
-                    </Center>
+                        <Input
+                            label="Tài khoản đăng nhập"
+                            isDisabled
+                            value={data?.username}
+                            error={errors?.username}
+                        />
+                        <Center>
+                            <Button onPress={() => setIsOpen(!isOpen)}>
+                                Xóa tài khoản
+                            </Button>
+                        </Center>
+                    </VStack>
                 </View>
             </ScrollView>
             <DeleteUserPopup

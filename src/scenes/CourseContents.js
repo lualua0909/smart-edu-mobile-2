@@ -1,14 +1,17 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
+    Button,
+    Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
     Input,
-    Loading,
     NoDataAnimation,
     ScormViewer,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,29 +19,25 @@ import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
-import { getData } from 'app/helpers/utils'
 import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { AppState, BackHandler, Dimensions, Linking } from 'react-native'
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
+import {
+    AppState,
+    Dimensions,
+    FlatList,
+    Linking,
+    Pressable,
+    SafeAreaView,
+    View
+} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
 
-import {
-    Button,
-    Center,
-    FlatList,
-    FormControl,
-    Modal,
-    Pressable,
-    Text,
-    TextArea,
-    View
-} from 'native-base'
+import { Modal, TextArea } from 'native-base'
 
 const h = Dimensions.get('screen').height
 
@@ -148,54 +147,15 @@ const CourseDetail = ({ route, navigation }) => {
 
     navigation.setOptions({
         headerTitle: () => (
-            <>
-                {hideHeaderTitle ? null : (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingVertical: 0
-                        }}>
-                        <Button
-                            size="sm"
-                            onPress={prevLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            variant="subtle"
-                            colorScheme="green"
-                            leftIcon={
-                                <>
-                                    <ChevronLeft
-                                        stroke="green"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                        {data?.is_finish ? (
-                            <Button
-                                size="sm"
-                                onPress={nextLesson}
-                                style={{
-                                    marginRight: scale(12)
-                                }}
-                                leftIcon={
-                                    <>
-                                        <ChevronRight
-                                            stroke="#fff"
-                                            width={24}
-                                            height={24}
-                                        />
-                                    </>
-                                }></Button>
-                        ) : (
-                            countdown
-                        )}
-                    </View>
-                )}
-            </>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 0,
+                    height: 100
+                }}
+            />
         ),
         headerTransparent: true
     })
@@ -320,7 +280,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     if (loading) {
-        return <Loading />
+        return <AbsoluteSpinner />
     }
 
     const renderScene = ({ route }) => {
@@ -503,9 +463,9 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .finally(() => setQuestionLoading(false))
     }
-    console.log('data = ', data)
+
     return (
-        <View
+        <SafeAreaView
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
@@ -523,25 +483,25 @@ const CourseDetail = ({ route, navigation }) => {
                         <VideoViewer
                             videoUrl={data?.file_path || data?.video_url}
                         />
-                    ) : data?.type === 2 ? (
+                    ) : null}
+
+                    {data?.type === 2 ? (
                         <DocumentViewer
                             content={data?.text_document}
                             uri={`${API_URL}public/${data?.file_path}`}
                         />
-                    ) : data?.type === 3 ? (
+                    ) : null}
+                    {data?.type === 3 ? (
                         <ScormViewer
                             src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
                             toggleScormLoading={() =>
                                 setScormLoading(!scormLoading)
                             }
                         />
-                    ) : data?.type === 4 ? (
-                        <ExamViewer data={data} />
-                    ) : data?.type === 5 ? (
-                        <EnglishReading data={data} />
-                    ) : (
-                        <FinishCourse />
-                    )}
+                    ) : null}
+                    {data?.type === 4 ? <ExamViewer data={data} /> : null}
+                    {data?.type === 5 ? <EnglishReading data={data} /> : null}
+                    {data?.type > 5 || data?.type < 1 ? <FinishCourse /> : null}
                 </View>
                 <Center mt="3" mb="3">
                     <Text
@@ -629,21 +589,21 @@ const CourseDetail = ({ route, navigation }) => {
                 <Modal.Content>
                     <Modal.Header>Gửi câu hỏi</Modal.Header>
                     <Modal.Body>
-                        <FormControl>
+                        <VStack space={10}>
                             <Input
+                                label="Tiêu đề"
                                 placeholder="Nhập tiêu đề câu hỏi"
                                 w="100%"
                                 {...questionTitle}
                             />
-                        </FormControl>
-                        <FormControl mt="3">
                             <TextArea
+                                label="Nội dung"
                                 h={20}
                                 placeholder="Nhập nội dung câu hỏi tại đây..."
                                 w="100%"
                                 {...questionContent}
                             />
-                        </FormControl>
+                        </VStack>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
@@ -660,7 +620,7 @@ const CourseDetail = ({ route, navigation }) => {
                 onClose={onCloseViewDoc}
                 url={selectedFile}
             />
-        </View>
+        </SafeAreaView>
     )
 }
 

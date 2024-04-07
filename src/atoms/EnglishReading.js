@@ -1,26 +1,22 @@
+import { Button, HStack, Text, VStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { similarityString } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Linking, TouchableHighlight, View } from 'react-native'
+import {
+    Alert,
+    FlatList,
+    Linking,
+    ScrollView,
+    TouchableHighlight,
+    View
+} from 'react-native'
 import { Mic } from 'react-native-feather'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import SpeakingAnimate from 'app/components/speaking-animate'
 import animationImg from 'assets/animations/english-reading.json'
-import {
-    Alert,
-    Box,
-    Button,
-    FlatList,
-    HStack,
-    Heading,
-    Modal,
-    Spacer,
-    Text,
-    VStack
-} from 'native-base'
+import { Modal } from 'native-base'
 
 const EnglishReading = ({ data }) => {
     const [visibleSpeaking, setVisibleSpeaking] = useState(true)
@@ -157,23 +153,15 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
         <ScrollView
             nestedScrollEnabled={true}
             style={{ backgroundColor: '#eee', borderRadius: 10 }}>
-            <Heading fontSize="xl" p="4" pb="3">
+            <Text fontSize="xl" p="4" pb="3">
                 Danh sách câu phát âm
-            </Heading>
+            </Text>
             <FlatList
                 data={sentences}
                 renderItem={({ item }) => (
                     <TouchableHighlight
                         onPress={() => setCurrentContent(item?.content)}>
-                        <Box
-                            borderBottomWidth="1"
-                            _dark={{
-                                borderColor: 'gray.600'
-                            }}
-                            borderColor="coolGray.200"
-                            pl="4"
-                            pr="5"
-                            py="2">
+                        <View>
                             <HStack space={3} justifyContent="space-between">
                                 <VStack>
                                     <Text
@@ -192,7 +180,6 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
                                         Kết quả: {item.result}
                                     </Text>
                                 </VStack>
-                                <Spacer />
                                 <Text
                                     fontSize="xs"
                                     _dark={{
@@ -203,7 +190,7 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
                                     {item?.score || 0}%
                                 </Text>
                             </HStack>
-                        </Box>
+                        </View>
                     </TouchableHighlight>
                 )}
                 keyExtractor={item => item.id}

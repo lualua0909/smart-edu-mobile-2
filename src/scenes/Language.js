@@ -1,47 +1,39 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import Config from 'react-native-config'
+import { View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-
-import { Text, View } from 'native-base'
 
 const Language = () => {
     const { result: deviceName } = DeviceInfo.useDeviceName()
     const systemVersion = DeviceInfo.getSystemVersion()
     const systemName = DeviceInfo.getSystemName()
 
-    DeviceInfo.supportedAbis().then(abis => {
-        console.log(abis)
-    })
-
     return (
-        <>
-            <View style={{ backgroundColor: '#E5E5E5' }}>
+        <View style={{ backgroundColor: '#E5E5E5' }}>
+            <View
+                style={{
+                    backgroundColor: '#FFFFFF',
+                    paddingHorizontal: scale(10),
+                    paddingVertical: scale(10)
+                }}>
                 <View
                     style={{
-                        backgroundColor: '#FFFFFF',
-                        paddingHorizontal: scale(10),
-                        paddingVertical: scale(10)
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingHorizontal: scale(10)
                     }}>
-                    <View
+                    <Text
                         style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            paddingHorizontal: scale(10)
+                            color: '#333333',
+                            fontSize: scale(16),
+                            lineHeight: scale(20)
                         }}>
-                        <Text
-                            style={{
-                                color: '#333333',
-                                fontSize: scale(16),
-                                lineHeight: scale(20)
-                            }}>
-                            {`Phiên bản ứng dụng ${DeviceInfo.getReadableVersion()}\n${deviceName}\n${systemName} ${systemVersion} ${
-                                Config.SERVER_CONFIG
-                            }\n`}
-                        </Text>
-                    </View>
-                    {/* <Pressable
+                        {`Phiên bản ứng dụng ${DeviceInfo.getReadableVersion()}\n${deviceName}\n${systemName} ${systemVersion}\n`}
+                    </Text>
+                </View>
+                {/* <Pressable
                         style={{
                             borderRadius: 5,
                             paddingVertical: scale(10),
@@ -111,9 +103,8 @@ const Language = () => {
                             )}
                         </View>
                     </Pressable> */}
-                </View>
             </View>
-        </>
+        </View>
     )
 }
 

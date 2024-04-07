@@ -1,5 +1,13 @@
 import axios from 'app/Axios'
-import { AbsoluteSpinner, showToast } from 'app/atoms'
+import {
+    AbsoluteSpinner,
+    Button,
+    Center,
+    HStack,
+    Text,
+    VStack,
+    showToast
+} from 'app/atoms'
 import { COURSE_IMG_PATH } from 'app/constants'
 import { toCurrency } from 'app/helpers/utils'
 import animationImg from 'assets/animations/success.json'
@@ -7,20 +15,9 @@ import momoLogo from 'assets/images/MoMo_Logo.png'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Linking, Platform } from 'react-native'
+import { Image, Linking, Platform, View } from 'react-native'
 
 import creditCard from 'assets/images/credit-card.png'
-import {
-    Box,
-    Button,
-    Center,
-    HStack,
-    Heading,
-    Image,
-    Text,
-    VStack,
-    View
-} from 'native-base'
 
 // import AddVoucher from './AddVoucher'
 
@@ -84,14 +81,14 @@ const PackagePayment = ({ navigation, route }) => {
                     autoPlay
                     style={{ width: 300, marginTop: 20 }}
                 />
-                <Heading
+                <Text
                     bold
                     color="primary.50"
                     style={{
                         fontSize: 24
                     }}>
                     Thanh toán thành công
-                </Heading>
+                </Text>
                 <Text
                     style={{
                         paddingHorizontal: 20,
@@ -111,7 +108,7 @@ const PackagePayment = ({ navigation, route }) => {
     ) : (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <AbsoluteSpinner loading={loading} />
-            <Box w="100%" px={5} justifyContent="space-between" gói>
+            <View w="100%" px={5} justifyContent="space-between" gói>
                 <VStack space={3} w="100%">
                     <Image
                         resizeMode="contain"
@@ -166,18 +163,15 @@ const PackagePayment = ({ navigation, route }) => {
                         <Text bold style={{ fontSize: 16 }}>
                             Phương thức thanh toán
                         </Text>
-                        <Button.Group isAttached variant="unstyled">
-                            <Button>
-                                <Image
-                                    size={'xs'}
-                                    resizeMode="contain"
-                                    source={momoLogo}
-                                    alt={'Alternate Text '}
-                                />
-                            </Button>
+                        <HStack>
+                            <Image
+                                size={'xs'}
+                                resizeMode="contain"
+                                source={momoLogo}
+                                alt={'Alternate Text '}
+                            />
                             <Button
-                                variant="ghost"
-                                colorScheme="gray"
+                                outlined
                                 onPress={() =>
                                     makePayment({
                                         requestType: 'captureWallet'
@@ -185,28 +179,25 @@ const PackagePayment = ({ navigation, route }) => {
                                 }>
                                 Thanh toán bằng MOMO
                             </Button>
-                        </Button.Group>
-                        <Button.Group isAttached variant="unstyled">
-                            <Button>
-                                <Image
-                                    size={'xs'}
-                                    resizeMode="contain"
-                                    source={creditCard}
-                                    alt={'Alternate Text '}
-                                />
-                            </Button>
+                        </HStack>
+                        <HStack>
+                            <Image
+                                size={'xs'}
+                                resizeMode="contain"
+                                source={creditCard}
+                                alt={'Alternate Text '}
+                            />
                             <Button
-                                variant="ghost"
-                                colorScheme="gray"
+                                outlined
                                 onPress={() =>
                                     makePayment({ requestType: 'payWithATM' })
                                 }>
                                 Thẻ ATM nội địa
                             </Button>
-                        </Button.Group>
+                        </HStack>
                     </VStack>
                 </VStack>
-            </Box>
+            </View>
             {/* <AddVoucher
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}

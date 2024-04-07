@@ -1,20 +1,24 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation, Radio } from 'app/atoms'
+import {
+    Center,
+    LoadingAnimation,
+    NoDataAnimation,
+    Radio,
+    Text
+} from 'app/atoms'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import { svgGreenTeacher } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, RefreshControl } from 'react-native'
-import { Filter, Search } from 'react-native-feather'
+import { FlatList, Pressable, RefreshControl, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { ScrollView } from 'react-native-virtualized-view'
 
 import animationBanner from 'assets/animations/online-learning.json'
-import { Center, Input, Pressable, Text, View } from 'native-base'
 
 const Teacher = () => {
     const [visibleFilter, setVisibleFilter] = useState(false)

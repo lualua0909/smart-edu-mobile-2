@@ -1,12 +1,10 @@
 import axios from 'app/Axios'
-import { DetailSkeleton } from 'app/atoms'
+import { DetailSkeleton, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { ScrollView } from 'react-native-virtualized-view'
-
-import { Avatar, InfoOutlineIcon, Text, View } from 'native-base'
+import { ScrollView, View } from 'react-native'
 
 const NotificationDetail = ({ route }) => {
     const { notifyId } = route.params
@@ -38,17 +36,13 @@ const NotificationDetail = ({ route }) => {
     return (
         <View style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ paddingTop: scale(40) }}>
-                <Avatar
+                {/* <Avatar
                     size="lg"
                     bg="green.700"
                     style={{
                         alignSelf: 'center'
-                    }}>
-                    <InfoOutlineIcon
-                        color="white"
-                        style={{ width: 38, height: 38 }}
-                    />
-                </Avatar>
+                    }}
+                /> */}
                 <View style={{ paddingHorizontal: scale(16) }}>
                     <Text
                         bold

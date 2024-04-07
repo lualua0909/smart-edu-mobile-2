@@ -1,8 +1,7 @@
+import { Text, VStack } from 'app/atoms'
 import React from 'react'
 
-import { Dimensions } from 'react-native'
-
-import { Pressable, Text, VStack, View } from 'native-base'
+import { Dimensions, Pressable, View } from 'react-native'
 
 import Title from './Title'
 
@@ -11,7 +10,7 @@ const w = Dimensions.get('window').width * 0.9
 const Type4 = ({ data, index, onSelect, selected }) => {
     const select = selected?.find(i => i?.id === data?.id)
     return (
-        <VStack space={3} mb="5" key={index}>
+        <VStack space={3} style={{ marginBottom: 5 }} key={index}>
             <Title index={index} title={data?.title} />
             {data?.options?.map((item, index) => {
                 const isSelected = select?.data === item

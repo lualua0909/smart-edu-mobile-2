@@ -1,31 +1,12 @@
+import { Center, VStack } from 'app/atoms'
 import React from 'react'
 
-import { Center, Skeleton, VStack } from 'native-base'
+import { Skeleton } from 'react-native-skeletons'
 
-const ExamSkeleton = () => {
-    return (
-        <Center w="100%" mt="70">
-            <VStack
-                w="90%"
-                maxW="400"
-                borderWidth="1"
-                space={8}
-                overflow="hidden"
-                rounded="md"
-                _dark={{
-                    borderColor: 'coolGray.500'
-                }}
-                _light={{
-                    borderColor: 'coolGray.200'
-                }}>
-                <Skeleton h="40" />
-                <Skeleton.Text px="4" />
-                <Skeleton.Text px="4" />
-                <Skeleton.Text px="4" />
-                <Skeleton.Text px="4" />
-            </VStack>
+export default () => (
+    <VStack space={6} style={{ marginTop: 20 }}>
+        <Center>
+            <Skeleton count={8} width={'80%'} height={60} color={'#E2E8F0'} />
         </Center>
-    )
-}
-
-export default ExamSkeleton
+    </VStack>
+)

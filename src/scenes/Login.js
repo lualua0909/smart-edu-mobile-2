@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
-import { Input, showToast } from 'app/atoms'
+import { Button, Center, Input, Text, VStack, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { ROUTES, STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -9,18 +9,8 @@ import { storeData } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
 import messaging from '@react-native-firebase/messaging'
-import { Image } from 'react-native'
+import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
-
-import {
-    Button,
-    Center,
-    Pressable,
-    ScrollView,
-    Stack,
-    Text,
-    View
-} from 'native-base'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -147,11 +137,7 @@ const Login = ({ navigation }) => {
                             }}>
                             Chào mừng bạn đến với SmartEdu
                         </Text>
-                        <Stack
-                            space={4}
-                            w="100%"
-                            alignItems="center"
-                            style={{ marginTop: scale(16) }}>
+                        <VStack space={4} style={{ marginTop: scale(16) }}>
                             <Input
                                 allowClear
                                 InputLeftElement={
@@ -176,32 +162,29 @@ const Login = ({ navigation }) => {
                                         style={{ marginLeft: 10 }}
                                     />
                                 }
-                                type={show ? 'text' : 'password'}
+                                secureTextEntry={!show}
                                 placeholder="Mật khẩu"
                                 {...password}
-                                blurOnSubmit={true}
                                 onSubmitEditing={doLogin}
                                 InputRightElement={
                                     <Pressable onPress={() => setShow(!show)}>
                                         {show ? (
                                             <Eye
-                                                width={18}
-                                                height={18}
+                                                width={16}
+                                                height={16}
                                                 color="#555"
-                                                style={{ marginRight: 10 }}
                                             />
                                         ) : (
                                             <EyeOff
-                                                width={18}
-                                                height={18}
+                                                width={16}
+                                                height={16}
                                                 color="#555"
-                                                style={{ marginRight: 10 }}
                                             />
                                         )}
                                     </Pressable>
                                 }
                             />
-                        </Stack>
+                        </VStack>
                         <Pressable
                             onPress={() =>
                                 navigation.navigate(ROUTES.ForgotPassword)
@@ -223,7 +206,6 @@ const Login = ({ navigation }) => {
                         </Pressable>
                         <Center>
                             <Button
-                                size="md"
                                 isLoading={loading}
                                 isLoadingText="Đang đăng nhập"
                                 style={{
@@ -235,7 +217,7 @@ const Login = ({ navigation }) => {
                         </Center>
 
                         <Pressable
-                            onPress={() => navigation.navigate(ROUTES.Register)}
+                            onPress={() => navigation.navigate(ROUTES.SignUp)}
                             style={{
                                 alignSelf: 'center',
                                 marginTop: scale(16)

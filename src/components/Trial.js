@@ -1,14 +1,14 @@
 import { setGlobalState } from 'app/Store'
+import { Center, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { storeData } from 'app/helpers/utils'
 import React from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Platform } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import animationImg from 'assets/animations/english-reading.json'
-import { Center, Pressable, Text } from 'native-base'
 
 const Trial = () => {
     const toTrialPage = () => {

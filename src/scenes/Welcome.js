@@ -1,11 +1,10 @@
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
+import { Button, Text } from 'atoms'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Dimensions, Image } from 'react-native'
-
-import { Button, ScrollView, Text, View } from 'native-base'
+import { Dimensions, Image, ScrollView, View } from 'react-native'
 
 const { height, width } = Dimensions.get('window')
 
@@ -151,9 +150,7 @@ const Wireframe = ({ navigation }) => {
                     justifyContent: 'space-around'
                 }}>
                 {pageIndex > 0 && (
-                    <Button
-                        variant="ghost"
-                        onPress={() => onGoToPage(pageIndex - 1)}>
+                    <Button outlined onPress={() => onGoToPage(pageIndex - 1)}>
                         Quay lại
                     </Button>
                 )}

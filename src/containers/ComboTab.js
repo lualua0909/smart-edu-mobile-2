@@ -1,9 +1,9 @@
-import { NoDataAnimation } from 'app/atoms'
+import { NoDataAnimation, Text } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { Text, View } from 'native-base'
+import { View } from 'react-native'
 
 const ComboTab = ({ data }) => {
     if (!data) {

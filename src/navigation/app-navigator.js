@@ -10,6 +10,7 @@ import Carts from 'app/scenes/Carts'
 import CertificateList from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
 import ConnectInstructors from 'app/scenes/ConnectInstructors'
+import ConversationDetail from 'app/scenes/ConversationDetail'
 import Course12SkillList from 'app/scenes/Course12SkillList'
 import CourseContents from 'app/scenes/CourseContents'
 import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
@@ -49,7 +50,6 @@ import { SvgXml } from 'react-native-svg'
 import TabNavigator from './tab-navigator'
 import HeaderBack from 'app/components/header-back'
 import HeaderTitle from 'app/components/header-title'
-import ChatDetail from 'app/scenes/chat-detail'
 
 const Stack = createStackNavigator()
 const AppNavigator = () => {
@@ -102,6 +102,7 @@ const AppNavigator = () => {
                 name={ROUTES.CourseDetail}
                 component={CourseContents}
                 options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={''} />,
                     headerLeft: () => <HeaderBack whiteBg={true} />,
                     headerRight: () => (
                         <Pressable
@@ -129,6 +130,7 @@ const AppNavigator = () => {
                 name={ROUTES.CourseDetailTrial}
                 component={CourseContentsTrial}
                 options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Học thử'} />,
                     headerLeft: () => <HeaderBack whiteBg={true} />
                 })}
             />
@@ -141,8 +143,8 @@ const AppNavigator = () => {
                 })}
             />
             <Stack.Screen
-                name={ROUTES.ChatDetail}
-                component={ChatDetail}
+                name={ROUTES.ConversationDetail}
+                component={ConversationDetail}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Trò chuyện nhóm'} />
@@ -366,7 +368,8 @@ const AppNavigator = () => {
                 name="PackagePayment"
                 component={PackagePaymentScreen}
                 options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Thanh toán'} />
+                    headerTitle: () => <HeaderTitle title={'Thanh toán'} />,
+                    headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen

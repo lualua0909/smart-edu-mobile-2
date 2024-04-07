@@ -1,16 +1,26 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { LoadingAnimation, NoDataAnimation as NoData, Radio } from 'app/atoms'
+import {
+    Input,
+    LoadingAnimation,
+    NoDataAnimation as NoData,
+    Radio,
+    Text
+} from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { FlatList, Pressable, RefreshControl } from 'react-native'
+import {
+    FlatList,
+    Pressable,
+    RefreshControl,
+    ScrollView,
+    View
+} from 'react-native'
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { Input, ScrollView, Text, View } from 'native-base'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)

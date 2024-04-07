@@ -3,8 +3,10 @@ import { useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
+    Button,
     CourseDetailSkeleton,
     Rate,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -15,18 +17,12 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import {
-    clearDataAfterLogout,
-    errorLog,
-    isAndroid,
-    toCurrency
-} from 'app/helpers/utils'
+import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Alert, Share } from 'react-native'
+import { Alert, Image, Pressable, ScrollView, Share, View } from 'react-native'
 import {
-    BookOpen,
     DollarSign,
     Heart,
     Navigation,
@@ -38,7 +34,6 @@ import {
     currentPurchase,
     endConnection,
     finishTransaction,
-    flushFailedPurchasesCachedAsPendingAndroid,
     getProducts,
     initConnection,
     isIosStorekit2,
@@ -49,8 +44,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-
-import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -791,12 +784,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 width={24}
                                 height={24}
                             />
-                            <Text
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#52B553',
-                                    marginTop: scale(4)
-                                }}>
+                            <Text outlined style={{ color: '#52B553' }}>
                                 Học thử
                             </Text>
                         </Pressable>
@@ -846,7 +834,7 @@ const CourseInfo = ({ navigation, route }) => {
                                             Mua ngay
                                         </Button>
                                     ) : null}
-                                    {!!data?.relational ? (
+                                    {!!data?.relational && !data.is_combo ? (
                                         <Button
                                             onPress={gotoCourse}
                                             isLoading={loadingVerify}

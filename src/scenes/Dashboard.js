@@ -1,5 +1,5 @@
 import { useGlobalState } from 'app/Store'
-import { Avatar } from 'app/atoms'
+import { Avatar, Text } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
@@ -25,11 +25,15 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import {
+    Image,
     ImageBackground,
     Linking,
     Platform,
+    Pressable,
+    ScrollView,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    View
 } from 'react-native'
 import {
     Book,
@@ -47,10 +51,8 @@ import {
 } from 'react-native-feather'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import MenuAction from 'app/components/menu-action'
-import { ChevronRightIcon, Image, Pressable, Text, View } from 'native-base'
 
 const Menu = ({ route }) => {
     const navigation = useNavigation()
@@ -275,13 +277,7 @@ const Menu = ({ route }) => {
                             flexDirection: 'row',
                             alignItems: 'center'
                         }}>
-                        <Avatar
-                            userId={userInfo?.id}
-                            size={scale(60)}
-                            name={
-                                userInfo?.first_name + ' ' + userInfo?.last_name
-                            }
-                        />
+                        <Avatar userId={userInfo?.id} size={scale(60)} />
                         <View
                             style={{
                                 marginLeft: scale(10)
@@ -378,7 +374,7 @@ const Menu = ({ route }) => {
                         onPress={() =>
                             navigation.navigate(ROUTES.LearningHistory)
                         }>
-                        <Text style={styles.formViewMoreText}>
+                        <Text bold style={styles.formViewMoreText}>
                             Xem quá trình học tập
                         </Text>
                         <ChevronRight width={scale(18)} color="#A3A3A3" />
@@ -709,10 +705,6 @@ const styles = StyleSheet.create({
         color: '#0E564D',
         letterSpacing: 0.7,
         paddingTop: scale(5)
-    },
-    formViewMoreText: {
-        fontSize: scale(14),
-        color: '#A3A3A3'
     },
     actionText: {
         fontSize: scale(16),
