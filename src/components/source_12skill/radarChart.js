@@ -1,17 +1,14 @@
-import { getData, storeData } from 'app/helpers/utils'
 import React from 'react'
 
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
-
-import { CircularProgress } from 'native-base'
 
 import { COLORS } from '../../constants'
 import { RadarChart } from '../radarChart'
 import { RenderColorStage } from './renderColorRestult'
 
-const { width, height } = Dimensions.get('screen')
+const { width } = Dimensions.get('screen')
 
-const ChartsComponent = ({ navigation, route }) => {
+const ChartsComponent = ({ route }) => {
     const { data } = route.params
     console.log('🚀 ~ ChartsComponent ~ data:', data)
     const [dataChart, setDataChart] = React.useState(null)

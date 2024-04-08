@@ -2,8 +2,6 @@ import { LoadingAnimation } from 'app/atoms'
 import { showToast } from 'app/atoms'
 import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
 import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
-import { svgAdjust } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
@@ -17,14 +15,13 @@ import {
     TouchableOpacity,
     View
 } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import * as Progress from 'react-native-progress'
 import Timeline from 'react-native-timeline-flatlist'
 
 import HeaderTitle from 'app/components/header-title'
-import { Progress } from 'native-base'
 
 import DragDrop from './DragDrop'
-import { RenderBackgroundColor, RenderColorStage } from './renderColorRestult'
+import { RenderBackgroundColor } from './renderColorRestult'
 import { SaveScreenToStore } from './saveScreenToStore'
 
 const NUM_ITEMS = 10
@@ -328,12 +325,11 @@ const LearningPath = ({ navigation, route }) => {
                             ]}>
                             {rowData.process} %
                         </Text>
-                        <Progress
-                            _filledTrack={{
-                                bg: COLORS.green
-                            }}
+                        <Progress.Bar
+                            progress={rowData?.process / 100}
+                            height={scale(10)}
+                            color="green"
                             style={{ width: '80%', marginLeft: 10 }}
-                            value={rowData.process}
                         />
                     </View>
                 )}
