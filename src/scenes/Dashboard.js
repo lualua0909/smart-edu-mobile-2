@@ -351,76 +351,79 @@ const Menu = ({ route }) => {
                     </Pressable>
                 )}
             </ImageBackground>
-            <View
-                style={{
-                    backgroundColor: '#fff',
-                    paddingVertical: scale(16)
-                }}>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: 20 }}
+                showsVerticalScrollIndicator={false}>
                 <View
                     style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingLeft: scale(16)
+                        backgroundColor: '#fff',
+                        paddingVertical: scale(16)
                     }}>
-                    <Text bold style={styles.formTitleText}>
-                        HỌC TẬP
-                    </Text>
-                    <Pressable
+                    <View
                         style={{
                             flexDirection: 'row',
-                            alignItems: 'center'
-                        }}
-                        onPress={() =>
-                            navigation.navigate(ROUTES.LearningHistory)
-                        }>
-                        <Text bold style={styles.formViewMoreText}>
-                            Xem quá trình học tập
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            paddingLeft: scale(16)
+                        }}>
+                        <Text bold style={styles.formTitleText}>
+                            HỌC TẬP
                         </Text>
-                        <ChevronRight width={scale(18)} color="#A3A3A3" />
-                    </Pressable>
-                </View>
-                <View
-                    style={{
-                        // marginTop: scale(12),
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        flexWrap: 'wrap'
-                    }}>
-                    <MenuAction
-                        icon={svgMyCourse}
-                        title="KH của tôi"
-                        description="xem khóa học"
-                        backgroundColor="#E5FEEC"
-                        onPress={() =>
-                            navigation.navigate(ROUTES.CoursesByUser, {
-                                userId: null
-                            })
-                        }
-                    />
+                        <Pressable
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.LearningHistory)
+                            }>
+                            <Text bold style={styles.formViewMoreText}>
+                                Xem quá trình học tập
+                            </Text>
+                            <ChevronRight width={scale(18)} color="#A3A3A3" />
+                        </Pressable>
+                    </View>
+                    <View
+                        style={{
+                            // marginTop: scale(12),
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            flexWrap: 'wrap'
+                        }}>
+                        <MenuAction
+                            icon={svgMyCourse}
+                            title="KH của tôi"
+                            description="xem khóa học"
+                            backgroundColor="#E5FEEC"
+                            onPress={() =>
+                                navigation.navigate(ROUTES.CoursesByUser, {
+                                    userId: null
+                                })
+                            }
+                        />
 
-                    {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
 
-                    <MenuAction
-                        icon={svgMyCourse}
-                        title="KH theo lộ trình"
-                        backgroundColor="#E5FEEC"
-                        onPress={() =>
-                            navigation.navigate(ROUTES.Course12Skill, {
-                                userId: null
-                            })
-                        }
-                    />
+                        <MenuAction
+                            icon={svgMyCourse}
+                            title="KH theo lộ trình"
+                            backgroundColor="#E5FEEC"
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Course12Skill, {
+                                    userId: null
+                                })
+                            }
+                        />
 
-                    {/*  */}
-                    <MenuAction
-                        icon={svgCalendarOffline}
-                        title="KH yêu thích"
-                        // description="02 Lịch học"
-                        backgroundColor="#E8F9FE"
-                        onPress={() => navigation.navigate(ROUTES.Wishlist)}
-                    />
-                    {/* <MenuAction
+                        {/*  */}
+                        <MenuAction
+                            icon={svgCalendarOffline}
+                            title="KH yêu thích"
+                            // description="02 Lịch học"
+                            backgroundColor="#E8F9FE"
+                            onPress={() => navigation.navigate(ROUTES.Wishlist)}
+                        />
+                        {/* <MenuAction
                             icon={svgMyMeeting}
                             title="Bạn bè"
                             // description="02 lịch học"
@@ -432,19 +435,19 @@ const Menu = ({ route }) => {
                                 })
                             }
                         /> */}
-                    <MenuAction
-                        icon={svgAchievement}
-                        title="Chứng chỉ"
-                        backgroundColor="#FFF8E3"
-                        onPress={() =>
-                            navigation.navigate(ROUTES.CertificateList)
-                        }
-                    />
+                        <MenuAction
+                            icon={svgAchievement}
+                            title="Chứng chỉ"
+                            backgroundColor="#FFF8E3"
+                            onPress={() =>
+                                navigation.navigate(ROUTES.CertificateList)
+                            }
+                        />
+                    </View>
                 </View>
-            </View>
 
-            {/* {renderMentorConnect} */}
-            {/* <View
+                {/* {renderMentorConnect} */}
+                {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -489,7 +492,7 @@ const Menu = ({ route }) => {
                         />
                     </View>
                 </View> */}
-            {/* <View
+                {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -539,9 +542,7 @@ const Menu = ({ route }) => {
                         />
                     </View> 
                         </View>*/}
-            <ScrollView
-                contentContainerStyle={{ paddingBottom: scale(50) }}
-                showsVerticalScrollIndicator={false}>
+
                 <View
                     style={{
                         backgroundColor: '#fff',
