@@ -25,7 +25,6 @@ const linking = {
 }
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
-    const [random, setRandom] = useGlobalState('random')
     const [visible, setVisible] = useGlobalState('visibleNotLogin')
 
     useEffect(() => {
@@ -57,12 +56,10 @@ const App = () => {
     }, [])
 
     const fetchData = () => {
-        let userInfo = getData('@userInfo')
+        const userInfo = getData('@userInfo')
         if (userInfo) {
             setUserState(userInfo)
         }
-        setRandom(Math.random())
-
         SplashScreen.hide()
     }
 

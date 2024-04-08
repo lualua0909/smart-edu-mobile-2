@@ -738,7 +738,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     style={{
                                         flexDirection: 'row-reverse'
                                     }}>
-                                    {data?.new_price && data?.old_price ? (
+                                    {/* {data?.new_price && data?.old_price ? (
                                         <View
                                             style={{
                                                 paddingHorizontal: scale(10),
@@ -758,7 +758,7 @@ const CourseInfo = ({ navigation, route }) => {
                                                 %
                                             </Text>
                                         </View>
-                                    ) : null}
+                                    ) : null} */}
                                     <View
                                         style={{
                                             display: 'flex',

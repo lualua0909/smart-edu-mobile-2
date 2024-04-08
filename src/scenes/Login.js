@@ -59,7 +59,6 @@ const Login = ({ navigation }) => {
                 .then(res => {
                     if (res.data.status === 200) {
                         setUserInfo(res?.data)
-                        setRandom(Math.random())
                         storeData('@userInfo', res?.data)
                     } else {
                         showToast({
@@ -67,12 +66,6 @@ const Login = ({ navigation }) => {
                             status: 'error'
                         })
                     }
-                })
-                .catch(error => {
-                    showToast({
-                        title: error.message,
-                        status: 'error'
-                    })
                 })
                 .finally(() => setLoading(false))
         } else {

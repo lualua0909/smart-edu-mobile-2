@@ -14,26 +14,11 @@ const ToastAlert = ({ id, status, variant, title, placement, description }) => (
             status={status}
             variant={variant}
             placement={placement}>
-            <VStack space={1} flexShrink={1} w="100%">
-                <HStack
-                    flexShrink={1}
-                    space={2}
-                    alignItems="center"
-                    justifyContent="space-between">
-                    <HStack flexShrink={1} space={2} alignItems="center">
+            <VStack space={1}>
+                <HStack space={2}>
+                    <HStack space={2}>
                         <Alert.Icon />
-                        <Text
-                            fontSize="sm"
-                            bold
-                            color={
-                                variant === 'solid'
-                                    ? 'lightText'
-                                    : variant !== 'outline'
-                                    ? 'darkText'
-                                    : null
-                            }>
-                            {title}
-                        </Text>
+                        <Text bold>{title}</Text>
                     </HStack>
                 </HStack>
                 <View>{description}</View>

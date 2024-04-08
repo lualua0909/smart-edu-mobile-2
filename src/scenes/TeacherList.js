@@ -13,10 +13,10 @@ import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
 import { FlatList, Pressable, RefreshControl, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import Modal from 'react-native-modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import animationBanner from 'assets/animations/online-learning.json'
 

@@ -8,8 +8,8 @@ import {
     SafeAreaView,
     StyleSheet
 } from 'react-native'
+import { ScrollView } from 'react-native'
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
-import { ScrollView } from 'react-native-virtualized-view'
 
 const initHTML = ``
 

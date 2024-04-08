@@ -4,7 +4,7 @@ import { Button, Center, Text, VStack, showToast } from 'app/atoms'
 import React, { useEffect, useState } from 'react'
 
 import { Alert, View } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
+import { ScrollView } from 'react-native'
 
 import HeaderTitle from 'app/components/header-title'
 

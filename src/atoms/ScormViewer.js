@@ -12,7 +12,7 @@ function isPortrait() {
     return dim.height >= dim.width
 }
 
-export default ({ src, toggleScormLoading }) => {
+export default ({ src }) => {
     useEffect(() => {
         if (isPortrait()) {
             showToast({
@@ -36,16 +36,6 @@ export default ({ src, toggleScormLoading }) => {
                 border: 'none'
             }}
             allowsInlineMediaPlayback={true}
-            onLoadStart={syntheticEvent => {
-                const { nativeEvent } = syntheticEvent
-                console.log('onLoadStart', nativeEvent.loading)
-                toggleScormLoading()
-            }}
-            onLoadEnd={syntheticEvent => {
-                const { nativeEvent } = syntheticEvent
-                console.log('onLoadEnd', nativeEvent.loading)
-                toggleScormLoading()
-            }}
         />
     )
 }

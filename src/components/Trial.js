@@ -26,7 +26,6 @@ const Trial = () => {
             username: 'Học thử'
         }
         setGlobalState('userInfo', userInfo)
-        setGlobalState('random', Math.random())
         storeData('@userInfo', userInfo)
     }
 

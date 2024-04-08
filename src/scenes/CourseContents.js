@@ -12,6 +12,7 @@ import {
     NoDataAnimation,
     ScormViewer,
     Text,
+    VStack,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -32,7 +33,6 @@ import {
     SafeAreaView,
     View
 } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
@@ -470,118 +470,110 @@ const CourseDetail = ({ route, navigation }) => {
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
             }}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}>
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    {data?.type === 1 ? (
-                        <VideoViewer
-                            videoUrl={data?.file_path || data?.video_url}
-                        />
-                    ) : null}
+            <View
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                {data?.type === 1 ? (
+                    <VideoViewer
+                        videoUrl={data?.file_path || data?.video_url}
+                    />
+                ) : null}
 
-                    {data?.type === 2 ? (
-                        <DocumentViewer
-                            content={data?.text_document}
-                            uri={`${API_URL}public/${data?.file_path}`}
-                        />
-                    ) : null}
-                    {data?.type === 3 ? (
-                        <ScormViewer
-                            src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
-                            toggleScormLoading={() =>
-                                setScormLoading(!scormLoading)
-                            }
-                        />
-                    ) : null}
-                    {data?.type === 4 ? <ExamViewer data={data} /> : null}
-                    {data?.type === 5 ? <EnglishReading data={data} /> : null}
-                    {data?.type > 5 || data?.type < 1 ? <FinishCourse /> : null}
-                </View>
-                <Center mt="3" mb="3">
-                    <Text
-                        style={{
-                            fontSize: scale(14),
-                            color: '#52B553'
-                        }}>
-                        {data?.name}
-                    </Text>
-                </Center>
-                <View
+                {data?.type === 2 ? (
+                    <DocumentViewer
+                        content={data?.text_document}
+                        uri={`${API_URL}public/${data?.file_path}`}
+                    />
+                ) : null}
+                {data?.type === 3 ? (
+                    <ScormViewer
+                        src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                    />
+                ) : null}
+                {data?.type === 4 ? <ExamViewer data={data} /> : null}
+                {data?.type === 5 ? <EnglishReading data={data} /> : null}
+                {data?.type > 5 || data?.type < 1 ? <FinishCourse /> : null}
+            </View>
+            <Center mt="3" mb="3">
+                <Text
                     style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                        fontSize: scale(14),
+                        color: '#52B553'
                     }}>
-                    <Button
-                        size={'sm'}
-                        onPress={prevLesson}
-                        variant="subtle"
-                        colorScheme="green"
-                        style={{
-                            marginRight: scale(12),
-                            width: 'auto'
-                        }}>
-                        Bài trước
-                    </Button>
-                    {data?.is_finish ? (
-                        <Button size={'sm'} onPress={nextLesson}>
-                            Bài tiếp theo
-                        </Button>
-                    ) : (
-                        countdown
-                    )}
-                </View>
-                <TabView
-                    navigationState={{ index: tabIndex, routes }}
-                    renderScene={renderScene}
-                    renderTabBar={props => (
-                        <TabBar
-                            {...props}
-                            renderLabel={({ route, focused, color }) => (
-                                <Text
-                                    bold
-                                    style={[
-                                        {
-                                            fontSize: 13,
-                                            color: '#6C746E',
-                                            textAlign: 'center'
-                                        },
-                                        focused && {
-                                            color: '#0E564D'
-                                        }
-                                    ]}>
-                                    {route.title}
-                                </Text>
-                            )}
-                            style={{
-                                backgroundColor: '#fff',
-                                elevation: 0
-                            }}
-                            indicatorStyle={{
-                                backgroundColor: '#0E564D',
-                                borderTopLeftRadius: scale(2),
-                                borderTopRightRadius: scale(2)
-                            }}
-                            tabStyle={{ paddingHorizontal: 0 }}
-                        />
-                    )}
-                    onIndexChange={setTabIndex}
+                    {data?.name}
+                </Text>
+            </Center>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                <Button
+                    size={'sm'}
+                    onPress={prevLesson}
+                    variant="subtle"
+                    colorScheme="green"
                     style={{
-                        minHeight:
-                            Math.max(
-                                viewHeight.tab1,
-                                viewHeight.tab2,
-                                viewHeight.tab3
-                            ) + scale(60)
-                    }}
-                />
-            </KeyboardAwareScrollView>
+                        marginRight: scale(12),
+                        width: 'auto'
+                    }}>
+                    Bài trước
+                </Button>
+                {data?.is_finish ? (
+                    <Button size={'sm'} onPress={nextLesson}>
+                        Bài tiếp theo
+                    </Button>
+                ) : (
+                    countdown
+                )}
+            </View>
+            <TabView
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={renderScene}
+                renderTabBar={props => (
+                    <TabBar
+                        {...props}
+                        renderLabel={({ route, focused, color }) => (
+                            <Text
+                                bold
+                                style={[
+                                    {
+                                        fontSize: 13,
+                                        color: '#6C746E',
+                                        textAlign: 'center'
+                                    },
+                                    focused && {
+                                        color: '#0E564D'
+                                    }
+                                ]}>
+                                {route.title}
+                            </Text>
+                        )}
+                        style={{
+                            backgroundColor: '#fff',
+                            elevation: 0
+                        }}
+                        indicatorStyle={{
+                            backgroundColor: '#0E564D',
+                            borderTopLeftRadius: scale(2),
+                            borderTopRightRadius: scale(2)
+                        }}
+                        tabStyle={{ paddingHorizontal: 0 }}
+                    />
+                )}
+                onIndexChange={setTabIndex}
+                style={{
+                    minHeight:
+                        Math.max(
+                            viewHeight.tab1,
+                            viewHeight.tab2,
+                            viewHeight.tab3
+                        ) + scale(60)
+                }}
+            />
 
             <Modal
                 isOpen={visibleQuestion}

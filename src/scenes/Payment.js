@@ -6,9 +6,9 @@ import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { Image, Pressable, Switch, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { ChevronRight } from 'react-native-feather'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ScrollView } from 'react-native-virtualized-view'
 
 const Payment = () => {
     const navigation = useNavigation()

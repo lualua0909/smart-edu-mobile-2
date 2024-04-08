@@ -70,13 +70,14 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
-            seek={0}
             ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
             }} // Can be a URL or a local file.
             paused={!isFocused}
-            style={{ height: 200, width: '100%' }}
+            style={{ height: 250, width: '100%' }}
+            playInBackground={false}
+            playWhenInactive={false}
         />
     )
 }

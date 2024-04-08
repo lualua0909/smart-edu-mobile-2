@@ -19,8 +19,7 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { SafeAreaView, View } from 'react-native'
 import { TabBar, TabView } from 'react-native-tab-view'
 
 const routes = [
@@ -229,116 +228,110 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View
+        <SafeAreaView
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
             }}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}>
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    <Text>{scormLoading ? 'Loading' : ''}</Text>
-                    {data?.type === 1 ? (
-                        <VideoViewer
-                            videoUrl={data?.file_path || data?.video_url}
-                        />
-                    ) : data?.type === 2 ? (
-                        <DocumentViewer
-                            content={data?.text_document}
-                            uri={`${API_URL}public/${data?.file_path}`}
-                        />
-                    ) : data?.type === 3 ? (
-                        <ScormViewer
-                            src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
-                            toggleScormLoading={() =>
-                                setScormLoading(!scormLoading)
-                            }
-                        />
-                    ) : data?.type === 4 ? (
-                        <ExamViewer data={data} />
-                    ) : data?.type === 5 ? (
-                        <EnglishReading data={data} />
-                    ) : (
-                        <FinishCourse />
-                    )}
-                </View>
-                <Center mt="3" mb="3">
-                    <Text
-                        style={{
-                            fontSize: scale(14),
-                            color: '#52B553'
-                        }}>
-                        {data?.name}
-                    </Text>
-                </Center>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                    <Button
-                        size={'sm'}
-                        onPress={prevLesson}
-                        variant="subtle"
-                        colorScheme="green"
-                        style={{
-                            marginRight: scale(12),
-                            width: 'auto'
-                        }}>
-                        Bài trước
-                    </Button>
-                    <Button size={'sm'} onPress={nextLesson}>
-                        Bài tiếp theo
-                    </Button>
-                </View>
-                <TabView
-                    navigationState={{ index: tabIndex, routes }}
-                    renderScene={renderScene}
-                    renderTabBar={props => (
-                        <TabBar
-                            {...props}
-                            renderLabel={({ route, focused, color }) => (
-                                <Text
-                                    bold
-                                    style={[
-                                        {
-                                            fontSize: 13,
-                                            color: '#6C746E',
-                                            textAlign: 'center'
-                                        },
-                                        focused && {
-                                            color: '#0E564D'
-                                        }
-                                    ]}>
-                                    {route.title}
-                                </Text>
-                            )}
-                            style={{
-                                backgroundColor: '#fff',
-                                elevation: 0
-                            }}
-                            indicatorStyle={{
-                                backgroundColor: '#0E564D',
-                                borderTopLeftRadius: scale(2),
-                                borderTopRightRadius: scale(2)
-                            }}
-                            tabStyle={{ paddingHorizontal: 0 }}
-                        />
-                    )}
-                    onIndexChange={setTabIndex}
-                    style={{
-                        minHeight: Math.max(viewHeight.tab1) + scale(60)
-                    }}
+            <View
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <ScormViewer
+                    src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
                 />
-            </KeyboardAwareScrollView>
-        </View>
+                {data?.type === 1 ? (
+                    <VideoViewer
+                        videoUrl={data?.file_path || data?.video_url}
+                    />
+                ) : data?.type === 2 ? (
+                    <DocumentViewer
+                        content={data?.text_document}
+                        uri={`${API_URL}public/${data?.file_path}`}
+                    />
+                ) : data?.type === 3 ? (
+                    <ScormViewer
+                        src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                    />
+                ) : data?.type === 4 ? (
+                    <ExamViewer data={data} />
+                ) : data?.type === 5 ? (
+                    <EnglishReading data={data} />
+                ) : (
+                    <FinishCourse />
+                )}
+            </View>
+            <Center mt="3" mb="3">
+                <Text
+                    style={{
+                        fontSize: scale(14),
+                        color: '#52B553'
+                    }}>
+                    {data?.name}
+                </Text>
+            </Center>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                <Button
+                    size={'sm'}
+                    onPress={prevLesson}
+                    variant="subtle"
+                    colorScheme="green"
+                    style={{
+                        marginRight: scale(12),
+                        width: 'auto'
+                    }}>
+                    Bài trước
+                </Button>
+                <Button size={'sm'} onPress={nextLesson}>
+                    Bài tiếp theo
+                </Button>
+            </View>
+            <TabView
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={renderScene}
+                renderTabBar={props => (
+                    <TabBar
+                        {...props}
+                        renderLabel={({ route, focused, color }) => (
+                            <Text
+                                bold
+                                style={[
+                                    {
+                                        fontSize: 13,
+                                        color: '#6C746E',
+                                        textAlign: 'center'
+                                    },
+                                    focused && {
+                                        color: '#0E564D'
+                                    }
+                                ]}>
+                                {route.title}
+                            </Text>
+                        )}
+                        style={{
+                            backgroundColor: '#fff',
+                            elevation: 0
+                        }}
+                        indicatorStyle={{
+                            backgroundColor: '#0E564D',
+                            borderTopLeftRadius: scale(2),
+                            borderTopRightRadius: scale(2)
+                        }}
+                        tabStyle={{ paddingHorizontal: 0 }}
+                    />
+                )}
+                onIndexChange={setTabIndex}
+                style={{
+                    minHeight: Math.max(viewHeight.tab1) + scale(60)
+                }}
+            />
+        </SafeAreaView>
     )
 }
 
