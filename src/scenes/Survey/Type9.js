@@ -1,4 +1,4 @@
-import { DateTimePicker, Text, VStack } from 'app/atoms'
+import { Text, VStack } from 'app/atoms'
 import dayjs from 'dayjs'
 import React from 'react'
 
@@ -18,7 +18,7 @@ const Type9 = ({ data, index, onSelect, selected }) => {
                 return (
                     <View key={rowIndex} w={w} rounded="md" p="2">
                         <Text>{item}</Text>
-                        <DateTimePicker
+                        {/* <DateTimePicker
                             date={date ? new Date(date) : new Date()}
                             onChange={(event, selectedDate) => {
                                 onSelect(
@@ -29,7 +29,7 @@ const Type9 = ({ data, index, onSelect, selected }) => {
                                         .toString()
                                 )
                             }}
-                        />
+                        /> */}
                     </View>
                 )
             })}

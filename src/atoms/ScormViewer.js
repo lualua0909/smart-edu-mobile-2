@@ -1,5 +1,5 @@
-import { showToast } from 'app/atoms'
-import React, { useEffect } from 'react'
+import { AbsoluteSpinner, showToast } from 'app/atoms'
+import React, { useEffect, useState } from 'react'
 
 import { Dimensions } from 'react-native'
 import { WebView } from 'react-native-webview'
@@ -13,6 +13,8 @@ function isPortrait() {
 }
 
 export default ({ src }) => {
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         if (isPortrait()) {
             showToast({
@@ -23,19 +25,34 @@ export default ({ src }) => {
     }, [])
 
     return (
-        <WebView
-            originWhitelist={['*']}
-            source={{
-                uri: src
-            }}
-            style={{
-                height: Math.min(w, h),
-                width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
-                resizeMode: 'contain',
-                flex: 1,
-                border: 'none'
-            }}
-            allowsInlineMediaPlayback={true}
-        />
+        <>
+            {loading && <AbsoluteSpinner title="Đang tải bài học..." />}
+            <WebView
+                originWhitelist={['https://*']}
+                javaScriptEnabled={true}
+                source={{
+                    uri: src
+                }}
+                onLoadStart={() => {
+                    console.log('loading = ', src)
+                }}
+                onError={syntheticEvent => {
+                    const { nativeEvent } = syntheticEvent
+                    console.warn('WebView error: ', nativeEvent)
+                }}
+                onLoadProgress={({ nativeEvent }) => {
+                    console.log('loadingProgress', nativeEvent.progress)
+                }}
+                onLoadEnd={syntheticEvent => {
+                    // update component to be aware of loading status
+                    setLoading(false)
+                }}
+                style={{
+                    height: Math.min(w, h),
+                    width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
+                    display: loading ? 'none' : 'flex'
+                }}
+            />
+        </>
     )
 }

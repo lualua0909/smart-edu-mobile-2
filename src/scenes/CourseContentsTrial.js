@@ -235,12 +235,10 @@ const CourseDetail = ({ route, navigation }) => {
             }}>
             <View
                 style={{
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    height: 300
                 }}>
-                <ScormViewer
-                    src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
-                />
                 {data?.type === 1 ? (
                     <VideoViewer
                         videoUrl={data?.file_path || data?.video_url}

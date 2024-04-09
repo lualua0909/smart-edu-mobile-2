@@ -21,6 +21,7 @@ import { Flag, Rss } from 'react-native-feather'
 import * as Progress from 'react-native-progress'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
+import { WebView } from 'react-native-webview'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')

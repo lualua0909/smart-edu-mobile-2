@@ -11,7 +11,6 @@
     },
     "dependencies": {
         "@jeremybarbet/apple-api-types": "^1.4.0",
-        "@react-native-community/datetimepicker": "^7.6.2",
         "@react-native-firebase/app": "^14.9.1",
         "@react-native-firebase/firestore": "^14.9.1",
         "@react-native-firebase/messaging": "^14.9.1",
@@ -54,7 +53,7 @@
         "react-native-timeline-flatlist": "^0.8.0",
         "react-native-video": "5.2.1",
         "react-native-webview": "^11.18.1",
-        "react-native-screens": "3.29.0",
+        "react-native-screens": "^3.23.0",
         "uri-scheme": "^1.1.0"
     },
     "devDependencies": {
