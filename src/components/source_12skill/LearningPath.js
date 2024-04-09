@@ -142,7 +142,7 @@ const LearningPath = ({ navigation, route }) => {
         setIsLoading(true)
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${user?.id}`)
+            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
             // storage.delete('SCREEN')
             setUser(userInfoStore)
 

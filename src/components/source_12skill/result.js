@@ -54,15 +54,18 @@ const TestResult = ({
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
             setUser(userInfoStore)
-            // storage.delete(
-            //     `COURSE_12_SKILL_ID_USER_${JSON.parse(userInfoStore)?.id}`
-            // )
+            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
             // storage.delete('SCREEN')
             const dataCourseFromStore = getData(
                 `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
             )
-            setData(JSON.parse(dataCourseFromStore).data)
             setIsLoading(false)
+            console.log(
+                '🚀 ~ getAllData ~ dataCourseFromStore:',
+                dataCourseFromStore
+            )
+            setData(JSON.parse(dataCourseFromStore)?.data)
+            // if (!dataCourseFromStore) return
         }
     }
 
@@ -118,7 +121,6 @@ const TestResult = ({
                     keyExtractor={(_, index) => index.toString()}
                     style={styles.flatList_style}
                     renderItem={({ item, index }) => {
-                        console.log('🚀 ~ item:', item)
                         return (
                             <View
                                 key={index}
