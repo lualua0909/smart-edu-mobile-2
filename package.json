@@ -31,7 +31,6 @@
         "react-native": "0.70.5",
         "react-native-axios": "^0.17.1",
         "react-native-device-info": "^10.0.1",
-        "react-native-drax": "^0.10.3",
         "react-native-feather": "^1.1.2",
         "react-native-gesture-handler": "^2.9.0",
         "react-native-iap": "12.10.5",
@@ -54,6 +53,7 @@
         "react-native-toast-message": "v2",
         "react-native-video": "5.2.1",
         "react-native-webview": "^11.18.1",
+        "typesafe-actions": "^5.1.0",
         "uri-scheme": "^1.1.0"
     },
     "devDependencies": {

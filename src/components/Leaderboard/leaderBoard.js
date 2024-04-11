@@ -8,6 +8,7 @@ import {
     Dimensions,
     Image,
     ImageBackground,
+    Pressable,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -27,6 +28,8 @@ const ITEM_SIZE = AVATAR_SIZE + SPACING * 3
 
 const LeaderBoardComponent = () => {
     const navigation = useNavigation()
+    const [dataLeaderBoard, setDataLeaderBoard] = React.useState(10)
+
     const scrollY = React.useRef(new Animated.Value(0)).current
 
     React.useEffect(() => {
@@ -42,6 +45,7 @@ const LeaderBoardComponent = () => {
         outputRange: [1, 1, 1, 0]
     })
     const myLocation = 5
+
     return (
         <ImageBackground
             source={require('assets/images/leaderboard-bg.png')}
@@ -190,7 +194,7 @@ const LeaderBoardComponent = () => {
                             paddingVertical: 20,
                             borderRadius: 10
                         }}>
-                        {[...Array(30).keys()].map((_, i) => {
+                        {[...Array(dataLeaderBoard).keys()].map((_, i) => {
                             const scale2 = scrollY.interpolate({
                                 inputRange: [-1, 0, height / 3, height],
                                 outputRange: [0, 0, 1, 1]
@@ -260,6 +264,33 @@ const LeaderBoardComponent = () => {
                                 </Animated.View>
                             )
                         })}
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                width: width - 70
+                            }}>
+                            <Pressable
+                                style={{
+                                    width: width / 2,
+                                    backgroundColor: COLORS.green,
+                                    paddingVertical: 15,
+                                    borderRadius: 10,
+                                    marginVertical: 20
+                                }}
+                                onPress={() =>
+                                    setDataLeaderBoard(prev => prev + 10)
+                                }>
+                                <Text
+                                    style={{
+                                        textAlign: 'center',
+                                        fontSize: 17,
+                                        color: COLORS.colorWhite
+                                    }}>
+                                    Xem thêm
+                                </Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </Animated.ScrollView>
             </SafeAreaView>
