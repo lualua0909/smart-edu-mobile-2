@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
@@ -90,7 +89,7 @@ const CourseList = ({ route }) => {
                     <VStack space={10}>
                         {homeInfo?.course_groups?.map((item, index) => (
                             <Radio
-                                key={index}
+                                key={item?.id}
                                 text={item?.name}
                                 isChecked={cgSelected?.includes(item?.id)}
                                 onPress={() => {
