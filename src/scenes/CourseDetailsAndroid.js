@@ -459,27 +459,31 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         // trường hợp là khóa học lộ trình và có bài thi đầu vào
-        return (
-            <Button
-                pt={2}
-                pb={2}
-                pr={5}
-                pl={5}
-                style={{
-                    backgroundColor: '#52B553',
-                    borderRadius: 8
-                }}
-                onPress={() => handleToLearningPath()}
-                // isLoading={loadingVerify}
-                leftIcon={
-                    <>
-                        <BookOpen stroke="#fff" size={12} />
-                    </>
-                }
-                isLoadingText="Đang vào">
-                Học ngay
-            </Button>
-        )
+        if (data?.relational && data?.is_combo) {
+            return (
+                <Button
+                    pt={2}
+                    pb={2}
+                    pr={5}
+                    pl={5}
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={handleToLearningPath}
+                    // isLoading={loadingVerify}
+                    leftIcon={
+                        <>
+                            <BookOpen stroke="#fff" size={12} />
+                        </>
+                    }
+                    isLoadingText="Đang vào">
+                    Học ngay
+                </Button>
+            )
+        }
+
+        return null
     }
     return (
         <View style={{ flex: 1 }}>

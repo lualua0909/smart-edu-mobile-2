@@ -32,7 +32,11 @@ const MenuAction = ({
                     },
                     { backgroundColor }
                 ]}>
-                <SvgXml xml={icon} width={scale(42)} height={scale(42)} />
+                {typeof icon === 'string' ? (
+                    <SvgXml xml={icon} width={scale(42)} height={scale(42)} />
+                ) : (
+                    icon
+                )}
                 {badge > 0 && (
                     <View
                         style={{
