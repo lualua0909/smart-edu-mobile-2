@@ -15,12 +15,12 @@ import {
     FlatList,
     Pressable,
     RefreshControl,
+    SafeAreaView,
     ScrollView,
     View
 } from 'react-native'
 import { Filter, Search } from 'react-native-feather'
 import Modal from 'react-native-modal'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)

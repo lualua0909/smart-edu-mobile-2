@@ -8,19 +8,19 @@ import {
     DetailSkeleton,
     HStack,
     Input,
+    Modal,
+    Text,
     VStack,
     showToast
 } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Image, Pressable, ScrollView, View } from 'react-native'
+import { Alert, Image, Pressable, ScrollView, View } from 'react-native'
 import { Camera } from 'react-native-feather'
 import ImagePicker from 'react-native-image-crop-picker'
-
-import { AlertDialog, Radio } from 'native-base'
 
 const ProfileInfo = () => {
     const userInfo = getGlobalState('userInfo')
@@ -35,7 +35,6 @@ const ProfileInfo = () => {
     const onClose = () => {
         setIsOpen(false)
     }
-    const cancelRef = useRef(null)
 
     useEffect(() => {
         axios
@@ -270,7 +269,7 @@ const ProfileInfo = () => {
                             error={errors?.last_name}
                         />
                         <Input label="Email" value={data.email} isDisabled />
-                        <Radio.Group
+                        {/* <Radio.Group
                             value={data?.gender}
                             onChange={selectedValue =>
                                 changeValue('gender', selectedValue)
@@ -289,7 +288,7 @@ const ProfileInfo = () => {
                                     Nữ
                                 </Radio>
                             </HStack>
-                        </Radio.Group>
+                        </Radio.Group> */}
                         <Input
                             label="Địa chỉ"
                             allowClear
@@ -356,7 +355,6 @@ const ProfileInfo = () => {
             <DeleteUserPopup
                 isOpen={isOpen}
                 onClose={onClose}
-                cancelRef={cancelRef}
                 onConfirm={deactiveAccount}
             />
         </>
@@ -365,25 +363,16 @@ const ProfileInfo = () => {
 
 export default ProfileInfo
 
-const DeleteUserPopup = ({ cancelRef, onClose, isOpen, onConfirm }) => (
-    <AlertDialog
-        leastDestructiveRef={cancelRef}
-        isOpen={isOpen}
-        onClose={onClose}>
-        <AlertDialog.Content>
-            <AlertDialog.CloseButton />
-            <AlertDialog.Header>Xóa tài khoản</AlertDialog.Header>
-            <AlertDialog.Body>
-                Tài khoản của bạn sẽ bị xóa tạm thời và sẽ xóa vĩnh viễn sau 30
-                ngày. Bạn có chắc chắn muốn xóa tài khoản này không?
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-                <Button.Group space={2}>
-                    <Button colorScheme="danger" onPress={onConfirm}>
-                        Xóa tài khoản
-                    </Button>
-                </Button.Group>
-            </AlertDialog.Footer>
-        </AlertDialog.Content>
-    </AlertDialog>
-)
+const DeleteUserPopup = ({ onClose, isOpen, onConfirm }) => {
+    return (
+        <Modal visible={isOpen} onClose={onClose}>
+            <VStack space={10} style={{ padding: 20 }}>
+                <Text>
+                    Tài khoản của bạn sẽ bị xóa tạm thời và sẽ xóa vĩnh viễn sau
+                    30 ngày. Bạn có chắc chắn muốn xóa tài khoản này không?
+                </Text>
+                <Button onPress={onConfirm}>Xóa tài khoản</Button>
+            </VStack>
+        </Modal>
+    )
+}

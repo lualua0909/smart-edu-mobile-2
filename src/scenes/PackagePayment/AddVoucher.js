@@ -1,14 +1,25 @@
-import { Button } from 'app/atoms'
+import { Button, Modal } from 'app/atoms'
 import React from 'react'
-
-import { Modal } from 'native-base'
 
 import VoucherList from '@/components/pages/Vouchers/List'
 
 const AddVoucher = ({ modalVisible, setModalVisible }) => {
     return (
-        <Modal isOpen={modalVisible} size="full">
-            <Modal.Content>
+        <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
+            <VoucherList data={[1, 2, 3, 4, 5, 6, 7]} />
+            <Button
+                onPress={() => {
+                    setModalVisible(false)
+                }}>
+                Hủy
+            </Button>
+            <Button
+                onPress={() => {
+                    setModalVisible(false)
+                }}>
+                Áp dụng
+            </Button>
+            {/* <Modal.Content>
                 <Modal.Header>Chọn Voucher</Modal.Header>
                 <Modal.Body>
                     <VoucherList data={[1, 2, 3, 4, 5, 6, 7]} />
@@ -31,7 +42,7 @@ const AddVoucher = ({ modalVisible, setModalVisible }) => {
                         </Button>
                     </Button.Group>
                 </Modal.Footer>
-            </Modal.Content>
+            </Modal.Content> */}
         </Modal>
     )
 }

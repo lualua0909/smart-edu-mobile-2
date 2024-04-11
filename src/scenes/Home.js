@@ -16,12 +16,17 @@ import { clearDataAfterLogout } from 'app/helpers/utils'
 import { svgList, svgOrangeStar, svgStudy } from 'assets/svg'
 import React, { useEffect } from 'react'
 
-import { FlatList, Image, Pressable, ScrollView, View } from 'react-native'
+import {
+    FlatList,
+    Image,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    View
+} from 'react-native'
 import { Flag, Rss } from 'react-native-feather'
 import * as Progress from 'react-native-progress'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
-import { WebView } from 'react-native-webview'
 
 const Home = ({ navigation }) => {
     const [userInfo, setUserState] = useGlobalState('userInfo')

@@ -19,19 +19,21 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import {
-    clearDataAfterLogout,
-    getData,
-    storeData,
-    toCurrency
-} from 'app/helpers/utils'
+import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { BackHandler, Linking, Pressable, Share, View } from 'react-native'
-import { Image, ScrollView } from 'react-native'
+import {
+    BackHandler,
+    Image,
+    Linking,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 

@@ -9,6 +9,7 @@ import {
     ExamViewer,
     FinishCourse,
     Input,
+    Modal,
     NoDataAnimation,
     ScormViewer,
     Text,
@@ -36,8 +37,6 @@ import {
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
-
-import { Modal, TextArea } from 'native-base'
 
 const h = Dimensions.get('screen').height
 
@@ -377,9 +376,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <Button
                             onPress={() => setVisibleQuestion(true)}
                             style={{
-                                paddingVertical: scale(10.5),
-                                paddingHorizontal: scale(31),
-                                marginTop: scale(16)
+                                marginTop: 16
                             }}>
                             Đặt câu hỏi
                         </Button>
@@ -459,6 +456,13 @@ const CourseDetail = ({ route, navigation }) => {
             .then(res => {
                 if (res?.data?.status === 200) {
                     setVisibleQuestion(false)
+                    showToast({
+                        title: 'Gửi câu hỏi thành công',
+                        status: 'success'
+                    })
+
+                    questionTitle.onChangeText('')
+                    questionContent.onChangeText('')
                 }
             })
             .finally(() => setQuestionLoading(false))
@@ -575,42 +579,18 @@ const CourseDetail = ({ route, navigation }) => {
                 }}
             />
 
-            <Modal
-                isOpen={visibleQuestion}
-                onClose={() => setVisibleQuestion(false)}>
-                <Modal.Content>
-                    <Modal.Header>Gửi câu hỏi</Modal.Header>
-                    <Modal.Body>
-                        <VStack space={10}>
-                            <Input
-                                label="Tiêu đề"
-                                placeholder="Nhập tiêu đề câu hỏi"
-                                w="100%"
-                                {...questionTitle}
-                            />
-                            <Input
-                                label="Nội dung"
-                                multiline={true}
-                                numberOfLines={4}
-                                placeholder="Nhập nội dung câu hỏi tại đây..."
-                                {...questionContent}
-                            />
-                        </VStack>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onPress={sendQuestion}
-                            isLoading={questionLoading}
-                            isLoadingText="Đang gửi câu hỏi...">
-                            Gửi câu hỏi
-                        </Button>
-                    </Modal.Footer>
-                </Modal.Content>
-            </Modal>
             <ViewDocModal
                 isOpen={openViewDoc}
                 onClose={onCloseViewDoc}
                 url={selectedFile}
+            />
+            <QuestionModal
+                visibleQuestion={visibleQuestion}
+                setVisibleQuestion={setVisibleQuestion}
+                sendQuestion={sendQuestion}
+                questionLoading={questionLoading}
+                questionTitle={questionTitle}
+                questionContent={questionContent}
             />
         </SafeAreaView>
     )
@@ -620,25 +600,53 @@ export default CourseDetail
 
 const ViewDocModal = ({ url, isOpen, onClose }) => (
     <Modal isOpen={isOpen} onClose={onClose}>
-        <Modal.Content w="100%" h={h} maxH="100%">
-            <Modal.Body>
-                <WebView
-                    originWhitelist={['*']}
-                    source={{
-                        uri: url
-                    }}
-                    style={{
-                        width: '100%',
-                        height: h,
-                        border: 'none'
-                    }}
-                />
-            </Modal.Body>
-            <Modal.Footer>
-                <Button colorScheme={'danger'} onPress={onClose}>
-                    Đóng
-                </Button>
-            </Modal.Footer>
-        </Modal.Content>
+        <WebView
+            originWhitelist={['*']}
+            source={{
+                uri: url
+            }}
+            style={{
+                width: '100%',
+                height: h,
+                border: 'none'
+            }}
+        />
     </Modal>
 )
+
+const QuestionModal = ({
+    questionTitle,
+    questionContent,
+    visibleQuestion,
+    setVisibleQuestion,
+    sendQuestion,
+    questionLoading
+}) => {
+    return (
+        <Modal
+            visible={visibleQuestion}
+            onClose={() => setVisibleQuestion(false)}>
+            <VStack space={10} style={{ padding: 20, marginTop: 10 }}>
+                <Input
+                    allowClear
+                    label="Tiêu đề câu hỏi"
+                    placeholder="Nhập tiêu đề câu hỏi"
+                    {...questionTitle}
+                />
+                <Input
+                    label="Nội dung câu hỏi"
+                    multiline={true}
+                    height={100}
+                    placeholder="Nhập nội dung câu hỏi tại đây..."
+                    {...questionContent}
+                />
+                <Button
+                    onPress={sendQuestion}
+                    isLoading={questionLoading}
+                    isLoadingText="Đang gửi câu hỏi...">
+                    Gửi câu hỏi
+                </Button>
+            </VStack>
+        </Modal>
+    )
+}

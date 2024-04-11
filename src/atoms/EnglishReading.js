@@ -1,4 +1,4 @@
-import { Button, HStack, Text, VStack } from 'app/atoms'
+import { Button, HStack, Modal, Text, VStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { similarityString } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +16,6 @@ import { Mic } from 'react-native-feather'
 
 import SpeakingAnimate from 'app/components/speaking-animate'
 import animationImg from 'assets/animations/english-reading.json'
-import { Modal } from 'native-base'
 
 const EnglishReading = ({ data }) => {
     const [visibleSpeaking, setVisibleSpeaking] = useState(true)
@@ -200,34 +199,35 @@ const ReadingList = ({ sentences, setCurrentContent }) => {
 }
 
 const DownloadModal = ({ modalVisible, setModalVisible }) => {
-    return (
-        <Modal isOpen={modalVisible} onClose={setModalVisible} size={'md'}>
-            <Modal.Content maxH="212">
-                <Modal.CloseButton />
-                <Modal.Header>Thông báo từ hệ thống</Modal.Header>
-                <Modal.Body>
-                    <ScrollView>
-                        <Text>
-                            Ứng dụng cần sử dụng dịch vụ từ điển của Google. Bạn
-                            vui lòng nhấn vào nút bên dưới để tải app Google
-                        </Text>
-                    </ScrollView>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button.Group space={2}>
-                        <Button
-                            onPress={() => {
-                                Linking.openURL(
-                                    'market://details?id=com.google.android.googlequicksearchbox'
-                                )
-                            }}>
-                            Tải app ngay
-                        </Button>
-                    </Button.Group>
-                </Modal.Footer>
-            </Modal.Content>
-        </Modal>
-    )
+    // return (
+    //     <Modal isOpen={modalVisible} onClose={setModalVisible} size={'md'}>
+    //         <Modal.Content maxH="212">
+    //             <Modal.CloseButton />
+    //             <Modal.Header>Thông báo từ hệ thống</Modal.Header>
+    //             <Modal.Body>
+    //                 <ScrollView>
+    //                     <Text>
+    //                         Ứng dụng cần sử dụng dịch vụ từ điển của Google. Bạn
+    //                         vui lòng nhấn vào nút bên dưới để tải app Google
+    //                     </Text>
+    //                 </ScrollView>
+    //             </Modal.Body>
+    //             <Modal.Footer>
+    //                 <Button.Group space={2}>
+    //                     <Button
+    //                         onPress={() => {
+    //                             Linking.openURL(
+    //                                 'market://details?id=com.google.android.googlequicksearchbox'
+    //                             )
+    //                         }}>
+    //                         Tải app ngay
+    //                     </Button>
+    //                 </Button.Group>
+    //             </Modal.Footer>
+    //         </Modal.Content>
+    //     </Modal>
+    // )
+    return null
 }
 
 const WelcomeModal = ({ visibleSpeaking, setVisibleSpeaking }) => {

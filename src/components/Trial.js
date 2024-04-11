@@ -5,8 +5,7 @@ import { storeData } from 'app/helpers/utils'
 import React from 'react'
 
 import LottieView from 'lottie-react-native'
-import { Platform, Pressable } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Platform, Pressable, SafeAreaView } from 'react-native'
 
 import animationImg from 'assets/animations/english-reading.json'
 

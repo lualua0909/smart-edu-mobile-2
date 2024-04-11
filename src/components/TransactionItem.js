@@ -1,4 +1,4 @@
-import { Card, Text } from 'app/atoms'
+import { Badge, Card, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
@@ -8,8 +8,6 @@ import React from 'react'
 import { Pressable, View } from 'react-native'
 import { CreditCard, DollarSign } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
-
-import { Badge } from 'native-base'
 
 const TransactionItem = ({ data }) => {
     const year =
@@ -147,10 +145,7 @@ const TransactionItem = ({ data }) => {
                             alignItems: 'center',
                             marginTop: 5
                         }}>
-                        <Badge
-                            colorScheme={data?.status ? 'success' : 'warning'}
-                            alignSelf="center"
-                            variant="subtle">
+                        <Badge color={data?.status ? '#52B55380' : '#FF9F3380'}>
                             {data?.status ? 'Đã thanh toán' : 'Chưa thanh toán'}
                         </Badge>
                     </View>

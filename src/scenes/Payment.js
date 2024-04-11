@@ -5,10 +5,15 @@ import { toCurrency } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Image, Pressable, Switch, View } from 'react-native'
-import { ScrollView } from 'react-native'
+import {
+    Image,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Switch,
+    View
+} from 'react-native'
 import { ChevronRight } from 'react-native-feather'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Payment = () => {
     const navigation = useNavigation()

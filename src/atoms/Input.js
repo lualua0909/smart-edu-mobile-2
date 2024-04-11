@@ -10,6 +10,7 @@ const Input = ({
     error,
     allowClear,
     placeholder,
+    height,
     InputRightElement,
     ...props
 }) => (
@@ -18,7 +19,9 @@ const Input = ({
         <View style={styles.searchSection}>
             <TextInput
                 {...props}
-                style={styles.input}
+                multiline={true}
+                numberOfLines={4}
+                style={[styles.input, { height }]}
                 placeholder={placeholder}
                 placeholderTextColor="#6C746E"
                 underlineColorAndroid="transparent"
@@ -59,7 +62,6 @@ export default Input
 
 const styles = StyleSheet.create({
     searchSection: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -78,7 +80,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Mulish-Bold'
     },
     input: {
-        height: 40,
         padding: 10,
         borderRadius: 5,
         borderWidth: 1,
