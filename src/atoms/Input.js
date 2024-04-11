@@ -19,8 +19,6 @@ const Input = ({
         <View style={styles.searchSection}>
             <TextInput
                 {...props}
-                multiline={true}
-                numberOfLines={4}
                 style={[styles.input, { height }]}
                 placeholder={placeholder}
                 placeholderTextColor="#6C746E"

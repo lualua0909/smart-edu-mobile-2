@@ -19,6 +19,7 @@ export default ({ src }) => {
         if (isPortrait()) {
             showToast({
                 title: 'Xoay ngang màn hình thiết bị để hiển thị toàn màn hình bài giảng SCORM',
+                description: '',
                 placement: 'bottom'
             })
         }

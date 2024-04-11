@@ -12,7 +12,6 @@ import SplashScreen from 'react-native-splash-screen'
 import Toast from 'react-native-toast-message'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
-import { NativeBaseProvider } from 'native-base'
 
 const firebaseConfig = {
     // Your project's configuration object goes here.
@@ -82,23 +81,21 @@ const App = () => {
     }
 
     return (
-        <NativeBaseProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
             <StatusBar hidden />
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <NavigationContainer
-                    linking={linking}
-                    onStateChange={navigationState => {
-                        const { name } = getFocusRoute(
-                            navigationState.routes[navigationState.index]
-                        )
-                        console.log('Route', name)
-                    }}>
-                    <SwitchNavigator />
-                </NavigationContainer>
-                <Toast />
-                <ModalNotLogin visible={visible} setVisible={setVisible} />
-            </GestureHandlerRootView>
-        </NativeBaseProvider>
+            <NavigationContainer
+                linking={linking}
+                onStateChange={navigationState => {
+                    const { name } = getFocusRoute(
+                        navigationState.routes[navigationState.index]
+                    )
+                    console.log('Route', name)
+                }}>
+                <SwitchNavigator />
+            </NavigationContainer>
+            <Toast />
+            <ModalNotLogin visible={visible} setVisible={setVisible} />
+        </GestureHandlerRootView>
     )
 }
 

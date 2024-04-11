@@ -1,4 +1,4 @@
-import isEqual from 'lodash.isequal'
+import _ from 'lodash'
 import {
     useCallback,
     useMemo, // useEffect,
@@ -85,7 +85,7 @@ const reducer = (state: DraxState, action: DraxStateAction): DraxState => {
                     ...viewState,
                     ...viewStateUpdate
                 }
-                if (isEqual(viewState, newViewState)) {
+                if (_.isEqual(viewState, newViewState)) {
                     return state
                 }
                 return {
