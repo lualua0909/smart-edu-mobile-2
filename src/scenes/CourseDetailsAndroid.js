@@ -19,19 +19,21 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import {
-    clearDataAfterLogout,
-    getData,
-    storeData,
-    toCurrency
-} from 'app/helpers/utils'
+import { getData, storeData, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { BackHandler, Linking, Pressable, Share, View } from 'react-native'
-import { Image, ScrollView } from 'react-native'
+import {
+    BackHandler,
+    Image,
+    Linking,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
 import { BookOpen, Heart, Share2, ShoppingCart } from 'react-native-feather'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
@@ -457,27 +459,31 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         // trường hợp là khóa học lộ trình và có bài thi đầu vào
-        return (
-            <Button
-                pt={2}
-                pb={2}
-                pr={5}
-                pl={5}
-                style={{
-                    backgroundColor: '#52B553',
-                    borderRadius: 8
-                }}
-                onPress={() => handleToLearningPath()}
-                // isLoading={loadingVerify}
-                leftIcon={
-                    <>
-                        <BookOpen stroke="#fff" size={12} />
-                    </>
-                }
-                isLoadingText="Đang vào">
-                Học ngay
-            </Button>
-        )
+        if (data?.relational && data?.is_combo) {
+            return (
+                <Button
+                    pt={2}
+                    pb={2}
+                    pr={5}
+                    pl={5}
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={handleToLearningPath}
+                    // isLoading={loadingVerify}
+                    leftIcon={
+                        <>
+                            <BookOpen stroke="#fff" size={12} />
+                        </>
+                    }
+                    isLoadingText="Đang vào">
+                    Học ngay
+                </Button>
+            )
+        }
+
+        return null
     }
     return (
         <View style={{ flex: 1 }}>

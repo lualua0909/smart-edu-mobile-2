@@ -12,10 +12,15 @@ import { svgGreenTeacher } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import LottieView from 'lottie-react-native'
-import { FlatList, Pressable, RefreshControl, View } from 'react-native'
-import { ScrollView } from 'react-native'
+import {
+    FlatList,
+    Pressable,
+    RefreshControl,
+    SafeAreaView,
+    ScrollView,
+    View
+} from 'react-native'
 import Modal from 'react-native-modal'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 
 import animationBanner from 'assets/animations/online-learning.json'
@@ -319,20 +324,6 @@ const Teacher = () => {
                                         >
                                             Trần Nguyễn Ngân Duyên
                                         </Text>
-                                        <Pressable
-                                            style={{
-                                                paddingVertical: scale(4),
-                                                marginTop: scale(4),
-                                                alignSelf: 'flex-start',
-                                            }}
-                                        >
-                                            <Badge
-                                                colorScheme="success"
-                                                variant="outline"
-                                            >
-                                                Tagname
-                                            </Badge>
-                                        </Pressable>
                                     </View>
                                 </Pressable>
                             )}

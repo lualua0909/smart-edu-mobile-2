@@ -1,5 +1,5 @@
 import { getGlobalState, setGlobalState } from 'app/Store'
-import { Avatar, Card, HStack, Text } from 'app/atoms'
+import { Avatar, Badge, Card, HStack, Text } from 'app/atoms'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
@@ -7,8 +7,6 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View } from 'react-native'
 import { Star } from 'react-native-feather'
-
-import { Badge } from 'native-base'
 
 const TeacherItem = ({ item }) => {
     const navigation = useNavigation()
@@ -94,9 +92,7 @@ const TeacherItem = ({ item }) => {
                         marginTop: scale(4),
                         alignSelf: 'flex-start'
                     }}>
-                    <Badge colorScheme="success" variant="subtle">
-                        {item?.department}
-                    </Badge>
+                    <Badge>{item?.department}</Badge>
                 </View>
                 <HStack space={3}>
                     <Text

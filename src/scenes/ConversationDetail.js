@@ -2,16 +2,14 @@ import { useGlobalState } from 'app/Store'
 import { Avatar, Card, Text } from 'app/atoms'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { toRelativeTime } from 'app/helpers/utils'
+import { isIOS, toRelativeTime } from 'app/helpers/utils'
 import { svgSend } from 'assets/svg'
 import React, { useEffect, useRef, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
 import { useHeaderHeight } from '@react-navigation/elements'
 import {
-    Image,
     KeyboardAvoidingView,
-    Platform,
     Pressable,
     ScrollView,
     TextInput,
@@ -147,7 +145,7 @@ const ConversationDetail = ({ navigation }) => {
             <HeaderChat />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
-                behavior={Platform.OS == 'ios' ? 'padding' : ''}
+                behavior={isIOS ? 'padding' : ''}
                 keyboardVerticalOffset={headerHeight}>
                 <ScrollView
                     ref={scrollViewRef}

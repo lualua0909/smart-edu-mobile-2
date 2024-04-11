@@ -2,8 +2,7 @@ import { useGlobalState } from 'app/Store'
 import { Avatar, Text } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { clearDataAfterLogout } from 'app/helpers/utils'
-import { getData } from 'app/helpers/utils'
+import { clearDataAfterLogout, getData, isAndroid } from 'app/helpers/utils'
 import {
     svgAchievement,
     svgCalendarOffline,
@@ -307,7 +306,7 @@ const Menu = ({ route }) => {
                         </View>
                     </View>
                 </View>
-                {Platform.OS === 'android' && (
+                {isAndroid && (
                     <Pressable
                         style={{
                             position: 'absolute',
@@ -443,6 +442,27 @@ const Menu = ({ route }) => {
                                 navigation.navigate(ROUTES.CertificateList)
                             }
                         />
+                        <MenuAction
+                            icon={svgMyMeeting}
+                            title="Bạn bè"
+                            backgroundColor="#FFF4F0"
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Friends, {
+                                    userId: null
+                                })
+                            }
+                        />
+                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                        <MenuAction
+                            icon={svgIconCharts}
+                            title="Bảng xếp hạng"
+                            // badge={12}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Leaderboard)
+                            }
+                            description="KH theo lộ trình"
+                            backgroundColor="#E5FEEC"
+                        />
                     </View>
                 </View>
 
@@ -543,7 +563,7 @@ const Menu = ({ route }) => {
                     </View> 
                         </View>*/}
 
-                <View
+                {/* <View
                     style={{
                         backgroundColor: '#fff',
                         paddingVertical: scale(16)
@@ -568,28 +588,25 @@ const Menu = ({ route }) => {
                         <MenuAction
                             icon={svgMyMeeting}
                             title="Bạn bè"
-                            description="xem bạn bè"
                             backgroundColor="#FFF4F0"
-                            // badge={2}
                             onPress={() =>
                                 navigation.navigate(ROUTES.Friends, {
                                     userId: null
                                 })
                             }
                         />
-                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
                         <MenuAction
                             icon={svgIconCharts}
                             title="Bảng xếp hạng"
-                            backgroundColor="#52B553"
-                            // badge={2}
+                            // badge={12}
                             onPress={() =>
                                 navigation.navigate(ROUTES.Leaderboard)
                             }
+                            description="KH theo lộ trình"
+                            backgroundColor="#E5FEEC"
                         />
-                        {/*  */}
                     </View>
-                </View>
+                </View> */}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {

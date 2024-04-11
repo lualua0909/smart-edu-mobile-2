@@ -64,18 +64,6 @@ const Wireframe = ({ navigation }) => {
                 justifyContent: 'space-between',
                 paddingBottom: scale(30)
             }}>
-            {/* <SafeAreaView
-            style={{
-                position: 'absolute',
-                top: scale(10),
-                right: scale(20),
-                zIndex: 1,
-            }}
-        >
-            <Pressable hitSlop={20}>
-                <Text style={{ color: '#fff' }}>Khám phá ngay</Text>
-            </Pressable>
-        </SafeAreaView> */}
             <ScrollView
                 ref={scrollRef}
                 horizontal
@@ -157,6 +145,7 @@ const Wireframe = ({ navigation }) => {
                 <Button shadow="3" onPress={() => onGoToPage(pageIndex + 1)}>
                     {pageIndex < DATA.length - 1 ? 'Tiếp tục' : 'Đăng nhập'}
                 </Button>
+                {/* <Modal isVisible={true} setVisible={() => {}} /> */}
             </View>
         </View>
     )

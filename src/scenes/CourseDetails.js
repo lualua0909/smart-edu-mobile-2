@@ -21,7 +21,15 @@ import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Alert, Image, Pressable, ScrollView, Share, View } from 'react-native'
+import {
+    Alert,
+    Image,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
 import {
     DollarSign,
     Heart,
@@ -41,7 +49,6 @@ import {
     purchaseUpdatedListener,
     requestPurchase
 } from 'react-native-iap'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 

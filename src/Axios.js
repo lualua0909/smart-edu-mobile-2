@@ -1,8 +1,8 @@
 import { getGlobalState } from 'app/Store'
 import { API_URL } from 'app/constants'
-import { clearDataAfterLogout } from 'app/helpers/utils'
+import { clearDataAfterLogout, isAndroid } from 'app/helpers/utils'
 
-import { Alert, Platform, ToastAndroid } from 'react-native'
+import { Alert, ToastAndroid } from 'react-native'
 import axios from 'react-native-axios'
 
 axios.defaults.baseURL = API_URL + 'api/'
@@ -22,7 +22,7 @@ axios.interceptors.response.use(
         const status = error.response.status
         if (status === 401) {
             const msg = 'Vui lòng đăng nhập lại !'
-            if (Platform.OS === 'android') {
+            if (isAndroid) {
                 ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.TOP)
             } else {
                 Alert.alert(msg)

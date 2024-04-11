@@ -642,8 +642,8 @@ export const svgIconYoutube = `<svg width="50" height="34" viewBox="0 0 50 34" f
 </svg>
 `
 
-export const svgIconCharts = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="1em" height="1em" viewBox="0 0 24 24">
-  <path fill="none" stroke="#FFF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 9.429V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8.286m6-3.857V21m0-11.571h4a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2h-4m0 0H9m0 0v-7.714M9 21H5a2 2 0 0 1-2-2v-3.714a2 2 0 0 1 2-2h4"></path>
+export const svgIconCharts = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path fill="none" stroke="#52B553" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 9.429V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8.286m6-3.857V21m0-11.571h4a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2h-4m0 0H9m0 0v-7.714M9 21H5a2 2 0 0 1-2-2v-3.714a2 2 0 0 1 2-2h4"></path>
 </svg>
 `
 export const svgIconList = `
