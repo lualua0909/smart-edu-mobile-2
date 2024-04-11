@@ -1,5 +1,6 @@
 import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
+import { isIOS } from 'app/helpers/utils'
 import { svgIconFB, svgIconYoutube } from 'assets/svg'
 import React from 'react'
 
@@ -8,7 +9,7 @@ import { SvgXml } from 'react-native-svg'
 
 const Support = () => {
     const openMap = (latitude, longitude, label = '') => {
-        const scheme = `${Platform.OS === 'ios' ? 'maps' : 'geo'}:0,0?q=`
+        const scheme = `${isIOS ? 'maps' : 'geo'}:0,0?q=`
         const link = Platform.select({
             ios: `${scheme}${label}@${latitude},${longitude}`,
             android: `${scheme}${latitude},${longitude}(${label})`

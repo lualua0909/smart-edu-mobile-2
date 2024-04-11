@@ -6,7 +6,7 @@ import { Pressable, View } from 'react-native'
 import Modal from 'react-native-modal'
 import { SvgXml } from 'react-native-svg'
 
-const CustomModal = ({ visible, onClose, children }) => {
+const CustomModal = ({ visible, onClose, children, style }) => {
     return (
         <Modal
             isVisible={visible}
@@ -15,7 +15,8 @@ const CustomModal = ({ visible, onClose, children }) => {
             <View
                 style={{
                     backgroundColor: '#fff',
-                    borderRadius: scale(5)
+                    borderRadius: scale(5),
+                    ...style
                 }}>
                 <Pressable
                     onPress={onClose}

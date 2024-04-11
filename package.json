@@ -10,6 +10,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "@apollo/client": "^3.9.11",
         "@jeremybarbet/apple-api-types": "^1.4.0",
         "@react-native-firebase/app": "^14.9.1",
         "@react-native-firebase/firestore": "^14.9.1",
@@ -20,6 +21,7 @@
         "@react-navigation/native-stack": "^6.2.5",
         "@react-navigation/stack": "^6.0.11",
         "dayjs": "^1.11.0",
+        "graphql": "^16.8.1",
         "jetifier": "^2.0.0",
         "lodash": "^4.17.21",
         "lottie-react-native": "^5.1.6",

@@ -2,8 +2,7 @@ import { useGlobalState } from 'app/Store'
 import { Avatar, Text } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
-import { clearDataAfterLogout } from 'app/helpers/utils'
-import { getData } from 'app/helpers/utils'
+import { clearDataAfterLogout, getData, isAndroid } from 'app/helpers/utils'
 import {
     svgAchievement,
     svgCalendarOffline,
@@ -307,7 +306,7 @@ const Menu = ({ route }) => {
                         </View>
                     </View>
                 </View>
-                {Platform.OS === 'android' && (
+                {isAndroid && (
                     <Pressable
                         style={{
                             position: 'absolute',

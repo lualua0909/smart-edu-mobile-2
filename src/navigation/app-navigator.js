@@ -6,6 +6,7 @@ import TestResult from 'app/components/source_12skill/result'
 import StagesView from 'app/components/source_12skill/stagesComponent/StagesView'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
+import { isAndroid } from 'app/helpers/utils'
 import Carts from 'app/scenes/Carts'
 import CertificateList from 'app/scenes/CertificateList'
 import ConnectInstructorHistory from 'app/scenes/ConnectInstructorHistory'
@@ -43,7 +44,7 @@ import {
     TransitionPresets,
     createStackNavigator
 } from '@react-navigation/stack'
-import { Platform, Pressable } from 'react-native'
+import { Pressable } from 'react-native'
 import { withIAPContext } from 'react-native-iap'
 import { SvgXml } from 'react-native-svg'
 
@@ -73,7 +74,7 @@ const AppNavigator = () => {
             <Stack.Screen
                 name={ROUTES.CourseInfo}
                 component={
-                    Platform.OS === 'android'
+                    isAndroid
                         ? CourseDetailsAndroid
                         : withIAPContext(CourseDetails)
                 }
@@ -87,7 +88,7 @@ const AppNavigator = () => {
             <Stack.Screen
                 name={ROUTES.CourseInfo2}
                 component={
-                    Platform.OS === 'android'
+                    isAndroid
                         ? CourseDetailsAndroid
                         : withIAPContext(CourseDetails)
                 }

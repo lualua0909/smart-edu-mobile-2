@@ -1,12 +1,20 @@
+import {
+    ApolloClient,
+    ApolloProvider,
+    InMemoryCache,
+    createHttpLink
+} from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import { useGlobalState } from 'app/Store'
 import { ModalNotLogin, showToast } from 'app/atoms'
-import { getData } from 'app/helpers/utils'
+import { API_URL } from 'app/constants'
+import { getData, isIOS } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
 import firebase from '@react-native-firebase/app'
 import messaging from '@react-native-firebase/messaging'
 import { NavigationContainer } from '@react-navigation/native'
-import { Platform, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
 import Toast from 'react-native-toast-message'
@@ -18,14 +26,31 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 const linking = {
-    prefixes:
-        Platform.OS === 'ios'
-            ? ['IfaSmartTraining://']
-            : ['ifa_smart_training://']
+    prefixes: isIOS ? ['IfaSmartTraining://'] : ['ifa_smart_training://']
 }
+
 const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [visible, setVisible] = useGlobalState('visibleNotLogin')
+
+    const httpLink = createHttpLink({
+        uri: API_URL + 'graphql' + `${userInfo?.token ? '/secret' : ''}`
+    })
+
+    const authLink = setContext((_, { headers }) => {
+        return {
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${userInfo?.token}`
+            }
+        }
+    })
+
+    const client = new ApolloClient({
+        link: authLink.concat(httpLink),
+        cache: new InMemoryCache(),
+        defaultOptions: { watchQuery: { fetchPolicy: 'no-cache' } }
+    })
 
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -81,21 +106,23 @@ const App = () => {
     }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-            <StatusBar hidden />
-            <NavigationContainer
-                linking={linking}
-                onStateChange={navigationState => {
-                    const { name } = getFocusRoute(
-                        navigationState.routes[navigationState.index]
-                    )
-                    console.log('Route', name)
-                }}>
-                <SwitchNavigator />
-            </NavigationContainer>
-            <Toast />
-            <ModalNotLogin visible={visible} setVisible={setVisible} />
-        </GestureHandlerRootView>
+        <ApolloProvider client={client}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <StatusBar hidden />
+                <NavigationContainer
+                    linking={linking}
+                    onStateChange={navigationState => {
+                        const { name } = getFocusRoute(
+                            navigationState.routes[navigationState.index]
+                        )
+                        console.log('Route', name)
+                    }}>
+                    <SwitchNavigator />
+                </NavigationContainer>
+                <Toast />
+                <ModalNotLogin visible={visible} setVisible={setVisible} />
+            </GestureHandlerRootView>
+        </ApolloProvider>
     )
 }
 

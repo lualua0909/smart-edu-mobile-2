@@ -6,9 +6,9 @@ import {
     Button,
     Center,
     DetailSkeleton,
-    HStack,
     Input,
     Modal,
+    Radio,
     Text,
     VStack,
     showToast
@@ -269,26 +269,16 @@ const ProfileInfo = () => {
                             error={errors?.last_name}
                         />
                         <Input label="Email" value={data.email} isDisabled />
-                        {/* <Radio.Group
-                            value={data?.gender}
-                            onChange={selectedValue =>
-                                changeValue('gender', selectedValue)
-                            }>
-                            <HStack space={10}>
-                                <Radio
-                                    value={1}
-                                    size="sm"
-                                    onPress={e => onSubmit('gender', 1)}>
-                                    Nam
-                                </Radio>
-                                <Radio
-                                    value={2}
-                                    size="sm"
-                                    onPress={e => onSubmit('gender', 2)}>
-                                    Nữ
-                                </Radio>
-                            </HStack>
-                        </Radio.Group> */}
+                        <Radio
+                            text="Nam"
+                            isChecked={data?.gender === 1}
+                            onPress={e => onSubmit('gender', 1)}
+                        />
+                        <Radio
+                            text="Nữ"
+                            isChecked={data?.gender === 2}
+                            onPress={e => onSubmit('gender', 2)}
+                        />
                         <Input
                             label="Địa chỉ"
                             allowClear
