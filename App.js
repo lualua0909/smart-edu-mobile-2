@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { Platform, StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
+import Toast from 'react-native-toast-message'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
 import { NativeBaseProvider } from 'native-base'
@@ -94,6 +95,7 @@ const App = () => {
                     }}>
                     <SwitchNavigator />
                 </NavigationContainer>
+                <Toast />
                 <ModalNotLogin visible={visible} setVisible={setVisible} />
             </GestureHandlerRootView>
         </NativeBaseProvider>

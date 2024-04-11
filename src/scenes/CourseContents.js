@@ -588,11 +588,11 @@ const CourseDetail = ({ route, navigation }) => {
                                 w="100%"
                                 {...questionTitle}
                             />
-                            <TextArea
+                            <Input
                                 label="Nội dung"
-                                h={20}
+                                multiline={true}
+                                numberOfLines={4}
                                 placeholder="Nhập nội dung câu hỏi tại đây..."
-                                w="100%"
                                 {...questionContent}
                             />
                         </VStack>

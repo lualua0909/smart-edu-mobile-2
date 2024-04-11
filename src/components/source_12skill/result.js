@@ -17,7 +17,6 @@ import {
 import { SvgXml } from 'react-native-svg'
 
 import HeaderTitle from 'app/components/header-title'
-import { Progress } from 'native-base'
 
 import { RenderColor } from './renderColorRestult'
 
@@ -98,14 +97,14 @@ const TestResult = ({
                         {process} %
                     </Text>
                 </View>
-                <Progress
+                {/* <Progress
                     _filledTrack={{
                         bg: RenderColor(process)
                     }}
                     height={2}
                     style={{ height: 4 }}
                     value={process}
-                />
+                /> */}
             </>
         )
     }
