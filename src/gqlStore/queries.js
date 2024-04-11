@@ -76,3 +76,21 @@ export const COURSE_GROUP_LIST = gql`
         }
     }
 `
+
+export const GET_ROADMAP_PRETEST = gql`
+    query ($id: Int) {
+        RoadmapPretest(id: $id) {
+            title
+            description
+            questions {
+                id
+                title
+                group_id
+                group {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
