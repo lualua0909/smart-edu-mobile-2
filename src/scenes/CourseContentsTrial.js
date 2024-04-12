@@ -118,8 +118,7 @@ const CourseDetail = ({ route, navigation }) => {
         setLoading(true)
         axios
             .get(
-                `${
-                    userInfo?.id === 'trial' ? 'public-lectures' : 'lectures'
+                `${userInfo?.id === 'trial' ? 'public-lectures' : 'lectures'
                 }/get/${currentId}`
             )
             .then(res => {
@@ -145,9 +144,8 @@ const CourseDetail = ({ route, navigation }) => {
 
     const showFinishToast = () => {
         showToast({
-            title: `Bạn đã học hết nội dung học thử. Vui lòng ${
-                userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
-            } mua khóa học để tiếp tục`,
+            title: `Bạn đã học hết nội dung học thử. Vui lòng ${userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
+                } mua khóa học để tiếp tục`,
             status: 'success',
             description:
                 userInfo?.id === 'trial' ? (
@@ -235,6 +233,8 @@ const CourseDetail = ({ route, navigation }) => {
             }}>
             <View
                 style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     flexDirection: 'row',
                     alignItems: 'center',
                     height: 300

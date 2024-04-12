@@ -398,9 +398,9 @@ const CourseDetail = ({ route, navigation }) => {
                                 renderItem={({ item }) => {
                                     let fileName = item?.fileName
                                         ? item?.fileName
-                                              ?.split('/')
-                                              .slice(-1)
-                                              .pop()
+                                            ?.split('/')
+                                            .slice(-1)
+                                            .pop()
                                         : item?.file_name
                                     fileName = fileName.substring(
                                         fileName.indexOf('-') + 1
@@ -477,7 +477,10 @@ const CourseDetail = ({ route, navigation }) => {
             <View
                 style={{
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    height: 300
                 }}>
                 {data?.type === 1 ? (
                     <VideoViewer
