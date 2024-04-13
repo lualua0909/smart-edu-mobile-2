@@ -1,5 +1,6 @@
 import LeaderBoardComponent from 'app/components/Leaderboard/leaderBoard'
 import EntranceTest from 'app/components/source_12skill/EntranceTest'
+import IntroductionPreTest from 'app/components/source_12skill/IntroductionPreTest'
 import LearningPath from 'app/components/source_12skill/LearningPath'
 import ChartsComponent from 'app/components/source_12skill/radarChart'
 import TestResult from 'app/components/source_12skill/result'
@@ -312,6 +313,15 @@ const AppNavigator = () => {
                     headerTitle: () => (
                         <HeaderTitle title={route.params.title} />
                     ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+
+            <Stack.Screen
+                name={ROUTES.IntroductionPreTest}
+                component={IntroductionPreTest}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => <HeaderTitle title={'Giới thiệu'} />,
                     headerLeft: () => <HeaderBack />
                 })}
             />

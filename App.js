@@ -1,5 +1,13 @@
+import {
+    ApolloClient,
+    ApolloProvider,
+    InMemoryCache,
+    createHttpLink
+} from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import { useGlobalState } from 'app/Store'
 import { ModalNotLogin, showToast } from 'app/atoms'
+import { API_URL } from 'app/constants'
 import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
@@ -28,6 +36,24 @@ const App = () => {
     const [userInfo, setUserState] = useGlobalState('userInfo')
     const [random, setRandom] = useGlobalState('random')
     const [visible, setVisible] = useGlobalState('visibleNotLogin')
+
+    const httpLink = createHttpLink({
+        uri: API_URL + 'graphql' + `${userInfo?.token ? '/secret' : ''}`
+    })
+    const authLink = setContext((_, { headers }) => {
+        return {
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${userInfo?.token}`
+            }
+        }
+    })
+
+    const client = new ApolloClient({
+        link: authLink.concat(httpLink),
+        cache: new InMemoryCache(),
+        defaultOptions: { watchQuery: { fetchPolicy: 'no-cache' } }
+    })
 
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -85,22 +111,24 @@ const App = () => {
     }
 
     return (
-        <NativeBaseProvider theme={theme}>
-            <StatusBar hidden />
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <NavigationContainer
-                    linking={linking}
-                    onStateChange={navigationState => {
-                        const { name } = getFocusRoute(
-                            navigationState.routes[navigationState.index]
-                        )
-                        console.log('Route', name)
-                    }}>
-                    <SwitchNavigator />
-                </NavigationContainer>
-                <ModalNotLogin visible={visible} setVisible={setVisible} />
-            </GestureHandlerRootView>
-        </NativeBaseProvider>
+        <ApolloProvider client={client}>
+            <NativeBaseProvider theme={theme}>
+                <StatusBar hidden />
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                    <NavigationContainer
+                        linking={linking}
+                        onStateChange={navigationState => {
+                            const { name } = getFocusRoute(
+                                navigationState.routes[navigationState.index]
+                            )
+                            console.log('Route', name)
+                        }}>
+                        <SwitchNavigator />
+                    </NavigationContainer>
+                    <ModalNotLogin visible={visible} setVisible={setVisible} />
+                </GestureHandlerRootView>
+            </NativeBaseProvider>
+        </ApolloProvider>
     )
 }
 

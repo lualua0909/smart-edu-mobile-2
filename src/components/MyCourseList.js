@@ -10,7 +10,6 @@ import { FlatList } from 'react-native'
 
 const MyCourseList = ({ userId }) => {
     const [data, setData] = useState([])
-    console.log('🚀 ~ MyCourseList ~ data:', data)
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(0)
     const [refreshing, setRefreshing] = useState(false)
@@ -30,7 +29,6 @@ const MyCourseList = ({ userId }) => {
             .then(resData => {
                 const list = resData?.data
 
-                console.log('courses/my-courses/paging', list)
                 if (refreshing) {
                     setIsRefetch(false)
                     setData(list)
@@ -58,7 +56,7 @@ const MyCourseList = ({ userId }) => {
         <>
             {data?.length ? (
                 <FlatList
-                    data={[...DATA_FAKE_12_SKILL, ...data] || []}
+                    data={[...data] || []}
                     keyExtractor={(_, index) => index.toString()}
                     renderItem={({ item, index }) => (
                         <CourseItem

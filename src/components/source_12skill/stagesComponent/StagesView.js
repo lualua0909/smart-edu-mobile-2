@@ -10,9 +10,10 @@ const { width, height } = Dimensions.get('screen')
 
 const StagesView = ({ navigation, route }) => {
     const { data } = route.params
+    console.log('🚀 ~ StagesView ~ data:', data)
     return (
         <View style={styles.container}>
-            <VideoIntroduction />
+            {/* <VideoIntroduction /> */}
             <ListCourse dataStage={data} />
         </View>
     )

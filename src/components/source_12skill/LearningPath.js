@@ -1,8 +1,16 @@
+import { useQuery } from '@apollo/client'
+import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
 import { showToast } from 'app/atoms'
 import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
 import { getData, storeData } from 'app/helpers/utils'
 import storage from 'app/localStorage'
+import {
+    COURSE_GROUP_LIST,
+    COURSE_LIST,
+    GET_ROADMAP_PRETEST,
+    ROADMAP_LIST
+} from 'app/qqlStore/queries'
 import { svgAdjust } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
@@ -34,81 +42,144 @@ function getColor(i) {
     const colorVal = i * multiplier
     return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
 }
-const exampleData = [...Array(20)].map((d, index) => {
-    const backgroundColor = getColor(index)
-    return {
-        key: `item-${backgroundColor}`,
-        label: String(index),
-        backgroundColor
-    }
-})
 const { width, height } = Dimensions.get('screen')
 
 const LearningPath = ({ navigation, route }) => {
-    const [data, setData] = React.useState(DATA_FAKE_12_SKILL[0].children)
+    const {
+        loading,
+        error,
+        data: dataRoadmap,
+        refetch
+    } = useQuery(ROADMAP_LIST, {
+        variables: { course_id: 162 }
+    })
+
+    const { loading: isLoadingCourseList, data: DataCourseList } =
+        useQuery(COURSE_GROUP_LIST)
+
+    const [data, setData] = React.useState([])
     const [user, setUser] = React.useState()
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
     const [isAdjust, setIsAdjust] = React.useState(false)
-    const [hasAdjust, setHasAdjust] = React.useState(false)
+    const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
+    const [hasAdjust, setHasAdjust] = React.useState(true)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
 
-    const saveAdjust = () => {
-        const newAdjustCourse = dataAdjustCourse.map(stages => {
-            const editIsOpenCourse = stages.children.map(course => {
-                if (course.order === 1) {
-                    course.isOpen = true
-                } else {
-                    course.isOpen = false
-                }
-                return {
-                    ...course
-                }
-            })
-            return { ...stages, children: editIsOpenCourse }
-        })
+    // React.useEffect(() => {
+    //     navigation.addListener('beforeRemove', e => {
+    //         e.preventDefault()
+    //         if (isAdjust) {
+    //             Alert.alert(
+    //                 'Thông báo.',
+    //                 'Bạn có chắc chắn quay lại trang trước, kết quả của bạn sẽ được lưu khi thoát.',
+    //                 [
+    //                     {
+    //                         text: 'Tiếp tục điều chỉnh',
+    //                         style: 'cancel'
+    //                     },
+    //                     {
+    //                         text: 'OK',
+    //                         onPress: () => {
+    //                             saveAdjust()
+    //                         }
+    //                     }
+    //                 ]
+    //             )
+    //             return
+    //         }
+    //     })
+    // }, [navigation, isAdjust])
 
-        const sortedCourse = newAdjustCourse.map(stages => {
-            const sorted = sortByOrder(stages.children)
+    const formatData = () => {
+        setIsLoading(true)
+        if (!dataRoadmap && !DataCourseList) return
+        const courseGroupList = DataCourseList?.CourseGroups.data
+        const roadmapData = dataRoadmap?.Roadmaps.data
+
+        const adjust = roadmapData[0].sub_course.order_number2 !== 0
+        if (adjust) {
+            setIsAdjust(false)
+            setHasAdjust(true)
+        } else {
+            setIsAdjust(false)
+            setHasAdjust(false)
+        }
+        const result = courseGroupList?.map(course => {
+            const filter = roadmapData?.filter(roadmap => {
+                return roadmap.sub_course.group_id === course.id
+            })
+            if (filter.length === 0) return undefined
             return {
-                ...stages,
+                ...course,
+                children: filter
+            }
+        })
+        const removeUndefined = _.remove(result, undefined)
+        const sortByOrderNumber = removeUndefined.map(item => {
+            const sorted = sortByOrder(item.children)
+            return {
+                ...item,
                 children: sorted
             }
         })
+        setData(sortByOrderNumber)
+        setIsLoading(false)
+    }
 
-        storeData(
-            `COURSE_12_SKILL_ID_USER_${user?.id}`,
-            JSON.stringify({ isAdjust: true, data: sortedCourse })
-        )
-        SaveScreenToStore(
-            JSON.stringify({
-                nameScreen: route.name,
-                params: null
-            })
-        )
+    React.useEffect(() => {
+        if (dataRoadmap && DataCourseList) {
+            formatData()
+        }
+    }, [dataRoadmap, DataCourseList, isRefetchQuery])
+
+    const saveAdjust = () => {
         setIsLoading(true)
-        setIsAdjust(false)
-        setHasAdjust(true)
-        renderData()
-        setTimeout(() => {
-            showToast({
-                title: 'Cập nhật lộ trình thành công.',
-                placement: 'top'
+        const courses = []
+        let dataAdjust = data
+        if (dataAdjustCourse.length > 0) dataAdjust = dataAdjustCourse
+        dataAdjustCourse.map(stages => {
+            stages.children.map(children => {
+                const order2 = children.sub_course.order_number2
+                const order1 = children.sub_course.order_number
+                courses.push({
+                    id: children.sub_course.id,
+                    order: order2 === 0 ? order1 : order2
+                })
             })
-            setIsLoading(false)
-        }, 200)
+        })
+        axios
+            .post(`courses/roadmap/submit-order`, {
+                courses: [...courses]
+            })
+            .then(res => {
+                console.log(res)
+            })
+            .finally(() => {
+                setIsAdjust(false)
+                setHasAdjust(true)
+                refetch()
+                setIsRefetchQuery()
+                setTimeout(() => {
+                    showToast({
+                        title: 'Cập nhật lộ trình thành công.',
+                        placement: 'top'
+                    })
+                    setIsLoading(false)
+                }, 200)
+            })
     }
 
     const alertConfirmAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${'Bạn có chắc chắn với điều chỉnh lộ trình học tập không. Bạn sẽ không thể thay đổi lộ trình của bạn sau khi lưu'}`,
+            `${'Bạn đã chắc chắn với lộ trình vừa điều chỉnh không?'}`,
             [
                 {
-                    text: 'Thoát',
+                    text: 'Hủy',
                     style: 'cancel'
                 },
                 {
-                    text: 'OK',
+                    text: 'Đồng ý',
                     onPress: () => {
                         saveAdjust()
                     }
@@ -116,15 +187,30 @@ const LearningPath = ({ navigation, route }) => {
             ]
         )
     const handleStartLearning = () => {
-        saveAdjust()
+        Alert.alert(
+            'Thông báo',
+            `${'Bạn có chắc chắn muốn học tập theo lộ trình do chúng tôi đề xuất?'}`,
+            [
+                {
+                    text: 'Hủy',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Đồng ý',
+                    onPress: () => {
+                        saveAdjust()
+                    }
+                }
+            ]
+        )
     }
     const sortByOrder = courses => {
-        const sorted = _.sortBy(courses, ['order'], ['ASC'])
+        const sorted = _.sortBy(courses, ['sub_course.order_number2'], ['ASC'])
         return sorted
     }
 
-    const handleViewStages = course => {
-        if (course.isOpen) {
+    const handleViewStages = (course, sectionID) => {
+        if (sectionID === 0) {
             const title = course.name
             navigation.navigate(ROUTES.StagesView, {
                 title: title,
@@ -139,36 +225,31 @@ const LearningPath = ({ navigation, route }) => {
     }
 
     const renderData = () => {
-        setIsLoading(true)
+        // setIsLoading(true)
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
             // storage.delete(`COURSE_12_SKILL_ID_USER_${user?.id}`)
             // storage.delete('SCREEN')
             setUser(userInfoStore)
 
-            const dataCourseFromStore = getData(
-                `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
-            )
-            let dataCourse = DATA_FAKE_12_SKILL[0].children
-
-            if (dataCourseFromStore) {
-                const jsonDataCourse = JSON.parse(dataCourseFromStore)
-                setHasAdjust(jsonDataCourse.isAdjust)
-                dataCourse = jsonDataCourse.data
-            }
-            const dataSort = dataCourse.map(stages => {
-                const sorted = sortByOrder(stages.children)
-                return {
-                    ...stages,
-                    children: sorted
-                }
-            })
-            setDataAdjustCourse(dataSort)
-            setData(dataSort)
-            const setLoadingTimeout = setTimeout(() => {
-                setIsLoading(false)
-            }, 100)
-            return () => clearTimeout(setLoadingTimeout)
+            // if (dataCourseFromStore) {
+            //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
+            //     setHasAdjust(jsonDataCourse.isAdjust)
+            //     dataCourse = jsonDataCourse.data
+            // }
+            // const dataSort = dataCourse.map(stages => {
+            //     const sorted = sortByOrder(stages.children)
+            //     return {
+            //         ...stages,
+            //         children: sorted
+            //     }
+            // })
+            // setDataAdjustCourse(dataSort)
+            // setData(dataSort)
+            // const setLoadingTimeout = setTimeout(() => {
+            //     setIsLoading(false)
+            // }, 100)
+            // return () => clearTimeout(setLoadingTimeout)
         }
     }
 
@@ -271,16 +352,16 @@ const LearningPath = ({ navigation, route }) => {
                             }
                         ]}
                         numberOfLines={2}>
-                        {data.title}
+                        {data.sub_course.title}
                     </Text>
                 </View>
             </View>
         )
     }
 
-    const contentDetailElement = rowData => {
+    const contentDetailElement = (rowData, sectionID) => {
         const { color, background } = RenderBackgroundColor(
-            rowData.isOpen,
+            sectionID === 0,
             hasAdjust,
             rowData.id
         )
@@ -340,18 +421,18 @@ const LearningPath = ({ navigation, route }) => {
             </View>
         )
     }
-    const renderDetail = rowData => {
+    const renderDetail = (rowData, sectionID, rowId) => {
         return (
             <>
                 {!hasAdjust ? (
-                    <View>{contentDetailElement(rowData)}</View>
+                    <View>{contentDetailElement(rowData, sectionID)}</View>
                 ) : (
                     <TouchableOpacity
                         onPress={() => {
                             if (!hasAdjust) return
-                            handleViewStages(rowData)
+                            handleViewStages(rowData, sectionID)
                         }}>
-                        {contentDetailElement(rowData)}
+                        {contentDetailElement(rowData, sectionID)}
                     </TouchableOpacity>
                 )}
             </>
@@ -367,8 +448,8 @@ const LearningPath = ({ navigation, route }) => {
                         <Timeline
                             renderTime={renderTime}
                             data={data}
-                            renderDetail={rowData =>
-                                renderDetail(rowData, isAdjust)
+                            renderDetail={(rowData, sectionID, rowId) =>
+                                renderDetail(rowData, sectionID, rowId)
                             }
                             style={{
                                 maxHeight: !hasAdjust

@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { getGlobalState, setGlobalState } from 'app/Store'
 import {
@@ -17,6 +18,7 @@ import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
 import { getData, storeData, toCurrency } from 'app/helpers/utils'
+import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -40,6 +42,10 @@ import {
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
+    const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
+        variables: { course_id: 162 }
+    })
+
     const userInfo = getGlobalState('userInfo')
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
@@ -116,6 +122,7 @@ const CourseInfo = ({ navigation, route }) => {
                     }/${id}`
                 )
                 .then(res => {
+                    console.log(res)
                     if (res.data && res.data.status === 200) {
                         return res.data
                     } else {
@@ -144,6 +151,7 @@ const CourseInfo = ({ navigation, route }) => {
                         backHandler.remove()
                     }
                 })
+                .catch(err => console.log(err))
                 .finally(() => setLoading(false))
         }
 
@@ -164,7 +172,7 @@ const CourseInfo = ({ navigation, route }) => {
                         <VStack>
                             <BenefitTab
                                 courseId={data?.id}
-                                longDes={data?.l_des.split('</p>')}
+                                longDes={data?.l_des?.split('</p>')}
                             />
                         </VStack>
                     </View>
@@ -346,17 +354,43 @@ const CourseInfo = ({ navigation, route }) => {
 
     // Khóa học lộ trình
     const handleToLearningPath = () => {
-        const screenFromStore = getData('SCREEN')
-        if (screenFromStore) {
-            const data = JSON.parse(screenFromStore)
-            navigation.navigate(data.nameScreen, { data: data.params })
-            return
+        const adjust =
+            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
+        if (adjust) {
+            navigation.navigate(ROUTES.LearningPath)
+        } else {
+            navigation.navigate(ROUTES.EntranceTest)
         }
-        navigation.navigate(ROUTES.EntranceTest)
+        setLoadingVerify(false)
     }
 
     const renderButton = () => {
         //Đã mua và không phải khóa combo
+        if (data?.is_roadmap === 1) {
+            const adjust =
+                dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
+            return (
+                <Button
+                    pt={2}
+                    pb={2}
+                    pr={5}
+                    pl={5}
+                    style={{
+                        backgroundColor: '#52B553',
+                        borderRadius: 8
+                    }}
+                    onPress={() => handleToLearningPath()}
+                    isLoading={loadingVerify}
+                    leftIcon={
+                        <>
+                            <BookOpen stroke="#fff" size={12} />
+                        </>
+                    }
+                    isLoadingText="Đang vào">
+                    {adjust ? 'Học ngay' : 'Làm bài kiểm tra'}
+                </Button>
+            )
+        }
 
         if (data?.relational && !data?.is_combo) {
             return (
@@ -457,27 +491,6 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         // trường hợp là khóa học lộ trình và có bài thi đầu vào
-        return (
-            <Button
-                pt={2}
-                pb={2}
-                pr={5}
-                pl={5}
-                style={{
-                    backgroundColor: '#52B553',
-                    borderRadius: 8
-                }}
-                onPress={() => handleToLearningPath()}
-                // isLoading={loadingVerify}
-                leftIcon={
-                    <>
-                        <BookOpen stroke="#fff" size={12} />
-                    </>
-                }
-                isLoadingText="Đang vào">
-                Học ngay
-            </Button>
-        )
     }
     return (
         <View style={{ flex: 1 }}>
@@ -853,9 +866,9 @@ const CourseInfo = ({ navigation, route }) => {
                         </Pressable>
                     </View>
 
-                    {renderButton()}
+                    {/* {renderButton()} */}
 
-                    {/* {data && (
+                    {data && (
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -878,7 +891,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 renderButton()
                             )}
                         </View>
-                    )} */}
+                    )}
                 </View>
             </SafeAreaView>
         </View>

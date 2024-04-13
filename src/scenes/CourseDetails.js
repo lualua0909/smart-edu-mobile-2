@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
@@ -21,6 +22,7 @@ import {
     isAndroid,
     toCurrency
 } from 'app/helpers/utils'
+import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -54,6 +56,10 @@ import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
+    const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
+        variables: { course_id: 162 }
+    })
+
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -442,6 +448,17 @@ const CourseInfo = ({ navigation, route }) => {
                 setIsLiked(false)
             }
         })
+    }
+
+    const handleToLearningPath = () => {
+        const adjust =
+            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
+        if (adjust) {
+            navigation.navigate(ROUTES.LearningPath)
+        } else {
+            navigation.navigate(ROUTES.EntranceTest)
+        }
+        setLoadingVerify(false)
     }
 
     const gotoCourse = async () => {
@@ -844,6 +861,18 @@ const CourseInfo = ({ navigation, route }) => {
                                                 </>
                                             }>
                                             Mua ngay
+                                        </Button>
+                                    ) : null}
+
+                                    {data?.is_roadmap === 1 ? (
+                                        <Button
+                                            onPress={handleToLearningPath}
+                                            isLoading={loadingVerify}
+                                            isLoadingText="Đang vào">
+                                            {dataRoadmap?.Roadmaps.data[0]
+                                                .sub_course.order_number2 !== 0
+                                                ? 'Học ngay'
+                                                : 'Làm bài kiểm tra'}
                                         </Button>
                                     ) : null}
                                     {!!data?.relational ? (

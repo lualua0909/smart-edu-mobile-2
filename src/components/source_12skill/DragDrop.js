@@ -43,17 +43,19 @@ const DragDrop = ({ item: defaultData, setItem, idStages, dataAll }) => {
                                         styles.title_children_timeline
                                     ]}
                                     numberOfLines={2}>
-                                    {item.title}
+                                    {item.sub_course.title}
                                 </Text>
                             </View>
                         )
                     }}
                     onItemReorder={({ fromIndex, toIndex }) => {
-                        const fromOrder = defaultData[fromIndex].order
-                        const toOrder = defaultData[toIndex].order
+                        const fromOrder =
+                            defaultData[fromIndex].sub_course.order_number
+                        const toOrder =
+                            defaultData[toIndex].sub_course.order_number
                         const newData = defaultData
-                        newData[fromIndex].order = toOrder
-                        newData[toIndex].order = fromOrder
+                        newData[fromIndex].sub_course.order_number2 = toOrder
+                        newData[toIndex].sub_course.order_number2 = fromOrder
                         const indexStages = _.findIndex(dataAll, {
                             id: idStages
                         })

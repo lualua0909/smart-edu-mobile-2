@@ -37,5 +37,6 @@ export default ROUTES = {
     LearningPath: 'LearningPath',
     ChartTestResult: 'ChartTestResult',
     StagesView: 'StagesView',
-    Leaderboard: 'Leaderboard'
+    Leaderboard: 'Leaderboard',
+    IntroductionPreTest: 'IntroductionPreTest'
 }
