@@ -70,7 +70,6 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
-            ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
             }} // Can be a URL or a local file.

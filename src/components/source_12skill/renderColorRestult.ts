@@ -22,19 +22,19 @@ export const RenderColor = (result: number) => {
 
 export const RenderColorStage = (stage: number) => {
     switch (stage) {
-        case 1:
+        case 32:
             return COLORS.colorStage1
 
-        case 2:
+        case 33:
             return COLORS.colorStage2
 
-        case 3:
+        case 34:
             return COLORS.colorStage3
 
-        case 4:
+        case 35:
             return COLORS.colorStage4
 
-        case 5:
+        case 36:
             return COLORS.colorStage5
 
         default:

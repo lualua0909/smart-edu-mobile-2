@@ -1,7 +1,9 @@
-import { LoadingAnimation } from 'app/atoms'
-import { showToast } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
+import { useQuery } from '@apollo/client'
+import axios from 'app/Axios'
+import { Button, LoadingAnimation, showToast } from 'app/atoms'
+import { COLORS, ROUTES } from 'app/constants'
+import { getData } from 'app/helpers/utils'
+import { COURSE_GROUP_LIST, ROADMAP_LIST } from 'app/qqlStore/queries'
 import _ from 'lodash'
 import React from 'react'
 
@@ -22,90 +24,112 @@ import HeaderTitle from 'app/components/header-title'
 
 import DragDrop from './DragDrop'
 import { RenderBackgroundColor } from './renderColorRestult'
-import { SaveScreenToStore } from './saveScreenToStore'
 
-const NUM_ITEMS = 10
-
-function getColor(i) {
-    const multiplier = 255 / (NUM_ITEMS - 1)
-    const colorVal = i * multiplier
-    return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
-}
-const exampleData = [...Array(20)].map((d, index) => {
-    const backgroundColor = getColor(index)
-    return {
-        key: `item-${backgroundColor}`,
-        label: String(index),
-        backgroundColor
-    }
-})
 const { width, height } = Dimensions.get('screen')
 
 const LearningPath = ({ navigation, route }) => {
-    const [data, setData] = React.useState(DATA_FAKE_12_SKILL[0].children)
+    const { data: dataRoadmap, refetch } = useQuery(ROADMAP_LIST, {
+        variables: { course_id: 162 }
+    })
+
+    const { data: DataCourseList } = useQuery(COURSE_GROUP_LIST)
+
+    const [data, setData] = React.useState([])
     const [user, setUser] = React.useState()
     const [isLoading, setIsLoading] = React.useState(false)
     const [isAdjust, setIsAdjust] = React.useState(false)
-    const [hasAdjust, setHasAdjust] = React.useState(false)
+    const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
+    const [hasAdjust, setHasAdjust] = React.useState(true)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
 
-    const saveAdjust = () => {
-        const newAdjustCourse = dataAdjustCourse.map(stages => {
-            const editIsOpenCourse = stages.children.map(course => {
-                if (course.order === 1) {
-                    course.isOpen = true
-                } else {
-                    course.isOpen = false
-                }
-                return {
-                    ...course
-                }
-            })
-            return { ...stages, children: editIsOpenCourse }
-        })
+    const formatData = () => {
+        setIsLoading(true)
+        if (!dataRoadmap && !DataCourseList) return
+        const courseGroupList = DataCourseList?.CourseGroups.data
+        const roadmapData = dataRoadmap?.Roadmaps.data
 
-        const sortedCourse = newAdjustCourse.map(stages => {
-            const sorted = sortByOrder(stages.children)
+        const adjust = roadmapData[0].sub_course.order_number2 !== 0
+        if (adjust) {
+            setIsAdjust(false)
+            setHasAdjust(true)
+        } else {
+            setIsAdjust(false)
+            setHasAdjust(false)
+        }
+        const result = courseGroupList?.map(course => {
+            const filter = roadmapData?.filter(roadmap => {
+                return roadmap.sub_course.group_id === course.id
+            })
+            if (filter.length === 0) return undefined
             return {
-                ...stages,
+                ...course,
+                children: filter
+            }
+        })
+        const removeUndefined = _.remove(result, undefined)
+        const sortByOrderNumber = removeUndefined.map(item => {
+            const sorted = sortByOrder(item.children)
+            return {
+                ...item,
                 children: sorted
             }
         })
+        setData(sortByOrderNumber)
+        setIsLoading(false)
+    }
 
-        storeData(
-            `COURSE_12_SKILL_ID_USER_${user?.id}`,
-            JSON.stringify({ isAdjust: true, data: sortedCourse })
-        )
-        SaveScreenToStore(
-            JSON.stringify({
-                nameScreen: route.name,
-                params: null
-            })
-        )
+    React.useEffect(() => {
+        if (dataRoadmap && DataCourseList) {
+            formatData()
+        }
+    }, [dataRoadmap, DataCourseList, isRefetchQuery])
+
+    const saveAdjust = () => {
         setIsLoading(true)
-        setIsAdjust(false)
-        setHasAdjust(true)
-        renderData()
-        setTimeout(() => {
-            showToast({
-                title: 'Cập nhật lộ trình thành công.',
-                placement: 'top'
+        const courses = []
+        dataAdjustCourse.map(stages => {
+            stages.children.map(children => {
+                const order2 = children.sub_course.order_number2
+                const order1 = children.sub_course.order_number
+                courses.push({
+                    id: children.sub_course.id,
+                    order: order2 === 0 ? order1 : order2
+                })
             })
-            setIsLoading(false)
-        }, 200)
+        })
+        axios
+            .post(`courses/roadmap/submit-order`, {
+                courses: [...courses]
+            })
+            .then(res => {
+                console.log(res)
+            })
+            .finally(() => {
+                setIsAdjust(false)
+                setHasAdjust(true)
+                refetch()
+                setIsRefetchQuery()
+                setTimeout(() => {
+                    showToast({
+                        title: 'Cập nhật lộ trình thành công.',
+                        placement: 'top'
+                    })
+                    setIsLoading(false)
+                }, 200)
+            })
     }
 
     const alertConfirmAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${'Bạn có chắc chắn với điều chỉnh lộ trình học tập không. Bạn sẽ không thể thay đổi lộ trình của bạn sau khi lưu'}`,
+            `${'Bạn đã chắc chắn với lộ trình vừa điều chỉnh không?'}`,
             [
                 {
-                    text: 'Thoát',
+                    text: 'Hủy',
                     style: 'cancel'
                 },
                 {
-                    text: 'OK',
+                    text: 'Đồng ý',
                     onPress: () => {
                         saveAdjust()
                     }
@@ -113,15 +137,30 @@ const LearningPath = ({ navigation, route }) => {
             ]
         )
     const handleStartLearning = () => {
-        saveAdjust()
+        Alert.alert(
+            'Thông báo',
+            `${'Bạn có chắc chắn muốn học tập theo lộ trình do chúng tôi đề xuất?'}`,
+            [
+                {
+                    text: 'Hủy',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Đồng ý',
+                    onPress: () => {
+                        saveAdjust()
+                    }
+                }
+            ]
+        )
     }
     const sortByOrder = courses => {
-        const sorted = _.sortBy(courses, ['order'], ['ASC'])
+        const sorted = _.sortBy(courses, ['sub_course.order_number2'], ['ASC'])
         return sorted
     }
 
-    const handleViewStages = course => {
-        if (course.isOpen) {
+    const handleViewStages = (course, sectionID) => {
+        if (sectionID === 0) {
             const title = course.name
             navigation.navigate(ROUTES.StagesView, {
                 title: title,
@@ -136,36 +175,31 @@ const LearningPath = ({ navigation, route }) => {
     }
 
     const renderData = () => {
-        setIsLoading(true)
+        // setIsLoading(true)
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
             // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
             // storage.delete('SCREEN')
             setUser(userInfoStore)
 
-            const dataCourseFromStore = getData(
-                `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
-            )
-            let dataCourse = DATA_FAKE_12_SKILL[0].children
-
-            if (dataCourseFromStore) {
-                const jsonDataCourse = JSON.parse(dataCourseFromStore)
-                setHasAdjust(jsonDataCourse.isAdjust)
-                dataCourse = jsonDataCourse.data
-            }
-            const dataSort = dataCourse.map(stages => {
-                const sorted = sortByOrder(stages.children)
-                return {
-                    ...stages,
-                    children: sorted
-                }
-            })
-            setDataAdjustCourse(dataSort)
-            setData(dataSort)
-            const setLoadingTimeout = setTimeout(() => {
-                setIsLoading(false)
-            }, 100)
-            return () => clearTimeout(setLoadingTimeout)
+            // if (dataCourseFromStore) {
+            //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
+            //     setHasAdjust(jsonDataCourse.isAdjust)
+            //     dataCourse = jsonDataCourse.data
+            // }
+            // const dataSort = dataCourse.map(stages => {
+            //     const sorted = sortByOrder(stages.children)
+            //     return {
+            //         ...stages,
+            //         children: sorted
+            //     }
+            // })
+            // setDataAdjustCourse(dataSort)
+            // setData(dataSort)
+            // const setLoadingTimeout = setTimeout(() => {
+            //     setIsLoading(false)
+            // }, 100)
+            // return () => clearTimeout(setLoadingTimeout)
         }
     }
 
@@ -241,6 +275,7 @@ const LearningPath = ({ navigation, route }) => {
     const renderTime = (rowData, index) => {
         return <Text style={styles.name_learning_path}>Chặng {index + 1}</Text>
     }
+
     const renderContentTimeLine = (data, index, rowData, color) => {
         return (
             <View key={index}>
@@ -268,16 +303,16 @@ const LearningPath = ({ navigation, route }) => {
                             }
                         ]}
                         numberOfLines={2}>
-                        {data.title}
+                        {data.sub_course.title}
                     </Text>
                 </View>
             </View>
         )
     }
 
-    const contentDetailElement = rowData => {
+    const contentDetailElement = (rowData, sectionID) => {
         const { color, background } = RenderBackgroundColor(
-            rowData.isOpen,
+            sectionID === 0,
             hasAdjust,
             rowData.id
         )
@@ -326,8 +361,7 @@ const LearningPath = ({ navigation, route }) => {
                             {rowData.process} %
                         </Text>
                         <Progress.Bar
-                            progress={rowData?.process / 100}
-                            height={scale(10)}
+                            progress={rowData?.process}
                             color="green"
                             style={{ width: '80%', marginLeft: 10 }}
                         />
@@ -336,106 +370,75 @@ const LearningPath = ({ navigation, route }) => {
             </View>
         )
     }
-    const renderDetail = rowData => {
-        return (
-            <>
-                {!hasAdjust ? (
-                    <View>{contentDetailElement(rowData)}</View>
-                ) : (
-                    <TouchableOpacity
-                        onPress={() => {
-                            if (!hasAdjust) return
-                            handleViewStages(rowData)
-                        }}>
-                        {contentDetailElement(rowData)}
-                    </TouchableOpacity>
-                )}
-            </>
+    const renderDetail = (rowData, sectionID, rowId) => {
+        return !hasAdjust ? (
+            <View>{contentDetailElement(rowData, sectionID)}</View>
+        ) : (
+            <TouchableOpacity
+                onPress={() => {
+                    if (!hasAdjust) return
+                    handleViewStages(rowData, sectionID)
+                }}>
+                {contentDetailElement(rowData, sectionID)}
+            </TouchableOpacity>
         )
     }
     return (
-        <>
-            <SafeAreaView
-                edges={['top', 'left', 'right']}
-                style={styles.container}>
-                {!isLoading ? (
-                    <>
-                        <Timeline
-                            renderTime={renderTime}
-                            data={data}
-                            renderDetail={rowData =>
-                                renderDetail(rowData, isAdjust)
-                            }
-                            style={{
-                                maxHeight: !hasAdjust
-                                    ? height - 200
-                                    : height - 130
-                            }}
-                            lineColor="#FAF9F9"
-                            circleSize={10}
-                            circleColor={'#FAF9F9'}
-                        />
-                    </>
-                ) : (
-                    <LoadingAnimation />
-                )}
-                {!hasAdjust && (
-                    <>
-                        {isAdjust ? (
-                            <View style={styles.gr_btn}>
+        <SafeAreaView edges={['top', 'left', 'right']} style={styles.container}>
+            {!isLoading ? (
+                <Timeline
+                    renderTime={renderTime}
+                    data={data}
+                    renderDetail={(rowData, sectionID, rowId) =>
+                        renderDetail(rowData, sectionID, rowId)
+                    }
+                    style={{
+                        maxHeight: !hasAdjust ? height - 200 : height - 130
+                    }}
+                    lineColor="#FAF9F9"
+                    circleSize={10}
+                    circleColor={'#FAF9F9'}
+                />
+            ) : (
+                <LoadingAnimation />
+            )}
+            {!hasAdjust && (
+                <>
+                    {isAdjust ? (
+                        <View style={styles.gr_btn}>
+                            <Text
+                                onPress={openAlertCancelAdjust}
+                                style={[
+                                    styles.gr_btn_width,
+                                    styles.text_cancel
+                                ]}>
+                                Trở về
+                            </Text>
+                            <Pressable
+                                onPress={alertConfirmAdjust}
+                                style={[styles.gr_btn_width, styles.btn_next]}>
                                 <Text
-                                    onPress={openAlertCancelAdjust}
                                     style={[
-                                        styles.gr_btn_width,
-                                        styles.text_cancel
+                                        styles.text_color,
+                                        styles.text_btn_next
                                     ]}>
-                                    Trở về
+                                    Lưu
                                 </Text>
-                                <Pressable
-                                    onPress={alertConfirmAdjust}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.btn_next
-                                    ]}>
-                                    <Text
-                                        style={[
-                                            styles.text_color,
-                                            styles.text_btn_next
-                                        ]}>
-                                        Lưu
-                                    </Text>
-                                </Pressable>
-                            </View>
-                        ) : (
-                            <View style={styles.gr_btn}>
-                                <Text
-                                    onPress={openAlertAdjust}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.text_cancel
-                                    ]}>
-                                    Điều chỉnh lộ trình
-                                </Text>
-                                <Pressable
-                                    onPress={handleStartLearning}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.btn_next
-                                    ]}>
-                                    <Text
-                                        style={[
-                                            styles.text_color,
-                                            styles.text_btn_next
-                                        ]}>
-                                        Chấp nhận lộ trình
-                                    </Text>
-                                </Pressable>
-                            </View>
-                        )}
-                    </>
-                )}
-            </SafeAreaView>
-        </>
+                            </Pressable>
+                        </View>
+                    ) : (
+                        <View style={styles.gr_btn}>
+                            <Button outlined onPress={openAlertAdjust}>
+                                Điều chỉnh lộ trình
+                            </Button>
+                            <Button onPress={handleStartLearning}>
+                                Chấp nhận lộ trình
+                            </Button>
+                        </View>
+                    )}
+                </>
+            )}
+        </SafeAreaView>
     )
 }
 

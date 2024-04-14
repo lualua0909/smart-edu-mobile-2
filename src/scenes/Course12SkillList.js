@@ -1,11 +1,47 @@
+import axios from 'app/Axios'
+import { LoadingAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import { DATA_FAKE_12_SKILL } from 'app/constants'
 import React from 'react'
 
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 
 const Course12SkillList = () => {
-    const data = DATA_FAKE_12_SKILL
+    const [data, setData] = React.useState()
+    const [isLoading, setIsLoading] = React.useState()
+    const getData = () => {
+        setIsLoading(true)
+        axios
+            .post(`public-courses/paging-by-filter/0`, {
+                course_groups: [],
+                order_by: 'asc',
+                positions: [],
+                search: '12 KHÓA HỌC KỸ NĂNG PHÁT TRIỂN SỰ NGHIỆP'
+            })
+            .then(res => {
+                if (res.data.status === 200) {
+                    const list = res.data?.data
+                    setData(list)
+                }
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
+
+    React.useEffect(() => {
+        getData()
+    }, [])
+    // const { loading, error, data } = useQuery(GET_ROADMAP_PRETEST)
+    if (isLoading)
+        return (
+            <LoadingAnimation
+                style={{
+                    marginTop: 20
+                }}
+            />
+        )
+    // if()
+    // console.log('🚀 ~ Course12SkillList ~ data:', data.RoadmapPretest)
     return (
         <View>
             <FlatList

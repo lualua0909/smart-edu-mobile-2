@@ -1,12 +1,9 @@
-import { AbsoluteSpinner, showToast } from 'app/atoms'
-import {
-    COLORS,
-    DATA_DEMO_QUESTION,
-    DATA_DEMO_STAGES,
-    DATA_FAKE_12_SKILL,
-    ROUTES
-} from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
+import { useQuery } from '@apollo/client'
+import axios from 'app/Axios'
+import { AbsoluteSpinner, Button, showToast } from 'app/atoms'
+import { COLORS, DATA_ANSWER_PRETEST, ROUTES } from 'app/constants'
+import { getData } from 'app/helpers/utils'
+import { GET_ROADMAP_PRETEST } from 'app/qqlStore/queries'
 import { svgSuccessExam } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
@@ -15,12 +12,10 @@ import {
     Alert,
     AppState,
     Dimensions,
-    Pressable,
     StyleSheet,
     Text,
     View
 } from 'react-native'
-import { StatusBar } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import Choose from './answer/Choose'
@@ -28,7 +23,11 @@ import Choose from './answer/Choose'
 const { width, height } = Dimensions.get('screen')
 
 const EntranceTest = ({ navigation, route }) => {
-    const dataQuestion = DATA_DEMO_QUESTION
+    const { loading, data } = useQuery(GET_ROADMAP_PRETEST, {
+        variables: { id: 1 }
+    })
+    const dataAnswer = DATA_ANSWER_PRETEST
+    const [dataQuestion, setDataQuestion] = React.useState([])
     const [user, setUser] = React.useState()
     const [question, setQuestion] = React.useState(null)
     const [answerList, setAnswerList] = React.useState([])
@@ -41,42 +40,65 @@ const EntranceTest = ({ navigation, route }) => {
 
     const appState = React.useRef(AppState.currentState)
 
+    const formatQuestion = () => {
+        const newData = data.RoadmapPretest.questions.map(item => ({
+            idStage: item.group_id,
+            idQuestion: item.id,
+            questionName: item.title,
+            idSubmit: data.RoadmapPretest.id,
+            type: 'choose',
+            answer: [...dataAnswer]
+        }))
+        setDataQuestion(newData)
+        setQuestion(newData[currentIndexQuestion])
+
+        setIsLoading(false)
+    }
+
     const getDataUser = () => {
         setIsLoading(true)
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
             setUser(userInfoStore)
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
-            // storage.delete('SCREEN')
-            const dataCourseFromStore = getData(
-                `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
-            )
-            if (dataCourseFromStore) {
-                const dataCourse = JSON.parse(dataCourseFromStore)
-                if (dataCourse.isEntranceTest) {
-                    setTextStatusLoading(
-                        'Đang kiểm tra dữ liệu bài kiểm tra đầu vào của bạn'
-                    )
-                    setIsSubmit(true)
-                    showToast({
-                        title: 'Bạn đã hoàn thành bài kiểm tra đầu vào. Bạn sẽ được chuyển đến trang xem kết quả',
-                        placement: 'top'
-                    })
-                    setTimeout(() => {
-                        setIsLoading(false)
-                        navigationRoute()
-                    }, 1000)
-                } else if (dataCourse.isExitApp) {
-                    setAnswerList(dataCourse.data.answerList),
-                        setCurrentIndexQuestion(
-                            dataCourse.data.currentIndexQuestion
-                        )
-                    setIsLoading(false)
-                }
-            } else {
-                setIsLoading(false)
-            }
         }
+        axios
+            .get(`courses/roadmap/test-history/${data.RoadmapPretest.id}`)
+            .then(res => {
+                if (res.data && res.data.length > 0) {
+                    console.log(
+                        `courses/roadmap/test-history/${data.RoadmapPretest.id}`,
+                        res.data
+                    )
+                    if (
+                        res.data.length === data.RoadmapPretest.questions.length
+                    ) {
+                        setTextStatusLoading(
+                            'Đang kiểm tra dữ liệu bài kiểm tra đầu vào của bạn'
+                        )
+
+                        setIsSubmit(true)
+                        showToast({
+                            title: 'Bạn đã hoàn thành bài kiểm tra đầu vào. Bạn sẽ được chuyển đến trang xem kết quả',
+                            placement: 'top'
+                        })
+                        navigationRoute()
+                    }
+                    // else {
+                    //     //     setAnswerList(dataCourse.data.answerList),
+                    //     //         setCurrentIndexQuestion(
+                    //     //             dataCourse.data.currentIndexQuestion
+                    //     //         )
+                    //     //     setIsLoading(false)
+                    //     // }
+                    // }
+                } else {
+                    formatQuestion()
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
     React.useEffect(() => {
@@ -89,17 +111,11 @@ const EntranceTest = ({ navigation, route }) => {
                 ) {
                     getDataUser()
                 } else {
-                    storeData(
-                        `COURSE_12_SKILL_ID_USER_${user?.id}`,
-                        JSON.stringify({
-                            isAdjust: false,
-                            isExitApp: true,
-                            data: {
-                                answerList,
-                                currentIndexQuestion
-                            }
-                        })
-                    )
+                    const answers = answerList.map(item => ({
+                        id: item.idQuestion,
+                        answer: item.yourAnswer
+                    }))
+                    saveResult(answers)
                 }
                 appState.current = nextAppState
             }
@@ -112,43 +128,44 @@ const EntranceTest = ({ navigation, route }) => {
 
     const navigationRoute = () => {
         navigation.navigate(ROUTES.InputTestResult, {
-            title: 'Kết quả kiểm tra'
+            title: 'Kết quả kiểm tra',
+            idPretest: data?.RoadmapPretest?.id
         })
     }
 
     React.useEffect(() => {
-        getDataUser()
         navigation.setOptions({
             headerShown: false
         })
-    }, [])
+        if (!loading) {
+            getDataUser()
+        }
+    }, [loading])
 
-    const saveResult = result => {
+    const saveResult = answers => {
         setTextStatusLoading(
             'Đang nộp kết quả khảo sát và đề xuất lộ trình học tập'
         )
         setIsLoading(true)
-        const dataFullCourse = DATA_FAKE_12_SKILL[0].children
-        const addProcess = dataFullCourse.map(course => {
-            const findById = _.find(result, { id: course.id })
-            return {
-                ...course,
-                processBefore: findById.process
-            }
-        })
-        storeData(
-            `COURSE_12_SKILL_ID_USER_${user?.id}`,
-            JSON.stringify({
-                isAdjust: false,
-                isEntranceTest: true,
-                data: addProcess
+        axios
+            .post(`courses/roadmap/submit-pretest/${data.RoadmapPretest.id}`, {
+                answers: [...answers]
             })
-        )
-        setTimeout(() => {
-            setIsLoading(false)
-            setIsSubmit(true)
-            navigationRoute()
-        }, 1000)
+            .then(res => {
+                if (res.data.status === 200) {
+                    showToast({
+                        title: 'Nộp bài thành công',
+                        placement: 'top'
+                    })
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                setTimeout(() => {
+                    setIsLoading(false)
+                    navigationRoute()
+                }, 1000)
+            })
     }
 
     React.useEffect(() => {
@@ -165,27 +182,17 @@ const EntranceTest = ({ navigation, route }) => {
                         }
                     ]
                 )
-                return
+                return null
             }
         })
     }, [navigation, isSubmit])
 
     const onSubmitQuestion = () => {
-        const result = DATA_DEMO_STAGES.map(stages => {
-            const filterAnswer = _.filter(answerList, {
-                idStages: stages.id
-            })
-            const sumScore = filterAnswer.reduce(
-                (accumulator, currentValue) =>
-                    accumulator + currentValue.answer.score,
-                0
-            )
-            return {
-                ...stages,
-                process: (sumScore / 25) * 100
-            }
-        })
-        saveResult(result)
+        const answers = answerList.map(item => ({
+            id: item.idQuestion,
+            answer: item.yourAnswer
+        }))
+        saveResult(answers)
     }
 
     const handleNextQuestion = () => {
@@ -196,12 +203,13 @@ const EntranceTest = ({ navigation, route }) => {
             })
         setTextStatusLoading('Đang tải câu hỏi')
         setIsLoading(true)
-        const { idStage, answer, idQuestion, questionName } =
+        const { idStage, answer, idQuestion, questionName, idSubmit } =
             dataQuestion[currentIndexQuestion]
         const _answer = _.find(answer, { id: idCurrentAnswer })
         setAnswerList(prev => [
             ...prev,
             {
+                idSubmit,
                 idStages: idStage,
                 idQuestion,
                 questionName,
@@ -209,18 +217,19 @@ const EntranceTest = ({ navigation, route }) => {
                 yourAnswer: idCurrentAnswer
             }
         ])
-        setCurrentIndexQuestion(prev => prev + 1)
-        setCurrentAnswer(null)
+
         setTimeout(() => {
             setIsLoading(false)
         }, 500)
+        setCurrentIndexQuestion(prev => prev + 1)
+        setCurrentAnswer(null)
     }
     const onChooseAnswer = idAnswer => {
         setCurrentAnswer(idAnswer)
     }
 
     const renterQuestion = question => {
-        switch (question.type) {
+        switch (question?.type) {
             case 'choose':
                 return (
                     <Choose
@@ -239,22 +248,21 @@ const EntranceTest = ({ navigation, route }) => {
     React.useEffect(() => {
         setQuestion(dataQuestion[currentIndexQuestion])
     }, [currentIndexQuestion])
-    if (isLoading) return <AbsoluteSpinner title={textStatusLading} />
+
+    if (isLoading || loading)
+        return <AbsoluteSpinner title={textStatusLading} />
+
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
-            {question && <>{renterQuestion(question)}</>}
-
             {currentIndexQuestion <= dataQuestion.length - 1 ? (
-                <View style={styles.btn_view}>
-                    <Pressable
-                        style={styles.btn_submit}
-                        onPress={handleNextQuestion}>
-                        <Text style={styles.btn_submit_text}>
+                <>
+                    {renterQuestion(question)}
+                    <View style={styles.btn_view}>
+                        <Button onPress={handleNextQuestion}>
                             Câu tiếp theo
-                        </Text>
-                    </Pressable>
-                </View>
+                        </Button>
+                    </View>
+                </>
             ) : (
                 <>
                     <View>
@@ -291,13 +299,7 @@ const EntranceTest = ({ navigation, route }) => {
                         </View>
                     </View>
                     <View style={styles.btn_view}>
-                        <Pressable
-                            style={styles.btn_submit}
-                            onPress={() => {
-                                onSubmitQuestion()
-                            }}>
-                            <Text style={styles.btn_submit_text}>Nộp bài</Text>
-                        </Pressable>
+                        <Button onPress={onSubmitQuestion}>Tiếp tục</Button>
                     </View>
                 </>
             )}

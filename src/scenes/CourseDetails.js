@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
@@ -18,6 +19,7 @@ import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
+import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
@@ -54,6 +56,10 @@ import { TabBar, TabView } from 'react-native-tab-view'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
+    const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
+        variables: { course_id: 162 }
+    })
+
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -240,28 +246,6 @@ const CourseInfo = ({ navigation, route }) => {
             transactionReceipt: purchase.transactionReceipt,
             courseId: id
         })
-
-        if (id) {
-            setLoading(true)
-            axios
-                .get(`auth-get-course-info/${id}`)
-                .then(res => {
-                    if (res.data && res?.data?.status === 200) {
-                        return res.data
-                    } else {
-                        showToast({
-                            title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
-                            status: 'error'
-                        })
-                        navigation.goBack()
-                    }
-                })
-                .then(data => {
-                    setData(data?.data)
-                })
-                .catch(err => console.error(err))
-                .finally(() => setLoading(false))
-        }
     }
 
     const checkCurrentPurchase = async (
@@ -324,6 +308,8 @@ const CourseInfo = ({ navigation, route }) => {
                             title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
                             status: 'error'
                         })
+
+                        console.log('res= ', res.data)
                         navigation.goBack()
                     }
                 })
@@ -348,7 +334,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }>
                         <BenefitTab
                             courseId={data?.id}
-                            longDes={data?.l_des.split('</p>')}
+                            longDes={data?.l_des?.split('</p>')}
                         />
                     </View>
                 )
@@ -363,7 +349,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }>
                         {data?.is_combo ? (
                             <ComboTab data={data} />
-                        ) : (
+                        ) : data?.is_roadmap ? null : (
                             <LectureTab
                                 courseId={data?.id}
                                 totalLectures={data?.total_lectures}
@@ -442,6 +428,22 @@ const CourseInfo = ({ navigation, route }) => {
                 setIsLiked(false)
             }
         })
+    }
+
+    const handleToLearningPath = () => {
+        const adjust =
+            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
+        if (adjust) {
+            navigation.navigate(ROUTES.LearningPath)
+        } else if (data?.roadmap_test_result > 0) {
+            navigation.navigate(ROUTES.InputTestResult, {
+                title: 'Kết quả kiểm tra',
+                idPretest: data?.roadmap_pretest_id
+            })
+        } else {
+            navigation.navigate(ROUTES.EntranceTest)
+        }
+        setLoadingVerify(false)
     }
 
     const gotoCourse = async () => {
@@ -819,14 +821,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 <>
                                     {!data?.relational && data?.ios_price ? (
                                         <Button
-                                            pt={2}
-                                            pb={2}
-                                            pr={5}
-                                            pl={5}
-                                            style={{
-                                                backgroundColor: '#52B553',
-                                                borderRadius: 8
-                                            }}
                                             onPress={handlePurchase}
                                             isLoading={loadingVerify}
                                             isLoadingText="Đang xử lý"
@@ -841,7 +835,24 @@ const CourseInfo = ({ navigation, route }) => {
                                             Mua ngay
                                         </Button>
                                     ) : null}
-                                    {!!data?.relational && !data.is_combo ? (
+                                    {!!data?.relational &&
+                                    data?.is_roadmap === 1 ? (
+                                        <Button
+                                            onPress={handleToLearningPath}
+                                            isLoading={loadingVerify}
+                                            isLoadingText="Đang vào">
+                                            {dataRoadmap?.Roadmaps.data[0]
+                                                .sub_course.order_number2 !== 0
+                                                ? 'Học ngay'
+                                                : data?.roadmap_test_result > 0
+                                                ? 'Xem kết quả'
+                                                : 'Làm bài test'}
+                                        </Button>
+                                    ) : null}
+
+                                    {!!data?.relational &&
+                                    !data?.is_combo &&
+                                    !data?.is_roadmap ? (
                                         <Button
                                             onPress={gotoCourse}
                                             isLoading={loadingVerify}

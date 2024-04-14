@@ -95,6 +95,17 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }, [hideHeaderTitle])
 
+    const handleAppStateChange = nextAppState => {
+        console.log('next', nextAppState)
+        if (nextAppState === 'inactive') {
+            console.log('the app is closed')
+        }
+    }
+    // Bắt xự kiện người dùng thoát app
+    useEffect(() => {
+        AppState.addEventListener('change', handleAppStateChange)
+    }, [])
+
     // useEffect(() => {
     //     let userInfo2 = getData('@userInfo')
     //     _setUserState(userInfo2)
@@ -198,7 +209,6 @@ const CourseDetail = ({ route, navigation }) => {
         axios
             .get(`lectures/get/${currentId}`)
             .then(res => {
-                console.log('data ===', res.data)
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
