@@ -26,7 +26,6 @@ import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
 import {
-    AppState,
     Dimensions,
     FlatList,
     Linking,
@@ -60,6 +59,7 @@ const routes = [
 ]
 
 const CourseDetail = ({ route, navigation }) => {
+    console.log('route ===', route.params.currentLecture)
     const { courseId, currentLecture } = route.params
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
@@ -84,7 +84,6 @@ const CourseDetail = ({ route, navigation }) => {
         useGlobalState('currentCourseId')
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
-    const [scormLoading, setScormLoading] = useState(false)
     const [countDown, setCountDown] = useState()
     const onCloseViewDoc = () => setOpenViewDoc(false)
 
@@ -95,21 +94,6 @@ const CourseDetail = ({ route, navigation }) => {
             clearTimeout(t)
         }
     }, [hideHeaderTitle])
-    const handleAppStateChange = nextAppState => {
-        console.log('next', nextAppState)
-        if (nextAppState === 'inactive') {
-            console.log('the app is closed')
-        }
-    }
-    // Bắt xự kiện người dùng thoát app
-    useEffect(() => {
-        AppState.addEventListener('change', handleAppStateChange)
-        // return () => {
-        //     AppState.removeEventListener('change', event =>
-        //         handleAppStateChange(event)
-        //     )
-        // }
-    }, [])
 
     // useEffect(() => {
     //     let userInfo2 = getData('@userInfo')
@@ -214,6 +198,7 @@ const CourseDetail = ({ route, navigation }) => {
         axios
             .get(`lectures/get/${currentId}`)
             .then(res => {
+                console.log('data ===', res.data)
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
@@ -224,7 +209,6 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const getDocuments = () => {
-        setLoading(true)
         axios
             .get(`admin/courses/resources/paging/${courseId}`)
             .then(res => {
@@ -233,21 +217,15 @@ const CourseDetail = ({ route, navigation }) => {
             .then(data => {
                 setDocuments(data)
             })
-            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
         if (courseId) {
             setCurrentCourseId(courseId)
-        }
-    }, [courseId])
-
-    useEffect(() => {
-        if (courseId && currentId) {
             getData()
             getDocuments()
         }
-    }, [courseId, currentId])
+    }, [courseId])
 
     const addLessonToFinishedList = () => {
         const params = {
@@ -398,9 +376,9 @@ const CourseDetail = ({ route, navigation }) => {
                                 renderItem={({ item }) => {
                                     let fileName = item?.fileName
                                         ? item?.fileName
-                                            ?.split('/')
-                                            .slice(-1)
-                                            .pop()
+                                              ?.split('/')
+                                              .slice(-1)
+                                              .pop()
                                         : item?.file_name
                                     fileName = fileName.substring(
                                         fileName.indexOf('-') + 1
@@ -479,7 +457,6 @@ const CourseDetail = ({ route, navigation }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'row',
-                    alignItems: 'center',
                     height: 300
                 }}>
                 {data?.type === 1 ? (
