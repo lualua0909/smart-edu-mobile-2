@@ -12,26 +12,24 @@ const ChartsComponent = ({ route }) => {
     const { data } = route.params
     console.log('🚀 ~ ChartsComponent ~ data:', data)
     const [dataChart, setDataChart] = React.useState(null)
-    console.log('🚀 ~ ChartsComponent ~ dataChart:', dataChart)
     const [noteState, setNoteState] = React.useState(null)
     const convertToDecimal = value => value / 100
     const formatChartData = () => {
         if (!data) return
         let newArrBefore = {}
-        let newArrAfter = {}
+        // let newArrAfter = {}
         const noteArr = []
-        data.map(item => {
-            const { id, processBefore, name_stage, processAfter } = item
-            newArrBefore[`Năng lực ${id}`] = convertToDecimal(processBefore)
-            newArrAfter[`Năng lực ${id}`] = convertToDecimal(processAfter)
+        data.map((item, index) => {
+            const { process, name_stage } = item
+            newArrBefore[`Năng lực ${index + 1}`] = convertToDecimal(process)
+            // newArrAfter[`Năng lực ${id}`] = convertToDecimal(processAfter)
             noteArr.push({
-                title: `Năng lực ${id}`,
+                title: `Năng lực  ${index + 1}`,
                 name: name_stage
             })
         })
         setNoteState(noteArr)
-        console.log('🚀 ~ formatChartData ~ newArrAfter:', newArrAfter)
-        setDataChart([{ ...newArrBefore }, { ...newArrAfter }])
+        setDataChart([{ ...newArrBefore }])
     }
 
     React.useEffect(() => {
@@ -63,13 +61,13 @@ const ChartsComponent = ({ route }) => {
                 )}
             </View>
             <View style={{ paddingHorizontal: 20 }}>
-                {/* <Text
+                <Text
                     style={[
                         styles.text_color,
                         { fontSize: 18, fontWeight: '600' }
                     ]}>
                     Ghi chú:
-                </Text> */}
+                </Text>
                 <FlatList
                     data={noteState || []}
                     keyExtractor={(item, index) => index.toString()}
@@ -114,7 +112,7 @@ const ChartsComponent = ({ route }) => {
                     }}
                 />
 
-                {noteState?.map((item, index) => {})}
+                {/* {noteState?.map((item, index) => {})} */}
             </View>
         </View>
     )

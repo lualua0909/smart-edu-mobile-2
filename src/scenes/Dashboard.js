@@ -595,18 +595,7 @@ const Menu = ({ route }) => {
                                 })
                             }
                         />
-                        <MenuAction
-                            icon={svgIconCharts}
-                            title="Bảng xếp hạng"
-                            // badge={12}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.Leaderboard)
-                            }
-                            description="KH theo lộ trình"
-                            backgroundColor="#E5FEEC"
-                        />
-                    </View>
-                </View> */}
+                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {
@@ -640,7 +629,7 @@ const Menu = ({ route }) => {
                                         alignItems: 'center'
                                     }}>
                                     {typeof item?.icon === 'string' ||
-                                    item?.icon instanceof String ? (
+                                        item?.icon instanceof String ? (
                                         <SvgXml
                                             xml={item.icon}
                                             width={scale(24)}

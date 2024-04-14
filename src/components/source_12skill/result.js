@@ -1,19 +1,13 @@
-import { AbsoluteSpinner } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES, STYLES } from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
+import { useQuery } from '@apollo/client'
+import axios from 'app/Axios'
+import { AbsoluteSpinner, Button } from 'app/atoms'
+import { COLORS, ROUTES, STYLES } from 'app/constants'
+import { COURSE_GROUP_LIST, COURSE_LIST } from 'app/qqlStore/queries'
 import { svgIconList } from 'assets/svg'
+import _ from 'lodash'
 import React from 'react'
-import { useState } from 'react'
 
-import {
-    Dimensions,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import HeaderTitle from 'app/components/header-title'
@@ -27,10 +21,13 @@ const TestResult = ({
     route,
     titleHeader = 'Kết quả kiểm tra đầu vào'
 }) => {
-    const { title } = route.params
+    const { title, idPretest } = route.params
+    const { loading, error, data: dataTest } = useQuery(COURSE_GROUP_LIST)
+    const { data: dataTest2 } = useQuery(COURSE_LIST)
+
     const [data, setData] = React.useState([])
     const [user, setUser] = React.useState()
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
     const handleToLearningPath = () => {
         navigation.navigate(ROUTES.LearningPath)
     }
@@ -50,29 +47,56 @@ const TestResult = ({
     }, [navigation])
 
     const getAllData = () => {
-        const userInfoStore = getData('@userInfo')
-        if (userInfoStore) {
-            setUser(userInfoStore)
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
-            // storage.delete('SCREEN')
-            const dataCourseFromStore = getData(
-                `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
-            )
-            setIsLoading(false)
-            console.log(
-                '🚀 ~ getAllData ~ dataCourseFromStore:',
-                dataCourseFromStore
-            )
-            setData(JSON.parse(dataCourseFromStore)?.data)
-            // if (!dataCourseFromStore) return
-        }
+        axios
+            .get(`courses/roadmap/test-history/${idPretest}`)
+            .then(res => {
+                if (res.data) {
+                    const result = dataTest?.CourseGroups?.data.map(item => {
+                        const findById = _.filter(res.data, function (e) {
+                            return e.question.group_id === item.id
+                        })
+                        // console.log('🚀 ~ findById ~ findById:', findById)
+                        if (findById.length > 0) {
+                            const sumScore = findById.reduce(
+                                (accumulator, currentValue) =>
+                                    accumulator + currentValue.answer,
+                                0
+                            )
+                            return {
+                                name_stage: item.description,
+                                process: (sumScore / 25) * 100
+                            }
+                        }
+                    })
+                    const removeUndefined = _.remove(result, undefined)
+                    setData(removeUndefined)
+                    // res.data.map(item => console.log(item))
+                }
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+        // if (userInfoStore) {
+
+        //     console.log('🚀 ~ getAllData ~ userInfoStore:', userInfoStore)
+        //     // storage.delete(
+        //     //     `COURSE_12_SKILL_ID_USER_${JSON.parse(userInfoStore)?.id}`
+        //     // )
+        //     // storage.delete('SCREEN')
+        //     const dataCourseFromStore = getData(
+        //         `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
+        //     )
+        // setData(JSON.parse(dataCourseFromStore).data)
+
+        // }
     }
 
     React.useEffect(() => {
         getAllData()
-    }, [])
+    }, [data])
 
-    if (isLoading) return <AbsoluteSpinner title={'Đang tải kết quả'} />
+    if (isLoading && Array.isArray(data))
+        return <AbsoluteSpinner title={'Đang tải kết quả'} />
 
     const renderProcess = (text, process) => {
         return (
@@ -131,12 +155,12 @@ const TestResult = ({
                                 </Text>
                                 {renderProcess(
                                     'Kết quả (đầu vào)',
-                                    Math.floor(item.processBefore)
+                                    Math.floor(item.process)
                                 )}
-                                {renderProcess(
+                                {/* {renderProcess(
                                     'Kết quả (đầu ra)',
                                     Math.floor(item.processAfter)
-                                )}
+                                )} */}
                             </View>
                         )
                     }}
@@ -148,18 +172,10 @@ const TestResult = ({
             )}
 
             <View style={styles.gr_btn}>
-                <Text
-                    onPress={handleToRadarChart}
-                    style={[styles.gr_btn_width, styles.text_cancel]}>
+                <Button outlined onPress={handleToRadarChart}>
                     Xem biểu đồ
-                </Text>
-                <Pressable
-                    onPress={handleToLearningPath}
-                    style={[styles.gr_btn_width, styles.btn_next]}>
-                    <Text style={[styles.text_color, styles.text_btn_next]}>
-                        Tiếp tục
-                    </Text>
-                </Pressable>
+                </Button>
+                <Button onPress={handleToLearningPath}>Tiếp tục</Button>
             </View>
         </View>
     )

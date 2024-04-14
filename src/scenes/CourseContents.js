@@ -95,6 +95,7 @@ const CourseDetail = ({ route, navigation }) => {
             clearTimeout(t)
         }
     }, [hideHeaderTitle])
+
     const handleAppStateChange = nextAppState => {
         console.log('next', nextAppState)
         if (nextAppState === 'inactive') {
@@ -104,11 +105,6 @@ const CourseDetail = ({ route, navigation }) => {
     // Bắt xự kiện người dùng thoát app
     useEffect(() => {
         AppState.addEventListener('change', handleAppStateChange)
-        // return () => {
-        //     AppState.removeEventListener('change', event =>
-        //         handleAppStateChange(event)
-        //     )
-        // }
     }, [])
 
     // useEffect(() => {
@@ -214,6 +210,7 @@ const CourseDetail = ({ route, navigation }) => {
         axios
             .get(`lectures/get/${currentId}`)
             .then(res => {
+                console.log('res', res)
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
@@ -243,11 +240,11 @@ const CourseDetail = ({ route, navigation }) => {
     }, [courseId])
 
     useEffect(() => {
-        if (courseId && currentId) {
+        if (courseId) {
             getData()
             getDocuments()
         }
-    }, [courseId, currentId])
+    }, [courseId])
 
     const addLessonToFinishedList = () => {
         const params = {
@@ -398,9 +395,9 @@ const CourseDetail = ({ route, navigation }) => {
                                 renderItem={({ item }) => {
                                     let fileName = item?.fileName
                                         ? item?.fileName
-                                            ?.split('/')
-                                            .slice(-1)
-                                            .pop()
+                                              ?.split('/')
+                                              .slice(-1)
+                                              .pop()
                                         : item?.file_name
                                     fileName = fileName.substring(
                                         fileName.indexOf('-') + 1
@@ -479,7 +476,6 @@ const CourseDetail = ({ route, navigation }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'row',
-                    alignItems: 'center',
                     height: 300
                 }}>
                 {data?.type === 1 ? (

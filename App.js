@@ -122,7 +122,7 @@ const App = () => {
                 <Toast />
                 <ModalNotLogin visible={visible} setVisible={setVisible} />
             </GestureHandlerRootView>
-        </ApolloProvider>
+        </ApolloProvider >
     )
 }
 
