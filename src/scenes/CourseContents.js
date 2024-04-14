@@ -26,7 +26,6 @@ import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
 import {
-    AppState,
     Dimensions,
     FlatList,
     Linking,
@@ -60,6 +59,7 @@ const routes = [
 ]
 
 const CourseDetail = ({ route, navigation }) => {
+    console.log('route ===', route.params.currentLecture)
     const { courseId, currentLecture } = route.params
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
@@ -84,7 +84,6 @@ const CourseDetail = ({ route, navigation }) => {
         useGlobalState('currentCourseId')
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
-    const [scormLoading, setScormLoading] = useState(false)
     const [countDown, setCountDown] = useState()
     const onCloseViewDoc = () => setOpenViewDoc(false)
 
@@ -210,7 +209,6 @@ const CourseDetail = ({ route, navigation }) => {
         axios
             .get(`lectures/get/${currentId}`)
             .then(res => {
-                console.log('res', res)
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
@@ -221,7 +219,6 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const getDocuments = () => {
-        setLoading(true)
         axios
             .get(`admin/courses/resources/paging/${courseId}`)
             .then(res => {
@@ -230,17 +227,11 @@ const CourseDetail = ({ route, navigation }) => {
             .then(data => {
                 setDocuments(data)
             })
-            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
         if (courseId) {
             setCurrentCourseId(courseId)
-        }
-    }, [courseId])
-
-    useEffect(() => {
-        if (courseId) {
             getData()
             getDocuments()
         }

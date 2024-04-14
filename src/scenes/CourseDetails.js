@@ -310,7 +310,7 @@ const CourseInfo = ({ navigation, route }) => {
                         })
 
                         console.log('res= ', res.data)
-                        // navigation.goBack()
+                        navigation.goBack()
                     }
                 })
                 .then(data => {
@@ -462,7 +462,7 @@ const CourseInfo = ({ navigation, route }) => {
                     })
                 } else {
                     navigation.navigate(ROUTES.CourseDetail, {
-                        courseId: data?.relational?.course_id,
+                        courseId: data?.id,
                         currentLecture:
                             data?.relational?.current_lecture ||
                             data?.first_lecture_id
