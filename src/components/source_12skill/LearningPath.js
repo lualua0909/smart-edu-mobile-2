@@ -12,6 +12,7 @@ import {
     ROADMAP_LIST
 } from 'app/qqlStore/queries'
 import { svgAdjust } from 'assets/svg'
+import { svgVideo } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
@@ -32,6 +33,7 @@ import HeaderTitle from 'app/components/header-title'
 import { Progress } from 'native-base'
 
 import DragDrop from './DragDrop'
+import IntroductionVideo from './IntroductionVideo'
 import { RenderBackgroundColor, RenderColorStage } from './renderColorRestult'
 import { SaveScreenToStore } from './saveScreenToStore'
 
@@ -64,6 +66,27 @@ const LearningPath = ({ navigation, route }) => {
     const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
     const [hasAdjust, setHasAdjust] = React.useState(true)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
+    const [visibleVideoIntroduction, setVisibleIntroduction] =
+        React.useState(false)
+
+    React.useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <View style={{ paddingHorizontal: 10 }}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate(ROUTES.VideoIntroduction, {
+                                    isReview: true
+                                })
+                            }>
+                            <SvgXml xml={svgVideo} width={24} height={24} />
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
+        })
+    }, [])
 
     // React.useEffect(() => {
     //     navigation.addListener('beforeRemove', e => {
@@ -164,7 +187,12 @@ const LearningPath = ({ navigation, route }) => {
                     setIsLoading(false)
                 }, 200)
             })
-            .finally(() => {})
+            .catch(err => {
+                showToast({
+                    title: 'Cập nhật lộ trình thất bại.',
+                    placement: 'top'
+                })
+            })
     }
 
     const alertConfirmAdjust = () =>
@@ -323,6 +351,15 @@ const LearningPath = ({ navigation, route }) => {
     const renderTime = (rowData, index) => {
         return <Text style={styles.name_learning_path}>Chặng {index + 1}</Text>
     }
+    if (visibleVideoIntroduction)
+        return (
+            <IntroductionVideo
+                setVisible={setVisibleIntroduction}
+                visible={visibleVideoIntroduction}
+                isReview={true}
+            />
+        )
+
     const renderContentTimeLine = (data, index, rowData, color) => {
         return (
             <View key={index}>

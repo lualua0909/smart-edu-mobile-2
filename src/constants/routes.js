@@ -38,5 +38,6 @@ export default ROUTES = {
     ChartTestResult: 'ChartTestResult',
     StagesView: 'StagesView',
     Leaderboard: 'Leaderboard',
-    IntroductionPreTest: 'IntroductionPreTest'
+    IntroductionPreTest: 'IntroductionPreTest',
+    VideoIntroduction: 'VideoIntroduction'
 }

@@ -6,9 +6,9 @@ import { Text } from 'native-base'
 const HeaderTitle = ({ title, color = '#0E564D' }) => {
     return (
         <Text
-            bold
             numberOfLines={2}
             style={{
+                fontWeight: 'bold',
                 fontSize: 18,
                 color: color,
                 textAlign: 'center',

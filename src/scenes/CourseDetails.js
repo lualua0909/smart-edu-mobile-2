@@ -491,6 +491,144 @@ const CourseInfo = ({ navigation, route }) => {
         setLoadingVerify(false)
     }
 
+    const renderDetailCourse = isRoadmap => {
+        if (isRoadmap) {
+            const dataDetail = [
+                { title: 'Chương trình E-Learning kết hợp Workshop/Seminar.' },
+                { title: 'Chứng chỉ Viện Quản trị và Tài chính (IFA).' },
+                {
+                    title: 'Cơ hội nhận Chứng chỉ ĐH California, Dominguez Hills, Hoa Kỳ.'
+                },
+                { title: 'Cơ hội nghề nghiệp và thăng tiến trong sự nghiệp.' },
+                {
+                    title: 'Cơ hội tham gia cuộc thi "Tôi của Tương lai" do IFA tổ chức.'
+                },
+                {
+                    title: 'Tham gia cộng đồng "Hành trình sự nghiệp - Job Jorney"'
+                }
+            ]
+            return (
+                <View style={{ marginTop: scale(16) }}>
+                    {dataDetail.map((item, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                marginVertical: 3
+                            }}>
+                            <Text>{index + 1}. </Text>
+                            <Text
+                                style={{
+                                    marginLeft: scale(9),
+                                    paddingTop: scale(2),
+                                    fontSize: scale(16),
+                                    color: '#6C746E'
+                                }}>
+                                {item.title}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
+            )
+        }
+        return (
+            <View style={{ marginTop: scale(16) }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}>
+                    <SvgXml
+                        xml={svgNote}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Khóa học gồm{' '}
+                        <Text>
+                            {data?.is_combo
+                                ? `${data?.combo?.length} khóa học con`
+                                : `${data?.total_lectures} bài giảng`}
+                        </Text>
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <SvgXml
+                        xml={svgCertificate}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
+                    </Text>
+                </View>
+                {data?.is_offline ? (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
+                        }}>
+                        <SvgXml
+                            xml={svgOnline}
+                            width={scale(24)}
+                            height={scale(24)}
+                        />
+                        <Text
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#6C746E'
+                            }}>
+                            Có lớp học offline
+                        </Text>
+                    </View>
+                ) : null}
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <DollarSign
+                        width={scale(22)}
+                        height={scale(22)}
+                        stroke="#6C746E"
+                    />
+                    <Text
+                        bold
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#095F2B'
+                        }}>
+                        {toCurrency(data?.ios_price)}đ
+                    </Text>
+                </View>
+            </View>
+        )
+    }
+
     if (loading) {
         return <CourseDetailSkeleton />
     }
@@ -573,99 +711,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }}>
                         {data?.s_des}
                     </Text>
-                    <View style={{ marginTop: scale(16) }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <SvgXml
-                                xml={svgNote}
-                                width={scale(24)}
-                                height={scale(24)}
-                            />
-                            <Text
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#6C746E'
-                                }}>
-                                Khóa học gồm{' '}
-                                <Text>
-                                    {data?.is_combo
-                                        ? `${data?.combo?.length} khóa học con`
-                                        : `${data?.total_lectures} bài giảng`}
-                                </Text>
-                            </Text>
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: scale(8)
-                            }}>
-                            <SvgXml
-                                xml={svgCertificate}
-                                width={scale(24)}
-                                height={scale(24)}
-                            />
-                            <Text
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#6C746E'
-                                }}>
-                                Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
-                            </Text>
-                        </View>
-                        {data?.is_offline ? (
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    marginTop: scale(8)
-                                }}>
-                                <SvgXml
-                                    xml={svgOnline}
-                                    width={scale(24)}
-                                    height={scale(24)}
-                                />
-                                <Text
-                                    style={{
-                                        marginLeft: scale(9),
-                                        paddingTop: scale(2),
-                                        fontSize: scale(16),
-                                        color: '#6C746E'
-                                    }}>
-                                    Có lớp học offline
-                                </Text>
-                            </View>
-                        ) : null}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: scale(8)
-                            }}>
-                            <DollarSign
-                                width={scale(22)}
-                                height={scale(22)}
-                                stroke="#6C746E"
-                            />
-                            <Text
-                                bold
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#095F2B'
-                                }}>
-                                {toCurrency(data?.ios_price)}đ
-                            </Text>
-                        </View>
-                    </View>
+                    {renderDetailCourse(data?.isRoadmap)}
                 </View>
                 <TabView
                     navigationState={{ index: tabIndex, routes }}

@@ -52,6 +52,8 @@ import HeaderBack from 'app/components/header-back'
 import HeaderTitle from 'app/components/header-title'
 import ChatDetail from 'app/scenes/chat-detail'
 
+import IntroductionVideo from '../components/source_12skill/IntroductionVideo'
+
 const Stack = createStackNavigator()
 const AppNavigator = () => {
     return (
@@ -95,6 +97,16 @@ const AppNavigator = () => {
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.VideoIntroduction}
+                component={IntroductionVideo}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Video hướng dẫn'} />
                     ),
                     headerLeft: () => <HeaderBack />
                 })}
