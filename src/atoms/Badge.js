@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Badge({ children, color = '#52B55380' }) {
+export default function Badge({ children, color = '#52B553' }) {
     return (
         <View style={[styles.badge, { backgroundColor: color }]}>
             <Text style={styles.text}>{children}</Text>
@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 6,
         paddingHorizontal: 10,
-        borderRadius: 5,
-        elevation: 3
+        borderRadius: 20,
     },
     text: {
-        fontSize: 12
+        fontSize: 12,
+        color: '#fff',
     }
 })

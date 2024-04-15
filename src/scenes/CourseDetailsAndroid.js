@@ -20,11 +20,12 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { getData, storeData, toCurrency } from 'app/helpers/utils'
+import { getData, storeData, } from 'app/helpers/utils'
 import { ROADMAP_LIST } from 'app/qqlStore/queries'
-import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
-
+import { SvgXml } from 'react-native-svg'
+import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
+import { clearDataAfterLogout, toCurrency } from 'app/helpers/utils'
 import {
     BackHandler,
     Image,
@@ -36,13 +37,14 @@ import {
     View
 } from 'react-native'
 import {
+    BookOpen,
     DollarSign,
     Heart,
     Navigation,
     Share2,
-    ShoppingCart
+    ShoppingCart,
+    FileText
 } from 'react-native-feather'
-import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
 import HeaderBack from 'app/components/header-back'
@@ -57,7 +59,6 @@ const CourseInfo = ({ navigation, route }) => {
     const userInfo = getGlobalState('userInfo')
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
-    const [loadingVerify, setLoadingVerify] = useState(false)
     const [inCart, setInCart] = useState(false)
     const [teacherName, setTeacherName] = useState()
     const [tabIndex, setTabIndex] = useState(0)
@@ -313,7 +314,6 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const gotoCourse = () => {
-        setLoadingVerify(true)
         axios
             .get('courses/verify/' + data?.slug)
             .then(res => {
@@ -354,7 +354,6 @@ const CourseInfo = ({ navigation, route }) => {
                     console.log('Error')
                 }
             })
-            .finally(() => setLoadingVerify(false))
     }
 
     // Khóa học lộ trình
@@ -369,9 +368,146 @@ const CourseInfo = ({ navigation, route }) => {
                 title: 'Kết quả kiểm tra',
                 idPretest: data?.roadmap_pretest_id
             })
-        } else {
         }
-        setLoadingVerify(false)
+    }
+
+
+    const renderDetailCourse = isRoadmap => {
+        if (isRoadmap) {
+            const dataDetail = [
+                { title: 'Chương trình E-Learning kết hợp Workshop/Seminar.' },
+                { title: 'Chứng chỉ Viện Quản trị và Tài chính (IFA).' },
+                {
+                    title: 'Cơ hội nhận Chứng chỉ ĐH California, Dominguez Hills, Hoa Kỳ.'
+                },
+                { title: 'Cơ hội nghề nghiệp và thăng tiến trong sự nghiệp.' },
+                {
+                    title: 'Cơ hội tham gia cuộc thi "Tôi của Tương lai" do IFA tổ chức.'
+                },
+                {
+                    title: 'Tham gia cộng đồng "Hành trình sự nghiệp - Job Jorney"'
+                }
+            ]
+            return (
+                <View style={{ marginTop: scale(16) }}>
+                    {dataDetail.map((item, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                marginVertical: 3
+                            }}>
+                            <Text>{index + 1}. </Text>
+                            <Text
+                                style={{
+                                    marginLeft: scale(9),
+                                    paddingTop: scale(2),
+                                    fontSize: scale(16),
+                                    color: '#6C746E'
+                                }}>
+                                {item.title}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
+            )
+        }
+        return (
+            <View style={{ marginTop: scale(16) }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}>
+                    <SvgXml
+                        xml={svgNote}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Khóa học gồm{' '}
+                        <Text>
+                            {data?.is_combo
+                                ? `${data?.combo?.length} khóa học con`
+                                : `${data?.total_lectures} bài giảng`}
+                        </Text>
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <SvgXml
+                        xml={svgCertificate}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
+                    </Text>
+                </View>
+                {data?.is_offline ? (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
+                        }}>
+                        <SvgXml
+                            xml={svgOnline}
+                            width={scale(24)}
+                            height={scale(24)}
+                        />
+                        <Text
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#6C746E'
+                            }}>
+                            Có lớp học offline
+                        </Text>
+                    </View>
+                ) : null}
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <DollarSign
+                        width={scale(22)}
+                        height={scale(22)}
+                        stroke="#6C746E"
+                    />
+                    <Text
+                        bold
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#095F2B'
+                        }}>
+                        {toCurrency(data?.ios_price)}đ
+                    </Text>
+                </View>
+            </View>
+        )
     }
 
     return (
@@ -564,7 +700,8 @@ const CourseInfo = ({ navigation, route }) => {
                                 Chia sẻ
                             </Text>
                         </Pressable>
-                        <Pressable
+
+                        {data?.is_roadmap ? null : <Pressable
                             style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -595,7 +732,7 @@ const CourseInfo = ({ navigation, route }) => {
                             <Text outlined style={{ color: '#52B553' }}>
                                 Học thử
                             </Text>
-                        </Pressable>
+                        </Pressable>}
                     </View>
                     {data && (
                         <View
@@ -619,46 +756,78 @@ const CourseInfo = ({ navigation, route }) => {
                             ) : (
                                 <>
                                     {!data?.relational && data?.ios_price ? (
-                                        <Button
-                                            onPress={handlePurchase}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang xử lý"
-                                            leftIcon={
-                                                <>
-                                                    <ShoppingCart
-                                                        stroke="#fff"
-                                                        size={10}
-                                                    />
-                                                </>
-                                            }>
-                                            Mua ngay
-                                        </Button>
+                                        <Pressable
+                                            style={{
+                                                backgroundColor: '#52B553',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                paddingHorizontal: 20,
+                                                paddingVertical: 5,
+                                            }}
+                                            onPress={handlePurchase}>
+                                            <ShoppingCart
+                                                stroke="#fff"
+                                                fill="#52B553"
+                                                width={24}
+                                                height={24}
+                                            />
+                                            <Text outlined style={{ color: '#fff' }}>
+                                                Mua ngay
+                                            </Text>
+                                        </Pressable>
                                     ) : null}
 
                                     {data?.relational &&
                                         data?.is_roadmap === 1 ? (
-                                        <Button
-                                            onPress={handleToLearningPath}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang vào">
-                                            {dataRoadmap?.Roadmaps.data[0]
-                                                .sub_course.order_number2 !== 0
-                                                ? 'Học ngay'
-                                                : data?.roadmap_test_result > 0
-                                                    ? 'Xem kết quả'
-                                                    : 'Làm bài test'}
-                                        </Button>
+                                        <Pressable
+                                            style={{
+                                                backgroundColor: '#52B553',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                textAlign: 'center',
+                                                paddingHorizontal: 15,
+                                                paddingVertical: 5,
+                                            }}
+                                            onPress={handleToLearningPath}>
+                                            <FileText
+                                                stroke="#fff"
+                                                fill="#52B553"
+                                                width={24}
+                                                height={24}
+                                            />
+                                            <Text outlined style={{ color: '#fff' }}>
+                                                {dataRoadmap?.Roadmaps.data[0]
+                                                    .sub_course.order_number2 !== 0
+                                                    ? 'Học ngay'
+                                                    : data?.roadmap_test_result > 0
+                                                        ? 'Xem kết quả'
+                                                        : 'Làm bài test'}
+                                            </Text>
+                                        </Pressable>
                                     ) : null}
 
                                     {data?.relational &&
                                         !data?.is_combo &&
                                         !data?.is_roadmap ? (
-                                        <Button
-                                            onPress={gotoCourse}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang vào">
-                                            Học ngay
-                                        </Button>
+                                        <Pressable
+                                            style={{
+                                                backgroundColor: '#52B553',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                paddingHorizontal: 20,
+                                                paddingVertical: 5,
+                                            }}
+                                            onPress={gotoCourse}>
+                                            <BookOpen
+                                                stroke="#fff"
+                                                fill="#52B553"
+                                                width={24}
+                                                height={24}
+                                            />
+                                            <Text outlined style={{ color: '#fff' }}>
+                                                Học ngay
+                                            </Text>
+                                        </Pressable>
                                     ) : null}
                                 </>
                             )}
