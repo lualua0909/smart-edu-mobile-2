@@ -1,33 +1,39 @@
 import { showToast } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
+import { COLORS, ROUTES } from 'app/constants'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Dimensions, FlatList, TouchableOpacity } from 'react-native'
-import { StyleSheet, Text, View } from 'react-native'
+import {
+    Dimensions,
+    FlatList,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native'
 
 import { RenderColorStage } from '../../renderColorRestult'
 
-const { width, height } = Dimensions.get('screen')
+const { width } = Dimensions.get('screen')
 
 const ListCourse = ({ dataStage }) => {
     const navigation = useNavigation()
+
     const handleClickCourse = (item, isOpen) => {
-        // console.log('🚀 ~ handleClickCourse ~ item:', item.sub_course.id)
+        console.log('item.sub_course.id = ', item.sub_course.id)
         if (!isOpen)
             return showToast({
                 title: 'Vui lòng hoàn thành khóa học trước đó',
                 placement: 'top'
             })
+
         navigation.navigate(ROUTES.CourseInfo2, { id: item.sub_course.id })
     }
+
     const renderItem = ({ item, index }) => {
         let isOpen = true
         if (index > 0) {
-            isOpen =
-                dataStage.children[index - 1].sub_course.process === 100
-                    ? true
-                    : false
+            isOpen = dataStage.children[index - 1].sub_course.process === 100
         }
 
         return (

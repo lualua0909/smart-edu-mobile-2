@@ -1,7 +1,8 @@
-import { Loading } from 'app/atoms'
+import { AbsoluteSpinner } from 'app/atoms'
 import { API_URL } from 'app/constants'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
+import { useIsFocused } from '@react-navigation/native'
 import { Dimensions } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
@@ -15,11 +16,10 @@ function isPortrait() {
 }
 
 const frameStyle = {
-    height: Math.min(w, h),
+    height: 200,
     width: isPortrait() ? Math.min(w, h) : Math.max(w, h),
     resizeMode: 'contain',
     flex: 1,
-    border: 'none',
     border: 'none'
 }
 
@@ -28,17 +28,11 @@ export default ({ videoUrl, poster }) => {
     const videoRef = useRef(null)
     const isBunnyVideo = videoUrl?.includes('iframe.mediadelivery.net')
     const isYoutube = videoUrl?.includes('youtube.com')
+    const isFocused = useIsFocused()
 
     if (loading) {
-        return <Loading title={'Đang tải video'} />
+        return <AbsoluteSpinner title={'Đang tải video'} />
     }
-
-    // useEffect(() => {
-    //     if (!videoRef.current) return
-    //     return () => {
-    //         videoRef.current.seek(0)
-    //     }
-    // }, [videoRef])
 
     if (isYoutube)
         return (
@@ -50,9 +44,6 @@ export default ({ videoUrl, poster }) => {
                         '?autoplay=1'
                 }}
                 style={frameStyle}
-                onLoadStart={syntheticEvent => {
-                    setLoading(true)
-                }}
                 onLoadEnd={syntheticEvent => {
                     setLoading(false)
                 }}
@@ -68,6 +59,9 @@ export default ({ videoUrl, poster }) => {
                 }}
                 style={frameStyle}
                 onRenderProcessGone={event => console.log(event)}
+                onLoadEnd={syntheticEvent => {
+                    setLoading(false)
+                }}
             />
         )
 
@@ -76,15 +70,13 @@ export default ({ videoUrl, poster }) => {
             ref={videoRef}
             poster={poster}
             controls
-            seek={0}
-            ignoreSilentSwitch="ignore"
             source={{
                 uri: `${API_URL}/public/${videoUrl}`
             }} // Can be a URL or a local file.
-            // onVideoLoadStart={() => setLoading(true)}
-            onSeek={data => console.log(data)}
-            // onVideoEnd={() => setLoading(false)}
-            style={{ height: 200, width: '100%' }}
+            paused={!isFocused}
+            style={{ height: 250, width: '100%' }}
+            playInBackground={false}
+            playWhenInactive={false}
         />
     )
 }

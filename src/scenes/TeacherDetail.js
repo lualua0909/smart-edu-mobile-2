@@ -1,19 +1,23 @@
 import axios from 'app/Axios'
-import { Avatar, CourseDetailSkeleton, Rate } from 'app/atoms'
+import { Avatar, CourseDetailSkeleton, Rate, Text } from 'app/atoms'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgWhiteBack } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Image, StatusBar, StyleSheet } from 'react-native'
-import { Link, Package } from 'react-native-feather'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    View
+} from 'react-native'
+import { Check, Link, Package } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-import { ScrollView } from 'react-native-virtualized-view'
 
 import HeaderBack from 'app/components/header-back'
-import { CheckIcon, Text, View } from 'native-base'
 
 const routes = [
     {
@@ -66,12 +70,11 @@ const TeacherInfo = ({ route }) => {
                     flexDirection: 'row',
                     marginTop: scale(8)
                 }}>
-                <CheckIcon
+                <Check
                     size={scale(14)}
+                    color={COLORS.green}
                     style={{
-                        marginRight: scale(10),
-                        marginTop: 5,
-                        color: COLORS.green
+                        marginRight: scale(10)
                     }}
                 />
                 <Text

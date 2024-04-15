@@ -1,12 +1,11 @@
 import axios from 'app/Axios'
-import { NoData } from 'app/atoms'
+import { NoData, Text } from 'app/atoms'
 import { COLORS } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
+import { View } from 'react-native'
 import { Check } from 'react-native-feather'
-
-import { Text, View } from 'native-base'
 
 const Benefit = ({ courseId, longDes }) => {
     const [data, setData] = useState()

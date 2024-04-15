@@ -1,12 +1,15 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
+    Button,
+    Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
-    Loading,
     ScormViewer,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,11 +19,8 @@ import { scale } from 'app/helpers/responsive'
 import { clearDataAfterLogout } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { SafeAreaView, View } from 'react-native'
 import { TabBar, TabView } from 'react-native-tab-view'
-
-import { Button, Center, Text, View } from 'native-base'
 
 const routes = [
     {
@@ -54,55 +54,52 @@ const CourseDetail = ({ route, navigation }) => {
         }
     }, [hideHeaderTitle])
 
-    navigation.setOptions({
-        headerTitle: () => (
-            <>
-                {hideHeaderTitle ? null : (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingVertical: 0
-                        }}>
-                        <Button
-                            size="sm"
-                            onPress={prevLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            variant="subtle"
-                            colorScheme="green"
-                            leftIcon={
-                                <>
-                                    <ChevronLeft
-                                        stroke="green"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                        <Button
-                            size="sm"
-                            onPress={nextLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            leftIcon={
-                                <>
-                                    <ChevronRight
-                                        stroke="#fff"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                    </View>
-                )}
-            </>
-        ),
-        headerTransparent: true
-    })
+    // navigation.setOptions({
+    //     headerTitle: () => (
+    //         <>
+    //             {hideHeaderTitle ? null : (
+    //                 <View
+    //                     style={{
+    //                         flexDirection: 'row',
+    //                         alignItems: 'center',
+    //                         justifyContent: 'center',
+    //                         paddingVertical: 0
+    //                     }}>
+    //                     <Button
+    //                         size="sm"
+    //                         onPress={prevLesson}
+    //                         style={{
+    //                             marginRight: scale(12),
+    //                             height: 30,
+    //                             color: 'white'
+    //                         }}>
+    //                         <ChevronLeft
+    //                             stroke="green"
+    //                             width={24}
+    //                             height={24}
+    //                         />
+    //                     </Button>
+    //                     <Button
+    //                         size="sm"
+    //                         onPress={nextLesson}
+    //                         style={{
+    //                             marginRight: scale(12)
+    //                         }}
+    //                         leftIcon={
+    //                             <>
+    //                                 <ChevronRight
+    //                                     stroke="#fff"
+    //                                     width={24}
+    //                                     height={24}
+    //                                 />
+    //                             </>
+    //                         }></Button>
+    //                 </View>
+    //             )}
+    //         </>
+    //     ),
+    //     headerTransparent: true
+    // })
 
     useEffect(() => {
         if (chapters?.length) {
@@ -121,8 +118,7 @@ const CourseDetail = ({ route, navigation }) => {
         setLoading(true)
         axios
             .get(
-                `${
-                    userInfo?.id === 'trial' ? 'public-lectures' : 'lectures'
+                `${userInfo?.id === 'trial' ? 'public-lectures' : 'lectures'
                 }/get/${currentId}`
             )
             .then(res => {
@@ -148,15 +144,14 @@ const CourseDetail = ({ route, navigation }) => {
 
     const showFinishToast = () => {
         showToast({
-            title: `Bạn đã học hết nội dung học thử. Vui lòng ${
-                userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
-            } mua khóa học để tiếp tục`,
+            title: `Bạn đã học hết nội dung học thử. Vui lòng ${userInfo?.id === 'trial' ? 'tạo tài khoản và' : ''
+                } mua khóa học để tiếp tục`,
             status: 'success',
             description:
                 userInfo?.id === 'trial' ? (
                     <Button
                         onPress={() => {
-                            clearDataAfterLogout(ROUTES.Register)
+                            clearDataAfterLogout(ROUTES.SignUp)
                         }}>
                         Tạo tài khoản
                     </Button>
@@ -186,11 +181,6 @@ const CourseDetail = ({ route, navigation }) => {
                         setCourseData(
                             res?.data?.data?.parent || res?.data?.data
                         )
-
-                        console.log(
-                            'DAAAAAAAAAAAAAAAAA = ',
-                            res?.data?.data?.parent || res?.data?.data
-                        )
                     }
                 })
                 .finally(() => showFinishToast())
@@ -208,7 +198,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     if (loading) {
-        return <Loading />
+        return <AbsoluteSpinner />
     }
 
     const renderScene = ({ route }) => {
@@ -236,116 +226,110 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     return (
-        <View
+        <SafeAreaView
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
             }}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}>
-                <View
+            <View
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    height: 300
+                }}>
+                {data?.type === 1 ? (
+                    <VideoViewer
+                        videoUrl={data?.file_path || data?.video_url}
+                    />
+                ) : data?.type === 2 ? (
+                    <DocumentViewer
+                        content={data?.text_document}
+                        uri={`${API_URL}public/${data?.file_path}`}
+                    />
+                ) : data?.type === 3 ? (
+                    <ScormViewer
+                        src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                    />
+                ) : data?.type === 4 ? (
+                    <ExamViewer data={data} />
+                ) : data?.type === 5 ? (
+                    <EnglishReading data={data} />
+                ) : (
+                    <FinishCourse />
+                )}
+            </View>
+            <Center mt="3" mb="3">
+                <Text
                     style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
+                        fontSize: scale(14),
+                        color: '#52B553'
                     }}>
-                    <Text>{scormLoading ? 'Loading' : ''}</Text>
-                    {data?.type === 1 ? (
-                        <VideoViewer
-                            videoUrl={data?.file_path || data?.video_url}
-                        />
-                    ) : data?.type === 2 ? (
-                        <DocumentViewer
-                            content={data?.text_document}
-                            uri={`${API_URL}public/${data?.file_path}`}
-                        />
-                    ) : data?.type === 3 ? (
-                        <ScormViewer
-                            src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
-                            toggleScormLoading={() =>
-                                setScormLoading(!scormLoading)
-                            }
-                        />
-                    ) : data?.type === 4 ? (
-                        <ExamViewer data={data} />
-                    ) : data?.type === 5 ? (
-                        <EnglishReading data={data} />
-                    ) : (
-                        <FinishCourse />
-                    )}
-                </View>
-                <Center mt="3" mb="3">
-                    <Text
-                        style={{
-                            fontSize: scale(14),
-                            color: '#52B553'
-                        }}>
-                        {data?.name}
-                    </Text>
-                </Center>
-                <View
+                    {data?.name}
+                </Text>
+            </Center>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                <Button
+                    size={'sm'}
+                    onPress={prevLesson}
+                    variant="subtle"
+                    colorScheme="green"
                     style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                        marginRight: scale(12),
+                        width: 'auto'
                     }}>
-                    <Button
-                        size={'sm'}
-                        onPress={prevLesson}
-                        variant="subtle"
-                        colorScheme="green"
+                    Bài trước
+                </Button>
+                <Button size={'sm'} onPress={nextLesson}>
+                    Bài tiếp theo
+                </Button>
+            </View>
+            <TabView
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={renderScene}
+                renderTabBar={props => (
+                    <TabBar
+                        {...props}
+                        renderLabel={({ route, focused, color }) => (
+                            <Text
+                                bold
+                                style={[
+                                    {
+                                        fontSize: 13,
+                                        color: '#6C746E',
+                                        textAlign: 'center'
+                                    },
+                                    focused && {
+                                        color: '#0E564D'
+                                    }
+                                ]}>
+                                {route.title}
+                            </Text>
+                        )}
                         style={{
-                            marginRight: scale(12),
-                            width: 'auto'
-                        }}>
-                        Bài trước
-                    </Button>
-                    <Button size={'sm'} onPress={nextLesson}>
-                        Bài tiếp theo
-                    </Button>
-                </View>
-                <TabView
-                    navigationState={{ index: tabIndex, routes }}
-                    renderScene={renderScene}
-                    renderTabBar={props => (
-                        <TabBar
-                            {...props}
-                            renderLabel={({ route, focused, color }) => (
-                                <Text
-                                    bold
-                                    style={[
-                                        {
-                                            fontSize: 13,
-                                            color: '#6C746E',
-                                            textAlign: 'center'
-                                        },
-                                        focused && {
-                                            color: '#0E564D'
-                                        }
-                                    ]}>
-                                    {route.title}
-                                </Text>
-                            )}
-                            style={{
-                                backgroundColor: '#fff',
-                                elevation: 0
-                            }}
-                            indicatorStyle={{
-                                backgroundColor: '#0E564D',
-                                borderTopLeftRadius: scale(2),
-                                borderTopRightRadius: scale(2)
-                            }}
-                            tabStyle={{ paddingHorizontal: 0 }}
-                        />
-                    )}
-                    onIndexChange={setTabIndex}
-                    style={{
-                        minHeight: Math.max(viewHeight.tab1) + scale(60)
-                    }}
-                />
-            </KeyboardAwareScrollView>
-        </View>
+                            backgroundColor: '#fff',
+                            elevation: 0
+                        }}
+                        indicatorStyle={{
+                            backgroundColor: '#0E564D',
+                            borderTopLeftRadius: scale(2),
+                            borderTopRightRadius: scale(2)
+                        }}
+                        tabStyle={{ paddingHorizontal: 0 }}
+                    />
+                )}
+                onIndexChange={setTabIndex}
+                style={{
+                    minHeight: Math.max(viewHeight.tab1) + scale(60)
+                }}
+            />
+        </SafeAreaView>
     )
 }
 

@@ -1,7 +1,7 @@
 export default ROUTES = {
     Wireframe: 'Wireframe',
     Login: 'Login',
-    Register: 'Register',
+    SignUp: 'SignUp',
     ForgotPassword: 'ForgotPassword',
     Course: 'Course',
     CourseInfo: 'CourseInfo',
@@ -9,7 +9,7 @@ export default ROUTES = {
     CourseDetail: 'CourseDetail',
     CourseDetailTrial: 'CourseDetailTrial',
     Chat: 'Chat',
-    ChatDetail: 'ChatDetail',
+    ConversationDetail: 'ConversationDetail',
     TeacherInfo: 'TeacherInfo',
     Overview: 'Overview',
     NotificationDetail: 'NotificationDetail',

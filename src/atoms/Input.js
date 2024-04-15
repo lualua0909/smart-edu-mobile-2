@@ -1,61 +1,90 @@
+import { Text } from 'app/atoms'
 import React from 'react'
 
+import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { XCircle } from 'react-native-feather'
 
-import { FormControl, Input, Pressable, WarningOutlineIcon } from 'native-base'
-
-const CustomInput = ({
-    icon,
-    label = null,
+const Input = ({
+    label,
     isRequired = false,
-    error = null,
-    allowClear = false,
-    width = '100%',
+    error,
+    allowClear,
+    placeholder,
+    height,
+    InputRightElement,
     ...props
 }) => (
-    <FormControl isRequired={isRequired} isInvalid={error} width={width}>
-        {label && <FormControl.Label>{label}</FormControl.Label>}
-        <Input
-            {...props}
-            size="sm"
-            variant="outline"
-            _light={{
-                bg: 'coolGray.100',
-                _hover: {
-                    bg: 'coolGray.200'
-                },
-                _focus: {
-                    // bg: 'coolGray.200:alpha.50'
-                },
-                _disabled: {
-                    bg: 'coolGray.200:alpha.30'
-                }
-            }}
-            placeholder={props?.placeholder || label}
-            InputRightElement={
-                <>
-                    {allowClear && props.value && (
-                        <Pressable onPress={() => props.onChangeText('')}>
-                            <XCircle
-                                width={16}
-                                height={16}
-                                fill={'#777'}
-                                color="#fff"
-                                style={{ marginRight: 7 }}
-                            />
-                        </Pressable>
-                    )}
-                    {props.InputRightElement}
-                </>
-            }
-        />
-        {error && (
-            <FormControl.ErrorMessage
-                leftIcon={<WarningOutlineIcon size="xs" />}>
-                {error}
-            </FormControl.ErrorMessage>
-        )}
-    </FormControl>
+    <>
+        {label && <Text style={styles.label}>{label}</Text>}
+        <View style={styles.searchSection}>
+            <TextInput
+                {...props}
+                style={[styles.input, { height }]}
+                placeholder={placeholder}
+                placeholderTextColor="#6C746E"
+                underlineColorAndroid="transparent"
+            />
+            {allowClear && props.value && !InputRightElement ? (
+                <Pressable
+                    style={styles.searchIcon}
+                    onPress={() => props.onChangeText('')}>
+                    <XCircle
+                        width={16}
+                        height={16}
+                        fill={'#777'}
+                        color="#fff"
+                    />
+                </Pressable>
+            ) : null}
+
+            {InputRightElement ? (
+                <View style={styles.searchIcon}>{InputRightElement}</View>
+            ) : null}
+
+            {error && (
+                <Text
+                    style={{
+                        color: 'red',
+                        fontSize: 12,
+                        textAlign: 'left',
+                        width: '100%'
+                    }}>
+                    {error}
+                </Text>
+            )}
+        </View>
+    </>
 )
 
-export default React.memo(CustomInput)
+export default Input
+
+const styles = StyleSheet.create({
+    searchSection: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff'
+    },
+    searchIcon: {
+        position: 'absolute',
+        right: 15
+    },
+    label: {
+        marginBottom: 5,
+        textAlign: 'left',
+        width: '100%',
+        fontSize: 14,
+        color: '#6C746E',
+        fontFamily: 'Mulish-Bold'
+    },
+    input: {
+        padding: 10,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#E1E1E1',
+        width: '100%',
+        color: '#6C746E',
+        fontFamily: 'Mulish-Regular',
+        fontSize: 14
+    }
+})

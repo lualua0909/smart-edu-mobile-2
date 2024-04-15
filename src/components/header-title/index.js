@@ -1,7 +1,6 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
-
-import { Text } from 'native-base'
 
 const HeaderTitle = ({ title, color = '#0E564D' }) => {
     return (

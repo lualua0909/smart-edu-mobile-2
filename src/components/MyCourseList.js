@@ -2,7 +2,6 @@ import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import { DATA_FAKE_12_SKILL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 

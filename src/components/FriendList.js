@@ -2,11 +2,9 @@ import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import FriendItem from 'app/components/FriendItem'
-import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import { FlatList, RefreshControl } from 'react-native'
-import { ScrollView } from 'react-native-virtualized-view'
+import { RefreshControl, ScrollView } from 'react-native'
 
 const FriendList = ({}) => {
     const [data, setData] = useState([])
@@ -49,10 +47,6 @@ const FriendList = ({}) => {
     useEffect(() => {
         getData(false)
     }, [page])
-
-    const handleLoadMore = () => {
-        // setPage(page + 1)
-    }
 
     return (
         <ScrollView

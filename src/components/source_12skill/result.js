@@ -1,32 +1,16 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { Loading } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES, STYLES } from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
-import {
-    COURSE_GROUP_LIST,
-    COURSE_LIST,
-    GET_ROADMAP_PRETEST,
-    ROADMAP_LIST
-} from 'app/qqlStore/queries'
+import { AbsoluteSpinner, Button } from 'app/atoms'
+import { COLORS, ROUTES, STYLES } from 'app/constants'
+import { COURSE_GROUP_LIST, COURSE_LIST } from 'app/qqlStore/queries'
 import { svgIconList } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
-import { useState } from 'react'
 
-import {
-    Dimensions,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import HeaderTitle from 'app/components/header-title'
-import { Progress } from 'native-base'
 
 import { RenderColor } from './renderColorRestult'
 
@@ -112,7 +96,7 @@ const TestResult = ({
     }, [data])
 
     if (isLoading && Array.isArray(data))
-        return <Loading title={'Đang tải kết quả'} />
+        return <AbsoluteSpinner title={'Đang tải kết quả'} />
 
     const renderProcess = (text, process) => {
         return (
@@ -140,14 +124,14 @@ const TestResult = ({
                         {process} %
                     </Text>
                 </View>
-                <Progress
+                {/* <Progress
                     _filledTrack={{
                         bg: RenderColor(process)
                     }}
                     height={2}
                     style={{ height: 4 }}
                     value={process}
-                />
+                /> */}
             </>
         )
     }
@@ -188,18 +172,10 @@ const TestResult = ({
             )}
 
             <View style={styles.gr_btn}>
-                <Text
-                    onPress={handleToRadarChart}
-                    style={[styles.gr_btn_width, styles.text_cancel]}>
+                <Button outlined onPress={handleToRadarChart}>
                     Xem biểu đồ
-                </Text>
-                <Pressable
-                    onPress={handleToLearningPath}
-                    style={[styles.gr_btn_width, styles.btn_next]}>
-                    <Text style={[styles.text_color, styles.text_btn_next]}>
-                        Tiếp tục
-                    </Text>
-                </Pressable>
+                </Button>
+                <Button onPress={handleToLearningPath}>Tiếp tục</Button>
             </View>
         </View>
     )

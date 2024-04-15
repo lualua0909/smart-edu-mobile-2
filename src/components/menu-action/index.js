@@ -1,10 +1,9 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React, { useMemo, useState } from 'react'
 
 import { TouchableOpacity, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { Text } from 'native-base'
 
 const MenuAction = ({
     icon,
@@ -33,7 +32,11 @@ const MenuAction = ({
                     },
                     { backgroundColor }
                 ]}>
-                <SvgXml xml={icon} width={scale(42)} height={scale(42)} />
+                {typeof icon === 'string' ? (
+                    <SvgXml xml={icon} width={scale(42)} height={scale(42)} />
+                ) : (
+                    icon
+                )}
                 {badge > 0 && (
                     <View
                         style={{

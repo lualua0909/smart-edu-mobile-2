@@ -1,3 +1,5 @@
+import { Text } from 'app/atoms'
+import { isIOS } from 'app/helpers/utils'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
@@ -5,12 +7,10 @@ import {
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
+    ScrollView,
     StyleSheet
 } from 'react-native'
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor'
-import { ScrollView } from 'react-native-virtualized-view'
-
-import { Text } from 'native-base'
 
 const initHTML = ``
 
@@ -173,8 +173,7 @@ const ExamViewer = ({ data }) => {
                     pasteAsPlainText={true}
                 />
             </ScrollView>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <KeyboardAvoidingView behavior={isIOS ? 'padding' : 'height'}>
                 <RichToolbar
                     style={[styles.richBar, dark && styles.richBarDark]}
                     flatContainerStyle={styles.flatStyle}

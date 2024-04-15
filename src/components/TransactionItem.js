@@ -1,18 +1,15 @@
+import { Badge, Card, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
 import dayjs from 'dayjs'
 import React from 'react'
 
-import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { CreditCard, DollarSign } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 
-import { Badge, Box, Pressable, Text, View } from 'native-base'
-
 const TransactionItem = ({ data }) => {
-    const navigation = useNavigation()
-
     const year =
         data?.created_at !== '' ? dayjs(data?.created_at).get('year') : ''
     const month =
@@ -21,11 +18,7 @@ const TransactionItem = ({ data }) => {
         data?.created_at !== '' ? dayjs(data?.created_at).get('date') : ''
 
     return (
-        <Pressable
-            // onPress={() =>
-            //     navigation.navigate(ROUTES.CourseInfo, { id: data?.id })
-            // }
-            style={{ flexDirection: 'row', marginTop: 5 }}>
+        <Pressable style={{ flexDirection: 'row', marginTop: 5 }}>
             <View style={{ width: scale(100), height: scale(114) }}>
                 <View
                     style={{
@@ -98,13 +91,11 @@ const TransactionItem = ({ data }) => {
                     flex: 1,
                     padding: scale(10)
                 }}>
-                <Box
+                <Card
+                    shadow
                     style={{
-                        backgroundColor: '#FFFFFF'
-                    }}
-                    rounded="lg"
-                    p={3}
-                    shadow={5}>
+                        padding: 8
+                    }}>
                     <Text
                         numberOfLines={2}
                         style={{
@@ -154,14 +145,11 @@ const TransactionItem = ({ data }) => {
                             alignItems: 'center',
                             marginTop: 5
                         }}>
-                        <Badge
-                            colorScheme={data?.status ? 'success' : 'warning'}
-                            alignSelf="center"
-                            variant="subtle">
+                        <Badge color={data?.status ? '#52B55380' : '#FF9F3380'}>
                             {data?.status ? 'Đã thanh toán' : 'Chưa thanh toán'}
                         </Badge>
                     </View>
-                </Box>
+                </Card>
             </View>
         </Pressable>
     )

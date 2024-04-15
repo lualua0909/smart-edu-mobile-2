@@ -1,21 +1,11 @@
-import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import { DATA_FAKE_12_SKILL } from 'app/constants'
-import {
-    COURSE_GROUP_LIST,
-    COURSE_LIST,
-    GET_ROADMAP_PRETEST,
-    NOTIFICATION_LIST,
-    ROADMAP_LIST
-} from 'app/qqlStore/queries'
 import React from 'react'
 
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 
 const Course12SkillList = () => {
-    // const data = DATA_FAKE_12_SKILL
     const [data, setData] = React.useState()
     const [isLoading, setIsLoading] = React.useState()
     const getData = () => {

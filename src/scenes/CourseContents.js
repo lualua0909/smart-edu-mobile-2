@@ -1,14 +1,19 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
+    Button,
+    Center,
     DocumentViewer,
     EnglishReading,
     ExamViewer,
     FinishCourse,
     Input,
-    Loading,
+    Modal,
     NoDataAnimation,
     ScormViewer,
+    Text,
+    VStack,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,29 +21,21 @@ import { API_URL } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
-import { getData } from 'app/helpers/utils'
 import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
 import Countdown from 'react-countdown'
-import { AppState, BackHandler, Dimensions, Linking } from 'react-native'
-import { ChevronLeft, ChevronRight } from 'react-native-feather'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+    Dimensions,
+    FlatList,
+    Linking,
+    Pressable,
+    SafeAreaView,
+    View
+} from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 import { WebView } from 'react-native-webview'
-
-import {
-    Button,
-    Center,
-    FlatList,
-    FormControl,
-    Modal,
-    Pressable,
-    Text,
-    TextArea,
-    View
-} from 'native-base'
 
 const h = Dimensions.get('screen').height
 
@@ -62,6 +59,7 @@ const routes = [
 ]
 
 const CourseDetail = ({ route, navigation }) => {
+    console.log('route ===', route.params.currentLecture)
     const { courseId, currentLecture } = route.params
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
@@ -86,7 +84,6 @@ const CourseDetail = ({ route, navigation }) => {
         useGlobalState('currentCourseId')
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
-    const [scormLoading, setScormLoading] = useState(false)
     const [countDown, setCountDown] = useState()
     const onCloseViewDoc = () => setOpenViewDoc(false)
 
@@ -97,6 +94,7 @@ const CourseDetail = ({ route, navigation }) => {
             clearTimeout(t)
         }
     }, [hideHeaderTitle])
+
     const handleAppStateChange = nextAppState => {
         console.log('next', nextAppState)
         if (nextAppState === 'inactive') {
@@ -106,11 +104,6 @@ const CourseDetail = ({ route, navigation }) => {
     // Bắt xự kiện người dùng thoát app
     useEffect(() => {
         AppState.addEventListener('change', handleAppStateChange)
-        // return () => {
-        //     AppState.removeEventListener('change', event =>
-        //         handleAppStateChange(event)
-        //     )
-        // }
     }, [])
 
     // useEffect(() => {
@@ -148,54 +141,15 @@ const CourseDetail = ({ route, navigation }) => {
 
     navigation.setOptions({
         headerTitle: () => (
-            <>
-                {hideHeaderTitle ? null : (
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            paddingVertical: 0
-                        }}>
-                        <Button
-                            size="sm"
-                            onPress={prevLesson}
-                            style={{
-                                marginRight: scale(12)
-                            }}
-                            variant="subtle"
-                            colorScheme="green"
-                            leftIcon={
-                                <>
-                                    <ChevronLeft
-                                        stroke="green"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </>
-                            }></Button>
-                        {data?.is_finish ? (
-                            <Button
-                                size="sm"
-                                onPress={nextLesson}
-                                style={{
-                                    marginRight: scale(12)
-                                }}
-                                leftIcon={
-                                    <>
-                                        <ChevronRight
-                                            stroke="#fff"
-                                            width={24}
-                                            height={24}
-                                        />
-                                    </>
-                                }></Button>
-                        ) : (
-                            countdown
-                        )}
-                    </View>
-                )}
-            </>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 0,
+                    height: 100
+                }}
+            />
         ),
         headerTransparent: true
     })
@@ -265,7 +219,6 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     const getDocuments = () => {
-        setLoading(true)
         axios
             .get(`admin/courses/resources/paging/${courseId}`)
             .then(res => {
@@ -274,21 +227,15 @@ const CourseDetail = ({ route, navigation }) => {
             .then(data => {
                 setDocuments(data)
             })
-            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
         if (courseId) {
             setCurrentCourseId(courseId)
-        }
-    }, [courseId])
-
-    useEffect(() => {
-        if (courseId && currentId) {
             getData()
             getDocuments()
         }
-    }, [courseId, currentId])
+    }, [courseId])
 
     const addLessonToFinishedList = () => {
         const params = {
@@ -320,7 +267,7 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     if (loading) {
-        return <Loading />
+        return <AbsoluteSpinner />
     }
 
     const renderScene = ({ route }) => {
@@ -417,9 +364,7 @@ const CourseDetail = ({ route, navigation }) => {
                         <Button
                             onPress={() => setVisibleQuestion(true)}
                             style={{
-                                paddingVertical: scale(10.5),
-                                paddingHorizontal: scale(31),
-                                marginTop: scale(16)
+                                marginTop: 16
                             }}>
                             Đặt câu hỏi
                         </Button>
@@ -499,168 +444,145 @@ const CourseDetail = ({ route, navigation }) => {
             .then(res => {
                 if (res?.data?.status === 200) {
                     setVisibleQuestion(false)
+                    showToast({
+                        title: 'Gửi câu hỏi thành công',
+                        status: 'success'
+                    })
+
+                    questionTitle.onChangeText('')
+                    questionContent.onChangeText('')
                 }
             })
             .finally(() => setQuestionLoading(false))
     }
-    console.log('data = ', data)
+
     return (
-        <View
+        <SafeAreaView
             style={{ flex: 1 }}
             onStartShouldSetResponder={() => {
                 setHideHeaderTitle(false)
             }}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}>
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    {data?.type === 1 ? (
-                        <VideoViewer
-                            videoUrl={data?.file_path || data?.video_url}
-                        />
-                    ) : data?.type === 2 ? (
-                        <DocumentViewer
-                            content={data?.text_document}
-                            uri={`${API_URL}public/${data?.file_path}`}
-                        />
-                    ) : data?.type === 3 ? (
-                        <ScormViewer
-                            src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
-                            toggleScormLoading={() =>
-                                setScormLoading(!scormLoading)
-                            }
-                        />
-                    ) : data?.type === 4 ? (
-                        <ExamViewer data={data} />
-                    ) : data?.type === 5 ? (
-                        <EnglishReading data={data} />
-                    ) : (
-                        <FinishCourse />
-                    )}
-                </View>
-                <Center mt="3" mb="3">
-                    <Text
-                        style={{
-                            fontSize: scale(14),
-                            color: '#52B553'
-                        }}>
-                        {data?.name}
-                    </Text>
-                </Center>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                    <Button
-                        size={'sm'}
-                        onPress={prevLesson}
-                        variant="subtle"
-                        colorScheme="green"
-                        style={{
-                            marginRight: scale(12),
-                            width: 'auto'
-                        }}>
-                        Bài trước
-                    </Button>
-                    {data?.is_finish ? (
-                        <Button size={'sm'} onPress={nextLesson}>
-                            Bài tiếp theo
-                        </Button>
-                    ) : (
-                        countdown
-                    )}
-                </View>
-                <TabView
-                    navigationState={{ index: tabIndex, routes }}
-                    renderScene={renderScene}
-                    renderTabBar={props => (
-                        <TabBar
-                            {...props}
-                            renderLabel={({ route, focused, color }) => (
-                                <Text
-                                    bold
-                                    style={[
-                                        {
-                                            fontSize: 13,
-                                            color: '#6C746E',
-                                            textAlign: 'center'
-                                        },
-                                        focused && {
-                                            color: '#0E564D'
-                                        }
-                                    ]}>
-                                    {route.title}
-                                </Text>
-                            )}
-                            style={{
-                                backgroundColor: '#fff',
-                                elevation: 0
-                            }}
-                            indicatorStyle={{
-                                backgroundColor: '#0E564D',
-                                borderTopLeftRadius: scale(2),
-                                borderTopRightRadius: scale(2)
-                            }}
-                            tabStyle={{ paddingHorizontal: 0 }}
-                        />
-                    )}
-                    onIndexChange={setTabIndex}
-                    style={{
-                        minHeight:
-                            Math.max(
-                                viewHeight.tab1,
-                                viewHeight.tab2,
-                                viewHeight.tab3
-                            ) + scale(60)
-                    }}
-                />
-            </KeyboardAwareScrollView>
+            <View
+                style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    height: 300
+                }}>
+                {data?.type === 1 ? (
+                    <VideoViewer
+                        videoUrl={data?.file_path || data?.video_url}
+                    />
+                ) : null}
 
-            <Modal
-                isOpen={visibleQuestion}
-                onClose={() => setVisibleQuestion(false)}>
-                <Modal.Content>
-                    <Modal.Header>Gửi câu hỏi</Modal.Header>
-                    <Modal.Body>
-                        <FormControl>
-                            <Input
-                                placeholder="Nhập tiêu đề câu hỏi"
-                                w="100%"
-                                {...questionTitle}
-                            />
-                        </FormControl>
-                        <FormControl mt="3">
-                            <TextArea
-                                h={20}
-                                placeholder="Nhập nội dung câu hỏi tại đây..."
-                                w="100%"
-                                {...questionContent}
-                            />
-                        </FormControl>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onPress={sendQuestion}
-                            isLoading={questionLoading}
-                            isLoadingText="Đang gửi câu hỏi...">
-                            Gửi câu hỏi
-                        </Button>
-                    </Modal.Footer>
-                </Modal.Content>
-            </Modal>
+                {data?.type === 2 ? (
+                    <DocumentViewer
+                        content={data?.text_document}
+                        uri={`${API_URL}public/${data?.file_path}`}
+                    />
+                ) : null}
+                {data?.type === 3 ? (
+                    <ScormViewer
+                        src={`${API_URL}scorm/${courseId}/${currentId}/${userInfo.id}`}
+                    />
+                ) : null}
+                {data?.type === 4 ? <ExamViewer data={data} /> : null}
+                {data?.type === 5 ? <EnglishReading data={data} /> : null}
+                {data?.type > 5 || data?.type < 1 ? <FinishCourse /> : null}
+            </View>
+            <Center mt="3" mb="3">
+                <Text
+                    style={{
+                        fontSize: scale(14),
+                        color: '#52B553'
+                    }}>
+                    {data?.name}
+                </Text>
+            </Center>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                <Button
+                    size={'sm'}
+                    onPress={prevLesson}
+                    variant="subtle"
+                    colorScheme="green"
+                    style={{
+                        marginRight: scale(12),
+                        width: 'auto'
+                    }}>
+                    Bài trước
+                </Button>
+                {data?.is_finish ? (
+                    <Button size={'sm'} onPress={nextLesson}>
+                        Bài tiếp theo
+                    </Button>
+                ) : (
+                    countdown
+                )}
+            </View>
+            <TabView
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={renderScene}
+                renderTabBar={props => (
+                    <TabBar
+                        {...props}
+                        renderLabel={({ route, focused, color }) => (
+                            <Text
+                                bold
+                                style={[
+                                    {
+                                        fontSize: 13,
+                                        color: '#6C746E',
+                                        textAlign: 'center'
+                                    },
+                                    focused && {
+                                        color: '#0E564D'
+                                    }
+                                ]}>
+                                {route.title}
+                            </Text>
+                        )}
+                        style={{
+                            backgroundColor: '#fff',
+                            elevation: 0
+                        }}
+                        indicatorStyle={{
+                            backgroundColor: '#0E564D',
+                            borderTopLeftRadius: scale(2),
+                            borderTopRightRadius: scale(2)
+                        }}
+                        tabStyle={{ paddingHorizontal: 0 }}
+                    />
+                )}
+                onIndexChange={setTabIndex}
+                style={{
+                    minHeight:
+                        Math.max(
+                            viewHeight.tab1,
+                            viewHeight.tab2,
+                            viewHeight.tab3
+                        ) + scale(60)
+                }}
+            />
+
             <ViewDocModal
                 isOpen={openViewDoc}
                 onClose={onCloseViewDoc}
                 url={selectedFile}
             />
-        </View>
+            <QuestionModal
+                visibleQuestion={visibleQuestion}
+                setVisibleQuestion={setVisibleQuestion}
+                sendQuestion={sendQuestion}
+                questionLoading={questionLoading}
+                questionTitle={questionTitle}
+                questionContent={questionContent}
+            />
+        </SafeAreaView>
     )
 }
 
@@ -668,25 +590,53 @@ export default CourseDetail
 
 const ViewDocModal = ({ url, isOpen, onClose }) => (
     <Modal isOpen={isOpen} onClose={onClose}>
-        <Modal.Content w="100%" h={h} maxH="100%">
-            <Modal.Body>
-                <WebView
-                    originWhitelist={['*']}
-                    source={{
-                        uri: url
-                    }}
-                    style={{
-                        width: '100%',
-                        height: h,
-                        border: 'none'
-                    }}
-                />
-            </Modal.Body>
-            <Modal.Footer>
-                <Button colorScheme={'danger'} onPress={onClose}>
-                    Đóng
-                </Button>
-            </Modal.Footer>
-        </Modal.Content>
+        <WebView
+            originWhitelist={['*']}
+            source={{
+                uri: url
+            }}
+            style={{
+                width: '100%',
+                height: h,
+                border: 'none'
+            }}
+        />
     </Modal>
 )
+
+const QuestionModal = ({
+    questionTitle,
+    questionContent,
+    visibleQuestion,
+    setVisibleQuestion,
+    sendQuestion,
+    questionLoading
+}) => {
+    return (
+        <Modal
+            visible={visibleQuestion}
+            onClose={() => setVisibleQuestion(false)}>
+            <VStack space={10} style={{ padding: 20, marginTop: 10 }}>
+                <Input
+                    allowClear
+                    label="Tiêu đề câu hỏi"
+                    placeholder="Nhập tiêu đề câu hỏi"
+                    {...questionTitle}
+                />
+                <Input
+                    label="Nội dung câu hỏi"
+                    multiline={true}
+                    height={100}
+                    placeholder="Nhập nội dung câu hỏi tại đây..."
+                    {...questionContent}
+                />
+                <Button
+                    onPress={sendQuestion}
+                    isLoading={questionLoading}
+                    isLoadingText="Đang gửi câu hỏi...">
+                    Gửi câu hỏi
+                </Button>
+            </VStack>
+        </Modal>
+    )
+}

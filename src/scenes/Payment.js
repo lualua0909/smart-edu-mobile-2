@@ -1,14 +1,19 @@
+import { Text } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native'
-import { Image, Switch } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { ScrollView } from 'react-native-virtualized-view'
-
-import { ChevronRightIcon, Pressable, Text, View } from 'native-base'
+import {
+    Image,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Switch,
+    View
+} from 'react-native'
+import { ChevronRight } from 'react-native-feather'
 
 const Payment = () => {
     const navigation = useNavigation()
@@ -95,11 +100,10 @@ const Payment = () => {
                                 }}>
                                 Chọn hoặc nhập mã
                             </Text>
-                            <ChevronRightIcon
+                            <ChevronRight
                                 color="#A3A3A3"
                                 style={{
                                     marginRight: scale(-20),
-
                                     fontSize: scale(16)
                                 }}
                             />
@@ -197,11 +201,10 @@ const Payment = () => {
                                     }}>
                                     Chọn
                                 </Text>
-                                <ChevronRightIcon
+                                <ChevronRight
                                     color="#A3A3A3"
                                     style={{
                                         marginRight: scale(-20),
-
                                         fontSize: scale(16)
                                     }}
                                 />

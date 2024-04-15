@@ -1,4 +1,5 @@
 import { Avatar } from 'app/atoms'
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toCurrency } from 'app/helpers/utils'
 import { svgWhiteStar } from 'assets/svg'
@@ -6,8 +7,6 @@ import React, { useState } from 'react'
 
 import { Image, Pressable, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-
-import { Text } from 'native-base'
 
 const Advise = ({ data }) => {
     return (
