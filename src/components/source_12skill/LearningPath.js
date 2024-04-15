@@ -152,9 +152,6 @@ const LearningPath = ({ navigation, route }) => {
                 courses: [...courses]
             })
             .then(res => {
-                console.log(res)
-            })
-            .finally(() => {
                 setIsAdjust(false)
                 setHasAdjust(true)
                 refetch()
@@ -167,6 +164,7 @@ const LearningPath = ({ navigation, route }) => {
                     setIsLoading(false)
                 }, 200)
             })
+            .finally(() => {})
     }
 
     const alertConfirmAdjust = () =>
