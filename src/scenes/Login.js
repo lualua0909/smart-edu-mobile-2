@@ -11,7 +11,6 @@ import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
-import Toast from 'react-native-toast-message'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
@@ -19,7 +18,6 @@ const Login = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
     const [fcmToken, setFcmToken] = useState()
     const [userInfo, setUserInfo] = useGlobalState('userInfo')
-    const [random, setRandom] = useGlobalState('random')
     const [show, setShow] = useState(false)
 
     const getNewToken = async () => {

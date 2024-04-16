@@ -2,8 +2,7 @@
  * @format
  */
 import messaging from '@react-native-firebase/messaging'
-import { AppRegistry } from 'react-native'
-import { LogBox, Text } from 'react-native'
+import { AppRegistry, LogBox, Text } from 'react-native'
 
 // import 'antd-mobile/bundle/css-vars-patch.css'
 import App from './App'
