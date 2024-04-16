@@ -311,12 +311,6 @@ const AppNavigator = () => {
             <Stack.Screen
                 name={ROUTES.Leaderboard}
                 component={LeaderBoardComponent}
-                options={({ route, navigation }) => ({
-                    headerTitle: () => (
-                        <HeaderTitle color={'#FFF'} title={'Bảng xếp hạng'} />
-                    ),
-                    headerLeft: () => <HeaderBack white={true} />
-                })}
             />
             <Stack.Screen
                 name={ROUTES.StagesView}

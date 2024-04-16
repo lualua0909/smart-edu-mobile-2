@@ -581,7 +581,7 @@ const Menu = ({ route }) => {
                             }
                         />
                         {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
-                        {/* <MenuAction
+                        <MenuAction
                             icon={svgIconCharts}
                             title="Bảng xếp hạng"
                             backgroundColor="#52B553"
@@ -589,7 +589,7 @@ const Menu = ({ route }) => {
                             onPress={() =>
                                 navigation.navigate(ROUTES.Leaderboard)
                             }
-                        /> */}
+                        />
                         {/*  */}
                     </View>
                 </View>
