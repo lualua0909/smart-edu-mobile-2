@@ -1,16 +1,8 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { showToast } from 'app/atoms'
-import { Loading } from 'app/atoms'
-import {
-    COLORS,
-    DATA_ANSWER_PRETEST,
-    DATA_DEMO_STAGES,
-    DATA_FAKE_12_SKILL,
-    ROUTES
-} from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
+import { AbsoluteSpinner, Button, showToast } from 'app/atoms'
+import { COLORS, DATA_ANSWER_PRETEST, ROUTES } from 'app/constants'
+import { getData } from 'app/helpers/utils'
 import { GET_ROADMAP_PRETEST } from 'app/qqlStore/queries'
 import { svgSuccessExam } from 'assets/svg'
 import _ from 'lodash'
@@ -20,13 +12,10 @@ import {
     Alert,
     AppState,
     Dimensions,
-    FlatList,
-    Pressable,
     StyleSheet,
     Text,
     View
 } from 'react-native'
-import { StatusBar } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import IntroductionVideo from './IntroductionVideo'
@@ -35,7 +24,9 @@ import Choose from './answer/Choose'
 const { width, height } = Dimensions.get('screen')
 
 const EntranceTest = ({ navigation, route }) => {
-    const { loading, error, data } = useQuery(GET_ROADMAP_PRETEST)
+    const { loading, data } = useQuery(GET_ROADMAP_PRETEST, {
+        variables: { id: 1 }
+    })
     const dataAnswer = DATA_ANSWER_PRETEST
     const [dataQuestion, setDataQuestion] = React.useState([])
     const [user, setUser] = React.useState()
@@ -43,7 +34,7 @@ const EntranceTest = ({ navigation, route }) => {
     const [answerList, setAnswerList] = React.useState([])
     const [idCurrentAnswer, setCurrentAnswer] = React.useState(null)
     const [currentIndexQuestion, setCurrentIndexQuestion] = React.useState(0)
-    const [isLoading, setIsLoading] = React.useState(true)
+    const [isLoading, setIsLoading] = React.useState(false)
     const [textStatusLading, setTextStatusLoading] =
         React.useState('Đang tải câu hỏi')
     const [isSubmit, setIsSubmit] = React.useState(false)
@@ -80,7 +71,10 @@ const EntranceTest = ({ navigation, route }) => {
             .get(`courses/roadmap/test-history/${data.RoadmapPretest.id}`)
             .then(res => {
                 if (res.data && res.data.length > 0) {
-                    console.log(res.data.length)
+                    console.log(
+                        `courses/roadmap/test-history/${data.RoadmapPretest.id}`,
+                        res.data
+                    )
                     if (
                         res.data.length === data.RoadmapPretest.questions.length
                     ) {
@@ -93,7 +87,6 @@ const EntranceTest = ({ navigation, route }) => {
                             title: 'Bạn đã hoàn thành bài kiểm tra đầu vào. Bạn sẽ được chuyển đến trang xem kết quả',
                             placement: 'top'
                         })
-                        setIsLoading(false)
                         navigationRoute()
                     }
                     // else {
@@ -106,10 +99,12 @@ const EntranceTest = ({ navigation, route }) => {
                     // }
                 } else {
                     formatQuestion()
-                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
     React.useEffect(() => {
@@ -140,7 +135,7 @@ const EntranceTest = ({ navigation, route }) => {
     const navigationRoute = () => {
         navigation.navigate(ROUTES.InputTestResult, {
             title: 'Kết quả kiểm tra',
-            idPretest: data?.RoadmapPretest.id
+            idPretest: data?.RoadmapPretest?.id
         })
     }
 
@@ -194,7 +189,7 @@ const EntranceTest = ({ navigation, route }) => {
                         }
                     ]
                 )
-                return
+                return null
             }
         })
     }, [navigation, isSubmit])
@@ -275,13 +270,9 @@ const EntranceTest = ({ navigation, route }) => {
                 <>
                     {renterQuestion(question)}
                     <View style={styles.btn_view}>
-                        <Pressable
-                            style={styles.btn_submit}
-                            onPress={handleNextQuestion}>
-                            <Text style={styles.btn_submit_text}>
-                                Câu tiếp theo
-                            </Text>
-                        </Pressable>
+                        <Button onPress={handleNextQuestion}>
+                            Câu tiếp theo
+                        </Button>
                     </View>
                 </>
             ) : (
@@ -320,13 +311,7 @@ const EntranceTest = ({ navigation, route }) => {
                         </View>
                     </View>
                     <View style={styles.btn_view}>
-                        <Pressable
-                            style={styles.btn_submit}
-                            onPress={() => {
-                                onSubmitQuestion()
-                            }}>
-                            <Text style={styles.btn_submit_text}>Tiếp tục</Text>
-                        </Pressable>
+                        <Button onPress={onSubmitQuestion}>Tiếp tục</Button>
                     </View>
                 </>
             )}

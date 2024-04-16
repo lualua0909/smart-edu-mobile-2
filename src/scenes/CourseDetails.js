@@ -4,8 +4,10 @@ import { useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
+    Button,
     CourseDetailSkeleton,
     Rate,
+    Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
@@ -16,19 +18,21 @@ import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import {
-    clearDataAfterLogout,
-    errorLog,
-    isAndroid,
-    toCurrency
-} from 'app/helpers/utils'
+import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
 import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import { Alert, Share } from 'react-native'
 import {
-    BookOpen,
+    Alert,
+    Image,
+    Pressable,
+    SafeAreaView,
+    ScrollView,
+    Share,
+    View
+} from 'react-native'
+import {
     DollarSign,
     Heart,
     Navigation,
@@ -40,7 +44,6 @@ import {
     currentPurchase,
     endConnection,
     finishTransaction,
-    flushFailedPurchasesCachedAsPendingAndroid,
     getProducts,
     initConnection,
     isIosStorekit2,
@@ -48,11 +51,8 @@ import {
     purchaseUpdatedListener,
     requestPurchase
 } from 'react-native-iap'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
-
-import { Button, Image, Pressable, ScrollView, Text, View } from 'native-base'
 
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
@@ -246,28 +246,6 @@ const CourseInfo = ({ navigation, route }) => {
             transactionReceipt: purchase.transactionReceipt,
             courseId: id
         })
-
-        if (id) {
-            setLoading(true)
-            axios
-                .get(`auth-get-course-info/${id}`)
-                .then(res => {
-                    if (res.data && res?.data?.status === 200) {
-                        return res.data
-                    } else {
-                        showToast({
-                            title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
-                            status: 'error'
-                        })
-                        navigation.goBack()
-                    }
-                })
-                .then(data => {
-                    setData(data?.data)
-                })
-                .catch(err => console.error(err))
-                .finally(() => setLoading(false))
-        }
     }
 
     const checkCurrentPurchase = async (
@@ -330,6 +308,8 @@ const CourseInfo = ({ navigation, route }) => {
                             title: 'Khóa học không tồn tại hoặc bị ẩn, vui lòng liên hệ quản trị viên',
                             status: 'error'
                         })
+
+                        console.log('res= ', res.data)
                         navigation.goBack()
                     }
                 })
@@ -354,7 +334,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }>
                         <BenefitTab
                             courseId={data?.id}
-                            longDes={data?.l_des.split('</p>')}
+                            longDes={data?.l_des?.split('</p>')}
                         />
                     </View>
                 )
@@ -369,7 +349,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }>
                         {data?.is_combo ? (
                             <ComboTab data={data} />
-                        ) : (
+                        ) : data?.is_roadmap ? null : (
                             <LectureTab
                                 courseId={data?.id}
                                 totalLectures={data?.total_lectures}
@@ -455,6 +435,11 @@ const CourseInfo = ({ navigation, route }) => {
             dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
         if (adjust) {
             navigation.navigate(ROUTES.LearningPath)
+        } else if (data?.roadmap_test_result > 0) {
+            navigation.navigate(ROUTES.InputTestResult, {
+                title: 'Kết quả kiểm tra',
+                idPretest: data?.roadmap_pretest_id
+            })
         } else {
             navigation.navigate(ROUTES.EntranceTest)
         }
@@ -477,7 +462,7 @@ const CourseInfo = ({ navigation, route }) => {
                     })
                 } else {
                     navigation.navigate(ROUTES.CourseDetail, {
-                        courseId: data?.relational?.course_id,
+                        courseId: data?.id,
                         currentLecture:
                             data?.relational?.current_lecture ||
                             data?.first_lecture_id
@@ -854,12 +839,7 @@ const CourseInfo = ({ navigation, route }) => {
                                 width={24}
                                 height={24}
                             />
-                            <Text
-                                style={{
-                                    fontSize: scale(14),
-                                    color: '#52B553',
-                                    marginTop: scale(4)
-                                }}>
+                            <Text outlined style={{ color: '#52B553' }}>
                                 Học thử
                             </Text>
                         </Pressable>
@@ -887,14 +867,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 <>
                                     {!data?.relational && data?.ios_price ? (
                                         <Button
-                                            pt={2}
-                                            pb={2}
-                                            pr={5}
-                                            pl={5}
-                                            style={{
-                                                backgroundColor: '#52B553',
-                                                borderRadius: 8
-                                            }}
                                             onPress={handlePurchase}
                                             isLoading={loadingVerify}
                                             isLoadingText="Đang xử lý"
@@ -909,8 +881,8 @@ const CourseInfo = ({ navigation, route }) => {
                                             Mua ngay
                                         </Button>
                                     ) : null}
-
-                                    {data?.is_roadmap === 1 ? (
+                                    {!!data?.relational &&
+                                    data?.is_roadmap === 1 ? (
                                         <Button
                                             onPress={handleToLearningPath}
                                             isLoading={loadingVerify}
@@ -918,10 +890,15 @@ const CourseInfo = ({ navigation, route }) => {
                                             {dataRoadmap?.Roadmaps.data[0]
                                                 .sub_course.order_number2 !== 0
                                                 ? 'Học ngay'
-                                                : 'Làm bài kiểm tra'}
+                                                : data?.roadmap_test_result > 0
+                                                ? 'Xem kết quả'
+                                                : 'Làm bài test'}
                                         </Button>
                                     ) : null}
-                                    {!!data?.relational ? (
+
+                                    {!!data?.relational &&
+                                    !data?.is_combo &&
+                                    !data?.is_roadmap ? (
                                         <Button
                                             onPress={gotoCourse}
                                             isLoading={loadingVerify}

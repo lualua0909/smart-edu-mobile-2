@@ -1,34 +1,21 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { Avatar, CourseDetailSkeleton } from 'app/atoms'
+import {
+    Avatar,
+    Button,
+    Center,
+    CourseDetailSkeleton,
+    HStack,
+    Input,
+    Text
+} from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
-import {
-    MessageCircle,
-    Upload,
-    UserMinus,
-    UserPlus
-} from 'react-native-feather'
-import { ScrollView } from 'react-native-virtualized-view'
+import { Image, ScrollView, View } from 'react-native'
 
-import {
-    Button,
-    Center,
-    HStack,
-    Heading,
-    Image,
-    Pressable,
-    Text,
-    TextArea,
-    View
-} from 'native-base'
-
-import Achievement from './Achievement'
-import CreditBouns from './CreditsBouns'
 import DetailInformation from './DetailInformation'
-import FlatListCredits from './FlatListCredits'
 import MenuUser from './MenuUser'
 
 const ProfileOverview = ({ navigation, route }) => {
@@ -71,17 +58,8 @@ const ProfileOverview = ({ navigation, route }) => {
     }
 
     const renderAddFriendBtn = (
-        <Button
-            size="sm"
-            leftIcon={
-                isFriend ? (
-                    <UserMinus color="white" width={16} />
-                ) : (
-                    <UserPlus color="white" width={16} />
-                )
-            }
-            onPress={() => setIsFriend(!isFriend)}>
-            <Text color={'white'}>{isFriend ? 'Huỷ kết bạn' : 'Thêm bạn'}</Text>
+        <Button onPress={() => setIsFriend(!isFriend)}>
+            {isFriend ? 'Huỷ kết bạn' : 'Thêm bạn'}
         </Button>
     )
 
@@ -130,7 +108,7 @@ const ProfileOverview = ({ navigation, route }) => {
                             borderColor: '#fff',
                             marginTop: '35%'
                         }}>
-                        <Avatar userId={data?.id} size="110" name={name} />
+                        <Avatar userId={data?.id} size={110} />
                     </View>
                     <View
                         style={{
@@ -153,13 +131,15 @@ const ProfileOverview = ({ navigation, route }) => {
                     </View>
                 </View>
                 <Center style={{ marginTop: 60 }}>
-                    <Heading
-                        fontSize={20}
+                    <Text
                         bold
-                        color={'#0E564D'}
-                        style={{ lineHeight: scale(20) }}>
+                        style={{
+                            lineHeight: scale(20),
+                            color: '#0E564D',
+                            fontSize: 20
+                        }}>
                         {fullName}
-                    </Heading>
+                    </Text>
                 </Center>
 
                 <View
@@ -167,22 +147,17 @@ const ProfileOverview = ({ navigation, route }) => {
                         flexDirection: 'row',
                         paddingTop: scale(10)
                     }}>
-                    <TextArea
-                        fontSize={scale(14)}
+                    <Input
                         placeholder="Giới thiệu bản thân..."
-                        w="90%"
-                        h={16}
                         isDisabled
                         value={data?.description}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#999',
-                            borderRadius: 7
-                        }}
                     />
                 </View>
 
-                <HStack space={5} justifyContent="space-around" mt="3">
+                <HStack
+                    space={5}
+                    justifyContent="space-around"
+                    style={{ marginTop: 10 }}>
                     {userInfo?.id !== userId ? renderAddFriendBtn : null}
                     <MenuUser userId={userId} navigation={navigation} />
                 </HStack>

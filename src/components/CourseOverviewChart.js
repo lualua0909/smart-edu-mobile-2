@@ -1,10 +1,9 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { Pressable, StyleSheet, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-
-import { Text } from 'native-base'
 
 const BarChart = ({ data, selectCourse }) => {
     return (

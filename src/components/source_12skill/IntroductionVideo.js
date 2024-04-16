@@ -7,7 +7,7 @@ import { Alert, Dimensions, Modal, StyleSheet, Text, View } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
 
-import { Loading, showToast } from '../../atoms'
+import { AbsoluteSpinner, showToast } from 'app/atoms'
 
 const { width, height } = Dimensions.get('screen')
 function isPortrait() {
@@ -115,8 +115,9 @@ const IntroductionVideo = ({
 
         return () => clearInterval(interval)
     }, [currentTime, videoDuration, isPlay])
+
     if (isLoading || isLoadingData || !videoUrl)
-        return <Loading title={'Đang tải video'} />
+        return <AbsoluteSpinner title={'Đang tải video'} />
 
     const renderVideoViewer = () => {
         if (isYoutube)

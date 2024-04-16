@@ -1,12 +1,11 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgClock, svgCredit, svgTabCourse, svgUser } from 'assets/svg'
 import React from 'react'
 
+import { Pressable, SafeAreaView, View } from 'react-native'
 import Modal from 'react-native-modal'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
-
-import { Pressable, Text, View } from 'native-base'
 
 const MenuUser = ({
     userId,

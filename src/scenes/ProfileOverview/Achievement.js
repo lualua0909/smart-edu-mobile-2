@@ -1,7 +1,8 @@
+import { Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { Text, View } from 'native-base'
+import { View } from 'react-native'
 
 const Achievement = ({ data }) => {
     return (
@@ -40,31 +41,29 @@ const Achievement = ({ data }) => {
                     paddingTop: scale(10)
                 }}>
                 {data?.map((value, index) => (
-                    <>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                paddingHorizontal: scale(16),
-                                paddingBottom: scale(10)
-                            }}
-                            key={index}>
-                            {/* <Ionicons
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            paddingHorizontal: scale(16),
+                            paddingBottom: scale(10)
+                        }}
+                        key={index}>
+                        {/* <Ionicons
                                 name="md-ribbon"
                                 color="orange"
                                 size={32}
                             /> */}
-                            <Text
-                                style={{
-                                    fontSize: 14,
-                                    marginLeft: scale(5),
-                                    flex: 1,
-                                    color: '#000'
-                                }}>
-                                {value}
-                            </Text>
-                        </View>
-                    </>
+                        <Text
+                            style={{
+                                fontSize: 14,
+                                marginLeft: scale(5),
+                                flex: 1,
+                                color: '#000'
+                            }}>
+                            {value}
+                        </Text>
+                    </View>
                 ))}
             </View>
         </View>

@@ -1,13 +1,12 @@
+import { Input, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { svgBackPack, svgCompany, svgLock, svgUser } from 'assets/svg'
 import React from 'react'
 
-import { TextInput, View } from 'react-native'
+import { View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import { Text } from 'native-base'
-
-const SystemInfo = ({ data }) => {
+const SystemInfo = () => {
     return (
         <>
             <View
@@ -46,7 +45,7 @@ const SystemInfo = ({ data }) => {
                         style={{
                             marginLeft: scale(20)
                         }}>
-                        <TextInput
+                        <Input
                             style={{
                                 fontSize: scale(16),
                                 color: '#6C746E'
@@ -54,7 +53,7 @@ const SystemInfo = ({ data }) => {
                             value="thupt"
                             editable={false}
                             multiline={true}
-                            numberOfLines={2}
+                            height={100}
                         />
                         <Text
                             style={{
@@ -84,7 +83,7 @@ const SystemInfo = ({ data }) => {
                         style={{
                             marginLeft: scale(20)
                         }}>
-                        <TextInput
+                        <Input
                             style={{
                                 fontSize: scale(16),
                                 color: '#6C746E',
@@ -93,7 +92,7 @@ const SystemInfo = ({ data }) => {
                             value="Hoc Vien"
                             editable={false}
                             multiline={true}
-                            numberOfLines={2}
+                            height={100}
                         />
                         <Text
                             style={{
@@ -123,7 +122,7 @@ const SystemInfo = ({ data }) => {
                         style={{
                             marginLeft: scale(20)
                         }}>
-                        <TextInput
+                        <Input
                             style={{
                                 fontSize: scale(16),
                                 color: '#6C746E'
@@ -131,7 +130,7 @@ const SystemInfo = ({ data }) => {
                             value="*******"
                             editable={false}
                             multiline={true}
-                            numberOfLines={2}
+                            height={100}
                         />
                         <Text
                             style={{
@@ -161,7 +160,7 @@ const SystemInfo = ({ data }) => {
                         style={{
                             marginLeft: scale(20)
                         }}>
-                        <TextInput
+                        <Input
                             style={{
                                 fontSize: scale(16),
                                 color: '#6C746E'
@@ -169,7 +168,7 @@ const SystemInfo = ({ data }) => {
                             value="Sinh viên"
                             editable={false}
                             multiline={true}
-                            numberOfLines={2}
+                            height={100}
                         />
                         <Text
                             style={{

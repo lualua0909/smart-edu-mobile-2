@@ -1,21 +1,11 @@
-import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { LoadingAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import { DATA_FAKE_12_SKILL } from 'app/constants'
-import {
-    COURSE_GROUP_LIST,
-    COURSE_LIST,
-    GET_ROADMAP_PRETEST,
-    NOTIFICATION_LIST,
-    ROADMAP_LIST
-} from 'app/qqlStore/queries'
 import React from 'react'
 
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 
 const Course12SkillList = () => {
-    // const data = DATA_FAKE_12_SKILL
     const [data, setData] = React.useState()
     const [isLoading, setIsLoading] = React.useState()
     const getData = () => {
@@ -41,7 +31,7 @@ const Course12SkillList = () => {
     React.useEffect(() => {
         getData()
     }, [])
-    // const { loading, error, data } = useQuery(GET_ROADMAP_PRETEST)
+
     if (isLoading)
         return (
             <LoadingAnimation
@@ -50,8 +40,7 @@ const Course12SkillList = () => {
                 }}
             />
         )
-    // if()
-    // console.log('🚀 ~ Course12SkillList ~ data:', data.RoadmapPretest)
+
     return (
         <View>
             <FlatList
@@ -66,12 +55,9 @@ const Course12SkillList = () => {
                     />
                 )}
                 contentContainerStyle={{
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingBottom: 50
+                    paddingHorizontal: 15,
+                    paddingBottom: 20
                 }}
-                style={{ margin: 16 }}
-                // onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}
                 initialNumToRender={10}
                 showsVerticalScrollIndicator={false}

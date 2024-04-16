@@ -1,11 +1,14 @@
-import { DraxList, DraxProvider } from 'app/components/dragdrop'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
+import {
+    DraxList,
+    DraxProvider,
+    DraxViewDragStatus
+} from 'app/components/dragdrop'
+import { COLORS, ROUTES } from 'app/constants'
 import { svgAdjust } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
 import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { DraxViewDragStatus } from 'react-native-drax'
 import { SvgXml } from 'react-native-svg'
 
 const { width, height } = Dimensions.get('screen')

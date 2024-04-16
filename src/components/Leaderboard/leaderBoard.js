@@ -11,6 +11,7 @@ import {
     Dimensions,
     Image,
     ImageBackground,
+    Pressable,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -35,6 +36,7 @@ const LeaderBoardComponent = () => {
     const [dataLeaderBoard, setDataLeaderBoard] = React.useState(null)
     const [currentLocation, setCurrentLocation] = React.useState(null)
     const navigation = useNavigation()
+
     const scrollY = React.useRef(new Animated.Value(0)).current
     const [userInfo, setUserInfo] = React.useState()
     const getDataInfo = () => {

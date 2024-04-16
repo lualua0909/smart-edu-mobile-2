@@ -1,11 +1,10 @@
-import { Avatar, Rate } from 'app/atoms'
+import { Avatar, Card, HStack, Rate, Text, VStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
+import { Pressable, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-
-import { Box, HStack, Pressable, Spacer, Text, VStack, View } from 'native-base'
 
 const CommentCard = ({ data, isReply, isTeacher }) => {
     const [readMore, setReadMore] = useState(false)
@@ -16,87 +15,63 @@ const CommentCard = ({ data, isReply, isTeacher }) => {
 
     const fullname = `${data?.first_name} ${data?.last_name}`
     return (
-        <Box
-            borderBottomWidth="1"
-            _dark={{
-                borderColor: 'muted.50'
-            }}
-            borderColor="muted.200"
-            py="2">
-            <VStack>
-                <HStack space={[2, 3]} justifyContent="space-between">
-                    <Avatar size={50} userId={data?.id} name={fullname} />
-                    <VStack>
-                        <Text
-                            _dark={{
-                                color: 'warmGray.50'
-                            }}
-                            color="coolGray.800"
-                            bold>
-                            {fullname}
-                            {isTeacher && (
-                                <LinearGradient
-                                    colors={['#079A96', '#00BD67']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 0 }}
+        <VStack space={3} style={{ marginBottom: 10 }}>
+            <HStack space={10}>
+                <Avatar size={50} userId={data?.id} />
+                <VStack>
+                    <Text bold>
+                        {fullname}
+                        {isTeacher && (
+                            <LinearGradient
+                                colors={['#079A96', '#00BD67']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{
+                                    marginLeft: 16,
+                                    paddingVertical: scale(2),
+                                    paddingHorizontal: scale(4),
+                                    borderTopLeftRadius: scale(10),
+                                    borderBottomRightRadius: scale(10)
+                                }}>
+                                <Text
                                     style={{
-                                        marginLeft: 16,
-                                        paddingVertical: scale(2),
-                                        paddingHorizontal: scale(4),
-                                        borderTopLeftRadius: scale(10),
-                                        borderBottomRightRadius: scale(10)
+                                        fontSize: scale(12),
+                                        color: '#F4F5F7'
                                     }}>
-                                    <Text
-                                        style={{
-                                            fontSize: scale(12),
-                                            color: '#F4F5F7'
-                                        }}>
-                                        Giảng viên
-                                    </Text>
-                                </LinearGradient>
-                            )}
-                        </Text>
-                        {data?.rate && <Rate rate={data?.rate} size={16} />}
-                    </VStack>
-                    <Spacer />
-                    <Text
-                        fontSize="2xs"
-                        _dark={{
-                            color: 'warmGray.50'
-                        }}
-                        color="coolGray.800"
-                        alignSelf="flex-start">
-                        {toRelativeTime(data?.rating_date)}
+                                    Giảng viên
+                                </Text>
+                            </LinearGradient>
+                        )}
                     </Text>
-                </HStack>
+                    {data?.rate && <Rate rate={data?.rate} size={16} />}
+                </VStack>
+                <Text>{toRelativeTime(data?.rating_date)}</Text>
+            </HStack>
 
+            <Card
+                shadow
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 10
+                }}>
+                {/* {isReply && <View style={{ width: scale(50) }} />} */}
                 <View
                     style={{
-                        flexDirection: 'row',
-                        alignItems: 'center'
+                        flex: 1
                     }}>
-                    {isReply && <View style={{ width: scale(50) }} />}
-                    <View
-                        style={{
-                            flex: 1
-                        }}>
-                        <Pressable onPress={toggle}>
-                            <Text
-                                numberOfLines={readMore ? null : 2}
-                                style={{
-                                    marginTop: scale(8),
-                                    fontSize: 14
-                                }}
-                                color="coolGray.600"
-                                _dark={{
-                                    color: 'warmGray.200'
-                                }}>
-                                {data?.rating_content}
-                            </Text>
-                        </Pressable>
-                    </View>
+                    <Pressable onPress={toggle}>
+                        <Text
+                            style={{
+                                marginTop: scale(8),
+                                fontSize: 14
+                            }}>
+                            {data?.rating_content}
+                        </Text>
+                    </Pressable>
                 </View>
-                {/* <Pressable
+            </Card>
+            {/* <Pressable
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -116,8 +91,7 @@ const CommentCard = ({ data, isReply, isTeacher }) => {
                         Trả lời
                     </Text>
                 </Pressable> */}
-            </VStack>
-        </Box>
+        </VStack>
     )
 }
 

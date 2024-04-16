@@ -1,12 +1,11 @@
 import { useGlobalState } from 'app/Store'
+import { Button, Text } from 'app/atoms'
 import CartItem from 'app/components/CartItem'
 import { scale } from 'app/helpers/responsive'
 import { getData } from 'app/helpers/utils'
 import React, { useEffect } from 'react'
 
-import { StatusBar, View } from 'react-native'
-
-import { Button, FlatList, Text } from 'native-base'
+import { FlatList, StatusBar, View } from 'react-native'
 
 const Carts = ({ navigation }) => {
     const [carts, setCarts] = useGlobalState('carts')

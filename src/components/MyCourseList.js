@@ -2,7 +2,6 @@ import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
-import { DATA_FAKE_12_SKILL } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
@@ -19,8 +18,7 @@ const MyCourseList = ({ userId }) => {
         setLoading(true)
         axios
             .get(
-                `courses/my-courses/paging/${page * 8}/${
-                    userId || userInfo?.id
+                `courses/my-courses/paging/${page * 8}/${userId || userInfo?.id
                 }`
             )
             .then(res => {
@@ -67,11 +65,9 @@ const MyCourseList = ({ userId }) => {
                         />
                     )}
                     contentContainerStyle={{
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        paddingBottom: scale(50)
+                        paddingHorizontal: 15,
+                        paddingBottom: 20
                     }}
-                    style={{ margin: 16 }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}
                     initialNumToRender={10}

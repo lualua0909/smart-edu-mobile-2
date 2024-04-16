@@ -1,11 +1,9 @@
+import { Text } from 'app/atoms'
 import VoucherItem from 'app/components/VoucherItem'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
-import { FlatList, StatusBar, TextInput } from 'react-native'
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
-
-import { Text, View } from 'native-base'
+import { FlatList, Pressable, StatusBar, TextInput, View } from 'react-native'
 
 const Voucher = () => {
     return (

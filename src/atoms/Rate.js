@@ -1,9 +1,8 @@
+import { HStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import { Star } from 'react-native-feather'
-
-import { HStack } from 'native-base'
 
 const Rate = ({ rate = 5, size = 22 }) => {
     const [rates, setRates] = useState([1, 1, 1, 1, 1])

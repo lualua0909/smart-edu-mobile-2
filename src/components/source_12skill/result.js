@@ -1,32 +1,16 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { Loading } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES, STYLES } from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
-import {
-    COURSE_GROUP_LIST,
-    COURSE_LIST,
-    GET_ROADMAP_PRETEST,
-    ROADMAP_LIST
-} from 'app/qqlStore/queries'
+import { AbsoluteSpinner, Button } from 'app/atoms'
+import { COLORS, ROUTES, STYLES } from 'app/constants'
+import { COURSE_GROUP_LIST, COURSE_LIST } from 'app/qqlStore/queries'
 import { svgIconList } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
-import { useState } from 'react'
 
-import {
-    Dimensions,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+import { Dimensions, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
 import HeaderTitle from 'app/components/header-title'
-import { Progress } from 'native-base'
 
 import { RenderColor } from './renderColorRestult'
 
@@ -38,11 +22,10 @@ const TestResult = ({
     titleHeader = 'Kết quả kiểm tra đầu vào'
 }) => {
     const { title, idPretest } = route.params
-    const { loading, error, data: dataTest } = useQuery(COURSE_GROUP_LIST)
-    const { data: dataTest2 } = useQuery(COURSE_LIST)
+    const { loading, data: dataTest } = useQuery(COURSE_GROUP_LIST)
+    // const { data: dataTest2 } = useQuery(COURSE_LIST)
 
     const [data, setData] = React.useState([])
-    const [user, setUser] = React.useState()
     const [isLoading, setIsLoading] = React.useState(true)
     const handleToLearningPath = () => {
         navigation.navigate(ROUTES.LearningPath)
@@ -63,6 +46,7 @@ const TestResult = ({
     }, [navigation])
 
     const getAllData = () => {
+        setIsLoading(true)
         axios
             .get(`courses/roadmap/test-history/${idPretest}`)
             .then(res => {
@@ -92,114 +76,79 @@ const TestResult = ({
             .finally(() => {
                 setIsLoading(false)
             })
-        // if (userInfoStore) {
-
-        //     console.log('🚀 ~ getAllData ~ userInfoStore:', userInfoStore)
-        //     // storage.delete(
-        //     //     `COURSE_12_SKILL_ID_USER_${JSON.parse(userInfoStore)?.id}`
-        //     // )
-        //     // storage.delete('SCREEN')
-        //     const dataCourseFromStore = getData(
-        //         `COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`
-        //     )
-        // setData(JSON.parse(dataCourseFromStore).data)
-
-        // }
     }
 
     React.useEffect(() => {
         getAllData()
     }, [data])
 
-    if (isLoading && Array.isArray(data))
-        return <Loading title={'Đang tải kết quả'} />
+    if (loading || isLoading)
+        return <AbsoluteSpinner title={'Đang tải kết quả'} />
 
     const renderProcess = (text, process) => {
         return (
-            <>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        width: width - 60,
-                        marginVertical: 10
-                    }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <SvgXml xml={svgIconList} width={20} height={20} />
-                        <Text style={[styles.result_text, { marginLeft: 5 }]}>
-                            {text}
-                        </Text>
-                    </View>
-                    <Text
-                        style={[
-                            styles.result_process,
-                            {
-                                color: RenderColor(process)
-                            }
-                        ]}>
-                        {process} %
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: width - 60,
+                    marginVertical: 10
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <SvgXml xml={svgIconList} width={20} height={20} />
+                    <Text style={[styles.result_text, { marginLeft: 5 }]}>
+                        {text}
                     </Text>
                 </View>
-                <Progress
-                    _filledTrack={{
-                        bg: RenderColor(process)
-                    }}
-                    height={2}
-                    style={{ height: 4 }}
-                    value={process}
-                />
-            </>
+                <Text
+                    style={[
+                        styles.result_process,
+                        {
+                            color: RenderColor(process)
+                        }
+                    ]}>
+                    {process} %
+                </Text>
+            </View>
         )
     }
 
     return (
         <View style={styles.container}>
-            {Array.isArray(data) && (
-                <FlatList
-                    data={data || []}
-                    keyExtractor={(_, index) => index.toString()}
-                    style={styles.flatList_style}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <View
-                                key={index}
-                                style={[styles.viewItem, STYLES.boxShadow]}>
-                                <Text
-                                    style={styles.result_title}
-                                    numberOfLines={2}>
-                                    {index + 1}. {item.name_stage}
-                                </Text>
-                                {renderProcess(
-                                    'Kết quả (đầu vào)',
-                                    Math.floor(item.process)
-                                )}
-                                {/* {renderProcess(
-                                    'Kết quả (đầu ra)',
-                                    Math.floor(item.processAfter)
-                                )} */}
-                            </View>
-                        )
-                    }}
-                    // onEndReached={handleLoadMore}
-                    onEndReachedThreshold={0.5}
-                    initialNumToRender={10}
-                    showsVerticalScrollIndicator={false}
-                />
-            )}
-
+            <ScrollView>
+                {Array.isArray(data) && (
+                    <FlatList
+                        data={data || []}
+                        keyExtractor={(_, index) => index.toString()}
+                        style={styles.flatList_style}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <View
+                                    key={index}
+                                    style={[styles.viewItem, STYLES.boxShadow]}>
+                                    <Text
+                                        style={styles.result_title}
+                                        numberOfLines={2}>
+                                        {index + 1}. {item.name_stage}
+                                    </Text>
+                                    {renderProcess(
+                                        'Kết quả (đầu vào)',
+                                        Math.floor(item.process)
+                                    )}
+                                </View>
+                            )
+                        }}
+                        onEndReachedThreshold={0.5}
+                        initialNumToRender={10}
+                        showsVerticalScrollIndicator={false}
+                    />
+                )}
+            </ScrollView>
             <View style={styles.gr_btn}>
-                <Text
-                    onPress={handleToRadarChart}
-                    style={[styles.gr_btn_width, styles.text_cancel]}>
+                <Button outlined onPress={handleToRadarChart}>
                     Xem biểu đồ
-                </Text>
-                <Pressable
-                    onPress={handleToLearningPath}
-                    style={[styles.gr_btn_width, styles.btn_next]}>
-                    <Text style={[styles.text_color, styles.text_btn_next]}>
-                        Tiếp tục
-                    </Text>
-                </Pressable>
+                </Button>
+                <Button onPress={handleToLearningPath}>Tiếp tục</Button>
             </View>
         </View>
     )
@@ -210,16 +159,10 @@ export default TestResult
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: width,
-        height: height
-    },
-    flatList_style: {
-        maxHeight: height - 200
     },
     viewItem: {
         backgroundColor: COLORS.colorWhite,
         paddingHorizontal: 10,
-        paddingVertical: 15,
         marginVertical: 10,
         marginHorizontal: 20,
         borderColor: 'rgba(28, 29, 34, 0.1)',
@@ -244,7 +187,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        gap: 10,
         position: 'absolute',
         bottom: 20,
         width: width,
@@ -267,7 +209,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 10,
         borderRadius: 10
     },
     text_btn_next: {

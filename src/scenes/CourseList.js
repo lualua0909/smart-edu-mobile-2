@@ -1,16 +1,27 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { LoadingAnimation, NoDataAnimation as NoData, Radio } from 'app/atoms'
+import {
+    Input,
+    LoadingAnimation,
+    Modal,
+    NoDataAnimation as NoData,
+    Radio,
+    Text,
+    VStack
+} from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import { scale } from 'app/helpers/responsive'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { FlatList, Pressable, RefreshControl } from 'react-native'
+import {
+    FlatList,
+    Pressable,
+    RefreshControl,
+    SafeAreaView,
+    ScrollView,
+    View
+} from 'react-native'
 import { Filter, Search } from 'react-native-feather'
-import Modal from 'react-native-modal'
-import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { Input, ScrollView, Text, View } from 'native-base'
 
 const CourseList = ({ route }) => {
     const [visibleFilter, setVisibleFilter] = useState(false)
@@ -26,7 +37,6 @@ const CourseList = ({ route }) => {
     useEffect(() => {
         if (route?.params?.courseGroupSelected) {
             setCGSelected([route?.params?.courseGroupSelected])
-
             setData([])
             setPage(0)
             getData()
@@ -73,24 +83,13 @@ const CourseList = ({ route }) => {
     }
 
     const filterModal = (
-        <Modal
-            style={{ margin: 0, justifyContent: 'flex-end' }}
-            isVisible={visibleFilter}
-            onBackButtonPress={() => setVisibleFilter(false)}
-            onBackdropPress={() => setVisibleFilter(false)}>
-            <View style={{ backgroundColor: '#fff', flex: 1 }}>
-                <SafeAreaView>
-                    <View style={{ paddingLeft: scale(16) }}>
-                        <Text
-                            style={{
-                                fontSize: scale(16),
-                                color: '#0E564D'
-                            }}>
-                            Danh mục
-                        </Text>
+        <Modal visible={visibleFilter} onClose={() => setVisibleFilter(false)}>
+            <ScrollView>
+                <View style={{ paddingHorizontal: scale(16) }}>
+                    <VStack space={10}>
                         {homeInfo?.course_groups?.map((item, index) => (
                             <Radio
-                                key={index}
+                                key={item?.id}
                                 text={item?.name}
                                 isChecked={cgSelected?.includes(item?.id)}
                                 onPress={() => {
@@ -105,19 +104,21 @@ const CourseList = ({ route }) => {
                                 }}
                             />
                         ))}
-                    </View>
-                    <View
+                    </VStack>
+                </View>
+                <View
+                    style={{
+                        paddingHorizontal: scale(16),
+                        marginTop: scale(24)
+                    }}>
+                    <Text
                         style={{
-                            paddingLeft: scale(16),
-                            marginTop: scale(24)
+                            fontSize: scale(16),
+                            color: '#0E564D'
                         }}>
-                        <Text
-                            style={{
-                                fontSize: scale(16),
-                                color: '#0E564D'
-                            }}>
-                            Sắp xếp
-                        </Text>
+                        Sắp xếp
+                    </Text>
+                    <VStack space={10}>
                         <Radio
                             text="Từ A - Z"
                             isChecked={orderBy === 'asc'}
@@ -128,68 +129,39 @@ const CourseList = ({ route }) => {
                             isChecked={orderBy === 'desc'}
                             onPress={() => setOrderBy('desc')}
                         />
-                    </View>
+                    </VStack>
+                </View>
 
-                    <View
+                <Pressable
+                    style={{
+                        marginTop: 15,
+                        width: '100%',
+                        height: scale(45),
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#52B553'
+                    }}
+                    onPress={() => {
+                        setData([])
+                        setPage(0)
+                        getData()
+                        setVisibleFilter(false)
+                    }}>
+                    <Text
+                        bold
                         style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginTop: scale(24)
+                            fontSize: scale(16),
+                            color: '#fff'
                         }}>
-                        <Pressable
-                            style={{
-                                width: '50%',
-                                height: scale(47),
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                            onPress={() => {
-                                setVisibleFilter(false)
-                            }}>
-                            <Text
-                                bold
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#555'
-                                }}>
-                                Đóng
-                            </Text>
-                        </Pressable>
-                        <Pressable
-                            style={{
-                                width: '50%',
-                                height: scale(45),
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderWidth: 1,
-                                borderColor: '#52B553',
-                                backgroundColor: '#52B553'
-                            }}
-                            onPress={() => {
-                                setData([])
-                                setPage(0)
-                                getData()
-                                setVisibleFilter(false)
-                            }}>
-                            <Text
-                                bold
-                                style={{
-                                    fontSize: scale(16),
-                                    color: '#fff'
-                                }}>
-                                Tìm kiếm
-                            </Text>
-                        </Pressable>
-                    </View>
-                </SafeAreaView>
-            </View>
+                        Tìm kiếm
+                    </Text>
+                </Pressable>
+            </ScrollView>
         </Modal>
     )
 
     return (
-        <SafeAreaView
-            edges={['top']}
-            style={{ backgroundColor: '#fff', flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
             <View
                 style={{
                     padding: scale(16),
@@ -236,6 +208,7 @@ const CourseList = ({ route }) => {
                         onRefresh={refetch}
                     />
                 }>
+
                 {data?.length ? (
                     <FlatList
                         data={data || []}
@@ -243,10 +216,9 @@ const CourseList = ({ route }) => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{
                             paddingTop: scale(16),
-                            paddingLeft: 16,
-                            paddingRight: 16,
-                            paddingBottom: scale(50)
+                            paddingHorizontal: 15,
                         }}
+                        style={{ marginBottom: 10 }}
                         renderItem={({ item, index }) => (
                             <CourseItem item={item} index={index} />
                         )}
@@ -270,8 +242,8 @@ const CourseList = ({ route }) => {
                         }}
                     />
                 )}
+                {filterModal}
             </ScrollView>
-            {filterModal}
         </SafeAreaView>
     )
 }

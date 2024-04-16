@@ -1,13 +1,12 @@
 import { getGlobalState, setGlobalState } from 'app/Store'
-import { Avatar } from 'app/atoms'
-import { ROUTES, STYLES } from 'app/constants'
+import { Avatar, Badge, Card, HStack, Text } from 'app/atoms'
+import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { View } from 'react-native'
 import { Star } from 'react-native-feather'
-
-import { Badge, Center, HStack, Pressable, Text, View } from 'native-base'
 
 const TeacherItem = ({ item }) => {
     const navigation = useNavigation()
@@ -15,7 +14,8 @@ const TeacherItem = ({ item }) => {
     const userInfo = getGlobalState('userInfo')
 
     return (
-        <Pressable
+        <Card
+            shadow
             onPress={() => {
                 if (userInfo?.id === 'trial') {
                     setGlobalState('visibleNotLogin', true)
@@ -25,24 +25,13 @@ const TeacherItem = ({ item }) => {
                     })
                 }
             }}
-            style={[
-                {
-                    flexDirection: 'row',
-                    marginBottom: scale(10),
-                    marginLeft: scale(10),
-                    marginRight: scale(10),
-                    borderRadius: scale(10),
-                    padding: scale(8)
-                },
-                STYLES.boxShadow
-            ]}>
+            style={{
+                flexDirection: 'row',
+                padding: scale(8),
+                marginHorizontal: scale(8)
+            }}>
             <View style={{ width: scale(114), height: scale(114) }}>
-                <Avatar
-                    isSquare
-                    name={fullName}
-                    userId={item?.id}
-                    size="100%"
-                />
+                <Avatar isSquare userId={item?.id} size="100%" />
                 <View
                     style={{
                         paddingHorizontal: scale(11),
@@ -103,9 +92,7 @@ const TeacherItem = ({ item }) => {
                         marginTop: scale(4),
                         alignSelf: 'flex-start'
                     }}>
-                    <Badge colorScheme="success" variant="subtle">
-                        {item?.department}
-                    </Badge>
+                    <Badge>{item?.department}</Badge>
                 </View>
                 <HStack space={3}>
                     <Text
@@ -142,7 +129,7 @@ const TeacherItem = ({ item }) => {
                     </Text>
                 </View> */}
             </View>
-        </Pressable>
+        </Card>
     )
 }
 

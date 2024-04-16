@@ -1,14 +1,12 @@
 import { useGlobalState } from 'app/Store'
-import { Avatar, Rate } from 'app/atoms'
-import { ROUTES } from 'app/constants'
+import { Avatar, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
 
 import firestore from '@react-native-firebase/firestore'
-import { ScrollView } from 'react-native-virtualized-view'
+import { Pressable, ScrollView, View } from 'react-native'
 
 import HeaderChat from 'app/components/header-chat'
-import { Image, Pressable, Text, View } from 'native-base'
 
 const Chat = ({ navigation }) => {
     const [data, setData] = useState([])
@@ -87,150 +85,6 @@ const Chat = ({ navigation }) => {
                     paddingHorizontal: scale(15),
                     paddingBottom: scale(15)
                 }}>
-                {/* <Pressable
-                    onPress={navigateChatDetail}
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: scale(8)
-                    }}>
-                    <Image
-                        source={{
-                            uri: 'https://server.smartx.edu.vn/public/user-avatars/452.webp'
-                        }}
-                        style={{
-                            width: scale(48),
-                            height: scale(48),
-                            borderRadius: scale(48),
-                            borderWidth: 1,
-                            borderColor: '#eee'
-                        }}
-                    />
-                    <Text
-                        style={{
-                            marginLeft: scale(8),
-
-                            fontSize: scale(16),
-                            color: '#091230'
-                        }}>
-                        Nguyễn Trần Thùy Duyên
-                    </Text>
-                    <LinearGradient
-                        colors={['#079A96', '#00BD67']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            paddingVertical: scale(2),
-                            paddingHorizontal: scale(4),
-                            borderTopLeftRadius: scale(10),
-                            borderBottomRightRadius: scale(10),
-                            marginLeft: scale(8)
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: scale(12),
-                                color: '#F4F5F7'
-                            }}>
-                            Giảng viên
-                        </Text>
-                    </LinearGradient>
-                </Pressable>
-                <Pressable
-                    onPress={navigateChatDetail}
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: scale(8)
-                    }}>
-                    <Image
-                        source={{
-                            uri: 'https://server.smartx.edu.vn/public/user-avatars/452.webp'
-                        }}
-                        style={{
-                            width: scale(48),
-                            height: scale(48),
-                            borderRadius: scale(48),
-                            borderWidth: 1,
-                            borderColor: '#eee'
-                        }}
-                    />
-                    <Text
-                        style={{
-                            marginLeft: scale(8),
-
-                            fontSize: scale(16),
-                            color: '#091230'
-                        }}>
-                        Tuấn Anh
-                    </Text>
-                    <LinearGradient
-                        colors={['#FC8A4A', '#FC6A4A']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            paddingVertical: scale(2),
-                            paddingHorizontal: scale(4),
-                            borderTopLeftRadius: scale(10),
-                            borderBottomRightRadius: scale(10),
-                            marginLeft: scale(8)
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: scale(12),
-                                color: '#F4F5F7'
-                            }}>
-                            Trợ giảng
-                        </Text>
-                    </LinearGradient>
-                </Pressable>
-                <Pressable
-                    onPress={navigateChatDetail}
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: scale(8)
-                    }}>
-                    <Image
-                        source={{
-                            uri: 'https://server.smartx.edu.vn/public/user-avatars/452.webp'
-                        }}
-                        style={{
-                            width: scale(48),
-                            height: scale(48),
-                            borderRadius: scale(48),
-                            borderWidth: 1,
-                            borderColor: '#eee'
-                        }}
-                    />
-                    <Text
-                        style={{
-                            marginLeft: scale(8),
-
-                            fontSize: scale(16),
-                            color: '#091230'
-                        }}>
-                        Tuấn Anh
-                    </Text>
-                    <LinearGradient
-                        colors={['#0F7DFF', '#00B3EC']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={{
-                            paddingVertical: scale(2),
-                            paddingHorizontal: scale(4),
-                            borderTopLeftRadius: scale(10),
-                            borderBottomRightRadius: scale(10),
-                            marginLeft: scale(8)
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: scale(12),
-                                color: '#F4F5F7'
-                            }}>
-                            Khách mời
-                        </Text>
-                    </LinearGradient>
-                </Pressable> */}
                 <View
                     style={{
                         marginTop: scale(8),

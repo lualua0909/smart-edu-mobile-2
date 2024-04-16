@@ -1,23 +1,15 @@
 import { useGlobalState } from 'app/Store'
+import { Badge, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useState } from 'react'
 
-import { CheckCircle } from 'react-native-feather'
-
-import {
-    Badge,
-    ChevronDownIcon,
-    ChevronUpIcon,
-    Pressable,
-    Text,
-    View
-} from 'native-base'
+import { Pressable, View } from 'react-native'
+import { CheckCircle, ChevronDown, ChevronUp } from 'react-native-feather'
 
 const Curriculum = ({ data, navigateToLesson }) => {
     const [isExpand, setIsExpand] = useState(false)
-    const [finishedLectures, setFinishedLectures] =
-        useGlobalState('finishedLectures')
+    const [finishedLectures] = useGlobalState('finishedLectures')
     const onSwitchExpand = () => {
         animateNextTransition()
         setIsExpand(!isExpand)
@@ -44,9 +36,9 @@ const Curriculum = ({ data, navigateToLesson }) => {
                     {data?.name}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="3" />
+                    <ChevronUp stroke="gray" />
                 ) : (
-                    <ChevronDownIcon size="3" />
+                    <ChevronDown stroke="gray" />
                 )}
             </Pressable>
             {isExpand &&
@@ -82,11 +74,7 @@ const Curriculum = ({ data, navigateToLesson }) => {
                                     ) : null}{' '}
                                     {item?.name}{' '}
                                     {item?.trial ? (
-                                        <Badge
-                                            colorScheme="success"
-                                            variant="outline">
-                                            Học thử
-                                        </Badge>
+                                        <Badge>Học thử</Badge>
                                     ) : null}
                                 </Text>
                             </Pressable>

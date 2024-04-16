@@ -1,20 +1,17 @@
 import axios from 'app/Axios'
-import { Avatar, NoDataAnimation } from 'app/atoms'
+import { Avatar, Center, NoDataAnimation, Text, VStack } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { animateNextTransition } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import { BookOpen, Bookmark, Briefcase } from 'react-native-feather'
-
+import { Pressable, View } from 'react-native'
 import {
-    Center,
-    ChevronDownIcon,
-    ChevronUpIcon,
-    Pressable,
-    Text,
-    VStack,
-    View
-} from 'native-base'
+    BookOpen,
+    Bookmark,
+    Briefcase,
+    ChevronDown,
+    ChevronUp
+} from 'react-native-feather'
 
 const TeacherTab = ({ mentorId, setTeacherName }) => {
     const [data, setData] = useState()
@@ -174,9 +171,9 @@ const ExperienceItem = ({ title, data }) => {
                     {title}
                 </Text>
                 {isExpand ? (
-                    <ChevronUpIcon size="3" />
+                    <ChevronUp color="gray" />
                 ) : (
-                    <ChevronDownIcon size="3" />
+                    <ChevronDown color="gray" />
                 )}
             </Pressable>
             <VStack space={4} style={{ padding: isExpand ? scale(15) : 1 }}>

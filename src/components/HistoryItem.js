@@ -1,3 +1,4 @@
+import { Card, HStack, Text } from 'app/atoms'
 import { ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import { svgCircle, svgLineDashVertical } from 'assets/svg'
@@ -5,10 +6,10 @@ import dayjs from 'dayjs'
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
+import { Pressable, View } from 'react-native'
 import { Book } from 'react-native-feather'
+import * as Progress from 'react-native-progress'
 import { SvgXml } from 'react-native-svg'
-
-import { Box, HStack, Pressable, Progress, Text, View } from 'native-base'
 
 var customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
@@ -92,13 +93,11 @@ const HistoryItem = ({ data }) => {
                     flex: 1,
                     padding: scale(10)
                 }}>
-                <Box
+                <Card
+                    shadow
                     style={{
-                        backgroundColor: '#FFFFFF'
-                    }}
-                    rounded="lg"
-                    p={3}
-                    shadow={5}>
+                        padding: 8
+                    }}>
                     <Text
                         numberOfLines={2}
                         style={{
@@ -107,24 +106,31 @@ const HistoryItem = ({ data }) => {
                         }}>
                         {data?.title}
                     </Text>
-                    <HStack>
-                        <Progress
+                    <HStack space={10} style={{ marginTop: 10 }}>
+                        {/* <Progress
                             bg="coolGray.100"
                             _filledTrack={{
                                 bg:
                                     data?.process >= 100
                                         ? 'lime.300'
+                                        : data?.process === 0
+                                        ? 'gray.200'
                                         : 'orange.300'
                             }}
-                            value={data?.process}
+                            value={data?.process === 0 ? 100 : data?.process}
                             w="80%"
                             style={{ marginVertical: scale(10) }}
+                        /> */}
+                        <Progress.Bar
+                            progress={data?.process / 100}
+                            height={scale(10)}
+                            color="green"
                         />
                         <Text
-                            ml="2"
+                            bold
                             style={{
-                                fontSize: scale(10),
-                                color: '#6C746E'
+                                color: '#6C746E',
+                                marginTop: -3
                             }}>
                             {data?.process}%
                         </Text>
@@ -146,7 +152,7 @@ const HistoryItem = ({ data }) => {
                             {data?.total_lectures} bài học
                         </Text>
                     </View>
-                </Box>
+                </Card>
             </View>
         </Pressable>
     )

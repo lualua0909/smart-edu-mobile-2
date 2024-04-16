@@ -1,67 +1,45 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
-import { showToast } from 'app/atoms'
-import { COLORS, DATA_FAKE_12_SKILL, ROUTES } from 'app/constants'
-import { getData, storeData } from 'app/helpers/utils'
-import storage from 'app/localStorage'
+import { showToast, LoadingAnimation, Button } from 'app/atoms'
+import { COLORS, ROUTES } from 'app/constants'
+import { getData, } from 'app/helpers/utils'
 import {
     COURSE_GROUP_LIST,
-    COURSE_LIST,
-    GET_ROADMAP_PRETEST,
     ROADMAP_LIST
 } from 'app/qqlStore/queries'
-import { svgAdjust } from 'assets/svg'
-import { svgVideo } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
 import {
     Alert,
     Dimensions,
-    Pressable,
     SafeAreaView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View
 } from 'react-native'
-import { SvgXml } from 'react-native-svg'
+import * as Progress from 'react-native-progress'
 import Timeline from 'react-native-timeline-flatlist'
 
 import HeaderTitle from 'app/components/header-title'
-import { Progress } from 'native-base'
 
 import DragDrop from './DragDrop'
 import IntroductionVideo from './IntroductionVideo'
-import { RenderBackgroundColor, RenderColorStage } from './renderColorRestult'
-import { SaveScreenToStore } from './saveScreenToStore'
+import { RenderBackgroundColor, } from './renderColorRestult'
+import { AbsoluteSpinner } from '../../atoms'
 
-const NUM_ITEMS = 10
-
-function getColor(i) {
-    const multiplier = 255 / (NUM_ITEMS - 1)
-    const colorVal = i * multiplier
-    return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
-}
 const { width, height } = Dimensions.get('screen')
 
-const LearningPath = ({ navigation, route }) => {
-    const {
-        loading,
-        error,
-        data: dataRoadmap,
-        refetch
-    } = useQuery(ROADMAP_LIST, {
+const LearningPath = ({ navigation }) => {
+    const { data: dataRoadmap, loading, refetch } = useQuery(ROADMAP_LIST, {
         variables: { course_id: 162 }
     })
 
-    const { loading: isLoadingCourseList, data: DataCourseList } =
-        useQuery(COURSE_GROUP_LIST)
+    const { data: DataCourseList, loading: cgLoading } = useQuery(COURSE_GROUP_LIST)
 
     const [data, setData] = React.useState([])
-    const [user, setUser] = React.useState()
-    const [isLoading, setIsLoading] = React.useState(true)
+    const [isLoading, setIsLoading] = React.useState(false)
     const [isAdjust, setIsAdjust] = React.useState(false)
     const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
     const [hasAdjust, setHasAdjust] = React.useState(true)
@@ -69,49 +47,24 @@ const LearningPath = ({ navigation, route }) => {
     const [visibleVideoIntroduction, setVisibleIntroduction] =
         React.useState(false)
 
-    React.useEffect(() => {
-        navigation.setOptions({
-            headerRight: () => {
-                return (
-                    <View style={{ paddingHorizontal: 10 }}>
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigation.navigate(ROUTES.VideoIntroduction, {
-                                    isReview: true
-                                })
-                            }>
-                            <SvgXml xml={svgVideo} width={24} height={24} />
-                        </TouchableOpacity>
-                    </View>
-                )
-            }
-        })
-    }, [])
-
     // React.useEffect(() => {
-    //     navigation.addListener('beforeRemove', e => {
-    //         e.preventDefault()
-    //         if (isAdjust) {
-    //             Alert.alert(
-    //                 'Thông báo.',
-    //                 'Bạn có chắc chắn quay lại trang trước, kết quả của bạn sẽ được lưu khi thoát.',
-    //                 [
-    //                     {
-    //                         text: 'Tiếp tục điều chỉnh',
-    //                         style: 'cancel'
-    //                     },
-    //                     {
-    //                         text: 'OK',
-    //                         onPress: () => {
-    //                             saveAdjust()
-    //                         }
-    //                     }
-    //                 ]
+    //     navigation.setOptions({
+    //         headerRight: () => {
+    //             return (
+    //                 <View style={{ paddingHorizontal: 10 }}>
+    //                     <TouchableOpacity
+    //                         onPress={() =>
+    //                             navigation.navigate(ROUTES.VideoIntroduction, {
+    //                                 isReview: true
+    //                             })
+    //                         }>
+    //                         <SvgXml xml={svgVideo} width={24} height={24} />
+    //                     </TouchableOpacity>
+    //                 </View>
     //             )
-    //             return
     //         }
     //     })
-    // }, [navigation, isAdjust])
+    // }, [])
 
     const formatData = () => {
         setIsLoading(true)
@@ -158,8 +111,6 @@ const LearningPath = ({ navigation, route }) => {
     const saveAdjust = () => {
         setIsLoading(true)
         const courses = []
-        let dataAdjust = data
-        if (dataAdjustCourse.length > 0) dataAdjust = dataAdjustCourse
         dataAdjustCourse.map(stages => {
             stages.children.map(children => {
                 const order2 = children.sub_course.order_number2
@@ -254,10 +205,8 @@ const LearningPath = ({ navigation, route }) => {
         // setIsLoading(true)
         const userInfoStore = getData('@userInfo')
         if (userInfoStore) {
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${user?.id}`)
+            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
             // storage.delete('SCREEN')
-            setUser(userInfoStore)
-
             // if (dataCourseFromStore) {
             //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
             //     setHasAdjust(jsonDataCourse.isAdjust)
@@ -303,10 +252,9 @@ const LearningPath = ({ navigation, route }) => {
     const openAlertAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${
-                !hasAdjust
-                    ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
-                    : 'Bạn đã điều chỉnh lộ trình của khóa học.'
+            `${!hasAdjust
+                ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
+                : 'Bạn đã điều chỉnh lộ trình của khóa học.'
             }`,
             [
                 {
@@ -444,12 +392,10 @@ const LearningPath = ({ navigation, route }) => {
                             ]}>
                             {rowData.process} %
                         </Text>
-                        <Progress
-                            _filledTrack={{
-                                bg: COLORS.green
-                            }}
+                        <Progress.Bar
+                            progress={rowData?.process}
+                            color="green"
                             style={{ width: '80%', marginLeft: 10 }}
-                            value={rowData.process}
                         />
                     </View>
                 )}
@@ -457,105 +403,69 @@ const LearningPath = ({ navigation, route }) => {
         )
     }
     const renderDetail = (rowData, sectionID, rowId) => {
-        return (
-            <>
-                {!hasAdjust ? (
-                    <View>{contentDetailElement(rowData, sectionID)}</View>
-                ) : (
-                    <TouchableOpacity
-                        onPress={() => {
-                            if (!hasAdjust) return
-                            handleViewStages(rowData, sectionID)
-                        }}>
-                        {contentDetailElement(rowData, sectionID)}
-                    </TouchableOpacity>
-                )}
-            </>
+        return !hasAdjust ? (
+            <View>{contentDetailElement(rowData, sectionID)}</View>
+        ) : (
+            <TouchableOpacity
+                onPress={() => {
+                    if (!hasAdjust) return
+                    handleViewStages(rowData, sectionID)
+                }}>
+                {contentDetailElement(rowData, sectionID)}
+            </TouchableOpacity>
         )
     }
+
+    if (loading || cgLoading) return <AbsoluteSpinner title={'Đang tải dữ liệu'} />
+
     return (
-        <>
-            <SafeAreaView
-                edges={['top', 'left', 'right']}
-                style={styles.container}>
-                {!isLoading ? (
-                    <>
-                        <Timeline
-                            renderTime={renderTime}
-                            data={data}
-                            renderDetail={(rowData, sectionID, rowId) =>
-                                renderDetail(rowData, sectionID, rowId)
-                            }
-                            style={{
-                                maxHeight: !hasAdjust
-                                    ? height - 200
-                                    : height - 130
-                            }}
-                            lineColor="#FAF9F9"
-                            circleSize={10}
-                            circleColor={'#FAF9F9'}
-                        />
-                    </>
-                ) : (
-                    <LoadingAnimation />
-                )}
-                {!hasAdjust && (
-                    <>
-                        {isAdjust ? (
-                            <View style={styles.gr_btn}>
-                                <Text
-                                    onPress={openAlertCancelAdjust}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.text_cancel
-                                    ]}>
-                                    Trở về
-                                </Text>
-                                <Pressable
-                                    onPress={alertConfirmAdjust}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.btn_next
-                                    ]}>
-                                    <Text
-                                        style={[
-                                            styles.text_color,
-                                            styles.text_btn_next
-                                        ]}>
-                                        Lưu
-                                    </Text>
-                                </Pressable>
-                            </View>
-                        ) : (
-                            <View style={styles.gr_btn}>
-                                <Text
-                                    onPress={openAlertAdjust}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.text_cancel
-                                    ]}>
-                                    Điều chỉnh lộ trình
-                                </Text>
-                                <Pressable
-                                    onPress={handleStartLearning}
-                                    style={[
-                                        styles.gr_btn_width,
-                                        styles.btn_next
-                                    ]}>
-                                    <Text
-                                        style={[
-                                            styles.text_color,
-                                            styles.text_btn_next
-                                        ]}>
-                                        Chấp nhận lộ trình
-                                    </Text>
-                                </Pressable>
-                            </View>
-                        )}
-                    </>
-                )}
-            </SafeAreaView>
-        </>
+        <SafeAreaView edges={['top', 'left', 'right']} style={styles.container}>
+            {!isLoading ? (
+                <Timeline
+                    renderTime={renderTime}
+                    data={data}
+                    renderDetail={(rowData, sectionID, rowId) =>
+                        renderDetail(rowData, sectionID, rowId)
+                    }
+                    style={{
+                        maxHeight: !hasAdjust ? height - 200 : height - 130
+                    }}
+                    lineColor="#FAF9F9"
+                    circleSize={10}
+                    circleColor={'#FAF9F9'}
+                />
+            ) : (
+                <LoadingAnimation />
+            )}
+            {!hasAdjust && (
+                <>
+                    {isAdjust ? (
+                        <View style={styles.gr_btn}>
+                            <Button outlined
+                                onPress={openAlertCancelAdjust}
+                                style={[
+                                    styles.gr_btn_width,
+                                    styles.text_cancel
+                                ]}>
+                                Trở về
+                            </Button>
+                            <Button onPress={alertConfirmAdjust}>
+                                Lưu
+                            </Button>
+                        </View>
+                    ) : (
+                        <View style={styles.gr_btn}>
+                            <Button outlined onPress={openAlertAdjust}>
+                                Điều chỉnh lộ trình
+                            </Button>
+                            <Button onPress={handleStartLearning}>
+                                Chấp nhận lộ trình
+                            </Button>
+                        </View>
+                    )}
+                </>
+            )}
+        </SafeAreaView>
     )
 }
 
