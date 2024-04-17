@@ -91,9 +91,7 @@ const Home = ({ navigation }) => {
                         </Text>
                         {userInfo?.id === 'trial' ? (
                             <Button
-                                size="md"
-                                width={200}
-                                mt={2}
+                                style={{ marginTop: 10 }}
                                 onPress={clearDataAfterLogout}>
                                 Đến trang đăng nhập
                             </Button>
