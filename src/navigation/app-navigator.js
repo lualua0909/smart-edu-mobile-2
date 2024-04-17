@@ -1,4 +1,4 @@
-import LeaderBoardComponent from 'app/components/Leaderboard/leaderBoard'
+import LeaderBoardComponent from 'app/components/Leaderboard'
 import EntranceTest from 'app/components/source_12skill/EntranceTest'
 import IntroductionPreTest from 'app/components/source_12skill/IntroductionPreTest'
 import LearningPath from 'app/components/source_12skill/LearningPath'
@@ -307,13 +307,21 @@ const AppNavigator = () => {
                 name={ROUTES.ChartTestResult}
                 component={ChartsComponent}
                 options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Biểu đồ '} />,
+                    headerTitle: () => (
+                        <HeaderTitle title={'Biểu đồ kỹ năng'} />
+                    ),
                     headerLeft: () => <HeaderBack />
                 })}
             />
             <Stack.Screen
                 name={ROUTES.Leaderboard}
                 component={LeaderBoardComponent}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Biểu đồ kỹ năng'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
             />
             <Stack.Screen
                 name={ROUTES.StagesView}
