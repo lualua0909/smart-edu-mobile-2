@@ -582,6 +582,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }}>
                         {data?.s_des}
                     </Text>
+                    {renderDetailCourse(data?.is_roadmap)}
                     <View style={{ marginTop: scale(16) }}>
                         <View
                             style={{
