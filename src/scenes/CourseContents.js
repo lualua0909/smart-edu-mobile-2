@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { getGlobalState, useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Button,
@@ -17,15 +17,15 @@ import {
     VideoViewer,
     showToast
 } from 'app/atoms'
-import { API_URL } from 'app/constants'
+import { API_URL, ROUTES } from 'app/constants'
 import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { svgComment } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import Countdown from 'react-countdown'
 import {
+    AppState,
     Dimensions,
     FlatList,
     Linking,
@@ -59,8 +59,7 @@ const routes = [
 ]
 
 const CourseDetail = ({ route, navigation }) => {
-    console.log('route ===', route.params.currentLecture)
-    const { courseId, currentLecture } = route.params
+    const { courseId, currentLecture, isTrial } = route.params
     const [tabIndex, setTabIndex] = useState(0)
     const [viewHeight, setViewHeight] = useState({
         tab1: 0,
@@ -73,7 +72,7 @@ const CourseDetail = ({ route, navigation }) => {
     const [currentId, setCurrentId] = useState()
     const [data, setData] = useState()
     const [chapters, setChapters] = useState()
-    const [userInfo, _setUserState] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
     const questionTitle = useFormInput()
     const questionContent = useFormInput()
     const [questionLoading, setQuestionLoading] = useState(false)
@@ -85,7 +84,16 @@ const CourseDetail = ({ route, navigation }) => {
     const [openViewDoc, setOpenViewDoc] = useState(false)
     const [selectedFile, setSelectedFile] = useState()
     const [countDown, setCountDown] = useState()
+    const [trialChapters, setTrialChapters] = useState()
     const onCloseViewDoc = () => setOpenViewDoc(false)
+    const [isTrialModalVisible, setIsTrialModalVisible] = useState(false)
+
+    useEffect(() => {
+        if (chapters?.length) {
+            const c = chapters.filter(i => i?.trial)
+            setTrialChapters(c)
+        }
+    }, [chapters])
 
     useEffect(() => {
         const t = setTimeout(() => setHideHeaderTitle(true), 5000)
@@ -96,7 +104,6 @@ const CourseDetail = ({ route, navigation }) => {
     }, [hideHeaderTitle])
 
     const handleAppStateChange = nextAppState => {
-        console.log('next', nextAppState)
         if (nextAppState === 'inactive') {
             console.log('the app is closed')
         }
@@ -105,39 +112,6 @@ const CourseDetail = ({ route, navigation }) => {
     useEffect(() => {
         AppState.addEventListener('change', handleAppStateChange)
     }, [])
-
-    // useEffect(() => {
-    //     let userInfo2 = getData('@userInfo')
-    //     _setUserState(userInfo2)
-    // }, [])
-
-    const countdown = (
-        <Countdown
-            date={countDown}
-            renderer={({
-                total,
-                days,
-                hours,
-                minutes,
-                seconds,
-                milliseconds,
-                completed
-            }) =>
-                renderer(
-                    {
-                        total,
-                        days,
-                        hours,
-                        minutes,
-                        seconds,
-                        milliseconds,
-                        completed
-                    },
-                    false
-                )
-            }
-        />
-    )
 
     navigation.setOptions({
         headerTitle: () => (
@@ -154,50 +128,6 @@ const CourseDetail = ({ route, navigation }) => {
         headerTransparent: true
     })
 
-    const renderer = ({
-        total,
-        days,
-        hours,
-        minutes,
-        seconds,
-        milliseconds,
-        completed
-    }) => {
-        if (completed) {
-            return (
-                <Button size={'sm'} onPress={nextLesson}>
-                    Bài tiếp theo
-                </Button>
-            )
-        } else {
-            return (
-                <Pressable
-                    style={{
-                        width: scale(120),
-                        height: scale(38),
-                        backgroundColor: '#52B553',
-                        borderRadius: scale(10),
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}
-                    onPress={() =>
-                        showToast({
-                            title: 'Vui lòng đợi hết thời gian chờ qua bài',
-                            status: 'info'
-                        })
-                    }>
-                    <Text
-                        style={{
-                            fontSize: scale(14),
-                            color: '#fff'
-                        }}>
-                        {hours} : {minutes} : {seconds}
-                    </Text>
-                </Pressable>
-            )
-        }
-    }
-
     useEffect(() => {
         if (currentLecture) {
             setCurrentId(currentLecture)
@@ -205,20 +135,25 @@ const CourseDetail = ({ route, navigation }) => {
     }, [currentLecture])
 
     const getData = () => {
+        console.log(
+            'currentId',
+            `${isTrial ? 'public-lectures' : 'lectures'}/get/${currentId}`
+        )
         setLoading(true)
         axios
-            .get(`lectures/get/${currentId}`)
+            .get(`${isTrial ? 'public-lectures' : 'lectures'}/get/${currentId}`)
             .then(res => {
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {
                 setData(data)
-                setCountDown(Date.now() + data?.time_to_skip * 1000)
+                // setCountDown(Date.now() + data?.time_to_skip * 1000)
             })
             .finally(() => setLoading(false))
     }
 
     const getDocuments = () => {
+        if (isTrial) return
         axios
             .get(`admin/courses/resources/paging/${courseId}`)
             .then(res => {
@@ -230,12 +165,12 @@ const CourseDetail = ({ route, navigation }) => {
     }
 
     useEffect(() => {
-        if (courseId) {
+        if (courseId && currentId) {
             setCurrentCourseId(courseId)
             getData()
             getDocuments()
         }
-    }, [courseId])
+    }, [courseId, currentId])
 
     const addLessonToFinishedList = () => {
         const params = {
@@ -250,14 +185,61 @@ const CourseDetail = ({ route, navigation }) => {
         })
     }
 
+    const showFinishToast = () => {
+        showToast({
+            title: 'Bạn đã học hết nội dung học thử'
+        })
+
+        setIsTrialModalVisible(true)
+    }
+
+    const nextLessonTrial = () => {
+        const current = trialChapters.findIndex(i => i.id === currentId)
+        const next = trialChapters[current + 1]
+
+        if (next?.id) {
+            setCurrentId(next?.id)
+        } else {
+            axios
+                .get(`get-course-info/${courseId}`)
+                .then(res => {
+                    if (res.data.status === 200) {
+                        setCourseData(
+                            res?.data?.data?.parent || res?.data?.data
+                        )
+                    }
+                })
+                .finally(() => showFinishToast())
+        }
+    }
+
     const nextLesson = () => {
+        if (isTrial) {
+            nextLessonTrial()
+            return
+        }
+
         const current = chapters.findIndex(i => i.id === currentId)
         const next = chapters[current + 1]
         addLessonToFinishedList()
         setCurrentId(next?.id)
     }
 
+    const prevLessonTrial = () => {
+        const current = trialChapters?.findIndex(i => i?.id === currentId)
+        if (current > 0) {
+            const prev = trialChapters[current - 1]
+            setCurrentId(prev?.id)
+        } else {
+            showFinishToast()
+        }
+    }
+
     const prevLesson = () => {
+        if (isTrial) {
+            prevLessonTrial()
+            return
+        }
         const current = chapters?.findIndex(i => i?.id === currentId)
         if (current > 0) {
             const prev = chapters[current - 1]
@@ -516,13 +498,9 @@ const CourseDetail = ({ route, navigation }) => {
                     }}>
                     Bài trước
                 </Button>
-                {data?.is_finish ? (
-                    <Button size={'sm'} onPress={nextLesson}>
-                        Bài tiếp theo
-                    </Button>
-                ) : (
-                    countdown
-                )}
+                <Button size={'sm'} onPress={nextLesson}>
+                    Bài tiếp theo
+                </Button>
             </View>
             <TabView
                 navigationState={{ index: tabIndex, routes }}
@@ -582,6 +560,12 @@ const CourseDetail = ({ route, navigation }) => {
                 questionTitle={questionTitle}
                 questionContent={questionContent}
             />
+            <FinishTrialModal
+                isTrialModalVisible={isTrialModalVisible}
+                setIsTrialModalVisible={setIsTrialModalVisible}
+                navigation={navigation}
+                courseId={courseId}
+            />
         </SafeAreaView>
     )
 }
@@ -636,6 +620,45 @@ const QuestionModal = ({
                     isLoadingText="Đang gửi câu hỏi...">
                     Gửi câu hỏi
                 </Button>
+            </VStack>
+        </Modal>
+    )
+}
+
+const FinishTrialModal = ({
+    courseId,
+    navigation,
+    isTrialModalVisible,
+    setIsTrialModalVisible
+}) => {
+    const userInfo = getGlobalState('userInfo')
+
+    return (
+        <Modal
+            visible={isTrialModalVisible}
+            onClose={() => setIsTrialModalVisible(false)}>
+            <VStack space={10} style={{ padding: 20, marginTop: 10 }}>
+                <Text style={{ fontSize: 16 }}>
+                    Bạn đã học hết nội dung học thử. Vui lòng mua khóa học để
+                    tiếp tục
+                </Text>
+                {userInfo?.id === 'trial' ? (
+                    <Button
+                        onPress={() => {
+                            clearDataAfterLogout(ROUTES.SignUp)
+                        }}>
+                        Tạo tài khoản
+                    </Button>
+                ) : (
+                    <Button
+                        onPress={() =>
+                            navigation.navigate(ROUTES.CourseInfo, {
+                                id: courseId
+                            })
+                        }>
+                        Đến trang khóa học
+                    </Button>
+                )}
             </VStack>
         </Modal>
     )

@@ -454,7 +454,7 @@ const CourseInfo = ({ navigation, route }) => {
             if (res.data.status === 200) {
                 showToast({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
-                    status: 'success',
+                    status: 'error',
                     placement: 'top'
                 })
                 setIsLiked(false)
@@ -879,6 +879,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     navigation.navigate(
                                         ROUTES.CourseDetailTrial,
                                         {
+                                            isTrial: true,
                                             courseId: data?.id,
                                             currentLecture:
                                                 data?.first_lecture_id

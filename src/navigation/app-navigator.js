@@ -15,9 +15,7 @@ import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import ConversationDetail from 'app/scenes/ConversationDetail'
 import Course12SkillList from 'app/scenes/Course12SkillList'
 import CourseContents from 'app/scenes/CourseContents'
-import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
-import CourseDetailsAndroid from 'app/scenes/CourseDetailsAndroid'
 import CoursesByUser from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
@@ -76,11 +74,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
-                component={
-                    isAndroid
-                        ? CourseDetailsAndroid
-                        : withIAPContext(CourseDetails)
-                }
+                component={withIAPContext(CourseDetails)}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
@@ -138,7 +132,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseDetailTrial}
-                component={CourseContentsTrial}
+                component={CourseContents}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Học thử'} />,
                     headerLeft: () => <HeaderBack whiteBg={true} />

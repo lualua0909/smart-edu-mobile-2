@@ -5,7 +5,7 @@ export default ({ title, description, placement = 'top', status = 'info' }) => {
         type: status,
         position: placement,
         text1: title,
-        text2: description ?? title,
+        text2: description,
         autoHide: true,
         onPress: () => {
             Toast.hide()
