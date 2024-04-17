@@ -45,7 +45,7 @@ const Trial = () => {
                         autoPlay
                         loop
                         style={{
-                            width: 200,
+                            width: 100,
                             height: 'auto'
                         }}
                     />
