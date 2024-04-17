@@ -161,7 +161,45 @@ const CourseList = ({ route }) => {
     )
 
     return (
-        <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+            <View
+                style={{
+                    padding: scale(16),
+                    paddingBottom: 5
+                }}>
+                <Input
+                    borderRadius="10"
+                    width="100%"
+                    fontSize="12"
+                    px="2"
+                    placeholder="Tìm kiếm theo tên khóa học"
+                    onChangeText={setSearch}
+                    onEndEditing={() => {
+                        setData([])
+                        setPage(0)
+                        getData()
+                    }}
+                    clearButtonMode="while-editing"
+                    InputLeftElement={
+                        <Search
+                            width={scale(18)}
+                            stroke="#0E564D"
+                            style={{ marginLeft: 12 }}
+                        />
+                    }
+                    InputRightElement={
+                        <Pressable
+                            onPress={() => setVisibleFilter(true)}
+                            hitSlop={15}
+                            style={{ marginRight: 10 }}>
+                            <Filter stroke="#0E564D" width={scale(18)} />
+                        </Pressable>
+                    }
+                    _focus={{
+                        borderColor: '#52B553'
+                    }}
+                />
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 refreshControl={
@@ -170,44 +208,7 @@ const CourseList = ({ route }) => {
                         onRefresh={refetch}
                     />
                 }>
-                <View
-                    style={{
-                        padding: scale(16),
-                        paddingBottom: 5
-                    }}>
-                    <Input
-                        borderRadius="10"
-                        width="100%"
-                        fontSize="12"
-                        px="2"
-                        placeholder="Tìm kiếm theo tên khóa học"
-                        onChangeText={setSearch}
-                        onEndEditing={() => {
-                            setData([])
-                            setPage(0)
-                            getData()
-                        }}
-                        clearButtonMode="while-editing"
-                        InputLeftElement={
-                            <Search
-                                width={scale(18)}
-                                stroke="#0E564D"
-                                style={{ marginLeft: 12 }}
-                            />
-                        }
-                        InputRightElement={
-                            <Pressable
-                                onPress={() => setVisibleFilter(true)}
-                                hitSlop={15}
-                                style={{ marginRight: 10 }}>
-                                <Filter stroke="#0E564D" width={scale(18)} />
-                            </Pressable>
-                        }
-                        _focus={{
-                            borderColor: '#52B553'
-                        }}
-                    />
-                </View>
+
                 {data?.length ? (
                     <FlatList
                         data={data || []}
@@ -215,10 +216,9 @@ const CourseList = ({ route }) => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{
                             paddingTop: scale(16),
-                            paddingLeft: 16,
-                            paddingRight: 16,
-                            paddingBottom: scale(50)
+                            paddingHorizontal: 15,
                         }}
+                        style={{ marginBottom: 10 }}
                         renderItem={({ item, index }) => (
                             <CourseItem item={item} index={index} />
                         )}

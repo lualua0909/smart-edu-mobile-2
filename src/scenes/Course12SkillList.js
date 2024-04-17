@@ -31,7 +31,7 @@ const Course12SkillList = () => {
     React.useEffect(() => {
         getData()
     }, [])
-    // const { loading, error, data } = useQuery(GET_ROADMAP_PRETEST)
+
     if (isLoading)
         return (
             <LoadingAnimation
@@ -40,8 +40,7 @@ const Course12SkillList = () => {
                 }}
             />
         )
-    // if()
-    // console.log('🚀 ~ Course12SkillList ~ data:', data.RoadmapPretest)
+
     return (
         <View>
             <FlatList
@@ -56,12 +55,9 @@ const Course12SkillList = () => {
                     />
                 )}
                 contentContainerStyle={{
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingBottom: 50
+                    paddingHorizontal: 15,
+                    paddingBottom: 20
                 }}
-                style={{ margin: 16 }}
-                // onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}
                 initialNumToRender={10}
                 showsVerticalScrollIndicator={false}

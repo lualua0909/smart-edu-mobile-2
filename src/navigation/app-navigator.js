@@ -302,10 +302,6 @@ const AppNavigator = () => {
             <Stack.Screen
                 name={ROUTES.Leaderboard}
                 component={LeaderBoardComponent}
-                options={({ route, navigation }) => ({
-                    headerTitle: null,
-                    headerLeft: () => <HeaderBack />
-                })}
             />
             <Stack.Screen
                 name={ROUTES.StagesView}

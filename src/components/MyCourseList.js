@@ -18,8 +18,7 @@ const MyCourseList = ({ userId }) => {
         setLoading(true)
         axios
             .get(
-                `courses/my-courses/paging/${page * 8}/${
-                    userId || userInfo?.id
+                `courses/my-courses/paging/${page * 8}/${userId || userInfo?.id
                 }`
             )
             .then(res => {
@@ -66,11 +65,9 @@ const MyCourseList = ({ userId }) => {
                         />
                     )}
                     contentContainerStyle={{
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        paddingBottom: scale(50)
+                        paddingHorizontal: 15,
+                        paddingBottom: 20
                     }}
-                    style={{ margin: 16 }}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.5}
                     initialNumToRender={10}

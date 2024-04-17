@@ -596,6 +596,18 @@ const Menu = ({ route }) => {
                             }
                         />
                         {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                {/* <MenuAction
+                            icon={svgIconCharts}
+                            title="Bảng xếp hạng"
+                            backgroundColor="#52B553"
+                            // badge={2}
+                            onPress={() =>
+                                navigation.navigate(ROUTES.Leaderboard)
+                            }
+                        /> */}
+                {/*  */}
+                {/* </View> */}
+                {/* </View> */}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {
@@ -629,7 +641,7 @@ const Menu = ({ route }) => {
                                         alignItems: 'center'
                                     }}>
                                     {typeof item?.icon === 'string' ||
-                                        item?.icon instanceof String ? (
+                                    item?.icon instanceof String ? (
                                         <SvgXml
                                             xml={item.icon}
                                             width={scale(24)}

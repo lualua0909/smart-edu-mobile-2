@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { COLORS } from '../../constants'
 import { RadarChart } from '../radarChart'
@@ -60,7 +60,7 @@ const ChartsComponent = ({ route }) => {
                     />
                 )}
             </View>
-            <View style={{ paddingHorizontal: 20 }}>
+            <ScrollView style={{ paddingHorizontal: 20 }}>
                 <Text
                     style={[
                         styles.text_color,
@@ -111,9 +111,7 @@ const ChartsComponent = ({ route }) => {
                         )
                     }}
                 />
-
-                {/* {noteState?.map((item, index) => {})} */}
-            </View>
+            </ScrollView>
         </View>
     )
 }

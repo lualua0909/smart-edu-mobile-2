@@ -245,15 +245,20 @@ const EntranceTest = ({ navigation, route }) => {
         }
     }
 
-    React.useEffect(() => {
-        setQuestion(dataQuestion[currentIndexQuestion])
-    }, [currentIndexQuestion])
-
-    if (isLoading || loading)
-        return <AbsoluteSpinner title={textStatusLading} />
+    if (isFinishIntroduceVideo)
+        return (
+            <IntroductionVideo
+                visible={isFinishIntroduceVideo}
+                setVisible={setIsFinishIntroductionVideo}
+                isReview={false}
+            />
+        )
+    if (loading || isLoading) return <Loading title={textStatusLading} />
 
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
+
             {currentIndexQuestion <= dataQuestion.length - 1 ? (
                 <>
                     {renterQuestion(question)}

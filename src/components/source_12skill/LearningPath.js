@@ -10,7 +10,6 @@ import React from 'react'
 import {
     Alert,
     Dimensions,
-    Pressable,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -22,25 +21,52 @@ import Timeline from 'react-native-timeline-flatlist'
 
 import HeaderTitle from 'app/components/header-title'
 
+import { AbsoluteSpinner } from '../../atoms'
 import DragDrop from './DragDrop'
+import IntroductionVideo from './IntroductionVideo'
 import { RenderBackgroundColor } from './renderColorRestult'
 
 const { width, height } = Dimensions.get('screen')
 
-const LearningPath = ({ navigation, route }) => {
-    const { data: dataRoadmap, refetch } = useQuery(ROADMAP_LIST, {
+const LearningPath = ({ navigation }) => {
+    const {
+        data: dataRoadmap,
+        loading,
+        refetch
+    } = useQuery(ROADMAP_LIST, {
         variables: { course_id: 162 }
     })
 
-    const { data: DataCourseList } = useQuery(COURSE_GROUP_LIST)
+    const { data: DataCourseList, loading: cgLoading } =
+        useQuery(COURSE_GROUP_LIST)
 
     const [data, setData] = React.useState([])
-    const [user, setUser] = React.useState()
     const [isLoading, setIsLoading] = React.useState(false)
     const [isAdjust, setIsAdjust] = React.useState(false)
     const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
     const [hasAdjust, setHasAdjust] = React.useState(true)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
+    const [visibleVideoIntroduction, setVisibleIntroduction] =
+        React.useState(false)
+
+    // React.useEffect(() => {
+    //     navigation.setOptions({
+    //         headerRight: () => {
+    //             return (
+    //                 <View style={{ paddingHorizontal: 10 }}>
+    //                     <TouchableOpacity
+    //                         onPress={() =>
+    //                             navigation.navigate(ROUTES.VideoIntroduction, {
+    //                                 isReview: true
+    //                             })
+    //                         }>
+    //                         <SvgXml xml={svgVideo} width={24} height={24} />
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             )
+    //         }
+    //     })
+    // }, [])
 
     const formatData = () => {
         setIsLoading(true)
@@ -180,8 +206,6 @@ const LearningPath = ({ navigation, route }) => {
         if (userInfoStore) {
             // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
             // storage.delete('SCREEN')
-            setUser(userInfoStore)
-
             // if (dataCourseFromStore) {
             //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
             //     setHasAdjust(jsonDataCourse.isAdjust)
@@ -275,6 +299,14 @@ const LearningPath = ({ navigation, route }) => {
     const renderTime = (rowData, index) => {
         return <Text style={styles.name_learning_path}>Chặng {index + 1}</Text>
     }
+    if (visibleVideoIntroduction)
+        return (
+            <IntroductionVideo
+                setVisible={setVisibleIntroduction}
+                visible={visibleVideoIntroduction}
+                isReview={true}
+            />
+        )
 
     const renderContentTimeLine = (data, index, rowData, color) => {
         return (
@@ -383,6 +415,10 @@ const LearningPath = ({ navigation, route }) => {
             </TouchableOpacity>
         )
     }
+
+    if (loading || cgLoading)
+        return <AbsoluteSpinner title={'Đang tải dữ liệu'} />
+
     return (
         <SafeAreaView edges={['top', 'left', 'right']} style={styles.container}>
             {!isLoading ? (
@@ -406,25 +442,16 @@ const LearningPath = ({ navigation, route }) => {
                 <>
                     {isAdjust ? (
                         <View style={styles.gr_btn}>
-                            <Text
+                            <Button
+                                outlined
                                 onPress={openAlertCancelAdjust}
                                 style={[
                                     styles.gr_btn_width,
                                     styles.text_cancel
                                 ]}>
                                 Trở về
-                            </Text>
-                            <Pressable
-                                onPress={alertConfirmAdjust}
-                                style={[styles.gr_btn_width, styles.btn_next]}>
-                                <Text
-                                    style={[
-                                        styles.text_color,
-                                        styles.text_btn_next
-                                    ]}>
-                                    Lưu
-                                </Text>
-                            </Pressable>
+                            </Button>
+                            <Button onPress={alertConfirmAdjust}>Lưu</Button>
                         </View>
                     ) : (
                         <View style={styles.gr_btn}>
