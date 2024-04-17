@@ -18,6 +18,7 @@ const CourseItem = ({
     fullWidth = false
 }) => {
     const navigation = useNavigation()
+
     const renderPrice = () => {
         if (item?.old_price > 0 && item?.new_price > 0) {
             return (
@@ -62,7 +63,7 @@ const CourseItem = ({
     }
 
     const renderPriceIOS = () => {
-        return (
+        return item?.ios_price ? (
             <>
                 <Text />
                 <Text
@@ -74,7 +75,7 @@ const CourseItem = ({
                     {toCurrency(item?.ios_price)} đ
                 </Text>
             </>
-        )
+        ) : null
     }
 
     return (

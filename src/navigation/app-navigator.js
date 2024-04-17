@@ -90,11 +90,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo2}
-                component={
-                    isAndroid
-                        ? CourseDetailsAndroid
-                        : withIAPContext(CourseDetails)
-                }
+                component={withIAPContext(CourseDetails)}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />

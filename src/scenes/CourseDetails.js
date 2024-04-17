@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { setGlobalState, useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
@@ -11,14 +11,20 @@ import {
     VideoViewer,
     showToast
 } from 'app/atoms'
-import { APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
+import { APP_URL, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
+import {
+    clearDataAfterLogout,
+    errorLog,
+    isAndroid,
+    storeData,
+    toCurrency
+} from 'app/helpers/utils'
 import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
@@ -59,7 +65,7 @@ const CourseInfo = ({ navigation, route }) => {
     const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
         variables: { course_id: 162 }
     })
-
+    const [inCart, setInCart] = useState(false)
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -208,7 +214,33 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [])
 
+    const addToCart = async () => {
+        if (userInfo?.id === 'trial') {
+            setGlobalState('visibleNotLogin', true)
+        } else {
+            setInCart(true)
+            const course = {
+                id: data?.id,
+                title: data?.title,
+                new_price: data?.new_price,
+                old_price: data?.old_price
+            }
+            const newCarts = [course]
+            storeData('@cart', newCarts)
+            setGlobalState('carts', newCarts)
+            showToast({
+                title: 'Đã thêm khóa học vào giỏ hàng',
+                status: 'success'
+            })
+        }
+    }
+
     const handlePurchase = async () => {
+        if (isAndroid) {
+            addToCart()
+            return
+        }
+
         if (!products[0]?.productId) return
         setLoadingSpinner(true)
         try {
@@ -494,6 +526,28 @@ const CourseInfo = ({ navigation, route }) => {
             ]
             return (
                 <View style={{ marginTop: scale(16) }}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
+                        }}>
+                        <DollarSign
+                            width={scale(22)}
+                            height={scale(22)}
+                            stroke="#6C746E"
+                        />
+                        <Text
+                            bold
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#095F2B'
+                            }}>
+                            {toCurrency(data?.ios_price)}đ
+                        </Text>
+                    </View>
                     {dataDetail.map((item, index) => (
                         <View
                             key={index}
@@ -502,7 +556,6 @@ const CourseInfo = ({ navigation, route }) => {
                                 alignItems: 'flex-start',
                                 marginVertical: 3
                             }}>
-                            <Text>{index + 1}. </Text>
                             <Text
                                 style={{
                                     marginLeft: scale(9),
@@ -696,7 +749,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }}>
                         {data?.s_des}
                     </Text>
-                    {renderDetailCourse(data?.isRoadmap)}
+                    {renderDetailCourse(data?.is_roadmap)}
                 </View>
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
@@ -867,7 +920,14 @@ const CourseInfo = ({ navigation, route }) => {
                                 <>
                                     {!data?.relational && data?.ios_price ? (
                                         <Button
-                                            onPress={handlePurchase}
+                                            onPress={
+                                                inCart
+                                                    ? () =>
+                                                          navigation.navigate(
+                                                              ROUTES.Carts
+                                                          )
+                                                    : handlePurchase
+                                            }
                                             isLoading={loadingVerify}
                                             isLoadingText="Đang xử lý"
                                             leftIcon={
@@ -878,7 +938,9 @@ const CourseInfo = ({ navigation, route }) => {
                                                     />
                                                 </>
                                             }>
-                                            Mua ngay
+                                            {inCart
+                                                ? 'Vào giỏ hàng'
+                                                : 'Mua ngay'}
                                         </Button>
                                     ) : null}
                                     {!!data?.relational &&

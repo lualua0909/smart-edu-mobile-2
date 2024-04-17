@@ -83,16 +83,14 @@ const CartItem = ({ course, index }) => {
                 </Text>
             </>
         ) : (
-            <>
-                <Text
-                    bold
-                    style={{
-                        color: '#1DA736',
-                        fontSize: scale(16)
-                    }}>
-                    {toCurrency(course?.old_price)} đ
-                </Text>
-            </>
+            <Text
+                bold
+                style={{
+                    color: '#1DA736',
+                    fontSize: scale(16)
+                }}>
+                {toCurrency(course?.old_price)} đ
+            </Text>
         )
 
     return (
