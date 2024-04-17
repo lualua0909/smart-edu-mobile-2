@@ -18,6 +18,7 @@ import {
 } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
+import IntroductionVideo from './IntroductionVideo'
 import Choose from './answer/Choose'
 
 const { width, height } = Dimensions.get('screen')
@@ -38,14 +39,19 @@ const EntranceTest = ({ navigation, route }) => {
         React.useState('Đang tải câu hỏi')
     const [isSubmit, setIsSubmit] = React.useState(false)
 
+    const [isFinishIntroduceVideo, setIsFinishIntroductionVideo] =
+        React.useState(true)
+
     const appState = React.useRef(AppState.currentState)
 
     const formatQuestion = () => {
-        const newData = data.RoadmapPretest.questions.map(item => ({
+        const dataRoadmapPretest = data.RoadmapPretest
+
+        const newData = dataRoadmapPretest.questions.map(item => ({
             idStage: item.group_id,
             idQuestion: item.id,
             questionName: item.title,
-            idSubmit: data.RoadmapPretest.id,
+            idSubmit: dataRoadmapPretest.id,
             type: 'choose',
             answer: [...dataAnswer]
         }))
@@ -169,6 +175,7 @@ const EntranceTest = ({ navigation, route }) => {
     }
 
     React.useEffect(() => {
+        if (isFinishIntroduceVideo) return
         navigation.addListener('beforeRemove', e => {
             e.preventDefault()
             if (!isSubmit) {
@@ -245,15 +252,20 @@ const EntranceTest = ({ navigation, route }) => {
         }
     }
 
-    React.useEffect(() => {
-        setQuestion(dataQuestion[currentIndexQuestion])
-    }, [currentIndexQuestion])
-
-    if (isLoading || loading)
-        return <AbsoluteSpinner title={textStatusLading} />
+    if (isFinishIntroduceVideo)
+        return (
+            <IntroductionVideo
+                visible={isFinishIntroduceVideo}
+                setVisible={setIsFinishIntroductionVideo}
+                isReview={false}
+            />
+        )
+    if (loading || isLoading) return <Loading title={textStatusLading} />
 
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
+
             {currentIndexQuestion <= dataQuestion.length - 1 ? (
                 <>
                     {renterQuestion(question)}

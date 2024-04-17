@@ -1,4 +1,4 @@
-export default ROUTES = {
+const ROUTES = {
     Wireframe: 'Wireframe',
     Login: 'Login',
     SignUp: 'SignUp',
@@ -38,5 +38,8 @@ export default ROUTES = {
     ChartTestResult: 'ChartTestResult',
     StagesView: 'StagesView',
     Leaderboard: 'Leaderboard',
-    IntroductionPreTest: 'IntroductionPreTest'
+    IntroductionPreTest: 'IntroductionPreTest',
+    VideoIntroduction: 'VideoIntroduction'
 }
+
+export default ROUTES

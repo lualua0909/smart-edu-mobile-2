@@ -19,8 +19,8 @@ const HeaderBack = ({ white = false, style }) => {
                 ...style
             }}>
             <ChevronLeft
-                width={22}
-                height={22}
+                width={36}
+                height={36}
                 stroke={white ? 'white' : '#0E564D'}
             />
         </Pressable>

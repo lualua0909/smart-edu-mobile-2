@@ -1,4 +1,4 @@
-import LeaderBoardComponent from 'app/components/Leaderboard/leaderBoard'
+import LeaderBoardComponent from 'app/components/Leaderboard'
 import EntranceTest from 'app/components/source_12skill/EntranceTest'
 import IntroductionPreTest from 'app/components/source_12skill/IntroductionPreTest'
 import LearningPath from 'app/components/source_12skill/LearningPath'
@@ -15,9 +15,7 @@ import ConnectInstructors from 'app/scenes/ConnectInstructors'
 import ConversationDetail from 'app/scenes/ConversationDetail'
 import Course12SkillList from 'app/scenes/Course12SkillList'
 import CourseContents from 'app/scenes/CourseContents'
-import CourseContentsTrial from 'app/scenes/CourseContentsTrial'
 import CourseDetails from 'app/scenes/CourseDetails'
-import CourseDetailsAndroid from 'app/scenes/CourseDetailsAndroid'
 import CoursesByUser from 'app/scenes/CoursesByUser'
 import Friends from 'app/scenes/Friends'
 import JitsiMeeting from 'app/scenes/JitsiMeeting'
@@ -53,6 +51,8 @@ import TabNavigator from './tab-navigator'
 import HeaderBack from 'app/components/header-back'
 import HeaderTitle from 'app/components/header-title'
 
+import IntroductionVideo from '../components/source_12skill/IntroductionVideo'
+
 const Stack = createStackNavigator()
 const AppNavigator = () => {
     return (
@@ -74,11 +74,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
-                component={
-                    isAndroid
-                        ? CourseDetailsAndroid
-                        : withIAPContext(CourseDetails)
-                }
+                component={withIAPContext(CourseDetails)}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
@@ -88,14 +84,20 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo2}
-                component={
-                    isAndroid
-                        ? CourseDetailsAndroid
-                        : withIAPContext(CourseDetails)
-                }
+                component={withIAPContext(CourseDetails)}
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
+                    ),
+                    headerLeft: () => <HeaderBack />
+                })}
+            />
+            <Stack.Screen
+                name={ROUTES.VideoIntroduction}
+                component={IntroductionVideo}
+                options={({ route, navigation }) => ({
+                    headerTitle: () => (
+                        <HeaderTitle title={'Video hướng dẫn'} />
                     ),
                     headerLeft: () => <HeaderBack />
                 })}
@@ -130,7 +132,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseDetailTrial}
-                component={CourseContentsTrial}
+                component={CourseContents}
                 options={({ route, navigation }) => ({
                     headerTitle: () => <HeaderTitle title={'Học thử'} />,
                     headerLeft: () => <HeaderBack whiteBg={true} />
@@ -295,7 +297,9 @@ const AppNavigator = () => {
                 name={ROUTES.ChartTestResult}
                 component={ChartsComponent}
                 options={({ route, navigation }) => ({
-                    headerTitle: () => <HeaderTitle title={'Biểu đồ '} />,
+                    headerTitle: () => (
+                        <HeaderTitle title={'Biểu đồ kỹ năng'} />
+                    ),
                     headerLeft: () => <HeaderBack />
                 })}
             />
@@ -303,7 +307,9 @@ const AppNavigator = () => {
                 name={ROUTES.Leaderboard}
                 component={LeaderBoardComponent}
                 options={({ route, navigation }) => ({
-                    headerTitle: null,
+                    headerTitle: () => (
+                        <HeaderTitle title={'Biểu đồ kỹ năng'} />
+                    ),
                     headerLeft: () => <HeaderBack />
                 })}
             />

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
+import { setGlobalState, useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
@@ -11,14 +11,20 @@ import {
     VideoViewer,
     showToast
 } from 'app/atoms'
-import { APP_URL, COURSE_IMG_PATH, STYLES } from 'app/constants'
+import { APP_URL, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
-import { clearDataAfterLogout, errorLog, toCurrency } from 'app/helpers/utils'
+import {
+    clearDataAfterLogout,
+    errorLog,
+    isAndroid,
+    storeData,
+    toCurrency
+} from 'app/helpers/utils'
 import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
@@ -59,7 +65,7 @@ const CourseInfo = ({ navigation, route }) => {
     const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
         variables: { course_id: 162 }
     })
-
+    const [inCart, setInCart] = useState(false)
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -208,7 +214,33 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }, [])
 
+    const addToCart = async () => {
+        if (userInfo?.id === 'trial') {
+            setGlobalState('visibleNotLogin', true)
+        } else {
+            setInCart(true)
+            const course = {
+                id: data?.id,
+                title: data?.title,
+                new_price: data?.new_price,
+                old_price: data?.old_price
+            }
+            const newCarts = [course]
+            storeData('@cart', newCarts)
+            setGlobalState('carts', newCarts)
+            showToast({
+                title: 'Đã thêm khóa học vào giỏ hàng',
+                status: 'success'
+            })
+        }
+    }
+
     const handlePurchase = async () => {
+        if (isAndroid) {
+            addToCart()
+            return
+        }
+
         if (!products[0]?.productId) return
         setLoadingSpinner(true)
         try {
@@ -422,7 +454,7 @@ const CourseInfo = ({ navigation, route }) => {
             if (res.data.status === 200) {
                 showToast({
                     title: 'Đã xóa khóa học khỏi danh sách yêu thích',
-                    status: 'success',
+                    status: 'error',
                     placement: 'top'
                 })
                 setIsLiked(false)
@@ -474,6 +506,165 @@ const CourseInfo = ({ navigation, route }) => {
         }
 
         setLoadingVerify(false)
+    }
+
+    const renderDetailCourse = isRoadmap => {
+        if (isRoadmap) {
+            const dataDetail = [
+                { title: 'Chương trình E-Learning kết hợp Workshop/Seminar.' },
+                { title: 'Chứng chỉ Viện Quản trị và Tài chính (IFA).' },
+                {
+                    title: 'Cơ hội nhận Chứng chỉ ĐH California, Dominguez Hills, Hoa Kỳ.'
+                },
+                { title: 'Cơ hội nghề nghiệp và thăng tiến trong sự nghiệp.' },
+                {
+                    title: 'Cơ hội tham gia cuộc thi "Tôi của Tương lai" do IFA tổ chức.'
+                },
+                {
+                    title: 'Tham gia cộng đồng "Hành trình sự nghiệp - Job Jorney"'
+                }
+            ]
+            return (
+                <View style={{ marginTop: scale(16) }}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
+                        }}>
+                        <DollarSign
+                            width={scale(22)}
+                            height={scale(22)}
+                            stroke="#6C746E"
+                        />
+                        <Text
+                            bold
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#095F2B'
+                            }}>
+                            {toCurrency(data?.ios_price)}đ
+                        </Text>
+                    </View>
+                    {dataDetail.map((item, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                marginVertical: 3
+                            }}>
+                            <Text
+                                style={{
+                                    marginLeft: scale(9),
+                                    paddingTop: scale(2),
+                                    fontSize: scale(16),
+                                    color: '#6C746E'
+                                }}>
+                                {item.title}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
+            )
+        }
+        return (
+            <View style={{ marginTop: scale(16) }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}>
+                    <SvgXml
+                        xml={svgNote}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Khóa học gồm{' '}
+                        <Text>
+                            {data?.is_combo
+                                ? `${data?.combo?.length} khóa học con`
+                                : `${data?.total_lectures} bài giảng`}
+                        </Text>
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <SvgXml
+                        xml={svgCertificate}
+                        width={scale(24)}
+                        height={scale(24)}
+                    />
+                    <Text
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#6C746E'
+                        }}>
+                        Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
+                    </Text>
+                </View>
+                {data?.is_offline ? (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
+                        }}>
+                        <SvgXml
+                            xml={svgOnline}
+                            width={scale(24)}
+                            height={scale(24)}
+                        />
+                        <Text
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#6C746E'
+                            }}>
+                            Có lớp học offline
+                        </Text>
+                    </View>
+                ) : null}
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: scale(8)
+                    }}>
+                    <DollarSign
+                        width={scale(22)}
+                        height={scale(22)}
+                        stroke="#6C746E"
+                    />
+                    <Text
+                        bold
+                        style={{
+                            marginLeft: scale(9),
+                            paddingTop: scale(2),
+                            fontSize: scale(16),
+                            color: '#095F2B'
+                        }}>
+                        {toCurrency(data?.ios_price)}đ
+                    </Text>
+                </View>
+            </View>
+        )
     }
 
     if (loading) {
@@ -558,99 +749,7 @@ const CourseInfo = ({ navigation, route }) => {
                         }}>
                         {data?.s_des}
                     </Text>
-                    <View style={{ marginTop: scale(16) }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            <SvgXml
-                                xml={svgNote}
-                                width={scale(24)}
-                                height={scale(24)}
-                            />
-                            <Text
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#6C746E'
-                                }}>
-                                Khóa học gồm{' '}
-                                <Text>
-                                    {data?.is_combo
-                                        ? `${data?.combo?.length} khóa học con`
-                                        : `${data?.total_lectures} bài giảng`}
-                                </Text>
-                            </Text>
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: scale(8)
-                            }}>
-                            <SvgXml
-                                xml={svgCertificate}
-                                width={scale(24)}
-                                height={scale(24)}
-                            />
-                            <Text
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#6C746E'
-                                }}>
-                                Cấp <Text>chứng chỉ quốc tế CSUDH</Text>
-                            </Text>
-                        </View>
-                        {data?.is_offline ? (
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    marginTop: scale(8)
-                                }}>
-                                <SvgXml
-                                    xml={svgOnline}
-                                    width={scale(24)}
-                                    height={scale(24)}
-                                />
-                                <Text
-                                    style={{
-                                        marginLeft: scale(9),
-                                        paddingTop: scale(2),
-                                        fontSize: scale(16),
-                                        color: '#6C746E'
-                                    }}>
-                                    Có lớp học offline
-                                </Text>
-                            </View>
-                        ) : null}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: scale(8)
-                            }}>
-                            <DollarSign
-                                width={scale(22)}
-                                height={scale(22)}
-                                stroke="#6C746E"
-                            />
-                            <Text
-                                bold
-                                style={{
-                                    marginLeft: scale(9),
-                                    paddingTop: scale(2),
-                                    fontSize: scale(16),
-                                    color: '#095F2B'
-                                }}>
-                                {toCurrency(data?.ios_price)}đ
-                            </Text>
-                        </View>
-                    </View>
+                    {renderDetailCourse(data?.is_roadmap)}
                 </View>
                 <TabView
                     navigationState={{ index: tabIndex, routes }}
@@ -694,178 +793,198 @@ const CourseInfo = ({ navigation, route }) => {
                     }}
                 />
             </ScrollView>
-            <SafeAreaView
-                onLayout={e =>
-                    setViewHeight({
-                        ...viewHeight,
-                        footer: e.nativeEvent.layout.height
-                    })
-                }
-                edges={['bottom']}
-                style={[
-                    {
-                        position: 'absolute',
-                        bottom: 0,
-                        width: '100%',
-                        paddingVertical: 5,
-                        paddingHorizontal: scale(16)
-                    },
-                    STYLES.boxShadow
-                ]}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingTop: 5
-                    }}>
-                    <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {data && userInfo?.id !== 'trial' ? (
-                            <Pressable
-                                style={{
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    marginRight: scale(30)
-                                }}
-                                onPress={
-                                    isLiked ? removeToWishList : addToWishList
-                                }>
-                                <Heart
-                                    stroke="#52B553"
-                                    fill={isLiked ? '#52B553' : '#fff'}
-                                    width={24}
-                                    height={24}
-                                />
-                                <Text
-                                    style={{
-                                        fontSize: scale(14),
-                                        color: '#52B553',
-                                        marginTop: scale(4)
-                                    }}>
-                                    {isLiked ? 'Đã thích' : 'Yêu thích'}
-                                </Text>
-                            </Pressable>
-                        ) : null}
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: 5
+                }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {data && userInfo?.id !== 'trial' ? (
                         <Pressable
                             style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 marginRight: scale(30)
                             }}
-                            onPress={onShare}>
-                            <Share2 stroke="#52B553" width={24} height={24} />
+                            onPress={
+                                isLiked ? removeToWishList : addToWishList
+                            }>
+                            <Heart
+                                stroke="#52B553"
+                                fill={isLiked ? '#52B553' : '#fff'}
+                                width={24}
+                                height={24}
+                            />
                             <Text
                                 style={{
                                     fontSize: scale(14),
                                     color: '#52B553',
                                     marginTop: scale(4)
                                 }}>
-                                Chia sẻ
+                                {isLiked ? 'Đã thích' : 'Yêu thích'}
                             </Text>
                         </Pressable>
-                        <Pressable
+                    ) : null}
+                    <Pressable
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginRight: scale(30)
+                        }}
+                        onPress={onShare}>
+                        <Share2 stroke="#52B553" width={24} height={24} />
+                        <Text
                             style={{
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                marginRight: scale(30)
-                            }}
-                            onPress={() => {
-                                if (data?.is_combo) {
-                                    showToast({
-                                        title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
-                                        status: 'warning'
-                                    })
-                                } else {
-                                    navigation.navigate(
-                                        ROUTES.CourseDetailTrial,
-                                        {
-                                            courseId: data?.id,
-                                            currentLecture:
-                                                data?.first_lecture_id
-                                        }
-                                    )
-                                }
+                                fontSize: scale(14),
+                                color: '#52B553',
+                                marginTop: scale(4)
                             }}>
-                            <Navigation
-                                stroke="#52B553"
-                                fill={'#52B553'}
-                                width={24}
-                                height={24}
-                            />
-                            <Text outlined style={{ color: '#52B553' }}>
-                                Học thử
-                            </Text>
-                        </Pressable>
-                    </View>
-                    {data && (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                            {userInfo?.id === 'trial' ? (
-                                <Button
-                                    pt={2}
-                                    pb={2}
-                                    pr={5}
-                                    pl={5}
+                            Chia sẻ
+                        </Text>
+                    </Pressable>
+                    <Pressable
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginRight: scale(30)
+                        }}
+                        onPress={() => {
+                            if (data?.is_combo) {
+                                showToast({
+                                    title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
+                                    status: 'warning'
+                                })
+                            } else {
+                                navigation.navigate(ROUTES.CourseDetailTrial, {
+                                    isTrial: true,
+                                    courseId: data?.id,
+                                    currentLecture: data?.first_lecture_id
+                                })
+                            }
+                        }}>
+                        <Navigation
+                            stroke="#52B553"
+                            fill={'#52B553'}
+                            width={24}
+                            height={24}
+                        />
+                        <Text outlined style={{ color: '#52B553' }}>
+                            Học thử
+                        </Text>
+                    </Pressable>
+                </View>
+                {data && (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                        {userInfo?.id === 'trial' ? (
+                            <Pressable
+                                style={{
+                                    width: 200,
+                                    paddingVertical: 10,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: '#52B553'
+                                }}
+                                onPress={clearDataAfterLogout}>
+                                <Text
                                     style={{
-                                        backgroundColor: '#52B553',
-                                        borderRadius: 8
-                                    }}
-                                    onPress={clearDataAfterLogout}>
+                                        fontSize: scale(14),
+                                        color: '#fff',
+                                        marginTop: scale(4)
+                                    }}>
                                     Đến trang đăng nhập
-                                </Button>
-                            ) : (
-                                <>
-                                    {!data?.relational && data?.ios_price ? (
-                                        <Button
-                                            onPress={handlePurchase}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang xử lý"
-                                            leftIcon={
-                                                <>
-                                                    <ShoppingCart
-                                                        stroke="#fff"
-                                                        size={10}
-                                                    />
-                                                </>
-                                            }>
-                                            Mua ngay
-                                        </Button>
-                                    ) : null}
-                                    {!!data?.relational &&
-                                    data?.is_roadmap === 1 ? (
-                                        <Button
-                                            onPress={handleToLearningPath}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang vào">
+                                </Text>
+                            </Pressable>
+                        ) : (
+                            <>
+                                {!data?.relational && data?.ios_price ? (
+                                    <Pressable
+                                        style={{
+                                            width: 150,
+                                            paddingVertical: 10,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#52B553'
+                                        }}
+                                        onPress={
+                                            inCart
+                                                ? () =>
+                                                      navigation.navigate(
+                                                          ROUTES.Carts
+                                                      )
+                                                : handlePurchase
+                                        }>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(14),
+                                                color: '#fff',
+                                                marginTop: scale(4)
+                                            }}>
+                                            {inCart
+                                                ? 'Vào giỏ hàng'
+                                                : 'Mua ngay'}
+                                        </Text>
+                                    </Pressable>
+                                ) : null}
+                                {!!data?.relational &&
+                                data?.is_roadmap === 1 ? (
+                                    <Pressable
+                                        style={{
+                                            width: 150,
+                                            paddingVertical: 10,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#52B553'
+                                        }}
+                                        onPress={handleToLearningPath}>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(14),
+                                                color: '#fff',
+                                                marginTop: scale(4)
+                                            }}>
                                             {dataRoadmap?.Roadmaps.data[0]
                                                 .sub_course.order_number2 !== 0
                                                 ? 'Học ngay'
                                                 : data?.roadmap_test_result > 0
                                                 ? 'Xem kết quả'
                                                 : 'Làm bài test'}
-                                        </Button>
-                                    ) : null}
+                                        </Text>
+                                    </Pressable>
+                                ) : null}
 
-                                    {!!data?.relational &&
-                                    !data?.is_combo &&
-                                    !data?.is_roadmap ? (
-                                        <Button
-                                            onPress={gotoCourse}
-                                            isLoading={loadingVerify}
-                                            isLoadingText="Đang vào">
+                                {!!data?.relational &&
+                                !data?.is_combo &&
+                                !data?.is_roadmap ? (
+                                    <Pressable
+                                        style={{
+                                            width: 150,
+                                            paddingVertical: 10,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            backgroundColor: '#52B553'
+                                        }}
+                                        onPress={gotoCourse}>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(14),
+                                                color: '#fff',
+                                                marginTop: scale(4)
+                                            }}>
                                             Học ngay
-                                        </Button>
-                                    ) : null}
-                                </>
-                            )}
-                        </View>
-                    )}
-                </View>
-            </SafeAreaView>
+                                        </Text>
+                                    </Pressable>
+                                ) : null}
+                            </>
+                        )}
+                    </View>
+                )}
+            </View>
             {loadingSpinner && (
                 <AbsoluteSpinner
                     style={{

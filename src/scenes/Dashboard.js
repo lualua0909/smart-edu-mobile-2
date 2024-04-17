@@ -1,4 +1,4 @@
-import { useGlobalState } from 'app/Store'
+import { getGlobalState, useGlobalState } from 'app/Store'
 import { Avatar, Text } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
@@ -8,16 +8,11 @@ import {
     svgCalendarOffline,
     svgCanceled,
     svgClose,
-    svgCoin,
     svgConfirmed,
-    svgExamination,
     svgIconCharts,
-    svgInternalNews,
     svgMyCourse,
     svgMyMeeting,
-    svgVoucher,
     svgWaitingConfirm,
-    svgWallet,
     svgWhiteCart
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
@@ -27,7 +22,6 @@ import {
     Image,
     ImageBackground,
     Linking,
-    Platform,
     Pressable,
     ScrollView,
     StatusBar,
@@ -40,11 +34,9 @@ import {
     CreditCard,
     DollarSign,
     Edit,
-    Heart,
     HelpCircle,
     Info,
     LogOut,
-    Radio,
     Shield,
     SkipBack
 } from 'react-native-feather'
@@ -57,7 +49,8 @@ const Menu = ({ route }) => {
     const navigation = useNavigation()
     const [visibleWarning, setVisibleWarning] = useState(false)
     const [visibleComingSoon, setVisibleComingSoon] = useState(false)
-    const [userInfo, _] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
+    const dashboardInfo = getGlobalState('dashboardInfo')
     const [carts, setCarts] = useGlobalState('carts')
 
     const getCarts = async () => {
@@ -95,12 +88,12 @@ const Menu = ({ route }) => {
             icon: <HelpCircle stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.Support)
         },
-        // {
-        //     title: 'Phương thức thanh toán',
-        //     icon: <CreditCard stroke="#52B553" width={18} height={18} />,
-        //     onPress: () =>
-        //         Linking.openURL('https://smarte.edu.vn/phuong-thuc-thanh-toan')
-        // },
+        {
+            title: 'Phương thức thanh toán',
+            icon: <CreditCard stroke="#52B553" width={18} height={18} />,
+            onPress: () =>
+                Linking.openURL('https://smarte.edu.vn/phuong-thuc-thanh-toan')
+        },
         {
             title: 'Chính sách điều khoản',
             icon: <Book stroke="#52B553" width={18} height={18} />,
@@ -113,12 +106,12 @@ const Menu = ({ route }) => {
             onPress: () =>
                 Linking.openURL('https://smarte.edu.vn/chinh-sach-bao-mat')
         },
-        // {
-        //     title: 'Chính sách hoàn/hủy',
-        //     icon: <SkipBack stroke="#52B553" width={18} height={18} />,
-        //     onPress: () =>
-        //         Linking.openURL('https://smarte.edu.vn/chinh-sach-hoan-huy')
-        // },
+        {
+            title: 'Chính sách hoàn/hủy',
+            icon: <SkipBack stroke="#52B553" width={18} height={18} />,
+            onPress: () =>
+                Linking.openURL('https://smarte.edu.vn/chinh-sach-hoan-huy')
+        },
         {
             title: 'Thông tin ứng dụng',
             icon: <Info stroke="#52B553" width={18} height={18} />,
@@ -453,20 +446,22 @@ const Menu = ({ route }) => {
                             }
                         />
                         {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
-                        <MenuAction
-                            icon={svgIconCharts}
-                            title="Bảng xếp hạng"
-                            // badge={12}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.Leaderboard)
-                            }
-                            description="KH theo lộ trình"
-                            backgroundColor="#E5FEEC"
-                        />
+                        {dashboardInfo?.showLeaderboard ? (
+                            <MenuAction
+                                icon={svgIconCharts}
+                                title="Bảng xếp hạng"
+                                // badge={12}
+                                onPress={() =>
+                                    navigation.navigate(ROUTES.Leaderboard)
+                                }
+                                description="Lộ trình khoá học"
+                                backgroundColor="#E5FEEC"
+                            />
+                        ) : null}
                     </View>
                 </View>
 
-                {/* {renderMentorConnect} */}
+                {isAndroid ? renderMentorConnect : null}
                 {/* <View
                     style={{
                         backgroundColor: '#fff',
@@ -595,7 +590,9 @@ const Menu = ({ route }) => {
                                 })
                             }
                         />
-                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                {/*  */}
+                {/* </View> */}
+                {/* </View> */}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {
@@ -629,7 +626,7 @@ const Menu = ({ route }) => {
                                         alignItems: 'center'
                                     }}>
                                     {typeof item?.icon === 'string' ||
-                                        item?.icon instanceof String ? (
+                                    item?.icon instanceof String ? (
                                         <SvgXml
                                             xml={item.icon}
                                             width={scale(24)}
