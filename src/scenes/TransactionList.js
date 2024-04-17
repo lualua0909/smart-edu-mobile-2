@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import TransactionItem from 'app/components/TransactionItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -23,7 +23,7 @@ const TransactionList = ({ navigation, route }) => {
             .finally(() => setLoading(false))
     }, [])
 
-    if (loading) return <LoadingAnimation />
+    if (loading) return <AbsoluteSpinner />
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>

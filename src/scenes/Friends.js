@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
-import { useGlobalState } from 'app/Store'
-import { ListSkeleton, NotFoundAnimation } from 'app/atoms'
+import { getGlobalState } from 'app/Store'
+import { ListSkeleton, NoData } from 'app/atoms'
 import FriendItem from 'app/components/FriendItem'
 import React, { useEffect, useState } from 'react'
 
@@ -10,7 +10,7 @@ const Friends = ({ route }) => {
     const { userId } = route.params
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
-    const [userInfo, setUserState] = useGlobalState('userInfo')
+    const userInfo = getGlobalState('userInfo')
 
     useEffect(() => {
         setLoading(true)
@@ -34,11 +34,7 @@ const Friends = ({ route }) => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[1]}>
-                {data?.length ? (
-                    <FriendItem data={data} />
-                ) : (
-                    <NotFoundAnimation />
-                )}
+                {data?.length ? <FriendItem data={data} /> : <NoData />}
             </ScrollView>
         </View>
     )

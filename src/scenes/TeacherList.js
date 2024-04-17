@@ -1,7 +1,7 @@
 import axios from 'app/Axios'
 import {
+    AbsoluteSpinner,
     Center,
-    LoadingAnimation,
     NoDataAnimation,
     Radio,
     Text
@@ -358,7 +358,7 @@ const Teacher = () => {
                             style={{
                                 marginTop: scale(16)
                             }}>
-                            {loading && <LoadingAnimation />}
+                            {loading && <AbsoluteSpinner />}
                             {data?.length > 0 ? (
                                 <FlatList
                                     data={data}

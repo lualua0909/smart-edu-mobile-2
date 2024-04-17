@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import TeacherItem from 'app/components/TeacherItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -64,7 +64,7 @@ const MentorList = ({}) => {
             ) : !loading ? (
                 <NoDataAnimation />
             ) : null}
-            {loading && <LoadingAnimation />}
+            {loading && <AbsoluteSpinner />}
         </View>
     )
 }

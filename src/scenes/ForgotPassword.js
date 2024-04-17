@@ -1,12 +1,12 @@
 import axios from 'app/Axios'
-import { Button, Center, Input } from 'app/atoms'
+import { Button, Center, Input, Text } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import React, { useState } from 'react'
 
-import { Image, ScrollView, Text, View } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 
 import HeaderBack from '../components/header-back'
 
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
                     justifyContent: 'center'
                 }}>
                 <Image
-                    source={require('assets/images/login-bg.png')}
+                    source={require('assets/images/login-bg.webp')}
                     style={{
                         width: '100%',
                         height: '70%',
@@ -90,7 +90,7 @@ const ForgotPassword = () => {
                                 bold
                                 style={{
                                     color: '#0E564D',
-                                    fontSize: scale(16),
+                                    fontSize: 16,
                                     textAlign: 'center'
                                 }}>
                                 QUÊN MẬT KHẨU
@@ -98,12 +98,10 @@ const ForgotPassword = () => {
                             <Text
                                 style={{
                                     marginTop: scale(8),
-                                    fontSize: scale(15),
                                     textAlign: 'center',
-                                    color: '#6C746E',
                                     marginBottom: 20
                                 }}>
-                                Nhập email để tiến hành khôi phục mật khẩu.
+                                Nhập email để khôi phục mật khẩu
                             </Text>
                             <Input
                                 placeholder="Email"
@@ -113,11 +111,8 @@ const ForgotPassword = () => {
                         </View>
                         <Center>
                             <Button
-                                isLoading={loading}
-                                isLoadingText="Đang xử lý"
                                 style={{
-                                    marginTop: scale(16),
-                                    width: '70%'
+                                    marginTop: scale(16)
                                 }}
                                 onPress={resetPassword}>
                                 Quên mật khẩu

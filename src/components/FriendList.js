@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import FriendItem from 'app/components/FriendItem'
 import React, { useEffect, useState } from 'react'
 
@@ -58,7 +58,7 @@ const FriendList = ({}) => {
             ) : !loading ? (
                 <NoDataAnimation />
             ) : null}
-            {loading && <LoadingAnimation />}
+            {loading && <AbsoluteSpinner />}
         </ScrollView>
     )
 }

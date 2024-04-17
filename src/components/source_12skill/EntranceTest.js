@@ -260,7 +260,8 @@ const EntranceTest = ({ navigation, route }) => {
                 isReview={false}
             />
         )
-    if (loading || isLoading) return <Loading title={textStatusLading} />
+    if (loading || isLoading)
+        return <AbsoluteSpinner title={textStatusLading} />
 
     return (
         <View style={styles.container}>

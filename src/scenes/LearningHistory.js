@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import HistoryItem from 'app/components/HistoryItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -22,7 +22,7 @@ const LearningHistory = ({}) => {
             .finally(() => setLoading(false))
     }, [])
 
-    if (loading) return <LoadingAnimation />
+    if (loading) return <AbsoluteSpinner />
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>

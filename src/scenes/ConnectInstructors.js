@@ -1,7 +1,7 @@
 import axios from 'app/Axios'
 import {
+    AbsoluteSpinner,
     HStack,
-    LoadingAnimation,
     NoDataAnimation,
     Text,
     VStack
@@ -304,7 +304,7 @@ const ListData = ({ type = 'booking-list-waiting' }) => {
                 <RefreshControl refreshing={refreshing} onRefresh={refetch} />
             }>
             {loading ? (
-                <LoadingAnimation />
+                <AbsoluteSpinner />
             ) : data?.length ? (
                 <FlatList
                     data={data}

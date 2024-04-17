@@ -6,7 +6,7 @@ import React from 'react'
 
 import { Image, View } from 'react-native'
 
-import chungchiSE from 'assets/images/chung-chi-SE.png'
+import chungchiSE from 'assets/images/chung-chi-SE.webp'
 
 const CourseItem = ({ data, index }) => {
     return (

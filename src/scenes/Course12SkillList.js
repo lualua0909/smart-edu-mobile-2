@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation } from 'app/atoms'
+import { AbsoluteSpinner } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
 import React from 'react'
 
@@ -34,7 +34,7 @@ const Course12SkillList = () => {
 
     if (isLoading)
         return (
-            <LoadingAnimation
+            <AbsoluteSpinner
                 style={{
                     marginTop: 20
                 }}

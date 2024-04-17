@@ -1,12 +1,9 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { showToast, LoadingAnimation, Button } from 'app/atoms'
+import { AbsoluteSpinner, Button, showToast } from 'app/atoms'
 import { COLORS, ROUTES } from 'app/constants'
-import { getData, } from 'app/helpers/utils'
-import {
-    COURSE_GROUP_LIST,
-    ROADMAP_LIST
-} from 'app/qqlStore/queries'
+import { getData } from 'app/helpers/utils'
+import { COURSE_GROUP_LIST, ROADMAP_LIST } from 'app/qqlStore/queries'
 import _ from 'lodash'
 import React from 'react'
 
@@ -26,17 +23,21 @@ import HeaderTitle from 'app/components/header-title'
 
 import DragDrop from './DragDrop'
 import IntroductionVideo from './IntroductionVideo'
-import { RenderBackgroundColor, } from './renderColorRestult'
-import { AbsoluteSpinner } from '../../atoms'
+import { RenderBackgroundColor } from './renderColorRestult'
 
 const { width, height } = Dimensions.get('screen')
 
 const LearningPath = ({ navigation }) => {
-    const { data: dataRoadmap, loading, refetch } = useQuery(ROADMAP_LIST, {
+    const {
+        data: dataRoadmap,
+        loading,
+        refetch
+    } = useQuery(ROADMAP_LIST, {
         variables: { course_id: 162 }
     })
 
-    const { data: DataCourseList, loading: cgLoading } = useQuery(COURSE_GROUP_LIST)
+    const { data: DataCourseList, loading: cgLoading } =
+        useQuery(COURSE_GROUP_LIST)
 
     const [data, setData] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(false)
@@ -252,9 +253,10 @@ const LearningPath = ({ navigation }) => {
     const openAlertAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${!hasAdjust
-                ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
-                : 'Bạn đã điều chỉnh lộ trình của khóa học.'
+            `${
+                !hasAdjust
+                    ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
+                    : 'Bạn đã điều chỉnh lộ trình của khóa học.'
             }`,
             [
                 {
@@ -416,7 +418,8 @@ const LearningPath = ({ navigation }) => {
         )
     }
 
-    if (loading || cgLoading) return <AbsoluteSpinner title={'Đang tải dữ liệu'} />
+    if (loading || cgLoading)
+        return <AbsoluteSpinner title={'Đang tải dữ liệu'} />
 
     return (
         <SafeAreaView edges={['top', 'left', 'right']} style={styles.container}>
@@ -435,13 +438,14 @@ const LearningPath = ({ navigation }) => {
                     circleColor={'#FAF9F9'}
                 />
             ) : (
-                <LoadingAnimation />
+                <AbsoluteSpinner />
             )}
             {!hasAdjust && (
                 <>
                     {isAdjust ? (
                         <View style={styles.gr_btn}>
-                            <Button outlined
+                            <Button
+                                outlined
                                 onPress={openAlertCancelAdjust}
                                 style={[
                                     styles.gr_btn_width,
@@ -449,9 +453,7 @@ const LearningPath = ({ navigation }) => {
                                 ]}>
                                 Trở về
                             </Button>
-                            <Button onPress={alertConfirmAdjust}>
-                                Lưu
-                            </Button>
+                            <Button onPress={alertConfirmAdjust}>Lưu</Button>
                         </View>
                     ) : (
                         <View style={styles.gr_btn}>

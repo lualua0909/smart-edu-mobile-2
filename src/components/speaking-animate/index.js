@@ -123,11 +123,11 @@ const SpeakingAnimate = ({}) => {
 
     return (
         <View style={{ alignItems: 'center', marginTop: 20 }}>
-            <Image
+            {/* <Image
                 source={require('assets/images/speaking-animate/background.jpg')}
                 style={{ width: 256, height: 180, zIndex: -1 }}
                 alt="image"
-            />
+            /> */}
             <Animated.View
                 style={{
                     opacity,

@@ -3,11 +3,9 @@ import { scale } from 'app/helpers/responsive'
 import { similarityString } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
-import LottieView from 'lottie-react-native'
 import {
     Alert,
     FlatList,
-    Linking,
     ScrollView,
     TouchableHighlight,
     View
@@ -15,7 +13,6 @@ import {
 import { Mic } from 'react-native-feather'
 
 import SpeakingAnimate from 'app/components/speaking-animate'
-import animationImg from 'assets/animations/english-reading.json'
 
 const EnglishReading = ({ data }) => {
     const [visibleSpeaking, setVisibleSpeaking] = useState(true)
@@ -66,15 +63,6 @@ const EnglishReading = ({ data }) => {
                         alignItems: 'center',
                         width: '50%'
                     }}>
-                    <LottieView
-                        source={animationImg}
-                        autoPlay
-                        loop
-                        style={{
-                            width: 200,
-                            height: 200
-                        }}
-                    />
                     <Alert w="100%" colorScheme="info" status="info">
                         <VStack space={2} flexShrink={1} w="100%">
                             <HStack

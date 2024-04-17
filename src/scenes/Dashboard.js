@@ -600,7 +600,7 @@ const Menu = ({ route }) => {
                         })
                     }>
                     <Image
-                        source={require('assets/images/menu-banner.jpg')}
+                        source={require('assets/images/menu-banner.webp')}
                         style={{
                             width: '100%',
                             height: scale(170)

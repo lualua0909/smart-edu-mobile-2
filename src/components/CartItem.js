@@ -118,7 +118,7 @@ const CartItem = ({ course, index }) => {
                                 width: '100%',
                                 height: scale(60)
                             }}
-                            defaultSource={require('assets/images/menu-banner.jpg')}
+                            defaultSource={require('assets/images/menu-banner.webp')}
                             alt="image"
                         />
                     </View>

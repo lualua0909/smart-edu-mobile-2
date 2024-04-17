@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import CertificateItem from 'app/components/CertificateItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -56,7 +56,7 @@ const CertificateList = ({ navigation, route }) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             {loading ? (
-                <LoadingAnimation />
+                <AbsoluteSpinner />
             ) : data?.length ? (
                 <FlatList
                     refreshControl={

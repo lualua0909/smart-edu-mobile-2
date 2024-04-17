@@ -7,7 +7,7 @@ import React from 'react'
 import LottieView from 'lottie-react-native'
 import { Platform, Pressable, SafeAreaView } from 'react-native'
 
-import animationImg from 'assets/animations/english-reading.json'
+import animationImg from 'assets/animations/online-learning.json'
 
 const Trial = () => {
     const toTrialPage = () => {
@@ -45,7 +45,7 @@ const Trial = () => {
                         autoPlay
                         loop
                         style={{
-                            width: 100,
+                            width: 200,
                             height: 'auto'
                         }}
                     />
@@ -53,7 +53,7 @@ const Trial = () => {
                 <Text
                     style={{
                         color: '#6C746E',
-                        fontSize: 14
+                        fontSize: 16
                     }}>
                     Trải nghiệm không cần tài khoản?
                 </Text>

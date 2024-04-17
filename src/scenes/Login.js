@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { setGlobalState, useGlobalState } from 'app/Store'
+import { setGlobalState } from 'app/Store'
 import { Button, Center, Input, Text, VStack, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { ROUTES, STYLES } from 'app/constants'
@@ -11,15 +11,12 @@ import React, { useEffect, useState } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { Image, Pressable, ScrollView, View } from 'react-native'
 import { Eye, EyeOff, Lock, Shield } from 'react-native-feather'
-import Toast from 'react-native-toast-message'
 
 const Login = ({ navigation }) => {
     const username = useFormInput('')
     const password = useFormInput('')
     const [loading, setLoading] = useState(false)
     const [fcmToken, setFcmToken] = useState()
-    const [userInfo, setUserInfo] = useGlobalState('userInfo')
-    const [random, setRandom] = useGlobalState('random')
     const [show, setShow] = useState(false)
 
     const getNewToken = async () => {
@@ -59,7 +56,7 @@ const Login = ({ navigation }) => {
                 })
                 .then(res => {
                     if (res.data.status === 200) {
-                        setUserInfo(res?.data)
+                        setGlobalState('userInfo', res?.data)
                         storeData('@userInfo', res?.data)
                     } else {
                         showToast({
@@ -87,7 +84,7 @@ const Login = ({ navigation }) => {
                     justifyContent: 'center'
                 }}>
                 <Image
-                    source={require('assets/images/login-bg.png')}
+                    source={require('assets/images/login-bg.webp')}
                     style={{
                         width: '100%',
                         height: '70%',
@@ -191,7 +188,7 @@ const Login = ({ navigation }) => {
                             <Text
                                 bold
                                 style={{
-                                    fontSize: scale(14),
+                                    fontSize: 16,
                                     color: '#23B55D',
                                     textDecorationLine: 'underline'
                                 }}>
@@ -218,15 +215,13 @@ const Login = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: 14,
-                                    color: '#6C746E',
                                     textAlign: 'center'
                                 }}>
                                 Bạn chưa có tài khoản?{' '}
                                 <Text
                                     bold
                                     style={{
-                                        fontSize: scale(14),
+                                        fontSize: 16,
                                         color: '#23B55D',
                                         textDecorationLine: 'underline'
                                     }}>

@@ -1,5 +1,5 @@
 import axios from 'app/Axios'
-import { LoadingAnimation, NoDataAnimation } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation } from 'app/atoms'
 import NotiItem from 'app/components/NotifyItem'
 import { scale } from 'app/helpers/responsive'
 import React, { useEffect, useState } from 'react'
@@ -90,7 +90,7 @@ const Notification = ({}) => {
                 ) : (
                     <NoDataAnimation />
                 )}
-                {loading && <LoadingAnimation />}
+                {loading && <AbsoluteSpinner />}
             </ScrollView>
         </View>
     )

@@ -1,8 +1,8 @@
 import axios from 'app/Axios'
 import { useGlobalState } from 'app/Store'
 import {
+    AbsoluteSpinner,
     Input,
-    LoadingAnimation,
     Modal,
     NoDataAnimation as NoData,
     Radio,
@@ -208,7 +208,6 @@ const CourseList = ({ route }) => {
                         onRefresh={refetch}
                     />
                 }>
-
                 {data?.length ? (
                     <FlatList
                         data={data || []}
@@ -216,7 +215,7 @@ const CourseList = ({ route }) => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{
                             paddingTop: scale(16),
-                            paddingHorizontal: 15,
+                            paddingHorizontal: 15
                         }}
                         style={{ marginBottom: 10 }}
                         renderItem={({ item, index }) => (
@@ -236,7 +235,7 @@ const CourseList = ({ route }) => {
                     )
                 )}
                 {loading && (
-                    <LoadingAnimation
+                    <AbsoluteSpinner
                         style={{
                             marginTop: 20
                         }}

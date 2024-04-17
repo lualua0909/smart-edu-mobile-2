@@ -10,19 +10,19 @@ const { height, width } = Dimensions.get('window')
 
 const DATA = [
     {
-        image: require('assets/images/wireframe-1.png'),
+        image: require('assets/images/wireframe-1.webp'),
         title: 'Nội dung hấp dẫn',
         content:
             'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
     },
     {
-        image: require('assets/images/wireframe-2.png'),
+        image: require('assets/images/wireframe-2.webp'),
         title: 'Chất lượng hàng đầu',
         content:
             'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
     },
     {
-        image: require('assets/images/wireframe-3.png'),
+        image: require('assets/images/wireframe-3.webp'),
         title: 'Khen thưởng và quà tặng',
         content:
             'Nội dung đa dạng, phong phú được biên soạn bởi các chuyên gia đầu ngành'
@@ -76,7 +76,7 @@ const Wireframe = ({ navigation }) => {
                 <View style={{ width: width * DATA.length }}>
                     <Image
                         alt="wireframe.jpg"
-                        source={require('assets/images/wireframe.jpg')}
+                        source={require('assets/images/wireframe.webp')}
                         style={{
                             width: width * DATA.length + 20,
                             height: height * 0.5,

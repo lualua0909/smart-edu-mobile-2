@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { getGlobalState } from 'app/Store'
-import { LoadingAnimation, NoDataAnimation as NoData } from 'app/atoms'
+import { AbsoluteSpinner, NoDataAnimation as NoData } from 'app/atoms'
 import { COLORS, STYLES } from 'app/constants'
 import _ from 'lodash'
 import React from 'react'
@@ -108,7 +108,7 @@ const LeaderBoardComponent = () => {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                <LoadingAnimation
+                <AbsoluteSpinner
                     style={{
                         marginTop: 20
                     }}
@@ -134,7 +134,7 @@ const LeaderBoardComponent = () => {
         )
     return (
         <ImageBackground
-            source={require('assets/images/leaderboard-bg.png')}
+            source={require('assets/images/green-bg.jpg')}
             style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}>
                 <Animated.ScrollView
@@ -282,7 +282,7 @@ const LeaderBoardComponent = () => {
                                     })}
                                 </View>
                                 <Image
-                                    source={require('assets/images/Podium.png')}
+                                    source={require('assets/images/Podium.webp')}
                                     style={{
                                         width: width - 40,
                                         height: height / 3

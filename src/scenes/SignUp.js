@@ -1,12 +1,12 @@
 import axios from 'app/Axios'
-import { Button, Center, Input, showToast } from 'app/atoms'
+import { Button, Center, Input, Text, showToast } from 'app/atoms'
 import Trial from 'app/components/Trial'
 import { STYLES } from 'app/constants'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import React, { useState } from 'react'
 
-import { Image, ScrollView, Text, View } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 
 import HeaderBack from 'app/components/header-back'
 
@@ -67,7 +67,7 @@ const SignUp = () => {
                     justifyContent: 'center'
                 }}>
                 <Image
-                    source={require('assets/images/login-bg.png')}
+                    source={require('assets/images/login-bg.webp')}
                     style={{
                         width: '100%',
                         height: '70%',
@@ -105,7 +105,7 @@ const SignUp = () => {
                             bold
                             style={{
                                 color: '#0E564D',
-                                fontSize: scale(16),
+                                fontSize: 16,
                                 textAlign: 'center',
                                 marginBottom: 10
                             }}>
@@ -119,9 +119,6 @@ const SignUp = () => {
                         />
                         <Center>
                             <Button
-                                size="md"
-                                isLoading={loading}
-                                isLoadingText="Đang xử lý"
                                 style={{
                                     marginTop: scale(16)
                                 }}
