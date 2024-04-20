@@ -86,14 +86,16 @@ const TeacherItem = ({ item }) => {
                     }}>
                     {fullName}
                 </Text>
-                <View
-                    style={{
-                        paddingVertical: scale(4),
-                        marginTop: scale(4),
-                        alignSelf: 'flex-start'
-                    }}>
-                    <Badge>{item?.department}</Badge>
-                </View>
+                {item?.department ? (
+                    <View
+                        style={{
+                            paddingVertical: scale(4),
+                            marginTop: scale(4),
+                            alignSelf: 'flex-start'
+                        }}>
+                        <Text>{item?.department}</Text>
+                    </View>
+                ) : null}
                 <HStack space={3}>
                     <Text
                         numberOfLines={3}
