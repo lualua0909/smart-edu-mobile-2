@@ -74,7 +74,9 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo}
-                component={withIAPContext(CourseDetails)}
+                component={
+                    isAndroid ? CourseDetails : withIAPContext(CourseDetails)
+                }
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />
@@ -84,7 +86,9 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name={ROUTES.CourseInfo2}
-                component={withIAPContext(CourseDetails)}
+                component={
+                    isAndroid ? CourseDetails : withIAPContext(CourseDetails)
+                }
                 options={({ route, navigation }) => ({
                     headerTitle: () => (
                         <HeaderTitle title={'Giới thiệu khóa học'} />

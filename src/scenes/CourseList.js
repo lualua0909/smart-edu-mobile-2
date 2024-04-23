@@ -200,49 +200,40 @@ const CourseList = ({ route }) => {
                     }}
                 />
             </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={refetch}
-                    />
-                }>
-                {data?.length ? (
-                    <FlatList
-                        data={data || []}
-                        keyExtractor={(_, index) => index.toString()}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            paddingTop: scale(16),
-                            paddingHorizontal: 15
-                        }}
-                        style={{ marginBottom: 10 }}
-                        renderItem={({ item, index }) => (
-                            <CourseItem item={item} index={index} />
-                        )}
-                        onEndReached={handleLoadMore}
-                    />
-                ) : (
-                    !loading && (
-                        <NoData
-                            style={{
-                                marginTop: 20,
-                                width: 800,
-                                height: 300
-                            }}
-                        />
-                    )
-                )}
-                {loading && (
-                    <AbsoluteSpinner
+            {data?.length ? (
+                <FlatList
+                    data={data || []}
+                    keyExtractor={(_, index) => index.toString()}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                        paddingTop: scale(16),
+                        paddingHorizontal: 15
+                    }}
+                    style={{ marginBottom: 10 }}
+                    renderItem={({ item, index }) => (
+                        <CourseItem item={item} index={index} />
+                    )}
+                    onEndReached={handleLoadMore}
+                />
+            ) : (
+                !loading && (
+                    <NoData
                         style={{
-                            marginTop: 20
+                            marginTop: 20,
+                            width: 800,
+                            height: 300
                         }}
                     />
-                )}
-                {filterModal}
-            </ScrollView>
+                )
+            )}
+            {loading && (
+                <AbsoluteSpinner
+                    style={{
+                        marginTop: 20
+                    }}
+                />
+            )}
+            {filterModal}
         </SafeAreaView>
     )
 }

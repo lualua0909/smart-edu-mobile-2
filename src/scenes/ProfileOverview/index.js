@@ -30,7 +30,7 @@ const ProfileOverview = ({ navigation, route }) => {
     const [friends, setFriends] = useState([])
     const [totalFriend, setTotalFriend] = useState(0)
     const [random, setRandom] = useGlobalState('random')
-
+    const [bannerSrcErr, setBannerSrcErr] = useState(false)
     const name = `${data?.first_name} ${data?.last_name}`
 
     useEffect(() => {
@@ -71,15 +71,19 @@ const ProfileOverview = ({ navigation, route }) => {
                 }}>
                 <Image
                     alt="profile overview"
-                    source={{
-                        uri: `${API_URL}public/user-avatars/${userId}-cover.webp?rand=${random}`
-                    }}
-                    fallbackSource={require('assets/images/fallback.jpg')}
+                    source={
+                        bannerSrcErr
+                            ? require('assets/images/menu-banner.webp')
+                            : {
+                                  uri: `${API_URL}public/user-avatars/${userId}-cover.webp?rand=${random}`
+                              }
+                    }
                     style={{
                         width: '100%',
                         position: 'absolute',
                         height: scale(210)
                     }}
+                    onError={() => setBannerSrcErr(true)}
                     resizeMode="cover"
                 />
                 {/* <View

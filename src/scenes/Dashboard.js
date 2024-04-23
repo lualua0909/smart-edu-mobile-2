@@ -8,11 +8,16 @@ import {
     svgCalendarOffline,
     svgCanceled,
     svgClose,
+    svgCoin,
     svgConfirmed,
+    svgExamination,
     svgIconCharts,
+    svgInternalNews,
     svgMyCourse,
     svgMyMeeting,
+    svgVoucher,
     svgWaitingConfirm,
+    svgWallet,
     svgWhiteCart
 } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
@@ -31,12 +36,14 @@ import {
 import {
     Book,
     ChevronRight,
+    ChevronsRight,
     CreditCard,
     DollarSign,
     Edit,
     HelpCircle,
     Info,
     LogOut,
+    Radio,
     Shield,
     SkipBack
 } from 'react-native-feather'
@@ -63,11 +70,6 @@ const Menu = ({ route }) => {
     }, [route])
 
     const menus = [
-        // {
-        //     title: 'Đã yêu thích',
-        //     icon: <Heart stroke="#52B553" width={18} height={18} />,
-        //     onPress: () => navigation.navigate(ROUTES.Wishlist)
-        // },
         {
             title: 'Thông tin cá nhân',
             icon: <Edit stroke="#52B553" width={18} height={18} />,
@@ -78,11 +80,11 @@ const Menu = ({ route }) => {
             icon: <DollarSign stroke="#52B553" width={18} height={18} />,
             onPress: () => navigation.navigate(ROUTES.TransactionList)
         },
-        // {
-        //     title: 'Lan tỏa tri thức',
-        //     icon: <Radio stroke="#52B553" width={18} height={18} />,
-        //     onPress: () => setVisibleWarning(true)
-        // },
+        {
+            title: 'Lan tỏa tri thức',
+            icon: <Radio stroke="#52B553" width={18} height={18} />,
+            onPress: () => setVisibleWarning(true)
+        },
         {
             title: 'Trợ giúp và hỗ trợ',
             icon: <HelpCircle stroke="#52B553" width={18} height={18} />,
@@ -189,24 +191,22 @@ const Menu = ({ route }) => {
                     paddingLeft: scale(16)
                 }}>
                 <Text bold style={styles.formTitleText}>
-                    KẾT NỐI GIẢNG VIÊN
+                    MENTORING 1:1
                 </Text>
-                {/* <Pressable
-            style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-            }}
-            onPress={() =>
-                navigation.navigate(ROUTES.ConnectInstructors, {
-                    initTab: 0,
-                })
-            }
-        >
-            <Text style={styles.formViewMoreText}>
-                Xem lịch sử kết nối
-            </Text>
-            <ChevronRightIcon size={scale(24)} />
-        </Pressable> */}
+                <Pressable
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}
+                    onPress={() =>
+                        navigation.navigate(ROUTES.ConnectInstructors, {
+                            initTab: 0
+                        })
+                    }>
+                    <Text style={styles.formViewMoreText}>
+                        Xem lịch sử kết nối
+                    </Text>
+                </Pressable>
             </View>
             <View
                 style={{
@@ -415,18 +415,6 @@ const Menu = ({ route }) => {
                             backgroundColor="#E8F9FE"
                             onPress={() => navigation.navigate(ROUTES.Wishlist)}
                         />
-                        {/* <MenuAction
-                            icon={svgMyMeeting}
-                            title="Bạn bè"
-                            // description="02 lịch học"
-                            backgroundColor="#FFF4F0"
-                            // badge={2}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.Friends, {
-                                    userId: null
-                                })
-                            }
-                        /> */}
                         <MenuAction
                             icon={svgAchievement}
                             title="Chứng chỉ"
@@ -435,118 +423,7 @@ const Menu = ({ route }) => {
                                 navigation.navigate(ROUTES.CertificateList)
                             }
                         />
-                        <MenuAction
-                            icon={svgMyMeeting}
-                            title="Bạn bè"
-                            backgroundColor="#FFF4F0"
-                            onPress={() =>
-                                navigation.navigate(ROUTES.Friends, {
-                                    userId: null
-                                })
-                            }
-                        />
-                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
-                        {dashboardInfo?.showLeaderboard ? (
-                            <MenuAction
-                                icon={svgIconCharts}
-                                title="Bảng xếp hạng"
-                                // badge={12}
-                                onPress={() =>
-                                    navigation.navigate(ROUTES.Leaderboard)
-                                }
-                                description="Lộ trình khoá học"
-                                backgroundColor="#E5FEEC"
-                            />
-                        ) : null}
-                    </View>
-                </View>
 
-                {isAndroid ? renderMentorConnect : null}
-                {/* <View
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingVertical: scale(16)
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: scale(16)
-                        }}>
-                        <Text style={styles.formTitleText}>
-                            TIỆN ÍCH CỦA TÔI
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: scale(12),
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }}>
-                        <MenuAction
-                            icon={svgWallet}
-                            title="Quản lý ví"
-                            // description="03 khóa học"
-                            backgroundColor="#FFF5E2"
-                            onPress={() => setVisibleComingSoon(true)}
-                        />
-                        <MenuAction
-                            icon={svgCoin}
-                            title="Quản lý SE xu"
-                            // description="02 lịch học"
-                            backgroundColor="#FFF9CE"
-                            onPress={() => setVisibleComingSoon(true)}
-                        />
-                        <MenuAction
-                            icon={svgVoucher}
-                            title="Kho voucher"
-                            // description="01 mục"
-                            backgroundColor="#FFF0F4"
-                            onPress={() => setVisibleComingSoon(true)}
-                        />
-                    </View>
-                </View> */}
-                {/* <View
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingVertical: scale(16)
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: scale(16)
-                        }}>
-                        <Text style={styles.formTitleText}>KHÁC</Text>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: scale(12),
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }}>
-                        <MenuAction
-                            icon={svgInternalNews}
-                            title="Tin tức"
-                            // description="03 khóa học"
-                            backgroundColor="#EAF0FF"
-                            // badge={23}
-                            onPress={() => setVisibleComingSoon(true)}
-                        />
-                        <MenuAction
-                            icon={svgMyMeeting}
-                            title="Bạn bè"
-                            // description="02 lịch học"
-                            backgroundColor="#FFF4F0"
-                            // badge={2}
-                            onPress={() =>
-                                navigation.navigate(ROUTES.Friends, {
-                                    userId: null
-                                })
-                            }
-                        />
                         <MenuAction
                             icon={svgExamination}
                             title="Kỳ thi"
@@ -555,31 +432,21 @@ const Menu = ({ route }) => {
                             // badge={5}
                             onPress={() => setVisibleComingSoon(true)}
                         />
-                    </View> 
-                        </View>*/}
 
-                {/* <View
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingVertical: scale(16)
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            paddingLeft: scale(16)
-                        }}>
-                        <Text bold style={styles.formTitleText}>
-                            KHÁC
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            marginTop: scale(12),
-                            flexDirection: 'row'
-                            // justifyContent: 'start'
-                        }}>
+                        {/* Nếu chưa đăng ký Chuỗi khóa học 12 kỹ năng thì không hiện */}
+                        <MenuAction
+                            icon={svgIconCharts}
+                            title="Bảng xếp hạng"
+                            onPress={() => {
+                                if (dashboardInfo?.showLeaderboard) {
+                                    navigation.navigate(ROUTES.Leaderboard)
+                                } else {
+                                    setVisibleComingSoon(true)
+                                }
+                            }}
+                            description="Lộ trình khoá học"
+                            backgroundColor="#E5FEEC"
+                        />
                         <MenuAction
                             icon={svgMyMeeting}
                             title="Bạn bè"
@@ -590,9 +457,66 @@ const Menu = ({ route }) => {
                                 })
                             }
                         />
-                {/*  */}
-                {/* </View> */}
-                {/* </View> */}
+                        <MenuAction
+                            icon={svgInternalNews}
+                            title="Tin tức"
+                            // description="03 khóa học"
+                            backgroundColor="#EAF0FF"
+                            // badge={23}
+                            onPress={() => setVisibleComingSoon(true)}
+                        />
+                        <MenuAction />
+                    </View>
+                </View>
+
+                {isAndroid ? renderMentorConnect : null}
+                {isAndroid ? (
+                    <View
+                        style={{
+                            backgroundColor: '#fff',
+                            paddingVertical: scale(16)
+                        }}>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                paddingLeft: scale(16)
+                            }}>
+                            <Text bold style={styles.formTitleText}>
+                                TIỆN ÍCH
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginTop: scale(12),
+                                flexDirection: 'row',
+                                justifyContent: 'space-between'
+                            }}>
+                            <MenuAction
+                                icon={svgWallet}
+                                title="Quản lý ví"
+                                // description="03 khóa học"
+                                backgroundColor="#FFF5E2"
+                                onPress={() => setVisibleComingSoon(true)}
+                            />
+                            <MenuAction
+                                icon={svgCoin}
+                                title="Quản lý SE xu"
+                                // description="02 lịch học"
+                                backgroundColor="#FFF9CE"
+                                onPress={() => setVisibleComingSoon(true)}
+                            />
+                            <MenuAction
+                                icon={svgVoucher}
+                                title="Kho voucher"
+                                // description="01 mục"
+                                backgroundColor="#FFF0F4"
+                                onPress={() => setVisibleComingSoon(true)}
+                            />
+                        </View>
+                    </View>
+                ) : null}
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.ProfileOverview, {
@@ -640,10 +564,6 @@ const Menu = ({ route }) => {
                                         {item.title}
                                     </Text>
                                 </View>
-                                {/* <ChevronRightIcon
-                                    size={22}
-                                    style={{ color: '#ccc' }}
-                                /> */}
                             </Pressable>
                         )
                     })}

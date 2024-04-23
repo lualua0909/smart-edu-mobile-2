@@ -58,8 +58,15 @@ const PackagePayment = ({ navigation, route }) => {
         axios
             .post('payment/momo/create-order', params)
             .then(res => {
+                console.log('res = ', res.data)
                 if (res?.data?.status === 200) {
                     Linking.openURL(res?.data?.data?.payUrl)
+                } else {
+                    showToast({
+                        status: 'error',
+                        title: 'Thanh toán thất bại',
+                        description: res?.data?.data
+                    })
                 }
             })
             .finally(() => setLoading(false))

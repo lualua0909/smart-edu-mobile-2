@@ -4,6 +4,7 @@ import React from 'react'
 
 import { useNavigation } from '@react-navigation/native'
 import { Pressable } from 'react-native'
+import { Calendar, Users } from 'react-native-feather'
 
 const MenuUser = ({ userId }) => {
     const navigation = useNavigation()
@@ -26,24 +27,24 @@ const MenuUser = ({ userId }) => {
                 navigation.navigate('MyCertificates', {
                     userId
                 })
+        },
+        {
+            title: 'Quá trình học tập',
+            onPress: () => navigation.navigate('LearningHistory')
+        },
+        {
+            title: 'Bạn bè',
+            onPress: () =>
+                navigation.navigate('FriendList', {
+                    userId
+                })
         }
-        // {
-        //     icon: <Calendar color="#1F2937" width={16} height={16} />,
-        //     title: 'Quá trình học tập',
-        //     onPress: () => navigation.navigate('LearningHistory')
-        // }
-        // {
-        //     icon: <Users color="#1F2937" width={16} height={16} />,
-        //     title: 'Bạn bè',
-        //     onPress: () => navigation.navigate('FriendList')
-        // }
     ]
 
     return (
         <Select
             placeholder="Xem thêm thông tin"
             data={menus}
-            // onChange={(item, index) => console.log(index)}
             displayItem={(item, index, isSelected) => {
                 return (
                     <Pressable onPress={() => menus[index]?.onPress()}>

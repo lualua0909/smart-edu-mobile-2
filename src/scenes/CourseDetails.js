@@ -4,24 +4,24 @@ import { setGlobalState, useGlobalState } from 'app/Store'
 import {
     AbsoluteSpinner,
     Avatar,
-    Button,
     CourseDetailSkeleton,
     Rate,
     Text,
     VideoViewer,
     showToast
 } from 'app/atoms'
-import { APP_URL, COURSE_IMG_PATH, ROUTES, STYLES } from 'app/constants'
+import { APP_URL, COURSE_IMG_PATH, ROUTES } from 'app/constants'
 import BenefitTab from 'app/containers/BenefitTab'
 import ComboTab from 'app/containers/ComboTab'
 import CommentTab from 'app/containers/CommentTab'
 import LectureTab from 'app/containers/LectureTab'
 import TeacherTab from 'app/containers/TeacherTab'
 import { scale } from 'app/helpers/responsive'
+import { useIapPayment } from 'app/helpers/useIapPayment'
 import {
     clearDataAfterLogout,
-    errorLog,
     isAndroid,
+    isIOS,
     storeData,
     toCurrency
 } from 'app/helpers/utils'
@@ -29,34 +29,8 @@ import { ROADMAP_LIST } from 'app/qqlStore/queries'
 import { svgCertificate, svgNote, svgOnline } from 'assets/svg'
 import React, { useEffect, useState } from 'react'
 
-import {
-    Alert,
-    Image,
-    Pressable,
-    SafeAreaView,
-    ScrollView,
-    Share,
-    View
-} from 'react-native'
-import {
-    DollarSign,
-    Heart,
-    Navigation,
-    Share2,
-    ShoppingCart
-} from 'react-native-feather'
-import {
-    PurchaseError,
-    currentPurchase,
-    endConnection,
-    finishTransaction,
-    getProducts,
-    initConnection,
-    isIosStorekit2,
-    purchaseErrorListener,
-    purchaseUpdatedListener,
-    requestPurchase
-} from 'react-native-iap'
+import { Image, Pressable, ScrollView, Share, View } from 'react-native'
+import { DollarSign, Heart, Navigation, Share2 } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
@@ -82,8 +56,7 @@ const CourseInfo = ({ navigation, route }) => {
     const [isLiked, setIsLiked] = useState(false)
     const course_id_ipa = `course_id_${id}`
     const [currentId, setCurrentId] = useState()
-    const [success, setSuccess] = useState(false)
-    const [products, setProducts] = useState()
+
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
     const routes = data?.is_combo
         ? [
@@ -118,103 +91,21 @@ const CourseInfo = ({ navigation, route }) => {
                   title: 'Đánh giá'
               }
           ]
+    const { handlePurchase } = isIOS
+        ? useIapPayment({
+              course_id_ipa,
+              setLoadingSpinner
+          })
+        : {}
 
     useEffect(() => {
-        let purchaseUpdateSubscription
-        let purchaseErrorSubscription
-
-        const initializeIAP = async () => {
-            try {
-                await initConnection()
-
-                // if (isAndroid) {
-                //     await flushFailedPurchasesCachedAsPendingAndroid()
-                // } else {
-                //     // await clearTransactionIOS()
-                // }
-            } catch (error) {
-                if (error instanceof PurchaseError) {
-                    errorLog({
-                        message: `[${error.code}]: ${error.message}`,
-                        error
-                    })
-                } else {
-                    errorLog({ message: 'finishTransaction', error })
-                }
-            }
-        }
-
-        const fetchProducts = async () => {
-            try {
-                const products = await getProducts({
-                    skus: [course_id_ipa]
-                })
-                setProducts(products)
-            } catch (error) {
-                console.log('Error fetching products:', error)
-            }
-        }
-
-        const handlePurchaseUpdate = async purchase => {
-            const receipt = purchase.transactionReceipt
-                ? purchase.transactionReceipt
-                : purchase.originalJson
-
-            setLoadingSpinner(false)
-
-            if (receipt) {
-                try {
-                    await markUserAsBought(purchase)
-                    const acknowledgeResult = await finishTransaction({
-                        purchase,
-                        isConsumable: false
-                    })
-
-                    setLoadingSpinner(false)
-                    console.info('acknowledgeResult', acknowledgeResult)
-                } catch (error) {
-                    errorLog({ message: 'finishTransaction', error })
-                }
-            }
-        }
-
-        const handlePurchaseError = error => {
-            setLoadingSpinner(false)
-            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
-                {
-                    text: 'Ok',
-                    onPress: () => {},
-                    style: 'default'
-                }
-            ])
-            console.warn('purchaseErrorListener', error)
-        }
-
-        Promise.all([initializeIAP(), fetchProducts()])
-            .then(() => {
-                purchaseUpdateSubscription =
-                    purchaseUpdatedListener(handlePurchaseUpdate)
-                purchaseErrorSubscription =
-                    purchaseErrorListener(handlePurchaseError)
-            })
-            .catch(error => {
-                // Handle initialization error
-                console.log('Error initializing IAP:', error)
-            })
-
-        return () => {
-            if (purchaseUpdateSubscription) {
-                purchaseUpdateSubscription.remove()
-            }
-
-            if (purchaseErrorSubscription) {
-                purchaseErrorSubscription.remove()
-            }
-            endConnection()
+        if (data) {
+            setIsLiked(data?.isLiked)
         }
     }, [])
 
-    const addToCart = async () => {
+    const addToCart = () => {
+        console.log('add to cart')
         if (userInfo?.id === 'trial') {
             setGlobalState('visibleNotLogin', true)
         } else {
@@ -232,96 +123,10 @@ const CourseInfo = ({ navigation, route }) => {
                 title: 'Đã thêm khóa học vào giỏ hàng',
                 status: 'success'
             })
+
+            navigation.navigate(ROUTES.Carts)
         }
     }
-
-    const handlePurchase = async () => {
-        if (isAndroid) {
-            addToCart()
-            return
-        }
-
-        if (!products[0]?.productId) return
-        setLoadingSpinner(true)
-        try {
-            const purchase = await requestPurchase({
-                sku: products[0]?.productId
-            })
-
-            await markUserAsBought(purchase)
-            setLoadingSpinner(false)
-        } catch (error) {
-            setLoadingSpinner(false)
-            Alert.alert('Lỗi', 'Yêu cầu thanh toán thất bại', [
-                {
-                    text: 'Ok',
-                    onPress: () => {},
-                    style: 'default'
-                }
-            ])
-            if (error instanceof PurchaseError) {
-                errorLog({
-                    message: `[${error.code}]: ${error.message}`,
-                    error
-                })
-            } else {
-                errorLog({ message: 'handleBuyProduct', error })
-            }
-        }
-    }
-
-    const markUserAsBought = async purchase => {
-        await axios.post('payment/activate', {
-            productId: purchase.productId,
-            transactionDate: purchase.transactionDate,
-            transactionId: purchase.transactionId,
-            transactionReceipt: purchase.transactionReceipt,
-            courseId: id
-        })
-    }
-
-    const checkCurrentPurchase = async (
-        currentPurchase,
-        finishTransaction,
-        setSuccess
-    ) => {
-        setLoadingSpinner(false)
-        try {
-            if (
-                (isIosStorekit2() && currentPurchase?.transactionId) ||
-                currentPurchase?.transactionReceipt
-            ) {
-                await finishTransaction({
-                    purchase: currentPurchase,
-                    isConsumable: false
-                })
-
-                setSuccess(true)
-
-                // Call the API to mark the user as bought
-                await markUserAsBought(currentPurchase)
-            }
-        } catch (error) {
-            if (error instanceof PurchaseError) {
-                errorLog({
-                    message: `[${error.code}]: ${error.message}`,
-                    error
-                })
-            } else {
-                errorLog({ message: 'handleBuyProduct', error })
-            }
-        }
-    }
-
-    useEffect(() => {
-        checkCurrentPurchase(currentPurchase, finishTransaction, setSuccess)
-    }, [currentPurchase, finishTransaction, setSuccess])
-
-    useEffect(() => {
-        if (data) {
-            setIsLiked(data?.isLiked)
-        }
-    }, [])
 
     useEffect(() => {
         if (id) {
@@ -341,14 +146,12 @@ const CourseInfo = ({ navigation, route }) => {
                             status: 'error'
                         })
 
-                        console.log('res= ', res.data)
                         navigation.goBack()
                     }
                 })
                 .then(data => {
                     setData(data?.data)
                 })
-                .catch(err => console.error(err))
                 .finally(() => setLoading(false))
         }
     }, [id])
@@ -423,30 +226,23 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }
 
-    const onShare = async () => {
-        try {
-            await Share.share({
-                message: `${APP_URL}course-details/${data?.slug}`
-            })
-        } catch (error) {
-            console.error(error)
-        }
+    const onShare = () => {
+        Share.share({
+            message: `${APP_URL}course-details/${data?.slug}`
+        })
     }
 
     const addToWishList = () => {
-        axios
-            .get('courses/add-wishlist/' + data?.id)
-            .then(res => {
-                if (res.data.status === 200) {
-                    showToast({
-                        title: 'Đã thêm khóa học vào danh sách yêu thích',
-                        status: 'success',
-                        placement: 'top'
-                    })
-                    setIsLiked(true)
-                }
-            })
-            .catch(err => console.error(err))
+        axios.get('courses/add-wishlist/' + data?.id).then(res => {
+            if (res.data.status === 200) {
+                showToast({
+                    title: 'Đã thêm khóa học vào danh sách yêu thích',
+                    status: 'success',
+                    placement: 'top'
+                })
+                setIsLiked(true)
+            }
+        })
     }
 
     const removeToWishList = () => {
@@ -545,7 +341,12 @@ const CourseInfo = ({ navigation, route }) => {
                                 fontSize: scale(16),
                                 color: '#095F2B'
                             }}>
-                            {toCurrency(data?.ios_price)}đ
+                            {isIOS ? toCurrency(data?.ios_price) + 'đ' : null}
+                            {isAndroid
+                                ? data?.old_price && data?.new_price
+                                    ? toCurrency(data?.new_price) + 'đ'
+                                    : toCurrency(data?.old_price) + 'đ'
+                                : null}
                         </Text>
                     </View>
                     {dataDetail.map((item, index) => (
@@ -641,6 +442,7 @@ const CourseInfo = ({ navigation, route }) => {
                         </Text>
                     </View>
                 ) : null}
+
                 <View
                     style={{
                         flexDirection: 'row',
@@ -660,7 +462,12 @@ const CourseInfo = ({ navigation, route }) => {
                             fontSize: scale(16),
                             color: '#095F2B'
                         }}>
-                        {toCurrency(data?.ios_price)}đ
+                        {isIOS ? toCurrency(data?.ios_price) + 'đ' : null}
+                        {isAndroid
+                            ? data?.old_price && data?.new_price
+                                ? toCurrency(data?.new_price) + 'đ'
+                                : toCurrency(data?.old_price) + 'đ'
+                            : null}
                     </Text>
                 </View>
             </View>
@@ -853,8 +660,9 @@ const CourseInfo = ({ navigation, route }) => {
                         onPress={() => {
                             if (data?.is_combo) {
                                 showToast({
-                                    title: 'Đây là khóa học tổng hợp, vui lòng truy cập vào khóa học con để bắt đầu học',
-                                    status: 'warning'
+                                    title: 'Đây là khóa học tổng hợp',
+                                    description:
+                                        'Vui lòng truy cập vào khóa học con để bắt đầu học'
                                 })
                             } else {
                                 navigation.navigate(ROUTES.CourseDetailTrial, {
@@ -902,7 +710,10 @@ const CourseInfo = ({ navigation, route }) => {
                             </Pressable>
                         ) : (
                             <>
-                                {!data?.relational && data?.ios_price ? (
+                                {(!data?.relational &&
+                                    isIOS &&
+                                    data?.ios_price) ||
+                                (!isIOS && data?.old_price) ? (
                                     <Pressable
                                         style={{
                                             width: 150,
@@ -912,12 +723,7 @@ const CourseInfo = ({ navigation, route }) => {
                                             backgroundColor: '#52B553'
                                         }}
                                         onPress={
-                                            inCart
-                                                ? () =>
-                                                      navigation.navigate(
-                                                          ROUTES.Carts
-                                                      )
-                                                : handlePurchase
+                                            isIOS ? handlePurchase : addToCart
                                         }>
                                         <Text
                                             style={{
@@ -925,9 +731,7 @@ const CourseInfo = ({ navigation, route }) => {
                                                 color: '#fff',
                                                 marginTop: scale(4)
                                             }}>
-                                            {inCart
-                                                ? 'Vào giỏ hàng'
-                                                : 'Mua ngay'}
+                                            Mua ngay
                                         </Text>
                                     </Pressable>
                                 ) : null}
