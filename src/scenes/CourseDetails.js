@@ -461,9 +461,9 @@ const CourseInfo = ({ navigation, route }) => {
             }
         })
     }
-
     const handleToLearningPath = () => {
         const adjust =
+            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 &&
             dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
         if (adjust) {
             navigation.navigate(ROUTES.LearningPath)
