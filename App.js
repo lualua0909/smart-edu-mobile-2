@@ -17,7 +17,11 @@ import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashScreen from 'react-native-splash-screen'
-import Toast from 'react-native-toast-message'
+import Toast, {
+    BaseToast,
+    BaseToastProps,
+    ToastConfig
+} from 'react-native-toast-message'
 
 import SwitchNavigator from 'app/navigation/switch-navigator'
 
@@ -27,6 +31,60 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const linking = {
     prefixes: isIOS ? ['IfaSmartTraining://'] : ['ifa_smart_training://']
+}
+
+const toastProps = {
+    text1Style: {
+        fontSize: 16
+    },
+    text2Style: {
+        fontSize: 13
+    },
+    text2NumberOfLines: 0,
+    style: {
+        height: 'auto',
+        paddingVertical: 10,
+        paddingHorizontal: 0
+    }
+}
+
+export const toastConfig = {
+    success: props => (
+        <BaseToast
+            {...props}
+            {...toastProps}
+            style={[
+                toastProps.style,
+                {
+                    borderLeftColor: '#69C779'
+                }
+            ]}
+        />
+    ),
+    error: props => (
+        <BaseToast
+            {...props}
+            {...toastProps}
+            style={[
+                toastProps.style,
+                {
+                    borderLeftColor: '#FE6301'
+                }
+            ]}
+        />
+    ),
+    warning: props => (
+        <BaseToast
+            {...props}
+            {...toastProps}
+            style={[
+                toastProps.style,
+                {
+                    borderLeftColor: '#FFC107'
+                }
+            ]}
+        />
+    )
 }
 
 const App = () => {
@@ -119,10 +177,10 @@ const App = () => {
                     }}>
                     <SwitchNavigator />
                 </NavigationContainer>
-                <Toast />
+                <Toast config={toastConfig} />
                 <ModalNotLogin visible={visible} setVisible={setVisible} />
             </GestureHandlerRootView>
-        </ApolloProvider >
+        </ApolloProvider>
     )
 }
 

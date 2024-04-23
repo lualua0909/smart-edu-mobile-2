@@ -1,6 +1,11 @@
 import Toast from 'react-native-toast-message'
 
-export default ({ title, description, placement = 'top', status = 'info' }) => {
+export default ({
+    title,
+    description,
+    placement = 'top',
+    status = 'success'
+}) => {
     Toast.show({
         type: status,
         position: placement,

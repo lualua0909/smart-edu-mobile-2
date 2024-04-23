@@ -36,7 +36,6 @@ import {
 import {
     Book,
     ChevronRight,
-    ChevronsRight,
     CreditCard,
     DollarSign,
     Edit,

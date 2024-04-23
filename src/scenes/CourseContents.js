@@ -135,14 +135,11 @@ const CourseDetail = ({ route, navigation }) => {
     }, [currentLecture])
 
     const getData = () => {
-        console.log(
-            'currentId',
-            `${isTrial ? 'public-lectures' : 'lectures'}/get/${currentId}`
-        )
         setLoading(true)
         axios
             .get(`${isTrial ? 'public-lectures' : 'lectures'}/get/${currentId}`)
             .then(res => {
+                console.log('res = ', res.data.data)
                 if (res.data.status === 200) return res.data.data
             })
             .then(data => {

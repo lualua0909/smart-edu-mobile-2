@@ -280,7 +280,25 @@ const CourseInfo = ({ navigation, route }) => {
             const res = await axios.get('courses/verify/' + data?.slug)
 
             if (res?.data?.status === 200) {
-                if (res?.data?.survey) {
+                //Kiểm tra đã hoàn thành khóa học bắt buộc hay chưa
+                const percentOfRequired = res?.data?.data?.percentOfRequired
+
+                if (percentOfRequired < 95) {
+                    const required = res?.data?.data?.required
+                    const requiredInRoadmap =
+                        res?.data?.data?.required_in_roadmap
+
+                    showToast({
+                        title: 'Thông báo từ hệ thống',
+                        description: `Bạn chưa hoàn thành khóa học ${
+                            required?.title || requiredInRoadmap?.title
+                        }`
+                    })
+
+                    navigation.navigate(ROUTES.CourseInfo, {
+                        id: courseId
+                    })
+                } else if (res?.data?.survey) {
                     showToast({
                         title: 'Bạn chưa hoàn thành khảo sát trước khóa học, vui lòng thực hiện khảo sát để tiếp tục khóa học'
                     })
@@ -713,7 +731,9 @@ const CourseInfo = ({ navigation, route }) => {
                                 {(!data?.relational &&
                                     isIOS &&
                                     data?.ios_price) ||
-                                (!isIOS && data?.old_price) ? (
+                                (!data?.relational &&
+                                    !isIOS &&
+                                    data?.old_price) ? (
                                     <Pressable
                                         style={{
                                             width: 150,

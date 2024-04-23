@@ -1,10 +1,13 @@
 import axios from 'app/Axios'
-import { DetailSkeleton, Text } from 'app/atoms'
+import { Center, DetailSkeleton, Text } from 'app/atoms'
 import { scale } from 'app/helpers/responsive'
 import { toRelativeTime } from 'app/helpers/utils'
 import React, { useEffect, useState } from 'react'
 
+import LottieView from 'lottie-react-native'
 import { ScrollView, View } from 'react-native'
+
+import animationBanner from 'assets/animations/online-learning.json'
 
 const NotificationDetail = ({ route }) => {
     const { notifyId } = route.params
@@ -36,13 +39,16 @@ const NotificationDetail = ({ route }) => {
     return (
         <View style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ paddingTop: scale(40) }}>
-                {/* <Avatar
-                    size="lg"
-                    bg="green.700"
-                    style={{
-                        alignSelf: 'center'
-                    }}
-                /> */}
+                <Center>
+                    <LottieView
+                        source={animationBanner}
+                        autoPlay
+                        loop
+                        style={{
+                            height: 150
+                        }}
+                    />
+                </Center>
                 <View style={{ paddingHorizontal: scale(16) }}>
                     <Text
                         bold

@@ -1,6 +1,6 @@
 import axios from 'app/Axios'
 import { getGlobalState } from 'app/Store'
-import { ListSkeleton, NoData } from 'app/atoms'
+import { ListSkeleton, NoDataAnimation } from 'app/atoms'
 import FriendItem from 'app/components/FriendItem'
 import React, { useEffect, useState } from 'react'
 
@@ -34,7 +34,11 @@ const Friends = ({ route }) => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[1]}>
-                {data?.length ? <FriendItem data={data} /> : <NoData />}
+                {data?.length ? (
+                    <FriendItem data={data} />
+                ) : (
+                    <NoDataAnimation />
+                )}
             </ScrollView>
         </View>
     )

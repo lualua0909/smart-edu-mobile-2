@@ -51,7 +51,7 @@ const SignUp = () => {
         } else {
             showToast({
                 title: 'Lỗi',
-                description: 'Vui lòng nhập dày đủ thông tin',
+                description: 'Vui lòng nhập đầy đủ thông tin',
                 status: 'error'
             })
         }

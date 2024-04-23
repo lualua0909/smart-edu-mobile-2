@@ -39,7 +39,7 @@ const NotiItem = ({ data, index, removeNotify }) => {
                 <Pressable
                     onPress={() =>
                         navigation.navigate(ROUTES.NotificationDetail, {
-                            notifyId: data?.id
+                            notifyId: data?._id
                         })
                     }
                     style={{
