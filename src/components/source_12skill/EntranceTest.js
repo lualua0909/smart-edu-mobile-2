@@ -170,9 +170,6 @@ const EntranceTest = ({ navigation, route }) => {
             }
         ])
 
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 500)
         setCurrentIndexQuestion(prev => prev + 1)
         setCurrentAnswer(null)
     }
