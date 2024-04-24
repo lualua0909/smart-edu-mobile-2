@@ -12,6 +12,7 @@ import {
     Alert,
     AppState,
     Dimensions,
+    StatusBar,
     StyleSheet,
     Text,
     View
