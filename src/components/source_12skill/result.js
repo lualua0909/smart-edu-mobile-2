@@ -7,7 +7,15 @@ import { svgIconList } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
-import { Dimensions, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+    Dimensions,
+    FlatList,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native'
+import * as Progress from 'react-native-progress'
 import { SvgXml } from 'react-native-svg'
 
 import HeaderTitle from 'app/components/header-title'
@@ -64,7 +72,8 @@ const TestResult = ({
                             )
                             return {
                                 name_stage: item.description,
-                                process: (sumScore / 25) * 100
+                                process: (sumScore / 25) * 100,
+                                id: item.id
                             }
                         }
                     })
@@ -80,36 +89,48 @@ const TestResult = ({
 
     React.useEffect(() => {
         getAllData()
-    }, [data])
+    }, [dataTest])
 
     if (loading || isLoading)
         return <AbsoluteSpinner title={'Đang tải kết quả'} />
 
     const renderProcess = (text, process) => {
         return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    width: width - 60,
-                    marginVertical: 10
-                }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <SvgXml xml={svgIconList} width={20} height={20} />
-                    <Text style={[styles.result_text, { marginLeft: 5 }]}>
-                        {text}
+            <>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        width: width - 60,
+                        marginVertical: 10
+                    }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <SvgXml xml={svgIconList} width={20} height={20} />
+                        <Text style={[styles.result_text, { marginLeft: 5 }]}>
+                            {text}
+                        </Text>
+                    </View>
+                    <Text
+                        style={[
+                            styles.result_process,
+                            {
+                                color: RenderColor(process)
+                            }
+                        ]}>
+                        {process} %
                     </Text>
                 </View>
-                <Text
-                    style={[
-                        styles.result_process,
-                        {
-                            color: RenderColor(process)
-                        }
-                    ]}>
-                    {process} %
-                </Text>
-            </View>
+                <Progress.Bar
+                    progress={process / 100}
+                    width={width - 60}
+                    style={{
+                        borderColor: COLORS.borderGrey,
+                        borderWidth: 1,
+                        flex: 1
+                    }}
+                    color={RenderColor(process)}
+                />
+            </>
         )
     }
 
@@ -158,11 +179,12 @@ export default TestResult
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     viewItem: {
         backgroundColor: COLORS.colorWhite,
         paddingHorizontal: 10,
+        paddingVertical: 15,
         marginVertical: 10,
         marginHorizontal: 20,
         borderColor: 'rgba(28, 29, 34, 0.1)',

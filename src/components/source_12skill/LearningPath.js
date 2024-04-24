@@ -44,6 +44,7 @@ const LearningPath = ({ navigation }) => {
     const [isAdjust, setIsAdjust] = React.useState(false)
     const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
     const [hasAdjust, setHasAdjust] = React.useState(true)
+    console.log('🚀 ~ LearningPath ~ hasAdjust:', hasAdjust)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
     const [visibleVideoIntroduction, setVisibleIntroduction] =
         React.useState(false)
@@ -69,15 +70,16 @@ const LearningPath = ({ navigation }) => {
 
     const formatData = () => {
         setIsLoading(true)
-        if (!dataRoadmap && !DataCourseList) return
+
         const courseGroupList = DataCourseList?.CourseGroups.data
         const roadmapData = dataRoadmap?.Roadmaps.data
-
-        const adjust = roadmapData[0].sub_course.order_number2 !== 0
+        const adjust = !!roadmapData[0].sub_course.order_number2
         if (adjust) {
+            console.log(123)
             setIsAdjust(false)
             setHasAdjust(true)
         } else {
+            console.log(456)
             setIsAdjust(false)
             setHasAdjust(false)
         }
@@ -100,7 +102,9 @@ const LearningPath = ({ navigation }) => {
             }
         })
         setData(sortByOrderNumber)
-        setIsLoading(false)
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 500)
     }
 
     React.useEffect(() => {
@@ -130,7 +134,7 @@ const LearningPath = ({ navigation }) => {
                 setIsAdjust(false)
                 setHasAdjust(true)
                 refetch()
-                setIsRefetchQuery()
+                setIsRefetchQuery(true)
                 setTimeout(() => {
                     showToast({
                         title: 'Cập nhật lộ trình thành công.',
@@ -230,7 +234,7 @@ const LearningPath = ({ navigation }) => {
     }
 
     React.useEffect(() => {
-        renderData()
+        // renderData()
         if (!hasAdjust) {
             navigation.setOptions({
                 headerTitle: () => (
@@ -344,7 +348,7 @@ const LearningPath = ({ navigation }) => {
         )
     }
 
-    const contentDetailElement = (rowData, sectionID) => {
+    const contentDetailElement = (rowData, sectionID, hasAdjust) => {
         const { color, background } = RenderBackgroundColor(
             sectionID === 0,
             hasAdjust,
@@ -404,16 +408,16 @@ const LearningPath = ({ navigation }) => {
             </View>
         )
     }
-    const renderDetail = (rowData, sectionID, rowId) => {
+    const renderDetail = (rowData, sectionID, hasAdjust) => {
         return !hasAdjust ? (
-            <View>{contentDetailElement(rowData, sectionID)}</View>
+            <View>{contentDetailElement(rowData, sectionID, hasAdjust)}</View>
         ) : (
             <TouchableOpacity
                 onPress={() => {
                     if (!hasAdjust) return
                     handleViewStages(rowData, sectionID)
                 }}>
-                {contentDetailElement(rowData, sectionID)}
+                {contentDetailElement(rowData, sectionID, hasAdjust)}
             </TouchableOpacity>
         )
     }
@@ -428,7 +432,7 @@ const LearningPath = ({ navigation }) => {
                     renderTime={renderTime}
                     data={data}
                     renderDetail={(rowData, sectionID, rowId) =>
-                        renderDetail(rowData, sectionID, rowId)
+                        renderDetail(rowData, sectionID, hasAdjust)
                     }
                     style={{
                         maxHeight: !hasAdjust ? height - 200 : height - 130

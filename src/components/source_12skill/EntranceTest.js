@@ -35,7 +35,7 @@ const EntranceTest = ({ navigation, route }) => {
     const [answerList, setAnswerList] = React.useState([])
     const [idCurrentAnswer, setCurrentAnswer] = React.useState(null)
     const [currentIndexQuestion, setCurrentIndexQuestion] = React.useState(0)
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
     const [textStatusLading, setTextStatusLoading] =
         React.useState('Đang tải câu hỏi')
     const [isSubmit, setIsSubmit] = React.useState(false)
@@ -43,95 +43,23 @@ const EntranceTest = ({ navigation, route }) => {
     const [isFinishIntroduceVideo, setIsFinishIntroductionVideo] =
         React.useState(true)
 
-    const appState = React.useRef(AppState.currentState)
-
     const formatQuestion = () => {
-        const dataRoadmapPretest = data.RoadmapPretest
+        const dataRoadmapPretest = data?.RoadmapPretest
 
-        const newData = dataRoadmapPretest.questions.map(item => ({
+        const newData = dataRoadmapPretest?.questions.map(item => ({
             idStage: item.group_id,
             idQuestion: item.id,
             questionName: item.title,
-            idSubmit: dataRoadmapPretest.id,
+            idSubmit: dataRoadmapPretest?.id,
             type: 'choose',
             answer: [...dataAnswer]
         }))
         setDataQuestion(newData)
         setQuestion(newData[currentIndexQuestion])
-
-        setIsLoading(false)
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1000)
     }
-
-    const getDataUser = () => {
-        setIsLoading(true)
-        const userInfoStore = getData('@userInfo')
-        if (userInfoStore) {
-            setUser(userInfoStore)
-        }
-        axios
-            .get(`courses/roadmap/test-history/${data.RoadmapPretest.id}`)
-            .then(res => {
-                if (res.data && res.data.length > 0) {
-                    console.log(
-                        `courses/roadmap/test-history/${data.RoadmapPretest.id}`,
-                        res.data
-                    )
-                    if (
-                        res.data.length === data.RoadmapPretest.questions.length
-                    ) {
-                        setTextStatusLoading(
-                            'Đang kiểm tra dữ liệu bài kiểm tra đầu vào của bạn'
-                        )
-
-                        setIsSubmit(true)
-                        showToast({
-                            title: 'Bạn đã hoàn thành bài kiểm tra đầu vào. Bạn sẽ được chuyển đến trang xem kết quả',
-                            placement: 'top'
-                        })
-                        navigationRoute()
-                    }
-                    // else {
-                    //     //     setAnswerList(dataCourse.data.answerList),
-                    //     //         setCurrentIndexQuestion(
-                    //     //             dataCourse.data.currentIndexQuestion
-                    //     //         )
-                    //     //     setIsLoading(false)
-                    //     // }
-                    // }
-                } else {
-                    formatQuestion()
-                }
-            })
-            .catch(err => console.log(err))
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }
-
-    React.useEffect(() => {
-        const subscription = AppState.addEventListener(
-            'change',
-            nextAppState => {
-                if (
-                    appState.current.match(/inactive|background/) &&
-                    nextAppState === 'active'
-                ) {
-                    getDataUser()
-                } else {
-                    const answers = answerList.map(item => ({
-                        id: item.idQuestion,
-                        answer: item.yourAnswer
-                    }))
-                    saveResult(answers)
-                }
-                appState.current = nextAppState
-            }
-        )
-
-        return () => {
-            subscription.remove()
-        }
-    }, [getDataUser])
 
     const navigationRoute = () => {
         navigation.navigate(ROUTES.InputTestResult, {
@@ -144,10 +72,9 @@ const EntranceTest = ({ navigation, route }) => {
         navigation.setOptions({
             headerShown: false
         })
-        if (!loading) {
-            getDataUser()
-        }
-    }, [loading])
+        if (!data) return
+        formatQuestion()
+    }, [data])
 
     const saveResult = answers => {
         setTextStatusLoading(
@@ -193,7 +120,7 @@ const EntranceTest = ({ navigation, route }) => {
                 return null
             }
         })
-    }, [navigation, isSubmit])
+    }, [navigation, isSubmit, isFinishIntroduceVideo])
 
     const onSubmitQuestion = () => {
         const answers = answerList.map(item => ({
@@ -252,7 +179,8 @@ const EntranceTest = ({ navigation, route }) => {
                 return <></>
         }
     }
-
+    if (loading || isLoading)
+        return <AbsoluteSpinner title={textStatusLading} />
     if (isFinishIntroduceVideo)
         return (
             <IntroductionVideo
@@ -261,12 +189,10 @@ const EntranceTest = ({ navigation, route }) => {
                 isReview={false}
             />
         )
-    if (loading || isLoading)
-        return <AbsoluteSpinner title={textStatusLading} />
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
 
             {currentIndexQuestion <= dataQuestion.length - 1 ? (
                 <>
