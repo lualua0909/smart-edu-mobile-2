@@ -257,21 +257,18 @@ const CourseInfo = ({ navigation, route }) => {
             }
         })
     }
-    const handleToLearningPath = () => {
-        const adjust =
-            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 &&
-            dataRoadmap?.Roadmaps.data[0].sub_course.order_number2 !== 0
+
+    const handleToLearningPath = adjust => {
         if (adjust) {
-            navigation.navigate(ROUTES.LearningPath)
+            return navigation.navigate(ROUTES.LearningPath)
         } else if (data?.roadmap_test_result > 0) {
-            navigation.navigate(ROUTES.InputTestResult, {
+            return navigation.navigate(ROUTES.InputTestResult, {
                 title: 'Kết quả kiểm tra',
                 idPretest: data?.roadmap_pretest_id
             })
         } else {
-            navigation.navigate(ROUTES.EntranceTest)
+            return navigation.navigate(ROUTES.EntranceTest)
         }
-        setLoadingVerify(false)
     }
 
     const gotoCourse = async () => {
@@ -765,19 +762,24 @@ const CourseInfo = ({ navigation, route }) => {
                                             alignItems: 'center',
                                             backgroundColor: '#52B553'
                                         }}
-                                        onPress={handleToLearningPath}>
+                                        onPress={() =>
+                                            handleToLearningPath(
+                                                !!dataRoadmap?.Roadmaps.data[0]
+                                                    .sub_course.order_number2
+                                            )
+                                        }>
                                         <Text
                                             style={{
                                                 fontSize: scale(14),
                                                 color: '#fff',
                                                 marginTop: scale(4)
                                             }}>
-                                            {dataRoadmap?.Roadmaps.data[0]
-                                                .sub_course.order_number2 !== 0
+                                            {!!dataRoadmap?.Roadmaps.data[0]
+                                                .sub_course.order_number2
                                                 ? 'Học ngay'
                                                 : data?.roadmap_test_result > 0
                                                 ? 'Xem kết quả'
-                                                : 'Làm bài test'}
+                                                : 'Làm bài 2 khảo sát '}
                                         </Text>
                                     </Pressable>
                                 ) : null}

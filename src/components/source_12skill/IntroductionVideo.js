@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { AbsoluteSpinner, showToast } from 'app/atoms'
 import { API_URL } from 'app/constants'
 import { GET_ROADMAP_PRETEST } from 'app/qqlStore/queries'
 import React, { useEffect, useRef, useState } from 'react'
@@ -6,8 +7,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Alert, Dimensions, Modal, StyleSheet, Text, View } from 'react-native'
 import Video from 'react-native-video'
 import { WebView } from 'react-native-webview'
-
-import { AbsoluteSpinner, showToast } from 'app/atoms'
 
 const { width, height } = Dimensions.get('screen')
 function isPortrait() {
@@ -35,7 +34,6 @@ const IntroductionVideo = ({
         data
     } = useQuery(GET_ROADMAP_PRETEST)
     const [videoUrl, setVideoUrl] = useState(undefined)
-    console.log('🚀 ~ videoUrl:', videoUrl)
 
     const [isYoutube, setIsYoutube] = useState()
     const [isBunnyVideo, setIsBunnyVideo] = useState()
@@ -46,6 +44,7 @@ const IntroductionVideo = ({
     const videoRef = useRef(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isPlay, setIsPlay] = useState(false)
+
     const getVideoUrl = () => {
         const dataRoadmapPretest = data?.RoadmapPretest
         const iframeRegex = /<iframe[^>]*src="([^"]+)"[^>]*>/
@@ -66,7 +65,7 @@ const IntroductionVideo = ({
     const handleWebViewMessage = event => {
         const message = event.nativeEvent.data
 
-        setVideoDuration(Math.floor(parseFloat(message)))
+        setVideoDuration(Math.floor(parseFloat(message)) - 10)
         setCurrentTime(1)
         setIsPlay(true)
     }
@@ -77,6 +76,12 @@ const IntroductionVideo = ({
         video.addEventListener('loadedmetadata', function() {
           window?.ReactNativeWebView?.postMessage(video.duration);
         });
+       
+        video.addEventListener('pause', function(e) {
+            e.preventDefault();
+            document.querySelector('video').play();
+        });
+      
       `)
     }
 
@@ -116,7 +121,7 @@ const IntroductionVideo = ({
         return () => clearInterval(interval)
     }, [currentTime, videoDuration, isPlay])
 
-    if (isLoading || isLoadingData || !videoUrl)
+    if (isLoading && isLoadingData && !videoUrl)
         return <AbsoluteSpinner title={'Đang tải video'} />
 
     const renderVideoViewer = () => {
@@ -126,11 +131,13 @@ const IntroductionVideo = ({
                     ref={videoRef}
                     originWhitelist={['*']}
                     onMessage={handleWebViewMessage}
+                    // mediaPlaybackRequiresUserAction={false}
+                    // javaScriptEnabled={true}
+                    // injectJavaScript={`document.querySelector('video').play();`}
                     onLoad={handleVideoLoad}
-                    mediaPlaybackRequiresUserAction={true}
-                    allowsInlineMediaPlayback={true}
+                    allowsFullscreenVideo={true}
                     source={{
-                        uri: videoUrl?.replace('/watch?v=', '/embed/')
+                        uri: videoUrl
                     }}
                     style={frameStyle}
                 />

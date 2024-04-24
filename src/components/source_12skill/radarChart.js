@@ -1,6 +1,13 @@
 import React from 'react'
 
-import { Dimensions, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+    Dimensions,
+    FlatList,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native'
 
 import { COLORS } from '../../constants'
 import { RadarChart } from '../radarChart'
@@ -10,7 +17,6 @@ const { width } = Dimensions.get('screen')
 
 const ChartsComponent = ({ route }) => {
     const { data } = route.params
-    console.log('🚀 ~ ChartsComponent ~ data:', data)
     const [dataChart, setDataChart] = React.useState(null)
     const [noteState, setNoteState] = React.useState(null)
     const convertToDecimal = value => value / 100
@@ -20,12 +26,12 @@ const ChartsComponent = ({ route }) => {
         // let newArrAfter = {}
         const noteArr = []
         data.map((item, index) => {
-            const { process, name_stage } = item
+            const { process, name_stage, id } = item
             newArrBefore[`Năng lực ${index + 1}`] = convertToDecimal(process)
-            // newArrAfter[`Năng lực ${id}`] = convertToDecimal(processAfter)
             noteArr.push({
                 title: `Năng lực  ${index + 1}`,
-                name: name_stage
+                name: name_stage,
+                id
             })
         })
         setNoteState(noteArr)
@@ -61,18 +67,11 @@ const ChartsComponent = ({ route }) => {
                 )}
             </View>
             <ScrollView style={{ paddingHorizontal: 20 }}>
-                <Text
-                    style={[
-                        styles.text_color,
-                        { fontSize: 18, fontWeight: '600' }
-                    ]}>
-                    Ghi chú:
-                </Text>
                 <FlatList
                     data={noteState || []}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
-                        const color = RenderColorStage(index + 1)
+                        const color = RenderColorStage(item.id)
                         return (
                             <View
                                 style={{

@@ -25,12 +25,13 @@ const Benefit = ({ courseId, longDes }) => {
 
     return (
         <View style={{ marginTop: 10 }}>
-            {longDes?.map(text => (
+            {longDes?.map((text, index) => (
                 <View
                     style={{
                         marginHorizontal: 10,
                         flexDirection: 'row'
-                    }}>
+                    }}
+                    key={index}>
                     <Text
                         style={{
                             flex: 1,
