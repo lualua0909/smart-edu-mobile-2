@@ -60,42 +60,42 @@ const CourseInfo = ({ navigation, route }) => {
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
     const routes = data?.is_combo
         ? [
-              {
-                  key: 'tab-1',
-                  title: 'Giới thiệu'
-              },
-              {
-                  key: 'tab-2',
-                  title: 'Khóa học'
-              },
-              {
-                  key: 'tab-3',
-                  title: 'Giảng viên'
-              }
-          ]
+            {
+                key: 'tab-1',
+                title: 'Giới thiệu'
+            },
+            {
+                key: 'tab-2',
+                title: 'Khóa học'
+            },
+            {
+                key: 'tab-3',
+                title: 'Giảng viên'
+            }
+        ]
         : [
-              {
-                  key: 'tab-1',
-                  title: 'Giới thiệu'
-              },
-              {
-                  key: 'tab-2',
-                  title: 'Nội dung'
-              },
-              {
-                  key: 'tab-3',
-                  title: 'Giảng viên'
-              },
-              {
-                  key: 'tab-4',
-                  title: 'Đánh giá'
-              }
-          ]
+            {
+                key: 'tab-1',
+                title: 'Giới thiệu'
+            },
+            {
+                key: 'tab-2',
+                title: 'Nội dung'
+            },
+            {
+                key: 'tab-3',
+                title: 'Giảng viên'
+            },
+            {
+                key: 'tab-4',
+                title: 'Đánh giá'
+            }
+        ]
     const { handlePurchase } = isIOS
         ? useIapPayment({
-              course_id_ipa,
-              setLoadingSpinner
-          })
+            course_id_ipa,
+            setLoadingSpinner
+        })
         : {}
 
     useEffect(() => {
@@ -133,8 +133,7 @@ const CourseInfo = ({ navigation, route }) => {
             setLoading(true)
             axios
                 .get(
-                    `${
-                        userInfo?.id !== 'trial' ? 'auth-' : ''
+                    `${userInfo?.id !== 'trial' ? 'auth-' : ''
                     }get-course-info/${id}`
                 )
                 .then(res => {
@@ -151,6 +150,7 @@ const CourseInfo = ({ navigation, route }) => {
                 })
                 .then(data => {
                     setData(data?.data)
+                    console.log('data = ', data.data)
                 })
                 .finally(() => setLoading(false))
         }
@@ -259,6 +259,10 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const handleToLearningPath = adjust => {
+        if (data?.roadmap_test_result === 0) {
+            return navigation.navigate(ROUTES.EntranceTest)
+        }
+
         if (adjust) {
             return navigation.navigate(ROUTES.LearningPath)
         } else if (data?.roadmap_test_result > 0) {
@@ -266,8 +270,6 @@ const CourseInfo = ({ navigation, route }) => {
                 title: 'Kết quả kiểm tra',
                 idPretest: data?.roadmap_pretest_id
             })
-        } else {
-            return navigation.navigate(ROUTES.EntranceTest)
         }
     }
 
@@ -287,9 +289,8 @@ const CourseInfo = ({ navigation, route }) => {
 
                     showToast({
                         title: 'Thông báo từ hệ thống',
-                        description: `Bạn chưa hoàn thành khóa học ${
-                            required?.title || requiredInRoadmap?.title
-                        }`
+                        description: `Bạn chưa hoàn thành khóa học ${required?.title || requiredInRoadmap?.title
+                            }`
                     })
 
                     navigation.navigate(ROUTES.CourseInfo, {
@@ -728,9 +729,9 @@ const CourseInfo = ({ navigation, route }) => {
                                 {(!data?.relational &&
                                     isIOS &&
                                     data?.ios_price) ||
-                                (!data?.relational &&
-                                    !isIOS &&
-                                    data?.old_price) ? (
+                                    (!data?.relational &&
+                                        !isIOS &&
+                                        data?.old_price) ? (
                                     <Pressable
                                         style={{
                                             width: 150,
@@ -753,7 +754,7 @@ const CourseInfo = ({ navigation, route }) => {
                                     </Pressable>
                                 ) : null}
                                 {!!data?.relational &&
-                                data?.is_roadmap === 1 ? (
+                                    data?.is_roadmap === 1 ? (
                                     <Pressable
                                         style={{
                                             width: 150,
@@ -775,18 +776,18 @@ const CourseInfo = ({ navigation, route }) => {
                                                 marginTop: scale(4)
                                             }}>
                                             {!!dataRoadmap?.Roadmaps.data[0]
-                                                .sub_course.order_number2
+                                                .sub_course.order_number2 > 0
                                                 ? 'Học ngay'
                                                 : data?.roadmap_test_result > 0
-                                                ? 'Xem kết quả'
-                                                : 'Làm bài 2 khảo sát '}
+                                                    ? 'Xem kết quả'
+                                                    : 'Làm bài khảo sát '}
                                         </Text>
                                     </Pressable>
                                 ) : null}
 
                                 {!!data?.relational &&
-                                !data?.is_combo &&
-                                !data?.is_roadmap ? (
+                                    !data?.is_combo &&
+                                    !data?.is_roadmap ? (
                                     <Pressable
                                         style={{
                                             width: 150,

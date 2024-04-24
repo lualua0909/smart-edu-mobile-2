@@ -22,7 +22,6 @@ import Timeline from 'react-native-timeline-flatlist'
 import HeaderTitle from 'app/components/header-title'
 
 import DragDrop from './DragDrop'
-import IntroductionVideo from './IntroductionVideo'
 import { RenderBackgroundColor } from './renderColorRestult'
 
 const { width, height } = Dimensions.get('screen')
@@ -257,10 +256,9 @@ const LearningPath = ({ navigation }) => {
     const openAlertAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${
-                !hasAdjust
-                    ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
-                    : 'Bạn đã điều chỉnh lộ trình của khóa học.'
+            `${!hasAdjust
+                ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
+                : 'Bạn đã điều chỉnh lộ trình của khóa học.'
             }`,
             [
                 {
@@ -305,14 +303,6 @@ const LearningPath = ({ navigation }) => {
     const renderTime = (rowData, index) => {
         return <Text style={styles.name_learning_path}>Chặng {index + 1}</Text>
     }
-    if (visibleVideoIntroduction)
-        return (
-            <IntroductionVideo
-                setVisible={setVisibleIntroduction}
-                visible={visibleVideoIntroduction}
-                isReview={true}
-            />
-        )
 
     const renderContentTimeLine = (data, index, rowData, color) => {
         return (
