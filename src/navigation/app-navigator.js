@@ -44,7 +44,8 @@ import {
     createStackNavigator
 } from '@react-navigation/stack'
 import { Pressable } from 'react-native'
-// import { withIAPContext } from 'react-native-iap'
+import { List } from 'react-native-feather'
+import { withIAPContext } from 'react-native-iap'
 import { SvgXml } from 'react-native-svg'
 
 import TabNavigator from './tab-navigator'
