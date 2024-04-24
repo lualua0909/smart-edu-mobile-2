@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		14951B212BD8B062000EB974 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 14951B202BD8B062000EB974 /* PrivacyInfo.xcprivacy */; };
 		1499C8842949C4F800B930D7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1499C8832949C4F800B930D7 /* Launch Screen.storyboard */; };
 		16C4DCCAC3ED4B269F81A4FF /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8CA16B54EF7145AA9029860B /* Mulish-Bold.ttf */; };
 		31DBCE7900FD402FAD6BAC93 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA2EF11086F74FCAA7C47F10 /* Mulish-ExtraLight.ttf */; };
@@ -56,6 +57,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SmartTraining/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SmartTraining/main.m; sourceTree = "<group>"; };
 		14801FC70D1D45764E9710CD /* Pods-SmartTraining-SmartTrainingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		14951B202BD8B062000EB974 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1499C8832949C4F800B930D7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1B5C3826ED8E98572FDE451F /* Pods-SmartTraining-SmartTrainingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTraining-SmartTrainingTests/Pods-SmartTraining-SmartTrainingTests.release.xcconfig"; sourceTree = "<group>"; };
 		232D90FF710E416CA023DE57 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				14951B202BD8B062000EB974 /* PrivacyInfo.xcprivacy */,
 				BE3E78F82A08AC5400A9BFA8 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* SmartTraining */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -364,6 +367,7 @@
 				BF0B61C464A64E7F9141EB8D /* Mulish-MediumItalic.ttf in Resources */,
 				5B50655B047C4910B5373983 /* Mulish-Regular.ttf in Resources */,
 				632EC5960F824A7EBD31C6A9 /* Mulish-SemiBold.ttf in Resources */,
+				14951B212BD8B062000EB974 /* PrivacyInfo.xcprivacy in Resources */,
 				E45DA40B046549F289B64854 /* Mulish-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
