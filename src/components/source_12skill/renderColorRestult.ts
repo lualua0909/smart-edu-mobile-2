@@ -41,19 +41,9 @@ export const RenderColorStage = (stage: number) => {
             return COLORS.colorStage1
     }
 }
-export const RenderBackgroundColor = (
-    isOpen: boolean,
-    adjust: boolean,
-    idStages: number
-) => {
+export const RenderBackgroundColor = (idStages: number) => {
     let background = RenderColorStage(idStages)
     let color = COLORS.colorWhite
-    if (adjust) {
-        if (!isOpen) {
-            background = 'rgba(224, 244, 244, 0.4)'
-            color = COLORS.colorBlack
-        }
-    }
     return {
         background,
         color

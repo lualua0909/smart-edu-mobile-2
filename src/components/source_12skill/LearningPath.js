@@ -45,27 +45,6 @@ const LearningPath = ({ navigation }) => {
     const [hasAdjust, setHasAdjust] = React.useState(true)
     console.log('🚀 ~ LearningPath ~ hasAdjust:', hasAdjust)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
-    const [visibleVideoIntroduction, setVisibleIntroduction] =
-        React.useState(false)
-
-    // React.useEffect(() => {
-    //     navigation.setOptions({
-    //         headerRight: () => {
-    //             return (
-    //                 <View style={{ paddingHorizontal: 10 }}>
-    //                     <TouchableOpacity
-    //                         onPress={() =>
-    //                             navigation.navigate(ROUTES.VideoIntroduction, {
-    //                                 isReview: true
-    //                             })
-    //                         }>
-    //                         <SvgXml xml={svgVideo} width={24} height={24} />
-    //                     </TouchableOpacity>
-    //                 </View>
-    //             )
-    //         }
-    //     })
-    // }, [])
 
     const formatData = () => {
         setIsLoading(true)
@@ -74,11 +53,9 @@ const LearningPath = ({ navigation }) => {
         const roadmapData = dataRoadmap?.Roadmaps.data
         const adjust = !!roadmapData[0].sub_course.order_number2
         if (adjust) {
-            console.log(123)
             setIsAdjust(false)
             setHasAdjust(true)
         } else {
-            console.log(456)
             setIsAdjust(false)
             setHasAdjust(false)
         }
@@ -205,35 +182,7 @@ const LearningPath = ({ navigation }) => {
         }
     }
 
-    const renderData = () => {
-        // setIsLoading(true)
-        const userInfoStore = getData('@userInfo')
-        if (userInfoStore) {
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
-            // storage.delete('SCREEN')
-            // if (dataCourseFromStore) {
-            //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
-            //     setHasAdjust(jsonDataCourse.isAdjust)
-            //     dataCourse = jsonDataCourse.data
-            // }
-            // const dataSort = dataCourse.map(stages => {
-            //     const sorted = sortByOrder(stages.children)
-            //     return {
-            //         ...stages,
-            //         children: sorted
-            //     }
-            // })
-            // setDataAdjustCourse(dataSort)
-            // setData(dataSort)
-            // const setLoadingTimeout = setTimeout(() => {
-            //     setIsLoading(false)
-            // }, 100)
-            // return () => clearTimeout(setLoadingTimeout)
-        }
-    }
-
     React.useEffect(() => {
-        // renderData()
         if (!hasAdjust) {
             navigation.setOptions({
                 headerTitle: () => (
@@ -256,9 +205,10 @@ const LearningPath = ({ navigation }) => {
     const openAlertAdjust = () =>
         Alert.alert(
             'Thông báo',
-            `${!hasAdjust
-                ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
-                : 'Bạn đã điều chỉnh lộ trình của khóa học.'
+            `${
+                !hasAdjust
+                    ? 'Lưu ý: Bạn chỉ có thể điều chỉnh thứ tự khóa học trong từng chặng và chỉ được điều chỉnh duy nhất 1 lần.'
+                    : 'Bạn đã điều chỉnh lộ trình của khóa học.'
             }`,
             [
                 {
@@ -339,11 +289,7 @@ const LearningPath = ({ navigation }) => {
     }
 
     const contentDetailElement = (rowData, sectionID, hasAdjust) => {
-        const { color, background } = RenderBackgroundColor(
-            sectionID === 0,
-            hasAdjust,
-            rowData.id
-        )
+        const { color, background } = RenderBackgroundColor(rowData.id)
         return (
             <View
                 style={[
