@@ -7,7 +7,6 @@ module.exports = {
     printWidth: 80,
     tabWidth: 4,
     trailingComma: 'none',
-    singleQuote: true,
     importOrder: ['react-', '-(.*)$', '^@react/(.*)$', '^@/(.*)$', '^[./]'],
     importOrderSeparation: true,
     importOrderSortSpecifiers: true
