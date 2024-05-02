@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { AbsoluteSpinner } from 'app/atoms'
 import CourseItem from 'app/components/CourseItem'
@@ -5,11 +6,15 @@ import React from 'react'
 
 import { FlatList, View } from 'react-native'
 
+import { COURSE_LIST } from '../qqlStore/queries'
+
 const Course12SkillList = () => {
     const [data, setData] = React.useState()
+
     const [isLoading, setIsLoading] = React.useState()
     const getData = () => {
         setIsLoading(true)
+
         axios
             .post(`public-courses/paging-by-filter/0`, {
                 course_groups: [],

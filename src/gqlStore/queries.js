@@ -27,6 +27,7 @@ export const COURSE_LIST = gql`
                 rating
                 total_lectures
                 slug
+                process
                 group_id
                 mentor {
                     id

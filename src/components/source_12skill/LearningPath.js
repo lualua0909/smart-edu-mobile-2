@@ -22,64 +22,41 @@ import Timeline from 'react-native-timeline-flatlist'
 import HeaderTitle from 'app/components/header-title'
 
 import DragDrop from './DragDrop'
-import IntroductionVideo from './IntroductionVideo'
 import { RenderBackgroundColor } from './renderColorRestult'
 
 const { width, height } = Dimensions.get('screen')
 
-const LearningPath = ({ navigation }) => {
+const LearningPath = ({ navigation, route }) => {
+    console.log(route?.params?.id)
     const {
         data: dataRoadmap,
         loading,
         refetch
     } = useQuery(ROADMAP_LIST, {
-        variables: { course_id: 162 }
+        variables: { course_id: route?.params?.id }
     })
 
     const { data: DataCourseList, loading: cgLoading } =
         useQuery(COURSE_GROUP_LIST)
 
     const [data, setData] = React.useState([])
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
     const [isAdjust, setIsAdjust] = React.useState(false)
-    const [isRefetchQuery, setIsRefetchQuery] = React.useState(false)
+    const [isRefetchQuery, setIsRefetchQuery] = React.useState(true)
     const [hasAdjust, setHasAdjust] = React.useState(true)
-    console.log('🚀 ~ LearningPath ~ hasAdjust:', hasAdjust)
     const [dataAdjustCourse, setDataAdjustCourse] = React.useState([])
-    const [visibleVideoIntroduction, setVisibleIntroduction] =
-        React.useState(false)
-
-    // React.useEffect(() => {
-    //     navigation.setOptions({
-    //         headerRight: () => {
-    //             return (
-    //                 <View style={{ paddingHorizontal: 10 }}>
-    //                     <TouchableOpacity
-    //                         onPress={() =>
-    //                             navigation.navigate(ROUTES.VideoIntroduction, {
-    //                                 isReview: true
-    //                             })
-    //                         }>
-    //                         <SvgXml xml={svgVideo} width={24} height={24} />
-    //                     </TouchableOpacity>
-    //                 </View>
-    //             )
-    //         }
-    //     })
-    // }, [])
 
     const formatData = () => {
+        if (!DataCourseList && !dataRoadmap) return
         setIsLoading(true)
 
         const courseGroupList = DataCourseList?.CourseGroups.data
         const roadmapData = dataRoadmap?.Roadmaps.data
-        const adjust = !!roadmapData[0].sub_course.order_number2
+        const adjust = !!roadmapData?.[0]?.sub_course?.order_number2
         if (adjust) {
-            console.log(123)
             setIsAdjust(false)
             setHasAdjust(true)
         } else {
-            console.log(456)
             setIsAdjust(false)
             setHasAdjust(false)
         }
@@ -94,24 +71,49 @@ const LearningPath = ({ navigation }) => {
             }
         })
         const removeUndefined = _.remove(result, undefined)
-        const sortByOrderNumber = removeUndefined.map(item => {
+        const sortByOrderNumber = removeUndefined.map((item, index) => {
             const sorted = sortByOrder(item.children)
+            let isOpen = true
+            if (index > 0) {
+                const processPreIndex =
+                    removeUndefined[index - 1].children.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.sub_course.process,
+                        0
+                    ) / removeUndefined[index - 1].children.length
+                isOpen = processPreIndex === 100
+            }
             return {
                 ...item,
+                process:
+                    item.children.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.sub_course.process,
+                        0
+                    ) / item.children.length,
+                isOpen,
                 children: sorted
             }
         })
         setData(sortByOrderNumber)
+        setDataAdjustCourse(sortByOrderNumber)
         setTimeout(() => {
             setIsLoading(false)
         }, 500)
     }
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            refetch()
+            formatData()
+        })
 
+        return unsubscribe
+    }, [navigation])
     React.useEffect(() => {
         if (dataRoadmap && DataCourseList) {
             formatData()
         }
-    }, [dataRoadmap, DataCourseList, isRefetchQuery])
+    }, [dataRoadmap, DataCourseList, loading, cgLoading])
 
     const saveAdjust = () => {
         setIsLoading(true)
@@ -122,7 +124,7 @@ const LearningPath = ({ navigation }) => {
                 const order1 = children.sub_course.order_number
                 courses.push({
                     id: children.sub_course.id,
-                    order: order2 === 0 ? order1 : order2
+                    order: order2 || order1
                 })
             })
         })
@@ -192,7 +194,7 @@ const LearningPath = ({ navigation }) => {
     }
 
     const handleViewStages = (course, sectionID) => {
-        if (sectionID === 0) {
+        if (course.isOpen) {
             const title = course.name
             navigation.navigate(ROUTES.StagesView, {
                 title: title,
@@ -200,41 +202,15 @@ const LearningPath = ({ navigation }) => {
             })
         } else {
             showToast({
-                title: 'Bạn chưa thể học CHẶNG này',
+                description: `Vui lòng hoàn thành chặng ${
+                    data[sectionID - 1].name
+                }`,
                 placement: 'top'
             })
         }
     }
 
-    const renderData = () => {
-        // setIsLoading(true)
-        const userInfoStore = getData('@userInfo')
-        if (userInfoStore) {
-            // storage.delete(`COURSE_12_SKILL_ID_USER_${userInfoStore?.id}`)
-            // storage.delete('SCREEN')
-            // if (dataCourseFromStore) {
-            //     const jsonDataCourse = JSON.parse(dataCourseFromStore)
-            //     setHasAdjust(jsonDataCourse.isAdjust)
-            //     dataCourse = jsonDataCourse.data
-            // }
-            // const dataSort = dataCourse.map(stages => {
-            //     const sorted = sortByOrder(stages.children)
-            //     return {
-            //         ...stages,
-            //         children: sorted
-            //     }
-            // })
-            // setDataAdjustCourse(dataSort)
-            // setData(dataSort)
-            // const setLoadingTimeout = setTimeout(() => {
-            //     setIsLoading(false)
-            // }, 100)
-            // return () => clearTimeout(setLoadingTimeout)
-        }
-    }
-
     React.useEffect(() => {
-        // renderData()
         if (!hasAdjust) {
             navigation.setOptions({
                 headerTitle: () => (
@@ -305,14 +281,6 @@ const LearningPath = ({ navigation }) => {
     const renderTime = (rowData, index) => {
         return <Text style={styles.name_learning_path}>Chặng {index + 1}</Text>
     }
-    if (visibleVideoIntroduction)
-        return (
-            <IntroductionVideo
-                setVisible={setVisibleIntroduction}
-                visible={visibleVideoIntroduction}
-                isReview={true}
-            />
-        )
 
     const renderContentTimeLine = (data, index, rowData, color) => {
         return (
@@ -350,10 +318,11 @@ const LearningPath = ({ navigation }) => {
 
     const contentDetailElement = (rowData, sectionID, hasAdjust) => {
         const { color, background } = RenderBackgroundColor(
-            sectionID === 0,
+            rowData.isOpen,
             hasAdjust,
             rowData.id
         )
+
         return (
             <View
                 style={[
@@ -396,12 +365,13 @@ const LearningPath = ({ navigation }) => {
                                     color: color
                                 }
                             ]}>
-                            {rowData.process} %
+                            {Math.floor(rowData.process)} %
                         </Text>
                         <Progress.Bar
-                            progress={rowData?.process}
+                            progress={rowData.process / 100}
                             color="green"
-                            style={{ width: '80%', marginLeft: 10 }}
+                            width={width / 2 - 10}
+                            style={{ marginLeft: 10 }}
                         />
                     </View>
                 )}
@@ -422,7 +392,7 @@ const LearningPath = ({ navigation }) => {
         )
     }
 
-    if (loading || cgLoading)
+    if (isLoading || (loading && cgLoading))
         return <AbsoluteSpinner title={'Đang tải dữ liệu'} />
 
     return (
@@ -431,7 +401,7 @@ const LearningPath = ({ navigation }) => {
                 <Timeline
                     renderTime={renderTime}
                     data={data}
-                    renderDetail={(rowData, sectionID, rowId) =>
+                    renderDetail={(rowData, sectionID) =>
                         renderDetail(rowData, sectionID, hasAdjust)
                     }
                     style={{

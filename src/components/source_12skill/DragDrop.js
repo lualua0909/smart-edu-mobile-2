@@ -53,8 +53,10 @@ const DragDrop = ({ item: defaultData, setItem, idStages, dataAll }) => {
                     }}
                     onItemReorder={({ fromIndex, toIndex }) => {
                         const fromOrder =
+                            defaultData[fromIndex].sub_course.order_number2 ??
                             defaultData[fromIndex].sub_course.order_number
                         const toOrder =
+                            defaultData[toIndex].sub_course.order_number2 ??
                             defaultData[toIndex].sub_course.order_number
                         const newData = defaultData
                         newData[fromIndex].sub_course.order_number2 = toOrder
@@ -65,24 +67,6 @@ const DragDrop = ({ item: defaultData, setItem, idStages, dataAll }) => {
                         dataAll[indexStages].children = newData
 
                         setItem(dataAll)
-                    }}
-                    onItemDragStart={({ index, item }) => {
-                        console.log(`Item #${index} (${item}) drag start`)
-                    }}
-                    onItemDragPositionChange={({
-                        index,
-                        item,
-                        toIndex,
-                        previousIndex
-                    }) => {
-                        console.log(
-                            `Item #${index} (${item}) dragged to index ${toIndex} (previous: ${previousIndex})`
-                        )
-                    }}
-                    onItemDragEnd={({ index, item, toIndex, toItem }) => {
-                        console.log(
-                            `Item #${index} (${item}) drag ended at index ${toIndex} (${toItem})`
-                        )
                     }}
                 />
             </View>

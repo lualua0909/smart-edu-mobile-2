@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native'
+import * as Progress from 'react-native-progress'
 
 import { RenderColorStage } from '../../renderColorRestult'
 
@@ -27,7 +28,10 @@ const ListCourse = ({ dataStage }) => {
                 placement: 'top'
             })
 
-        navigation.navigate(ROUTES.CourseInfo2, { id: item.sub_course.id })
+        navigation.navigate(ROUTES.CourseInfo2, {
+            id: item.sub_course.id,
+            isRoadMap: true
+        })
     }
 
     const renderItem = ({ item, index }) => {
@@ -59,6 +63,30 @@ const ListCourse = ({ dataStage }) => {
                     ]}>
                     {item.sub_course.title}
                 </Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }}>
+                    <Text
+                        style={{
+                            width: 40,
+                            color: isOpen
+                                ? COLORS.colorWhite
+                                : COLORS.colorBlack
+                        }}>
+                        {Math.floor(item.sub_course.process)} %
+                    </Text>
+                    <Progress.Bar
+                        progress={item.sub_course.process / 100}
+                        color="green"
+                        width={width - 120}
+                        style={{
+                            marginLeft: 10
+                        }}
+                    />
+                </View>
             </TouchableOpacity>
         )
     }

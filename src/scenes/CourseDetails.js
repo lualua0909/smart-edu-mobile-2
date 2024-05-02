@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import axios from 'app/Axios'
 import { setGlobalState, useGlobalState } from 'app/Store'
 import {
@@ -34,13 +34,18 @@ import { DollarSign, Heart, Navigation, Share2 } from 'react-native-feather'
 import { SvgXml } from 'react-native-svg'
 import { TabBar, TabView } from 'react-native-tab-view'
 
+import TestResult from '../components/source_12skill/result'
+
 const CourseInfo = ({ navigation, route }) => {
     const { id } = route.params
-    const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
-        variables: { course_id: 162 }
-    })
+
     const [inCart, setInCart] = useState(false)
     const [data, setData] = useState()
+    const [dataRoadmap, setDataRoadmap] = useState()
+    // const { data: dataRoadmap } = useQuery(ROADMAP_LIST, {
+    //     variables: { course_id: 162 }
+    // })
+    const [getRoadmap] = useLazyQuery(ROADMAP_LIST)
     const [loading, setLoading] = useState(false)
     const [loadingSpinner, setLoadingSpinner] = useState(false)
     const [loadingVerify, setLoadingVerify] = useState(false)
@@ -51,12 +56,13 @@ const CourseInfo = ({ navigation, route }) => {
         tab2: 0,
         tab3: 0,
         tab4: 0,
+        tab5: 0,
         footer: 0
     })
     const [isLiked, setIsLiked] = useState(false)
     const course_id_ipa = `course_id_${id}`
     const [currentId, setCurrentId] = useState()
-
+    const [finishLecture, setFinishLecture] = useState([])
     const [userInfo, _setuserInfo] = useGlobalState('userInfo')
     const routes = data?.is_combo
         ? [
@@ -73,6 +79,40 @@ const CourseInfo = ({ navigation, route }) => {
                   title: 'Giảng viên'
               }
           ]
+        : data?.is_roadmap
+        ? dataRoadmap?.Roadmaps?.data?.[0].sub_course.order_number2
+            ? [
+                  {
+                      key: 'tab-1',
+                      title: 'Giới thiệu'
+                  },
+                  {
+                      key: 'tab-2',
+                      title: 'Mục tiêu khóa học'
+                  },
+                  {
+                      key: 'tab-4',
+                      title: 'Đánh giá'
+                  },
+                  {
+                      key: 'tab-5',
+                      title: 'Kết quả khảo sát'
+                  }
+              ]
+            : [
+                  {
+                      key: 'tab-1',
+                      title: 'Giới thiệu'
+                  },
+                  {
+                      key: 'tab-2',
+                      title: 'Mục tiêu khóa học'
+                  },
+                  {
+                      key: 'tab-4',
+                      title: 'Đánh giá'
+                  }
+              ]
         : [
               {
                   key: 'tab-1',
@@ -128,6 +168,15 @@ const CourseInfo = ({ navigation, route }) => {
         }
     }
 
+    const getDataRoadmap = async idCourse => {
+        const roadmap = await getRoadmap({
+            variables: {
+                course_id: idCourse
+            }
+        })
+        setDataRoadmap(roadmap?.data)
+    }
+
     useEffect(() => {
         if (id) {
             setLoading(true)
@@ -151,6 +200,7 @@ const CourseInfo = ({ navigation, route }) => {
                 })
                 .then(data => {
                     setData(data?.data)
+                    getDataRoadmap(data?.data?.id)
                 })
                 .finally(() => setLoading(false))
         }
@@ -170,6 +220,7 @@ const CourseInfo = ({ navigation, route }) => {
                         <BenefitTab
                             courseId={data?.id}
                             longDes={data?.l_des?.split('</p>')}
+                            isShowBenefits={!data?.is_roadmap}
                         />
                     </View>
                 )
@@ -184,7 +235,12 @@ const CourseInfo = ({ navigation, route }) => {
                         }>
                         {data?.is_combo ? (
                             <ComboTab data={data} />
-                        ) : data?.is_roadmap ? null : (
+                        ) : data?.is_roadmap ? (
+                            <BenefitTab
+                                courseId={data?.id}
+                                isShowBenefits={data?.is_roadmap}
+                            />
+                        ) : (
                             <LectureTab
                                 courseId={data?.id}
                                 totalLectures={data?.total_lectures}
@@ -219,6 +275,22 @@ const CourseInfo = ({ navigation, route }) => {
                         }
                         style={{ padding: scale(16) }}>
                         <CommentTab courseId={data?.id} />
+                    </View>
+                )
+            case 'tab-5':
+                return (
+                    <View
+                        onLayout={e =>
+                            setViewHeight({
+                                ...viewHeight,
+                                tab5: e.nativeEvent.layout.height
+                            })
+                        }
+                        style={{ padding: 16, paddingLeft: 20 }}>
+                        <TestResult
+                            isComponent={true}
+                            idPretestProp={data?.roadmap_pretest_id}
+                        />
                     </View>
                 )
             default:
@@ -259,18 +331,33 @@ const CourseInfo = ({ navigation, route }) => {
     }
 
     const handleToLearningPath = adjust => {
+        if (data?.roadmap_test_result === 0) {
+            return navigation.navigate(ROUTES.EntranceTest)
+        }
+
         if (adjust) {
-            return navigation.navigate(ROUTES.LearningPath)
+            return navigation.navigate(ROUTES.LearningPath, { id: data?.id })
         } else if (data?.roadmap_test_result > 0) {
             return navigation.navigate(ROUTES.InputTestResult, {
-                title: 'Kết quả kiểm tra',
-                idPretest: data?.roadmap_pretest_id
+                title: 'Kết quả khảo sát',
+                idPretest: data?.roadmap_pretest_id,
+                idCourse: data?.id
             })
-        } else {
-            return navigation.navigate(ROUTES.EntranceTest)
         }
     }
 
+    const getDataChapterList = async () => {
+        const response = await axios.get(
+            `${
+                userInfo?.id === 'trial' ? 'public-courses' : 'courses'
+            }/chapter-list/paging/${data?.id}`
+        )
+        setFinishLecture(response?.data?.finished_lectures)
+    }
+
+    useEffect(() => {
+        getDataChapterList()
+    }, [data])
     const gotoCourse = async () => {
         setLoadingVerify(true)
         try {
@@ -304,11 +391,14 @@ const CourseInfo = ({ navigation, route }) => {
                         surveyId: res?.data?.survey
                     })
                 } else {
+                    const currentLecture =
+                        data?.relational?.current_lecture ??
+                        finishLecture?.[finishLecture?.length - 1]?.id
+
                     navigation.navigate(ROUTES.CourseDetail, {
                         courseId: data?.id,
-                        currentLecture:
-                            data?.relational?.current_lecture ||
-                            data?.first_lecture_id
+                        isRoadMap: route?.params?.isRoadMap,
+                        currentLecture: currentLecture || data?.first_lecture_id
                     })
                 }
             }
@@ -457,34 +547,35 @@ const CourseInfo = ({ navigation, route }) => {
                         </Text>
                     </View>
                 ) : null}
-
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: scale(8)
-                    }}>
-                    <DollarSign
-                        width={scale(22)}
-                        height={scale(22)}
-                        stroke="#6C746E"
-                    />
-                    <Text
-                        bold
+                {!route?.params?.isRoadMap && (
+                    <View
                         style={{
-                            marginLeft: scale(9),
-                            paddingTop: scale(2),
-                            fontSize: scale(16),
-                            color: '#095F2B'
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: scale(8)
                         }}>
-                        {isIOS ? toCurrency(data?.ios_price) + 'đ' : null}
-                        {isAndroid
-                            ? data?.old_price && data?.new_price
-                                ? toCurrency(data?.new_price) + 'đ'
-                                : toCurrency(data?.old_price) + 'đ'
-                            : null}
-                    </Text>
-                </View>
+                        <DollarSign
+                            width={scale(22)}
+                            height={scale(22)}
+                            stroke="#6C746E"
+                        />
+                        <Text
+                            bold
+                            style={{
+                                marginLeft: scale(9),
+                                paddingTop: scale(2),
+                                fontSize: scale(16),
+                                color: '#095F2B'
+                            }}>
+                            {isIOS ? toCurrency(data?.ios_price) + 'đ' : null}
+                            {isAndroid
+                                ? data?.old_price && data?.new_price
+                                    ? toCurrency(data?.new_price) + 'đ'
+                                    : toCurrency(data?.old_price) + 'đ'
+                                : null}
+                        </Text>
+                    </View>
+                )}
             </View>
         )
     }
@@ -574,7 +665,10 @@ const CourseInfo = ({ navigation, route }) => {
                     {renderDetailCourse(data?.is_roadmap)}
                 </View>
                 <TabView
-                    navigationState={{ index: tabIndex, routes }}
+                    navigationState={{
+                        index: tabIndex,
+                        routes
+                    }}
                     renderScene={renderScene}
                     renderTabBar={props => (
                         <TabBar
@@ -687,15 +781,19 @@ const CourseInfo = ({ navigation, route }) => {
                                 })
                             }
                         }}>
-                        <Navigation
-                            stroke="#52B553"
-                            fill={'#52B553'}
-                            width={24}
-                            height={24}
-                        />
-                        <Text outlined style={{ color: '#52B553' }}>
-                            Học thử
-                        </Text>
+                        {!data?.relational && (
+                            <>
+                                <Navigation
+                                    stroke="#52B553"
+                                    fill={'#52B553'}
+                                    width={24}
+                                    height={24}
+                                />
+                                <Text outlined style={{ color: '#52B553' }}>
+                                    Học thử
+                                </Text>
+                            </>
+                        )}
                     </Pressable>
                 </View>
                 {data && (
@@ -775,11 +873,11 @@ const CourseInfo = ({ navigation, route }) => {
                                                 marginTop: scale(4)
                                             }}>
                                             {!!dataRoadmap?.Roadmaps.data[0]
-                                                .sub_course.order_number2
+                                                .sub_course.order_number2 > 0
                                                 ? 'Học ngay'
                                                 : data?.roadmap_test_result > 0
-                                                ? 'Xem kết quả'
-                                                : 'Làm bài 2 khảo sát '}
+                                                ? 'Kết quả khảo sát'
+                                                : 'Làm bài khảo sát '}
                                         </Text>
                                     </Pressable>
                                 ) : null}

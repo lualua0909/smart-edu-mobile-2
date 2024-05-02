@@ -1,26 +1,23 @@
 import { useQuery } from '@apollo/client'
 import axios from 'app/Axios'
-import { AbsoluteSpinner, Button, showToast } from 'app/atoms'
+import { AbsoluteSpinner, Button, showToast, Modal } from 'app/atoms'
 import { COLORS, DATA_ANSWER_PRETEST, ROUTES } from 'app/constants'
-import { getData } from 'app/helpers/utils'
 import { GET_ROADMAP_PRETEST } from 'app/qqlStore/queries'
 import { svgSuccessExam } from 'assets/svg'
 import _ from 'lodash'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     Alert,
-    AppState,
     Dimensions,
-    StatusBar,
     StyleSheet,
     Text,
     View
 } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 
-import IntroductionVideo from './IntroductionVideo'
 import Choose from './answer/Choose'
+import { VideoViewer } from 'app/atoms'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -30,7 +27,6 @@ const EntranceTest = ({ navigation, route }) => {
     })
     const dataAnswer = DATA_ANSWER_PRETEST
     const [dataQuestion, setDataQuestion] = React.useState([])
-    const [user, setUser] = React.useState()
     const [question, setQuestion] = React.useState(null)
     const [answerList, setAnswerList] = React.useState([])
     const [idCurrentAnswer, setCurrentAnswer] = React.useState(null)
@@ -39,9 +35,30 @@ const EntranceTest = ({ navigation, route }) => {
     const [textStatusLading, setTextStatusLoading] =
         React.useState('Đang tải câu hỏi')
     const [isSubmit, setIsSubmit] = React.useState(false)
-
     const [isFinishIntroduceVideo, setIsFinishIntroductionVideo] =
         React.useState(true)
+    const [isOpen, setIsOpen] = React.useState(true)
+    const [videoUrl, setVideoUrl] = useState(undefined)
+
+    const getVideoUrl = () => {
+        const dataRoadmapPretest = data?.RoadmapPretest
+        const iframeRegex = /<iframe[^>]*src="([^"]+)"[^>]*>/
+        const match = dataRoadmapPretest?.description.match(iframeRegex)
+        if (match) {
+            console.log('video url =', match[1])
+            setVideoUrl(match[1])
+        }
+    }
+
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    useEffect(() => {
+        if (data) {
+            getVideoUrl()
+        }
+    }, [data]);
 
     const formatQuestion = () => {
         const dataRoadmapPretest = data?.RoadmapPretest
@@ -55,7 +72,7 @@ const EntranceTest = ({ navigation, route }) => {
             answer: [...dataAnswer]
         }))
         setDataQuestion(newData)
-        setQuestion(newData[currentIndexQuestion])
+        // setQuestion(newData[currentIndexQuestion])
         setTimeout(() => {
             setIsLoading(false)
         }, 1000)
@@ -64,10 +81,12 @@ const EntranceTest = ({ navigation, route }) => {
     const navigationRoute = () => {
         navigation.navigate(ROUTES.InputTestResult, {
             title: 'Kết quả kiểm tra',
-            idPretest: data?.RoadmapPretest?.id
+            idPretest: data?.RoadmapPretest.id
         })
     }
-
+    React.useEffect(() => {
+        setQuestion(dataQuestion[currentIndexQuestion])
+    }, [currentIndexQuestion, dataQuestion])
     React.useEffect(() => {
         navigation.setOptions({
             headerShown: false
@@ -153,9 +172,6 @@ const EntranceTest = ({ navigation, route }) => {
             }
         ])
 
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 500)
         setCurrentIndexQuestion(prev => prev + 1)
         setCurrentAnswer(null)
     }
@@ -181,19 +197,14 @@ const EntranceTest = ({ navigation, route }) => {
     }
     if (loading || isLoading)
         return <AbsoluteSpinner title={textStatusLading} />
-    if (isFinishIntroduceVideo)
-        return (
-            <IntroductionVideo
-                visible={isFinishIntroduceVideo}
-                setVisible={setIsFinishIntroductionVideo}
-                isReview={false}
-            />
-        )
 
     return (
         <View style={styles.container}>
-            {/* <StatusBar barStyle="light-content" /> */}
-
+            <Modal visible={isOpen} onClose={onClose}>
+                <View style={{ width: '100%', height: 300 }}>
+                    <VideoViewer videoUrl={videoUrl} />
+                </View>
+            </Modal>
             {currentIndexQuestion <= dataQuestion.length - 1 ? (
                 <>
                     {renterQuestion(question)}
@@ -229,12 +240,12 @@ const EntranceTest = ({ navigation, route }) => {
                                         fontWeight: '400'
                                     }
                                 ]}>
-                                Vui lòng{' '}
+                                Vui lòng bấm nút{' '}
                                 <Text style={{ fontWeight: '500' }}>
-                                    "Nộp bài"
+                                    "Tiếp tục"
                                 </Text>{' '}
-                                để nhận lộ trình học tập chúng tôi đề xuất cho
-                                bạn dựa vào kết quả khảo sát của bạn
+                                để hoàn tất thủ tục nộp bài và đến với lộ trình
+                                học tập cơ bản do chúng tôi đề xuất.
                             </Text>
                         </View>
                     </View>

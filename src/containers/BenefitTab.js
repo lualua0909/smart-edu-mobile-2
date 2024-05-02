@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Check } from 'react-native-feather'
 
-const Benefit = ({ courseId, longDes }) => {
+const Benefit = ({ courseId, longDes, isShowBenefits = true }) => {
     const [data, setData] = useState()
 
     useEffect(() => {
@@ -38,11 +38,14 @@ const Benefit = ({ courseId, longDes }) => {
                             fontSize: scale(16),
                             color: '#6C746E'
                         }}>
-                        {text?.replace(/<[^>]*>?/gm, '')}
+                        {text
+                            ?.replace(/<[^>]*>?/gm, '')
+                            ?.replace(/&nbsp;/g, ' ')}
                     </Text>
                 </View>
             ))}
             {data ? (
+                isShowBenefits &&
                 data?.map((item, index) => (
                     <View
                         key={index}

@@ -22,6 +22,7 @@ import LectureTab from 'app/containers/LectureTab'
 import { scale } from 'app/helpers/responsive'
 import useFormInput from 'app/helpers/useFormInput'
 import { svgComment } from 'assets/svg'
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -67,7 +68,7 @@ const CourseDetail = ({ route, navigation }) => {
         tab3: 0
     })
     const [documents, setDocuments] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [visibleQuestion, setVisibleQuestion] = useState(false)
     const [currentId, setCurrentId] = useState()
     const [data, setData] = useState()
@@ -144,9 +145,12 @@ const CourseDetail = ({ route, navigation }) => {
             })
             .then(data => {
                 setData(data)
-                // setCountDown(Date.now() + data?.time_to_skip * 1000)
             })
-            .finally(() => setLoading(false))
+            .finally(() => {
+                setTimeout(() => {
+                    setLoading(false)
+                }, 500)
+            })
     }
 
     const getDocuments = () => {
@@ -215,11 +219,18 @@ const CourseDetail = ({ route, navigation }) => {
             nextLessonTrial()
             return
         }
-
         const current = chapters.findIndex(i => i.id === currentId)
         const next = chapters[current + 1]
         addLessonToFinishedList()
         setCurrentId(next?.id)
+
+        // Đối với chuỗi khóa học theo lộ trình, đến bài cuối chuyển học viên tới danh sách khóa học theo lộ trình
+        if (route?.params?.isRoadMap) {
+            if (chapters.length === current + 1) {
+                navigation.navigate(ROUTES.LearningPath, { id: 162 })
+                return
+            }
+        }
     }
 
     const prevLessonTrial = () => {

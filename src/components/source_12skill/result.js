@@ -7,6 +7,7 @@ import { svgIconList } from 'assets/svg'
 import _ from 'lodash'
 import React from 'react'
 
+import { useNavigation } from '@react-navigation/native'
 import {
     Dimensions,
     FlatList,
@@ -24,46 +25,49 @@ import { RenderColor } from './renderColorRestult'
 
 const { width, height } = Dimensions.get('screen')
 
-const TestResult = ({
-    navigation,
-    route,
-    titleHeader = 'Kết quả kiểm tra đầu vào'
-}) => {
-    const { title, idPretest } = route.params
+const TestResult = ({ route, isComponent = false, idPretestProp }) => {
+    const navigation = useNavigation()
     const { loading, data: dataTest } = useQuery(COURSE_GROUP_LIST)
     // const { data: dataTest2 } = useQuery(COURSE_LIST)
-
     const [data, setData] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
     const handleToLearningPath = () => {
-        navigation.navigate(ROUTES.LearningPath)
+        navigation.navigate(ROUTES.LearningPath, {
+            id: 162
+        })
     }
     const handleToRadarChart = () => {
         navigation.navigate(ROUTES.ChartTestResult, { data: data })
     }
 
     React.useEffect(() => {
-        navigation.setOptions({
-            headerTitle: () => <HeaderTitle title={title} />
+        if (isComponent) return
+        navigation?.setOptions({
+            headerTitle: () => (
+                <HeaderTitle title={route?.params?.title || ''} />
+            )
         })
-        navigation.addListener('beforeRemove', e => {
+        navigation?.addListener('beforeRemove', e => {
             e.preventDefault()
             navigation.navigate('Dashboard')
             return
         })
-    }, [navigation])
+    }, [isComponent])
 
     const getAllData = () => {
         setIsLoading(true)
         axios
-            .get(`courses/roadmap/test-history/${idPretest}`)
+            .get(
+                `courses/roadmap/test-history/${
+                    isComponent ? idPretestProp : route?.params?.idPretest
+                }`
+            )
             .then(res => {
                 if (res.data) {
                     const result = dataTest?.CourseGroups?.data.map(item => {
                         const findById = _.filter(res.data, function (e) {
                             return e.question.group_id === item.id
                         })
-                        // console.log('🚀 ~ findById ~ findById:', findById)
                         if (findById.length > 0) {
                             const sumScore = findById.reduce(
                                 (accumulator, currentValue) =>
@@ -83,7 +87,9 @@ const TestResult = ({
                 }
             })
             .finally(() => {
-                setIsLoading(false)
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 500)
             })
     }
 
@@ -101,7 +107,7 @@ const TestResult = ({
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        width: width - 60,
+                        width: isComponent ? width - 40 : width - 60,
                         marginVertical: 10
                     }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -122,7 +128,7 @@ const TestResult = ({
                 </View>
                 <Progress.Bar
                     progress={process / 100}
-                    width={width - 60}
+                    width={isComponent ? width - 40 : width - 60}
                     style={{
                         borderColor: COLORS.borderGrey,
                         borderWidth: 1,
@@ -135,8 +141,15 @@ const TestResult = ({
     }
 
     return (
-        <View style={styles.container}>
+        <View style={!isComponent ? styles.container : {}}>
             <ScrollView>
+                {/* {isComponent && (
+                    <Button
+                        style={{ marginVertical: 20 }}
+                        onPress={handleToRadarChart}>
+                        Xem biểu đồ
+                    </Button>
+                )} */}
                 {Array.isArray(data) && (
                     <FlatList
                         data={data || []}
@@ -146,14 +159,23 @@ const TestResult = ({
                             return (
                                 <View
                                     key={index}
-                                    style={[styles.viewItem, STYLES.boxShadow]}>
+                                    style={
+                                        !isComponent
+                                            ? [
+                                                  styles.viewItem,
+                                                  STYLES.boxShadow
+                                              ]
+                                            : {
+                                                  marginVertical: 15
+                                              }
+                                    }>
                                     <Text
                                         style={styles.result_title}
                                         numberOfLines={2}>
                                         {index + 1}. {item.name_stage}
                                     </Text>
                                     {renderProcess(
-                                        'Kết quả (đầu vào)',
+                                        'Khảo sát đầu vào',
                                         Math.floor(item.process)
                                     )}
                                 </View>
@@ -165,12 +187,14 @@ const TestResult = ({
                     />
                 )}
             </ScrollView>
-            <View style={styles.gr_btn}>
-                <Button outlined onPress={handleToRadarChart}>
-                    Xem biểu đồ
-                </Button>
-                <Button onPress={handleToLearningPath}>Tiếp tục</Button>
-            </View>
+            {!isComponent && (
+                <View style={styles.gr_btn}>
+                    <Button outlined onPress={handleToRadarChart}>
+                        Xem biểu đồ
+                    </Button>
+                    <Button onPress={handleToLearningPath}>Tiếp tục</Button>
+                </View>
+            )}
         </View>
     )
 }

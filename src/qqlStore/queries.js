@@ -28,6 +28,15 @@ export const COURSE_LIST = gql`
                 total_lectures
                 slug
                 group_id
+                is_roadmap
+                is_offline
+                is_combo
+                ios_price
+                old_price
+                new_price
+                buy_count
+                isLiked
+                first_lecture_id
                 mentor {
                     id
                     first_name
